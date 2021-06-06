@@ -5,10 +5,17 @@
 
 <!-- badges: start -->
 
-[![Lifecycle:
-experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 [![CRAN
-status](https://www.r-pkg.org/badges/version/ffsimulator)](https://CRAN.R-project.org/package=ffsimulator)
+status](https://img.shields.io/cran/v/ffsimulator?style=flat-square&logo=R&label=CRAN)](https://CRAN.R-project.org/package=ffsimulator)
+[![Dev
+status](https://img.shields.io/github/r-package/v/dynastyprocess/ffsimulator/main?label=dev&style=flat-square&logo=github)](https://ffsimulator.dynastyprocess.com/dev/)
+[![Lifecycle:
+experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg?style=flat-square)](https://lifecycle.r-lib.org/articles/stages.html)
+[![R build
+status](https://img.shields.io/github/workflow/status/dynastyprocess/ffsimulator/R-CMD-check?label=R%20check&style=flat-square&logo=github)](https://github.com/DynastyProcess/ffsimulator/actions)
+[![nflverse
+discord](https://img.shields.io/discord/591914197219016707.svg?color=5865F2&label=nflverse%20discord&logo=discord&logoColor=5865F2&style=flat-square)](https://discord.com/invite/5Er2FBnnQa)
+
 <!-- badges: end -->
 
 The goal of ffsimulator is to simulate fantasy football seasons. This
@@ -29,12 +36,12 @@ Install the development version from GitHub with:
 ``` r
 # install.packages("remotes")
 
-remotes::install_github("dynastyprocess/ffscrapr", ref = "dev")
+remotes::install_github("dynastyprocess/ffsimulator", ref = "dev")
 ```
 
 ## Roadmap
 
--   Connect via ffscrapr
+-   Connect via ffsimulator
 -   DOWNLOAD SCORING HISTORY
 -   CALCULATES SEASON RANKS AND THE POPULATION OF PLAYER SCORES FOR THAT
     RANK
@@ -55,6 +62,7 @@ remotes::install_github("dynastyprocess/ffscrapr", ref = "dev")
 -   figure out plots and visualizations later?
 
 ``` r
+# library(ffsimulator)
 library(ffscrapr)
 library(dplyr)
 library(tidyr)
@@ -67,7 +75,7 @@ conn <- mfl_connect(2021, 54040)
 
 ## DOWNLOAD SCORING HISTORY
 
-scoring_history <- ffscrapr::ff_scoringhistory(conn,2006:2020)
+scoring_history <- ffsimulator::ff_scoringhistory(conn,2006:2020)
 
 ## CALCULATES SEASON RANKS AND THE POPULATION OF PLAYER SCORES FOR THAT RANK
 
@@ -130,7 +138,7 @@ rosters <- ff_rosters(conn) %>%
 # two paths: a) develop heuristics b) use lpSolve
 # ideally solver does the optimisation
 
-starter_positions <- ffscrapr::ff_starter_positions(conn)
+starter_positions <- ffsimulator::ff_starter_positions(conn)
 
 ## LOGIC FOR CALCULATING STARTED LINEUPS
 # a) Always choose highest ranked player by fantasypros
