@@ -78,10 +78,12 @@
 
       </header><div class="row">
   <div class="contents col-md-9">
-<div id="ffsimulator" class="section level1">
+<div id="ffsimulator-" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
-<a href="#ffsimulator" class="anchor"></a>ffsimulator</h1></div>
+<a href="#ffsimulator-" class="anchor"></a>ffsimulator <a href="#"><img src="reference/figures/ffsimulator.png" align="right" width="25%" min-width="120px"></a>
+</h1></div>
 <!-- badges: start -->
+<!-- [![CRAN status](https://img.shields.io/cran/v/ffsimulator?style=flat-square&logo=R&label=CRAN)](https://CRAN.R-project.org/package=ffsimulator)  -->
 
 <!-- badges: end -->
 <p>The goal of ffsimulator is to simulate fantasy football seasons. This helps analyze distributions of:</p>
@@ -105,30 +107,16 @@
 <a href="#roadmap" class="anchor"></a>Roadmap</h2>
 <ul>
 <li>Connect via ffsimulator</li>
-<li>DOWNLOAD SCORING HISTORY</li>
-<li>CALCULATES SEASON RANKS AND THE POPULATION OF PLAYER SCORES FOR THAT RANK</li>
-<li>DOWNLOADS LATEST FANTASYPROS RANKINGS</li>
-<li>CONNECTS ROSTERS TO FANTASYPROS RANKINGS + PLAYER SCORES</li>
-<li>RANDOMLY SELECTS N GAMES FOR EACH RANK</li>
-<li>CALCULATE OPTIMAL LINEUPS
-<ul>
-<li>two paths: a) develop heuristics b) use lpSolve</li>
-<li>prefer lpSolve given the current output of ff_starterpositions</li>
-</ul>
-</li>
-<li>LOGIC FOR CALCULATING STARTED LINEUPS
-<ul>
-<li><ol>
-<li>Always choose highest ranked player by fantasypros</li>
-</ol></li>
-<li><ol>
-<li>Assume random percentage between 70-85% of optimal points</li>
-</ol></li>
-</ul>
-</li>
-<li>APPLY WEEK SCORES INTO FANTASY SEASON SCHEDULES (use tony’s ffsched package)</li>
-<li>CALCULATE WIN/LOSS (H2H, ALL-PLAY) + TOTAL SEASON POINTS FOR/ POTENTIAL POINTS</li>
-<li>figure out plots and visualizations later?</li>
+<li>Download scoring history</li>
+<li>Calculate season ranks and the population of player scores for that rank</li>
+<li>Download latest fantasypros rankings</li>
+<li>Connect rosters to fantasypros rankings and player score outcomes</li>
+<li>randomly select n games for each player</li>
+<li>calculate optimal lineups (learn lpSolve?)</li>
+<li>calculate started lineups</li>
+<li>convert week scores into fantasy season schedule (via tony’s ffsched package)</li>
+<li>calculate win/loss (H2H + allplay) + total season poitns for/potential points</li>
+<li>figure out plots and viz</li>
 </ul>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># library(ffsimulator)</span>
@@ -144,7 +132,7 @@
 
 <span class="co">## DOWNLOAD SCORING HISTORY</span>
 
-<span class="va">scoring_history</span> <span class="op">&lt;-</span> <span class="fu">ffsimulator</span><span class="fu">::</span><span class="fu"><a href="ffscrapr.dynastyprocess.com/reference/ff_scoringhistory.html">ff_scoringhistory</a></span><span class="op">(</span><span class="va">conn</span>,<span class="fl">2006</span><span class="op">:</span><span class="fl">2020</span><span class="op">)</span>
+<span class="va">scoring_history</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/ff_scoringhistory.html">ff_scoringhistory</a></span><span class="op">(</span><span class="va">conn</span>,<span class="fl">2006</span><span class="op">:</span><span class="fl">2020</span><span class="op">)</span>
 
 <span class="co">## CALCULATES SEASON RANKS AND THE POPULATION OF PLAYER SCORES FOR THAT RANK</span>
 
@@ -178,7 +166,7 @@
 
 <span class="co">## DOWNLOADS LATEST FANTASYPROS RANKINGS</span>
 
-<span class="va">fantasypros</span> <span class="op">&lt;-</span> <span class="fu">arrow</span><span class="fu">::</span><span class="fu">read_parquet</span><span class="op">(</span><span class="st">"db_fpecr(1).parquet"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+<span class="va">fantasypros</span> <span class="op">&lt;-</span> <span class="fu">arrow</span><span class="fu">::</span><span class="fu">read_parquet</span><span class="op">(</span><span class="st">"data-raw/db_fpecr(1).parquet"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">ecr_type</span> <span class="op">==</span> <span class="st">"ro"</span>, <span class="va">scrape_date</span> <span class="op">==</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">scrape_date</span><span class="op">)</span>, <span class="va">pos</span> <span class="op">%in%</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"QB"</span>,<span class="st">"RB"</span>,<span class="st">"WR"</span>,<span class="st">"TE"</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">player</span>, fantasypros_id <span class="op">=</span> <span class="va">id</span>, <span class="va">pos</span>, <span class="va">team</span>, <span class="va">ecr</span>, <span class="va">sd</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">pos</span><span class="op">)</span> <span class="op">%&gt;%</span> 
@@ -187,17 +175,14 @@
 
 <span class="co">## CONNECTS ROSTERS TO FANTASYPROS + PLAYER SCORES </span>
 
-<span class="va">rosters</span> <span class="op">&lt;-</span> <span class="fu"><a href="ffscrapr.dynastyprocess.com/reference/ff_rosters.html">ff_rosters</a></span><span class="op">(</span><span class="va">conn</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+<span class="va">rosters</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/ff_rosters.html">ff_rosters</a></span><span class="op">(</span><span class="va">conn</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">franchise_id</span>, <span class="va">franchise_name</span>, mfl_id <span class="op">=</span> <span class="va">player_id</span>, <span class="va">player_name</span>, <span class="va">pos</span>, <span class="va">team</span>, <span class="va">age</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="fu"><a href="ffscrapr.dynastyprocess.com/reference/dp_playerids.html">dp_playerids</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">fantasypros_id</span>, <span class="va">mfl_id</span><span class="op">)</span>,
             by <span class="op">=</span> <span class="st">"mfl_id"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">fantasypros</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">fantasypros_id</span>, <span class="va">rank</span><span class="op">)</span>,
             by <span class="op">=</span> <span class="st">"fantasypros_id"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">pos_rank</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">pos</span>,<span class="va">rank</span>,<span class="va">all_points</span><span class="op">)</span>,
-            by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"pos"</span>,<span class="st">"rank"</span><span class="op">)</span><span class="op">)</span>
-
-<span class="co">## RANDOMLY SELECTS N GAMES FOR EACH RANK</span>
-
+            by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"pos"</span>,<span class="st">"rank"</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>
     season_games <span class="op">=</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map_if.html">map_if</a></span><span class="op">(</span><span class="va">all_points</span>,<span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">rank</span><span class="op">)</span>, <span class="va">sample</span>, size <span class="op">=</span> <span class="fl">17</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
   <span class="op">)</span>
@@ -207,7 +192,7 @@
 <span class="co"># two paths: a) develop heuristics b) use lpSolve</span>
 <span class="co"># ideally solver does the optimisation</span>
 
-<span class="va">starter_positions</span> <span class="op">&lt;-</span> <span class="fu">ffsimulator</span><span class="fu">::</span><span class="fu"><a href="ffscrapr.dynastyprocess.com/reference/ff_starter_positions.html">ff_starter_positions</a></span><span class="op">(</span><span class="va">conn</span><span class="op">)</span>
+<span class="va">starter_positions</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/ff_starter_positions.html">ff_starter_positions</a></span><span class="op">(</span><span class="va">conn</span><span class="op">)</span>
 
 <span class="co">## LOGIC FOR CALCULATING STARTED LINEUPS</span>
 <span class="co"># a) Always choose highest ranked player by fantasypros</span>
@@ -219,6 +204,77 @@
 <span class="co">## CALCULATE WIN/LOSS (H2H, ALL-PLAY) + TOTAL SEASON POINTS FOR/ POTENTIAL POINTS</span>
 
 <span class="co">## figure out plots and visualizations later? </span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">redraft_rankings</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="st">"data-raw/fp_redraft_20162020.csv"</span><span class="op">)</span>
+
+<span class="va">ppg_data</span> <span class="op">&lt;-</span> <span class="va">scoring_history</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">season</span>, <span class="va">gsis_id</span>, <span class="va">mfl_id</span>, <span class="va">player_name</span>, <span class="va">pos</span>, <span class="va">team</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>
+    games <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span>,
+    ppg <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">points</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+  <span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">ungroup</a></span><span class="op">(</span><span class="op">)</span>
+
+<span class="va">preseason_adp_outcomes</span> <span class="op">&lt;-</span> <span class="va">redraft_rankings</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="op">!</span><span class="va">pos</span> <span class="op">%in%</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"K"</span>,<span class="st">"DST"</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">season</span>, <span class="va">pos</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>pos_rank <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rank.html">rank</a></span><span class="op">(</span><span class="va">rank_ave</span>, ties.method <span class="op">=</span> <span class="st">"random"</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">ungroup</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span>
+    <span class="va">scoring_history</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">sportradar_id</span>, <span class="va">season</span>, <span class="va">week</span>, <span class="va">points</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">week</span> <span class="op">&lt;=</span><span class="fl">17</span><span class="op">)</span>,
+    by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"season"</span>,<span class="st">"sportsdata_id"</span><span class="op">=</span><span class="st">"sportradar_id"</span><span class="op">)</span>
+  <span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">pos</span>, <span class="va">pos_rank</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>
+    all_outcomes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">points</span><span class="op">)</span>,
+    n <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span>
+  <span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">ungroup</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">pos</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>
+    missing <span class="op">=</span> <span class="op">(</span><span class="fl">5</span><span class="op">*</span><span class="fl">17</span><span class="op">)</span> <span class="op">-</span> <span class="va">n</span>,
+    missing_na <span class="op">=</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">missing</span>, <span class="op">~</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep_len</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">0</span>, length.out <span class="op">=</span> <span class="va">.x</span><span class="op">)</span><span class="op">)</span>,
+    new_all_outcomes <span class="op">=</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map2.html">map2</a></span><span class="op">(</span><span class="va">all_outcomes</span>, <span class="va">missing_na</span>, <span class="op">~</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">...</span><span class="op">)</span><span class="op">)</span>,
+    new_n <span class="op">=</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">new_all_outcomes</span>, <span class="va">length</span><span class="op">)</span>,
+    extra_outcomes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">pos_rank</span> <span class="op">==</span> <span class="fl">1</span>, <span class="va">new_all_outcomes</span>, <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">numeric</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>,
+    wide_bins <span class="op">=</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map2.html">pmap</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">new_all_outcomes</span>, <span class="fu"><a href="https://dplyr.tidyverse.org/reference/lead-lag.html">lead</a></span><span class="op">(</span><span class="va">new_all_outcomes</span><span class="op">)</span>, <span class="fu"><a href="https://dplyr.tidyverse.org/reference/lead-lag.html">lag</a></span><span class="op">(</span><span class="va">new_all_outcomes</span><span class="op">)</span>, <span class="va">extra_outcomes</span><span class="op">)</span>,<span class="op">~</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">...</span><span class="op">)</span><span class="op">)</span>,
+    wide_n <span class="op">=</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">wide_bins</span>, <span class="va">length</span><span class="op">)</span>
+  <span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">ungroup</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">slider</span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">ggridges</span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">hrbrthemes</span><span class="op">)</span>
+
+<span class="va">preseason_adp_outcomes</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">pos</span> <span class="op">==</span> <span class="st">"RB"</span>, <span class="va">pos_rank</span> <span class="op">&lt;=</span> <span class="fl">24</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>pos_rank <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="va">pos_rank</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/nest.html">unnest</a></span><span class="op">(</span><span class="va">wide_bins</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>wide_bins <span class="op">=</span> <span class="fu"><a href="https://tidyr.tidyverse.org/reference/replace_na.html">replace_na</a></span><span class="op">(</span><span class="va">wide_bins</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">wide_bins</span>, y <span class="op">=</span> <span class="va">pos_rank</span>, fill <span class="op">=</span> <span class="va">pos_rank</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="co"># geom_density_ridges(colour = "white",quantile_lines = TRUE) + </span>
+  <span class="fu">geom_density_ridges</span><span class="op">(</span>colour <span class="op">=</span> <span class="st">"white"</span>,stat <span class="op">=</span> <span class="st">"binline"</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu">theme_modern_rc</span><span class="op">(</span><span class="op">)</span>
+
+<span class="va">preseason_adp_outcomes</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>
+    sample_weeks <span class="op">=</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">wide_bins</span>, <span class="op">~</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="va">.x</span>,size <span class="op">=</span> <span class="fl">17</span>,replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>
+  <span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">pos</span> <span class="op">==</span> <span class="st">"WR"</span>, <span class="va">pos_rank</span> <span class="op">&lt;=</span> <span class="fl">24</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>pos_rank <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="va">pos_rank</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/nest.html">unnest</a></span><span class="op">(</span><span class="va">sample_weeks</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">sample_weeks</span>, y <span class="op">=</span> <span class="va">pos_rank</span>, fill <span class="op">=</span> <span class="va">pos_rank</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="co"># geom_density_ridges(colour = "white", quantile_lines = TRUE) +</span>
+  <span class="fu">geom_density_ridges</span><span class="op">(</span>colour <span class="op">=</span> <span class="st">"white"</span>,stat <span class="op">=</span> <span class="st">"binline"</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">theme_modern_rc</span><span class="op">(</span><span class="op">)</span>
+
+<span class="va">outcomes_rb_ppg</span> <span class="op">&lt;-</span> <span class="va">pos_rank</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">one_season</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map_dbl</a></span><span class="op">(</span><span class="va">all_points</span>, <span class="va">length</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">pos</span> <span class="op">==</span> <span class="st">"RB"</span>, <span class="va">rank</span> <span class="op">&lt;=</span> <span class="fl">12</span><span class="op">)</span>
+
+<span class="va">outcomes_rb</span> <span class="op">&lt;-</span> <span class="va">outcomes_rb_adp</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename</a></span><span class="op">(</span>all_outcomes <span class="op">=</span> <span class="va">adp_outcomes</span><span class="op">)</span></code></pre></div>
 </div>
 </div>
   </div>
@@ -258,10 +314,10 @@
   <div class="dev-status">
 <h2>Dev status</h2>
 <ul class="list-unstyled">
-<li><a href="https://CRAN.R-project.org/package=ffsimulator"><img src="https://img.shields.io/cran/v/ffsimulator?style=flat-square&amp;logo=R&amp;label=CRAN" alt="CRAN status"></a></li>
-<li><a href="https://ffsimulator.dynastyprocess.com/dev/"><img src="https://img.shields.io/github/r-package/v/dynastyprocess/ffsimulator/main?label=dev&amp;style=flat-square&amp;logo=github" alt="Dev status"></a></li>
+<li><a href="https://ffsimulator.dynastyprocess.com/"><img src="https://img.shields.io/github/r-package/v/dynastyprocess/ffsimulator/main?label=dev%20version&amp;style=flat-square&amp;logo=github" alt="Dev status"></a></li>
 <li><a href="https://lifecycle.r-lib.org/articles/stages.html"><img src="https://img.shields.io/badge/lifecycle-experimental-orange.svg?style=flat-square" alt="Lifecycle: experimental"></a></li>
 <li><a href="https://github.com/DynastyProcess/ffsimulator/actions"><img src="https://img.shields.io/github/workflow/status/dynastyprocess/ffsimulator/R-CMD-check?label=R%20check&amp;style=flat-square&amp;logo=github" alt="R build status"></a></li>
+<li><a href="https://codecov.io/gh/DynastyProcess/ffsimulator?branch=main"><img src="https://img.shields.io/codecov/c/github/dynastyprocess/ffsimulator?label=codecov&amp;style=flat-square&amp;logo=codecov" alt="Codecov test coverage"></a></li>
 <li><a href="https://discord.com/invite/5Er2FBnnQa"><img src="https://img.shields.io/discord/591914197219016707.svg?color=5865F2&amp;label=nflverse%20discord&amp;logo=discord&amp;logoColor=5865F2&amp;style=flat-square" alt="nflverse discord"></a></li>
 </ul>
 </div>
