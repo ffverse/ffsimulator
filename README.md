@@ -1,18 +1,19 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# ffsimulator
+# ffsimulator <a href='#'><img src="man/figures/ffsimulator.png" align="right" width="25%" min-width="120px"/></a>
 
 <!-- badges: start -->
+<!-- [![CRAN status](https://img.shields.io/cran/v/ffsimulator?style=flat-square&logo=R&label=CRAN)](https://CRAN.R-project.org/package=ffsimulator)  -->
 
-[![CRAN
-status](https://img.shields.io/cran/v/ffsimulator?style=flat-square&logo=R&label=CRAN)](https://CRAN.R-project.org/package=ffsimulator)
 [![Dev
-status](https://img.shields.io/github/r-package/v/dynastyprocess/ffsimulator/main?label=dev&style=flat-square&logo=github)](https://ffsimulator.dynastyprocess.com/dev/)
+status](https://img.shields.io/github/r-package/v/dynastyprocess/ffsimulator/main?label=dev%20version&style=flat-square&logo=github)](https://ffsimulator.dynastyprocess.com/)
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg?style=flat-square)](https://lifecycle.r-lib.org/articles/stages.html)
 [![R build
 status](https://img.shields.io/github/workflow/status/dynastyprocess/ffsimulator/R-CMD-check?label=R%20check&style=flat-square&logo=github)](https://github.com/DynastyProcess/ffsimulator/actions)
+[![Codecov test
+coverage](https://img.shields.io/codecov/c/github/dynastyprocess/ffsimulator?label=codecov&style=flat-square&logo=codecov)](https://codecov.io/gh/DynastyProcess/ffsimulator?branch=main)
 [![nflverse
 discord](https://img.shields.io/discord/591914197219016707.svg?color=5865F2&label=nflverse%20discord&logo=discord&logoColor=5865F2&style=flat-square)](https://discord.com/invite/5Er2FBnnQa)
 
@@ -42,24 +43,19 @@ remotes::install_github("dynastyprocess/ffsimulator", ref = "dev")
 ## Roadmap
 
 -   Connect via ffsimulator
--   DOWNLOAD SCORING HISTORY
--   CALCULATES SEASON RANKS AND THE POPULATION OF PLAYER SCORES FOR THAT
-    RANK
--   DOWNLOADS LATEST FANTASYPROS RANKINGS
--   CONNECTS ROSTERS TO FANTASYPROS RANKINGS + PLAYER SCORES
--   RANDOMLY SELECTS N GAMES FOR EACH RANK
--   CALCULATE OPTIMAL LINEUPS
-    -   two paths: a) develop heuristics b) use lpSolve
-    -   prefer lpSolve given the current output of ff\_starterpositions
--   LOGIC FOR CALCULATING STARTED LINEUPS
-    -   1.  Always choose highest ranked player by fantasypros
-
-    -   1.  Assume random percentage between 70-85% of optimal points
--   APPLY WEEK SCORES INTO FANTASY SEASON SCHEDULES (use tony’s ffsched
+-   Download scoring history
+-   Calculate season ranks and the population of player scores for that
+    rank
+-   Download latest fantasypros rankings
+-   Connect rosters to fantasypros rankings and player score outcomes
+-   randomly select n games for each player
+-   calculate optimal lineups (learn lpSolve?)
+-   calculate started lineups
+-   convert week scores into fantasy season schedule (via tony’s ffsched
     package)
--   CALCULATE WIN/LOSS (H2H, ALL-PLAY) + TOTAL SEASON POINTS FOR/
-    POTENTIAL POINTS
--   figure out plots and visualizations later?
+-   calculate win/loss (H2H + allplay) + total season poitns
+    for/potential points
+-   figure out plots and viz
 
 ``` r
 # library(ffsimulator)
@@ -75,7 +71,7 @@ conn <- mfl_connect(2021, 54040)
 
 ## DOWNLOAD SCORING HISTORY
 
-scoring_history <- ffsimulator::ff_scoringhistory(conn,2006:2020)
+scoring_history <- ff_scoringhistory(conn,2006:2020)
 
 ## CALCULATES SEASON RANKS AND THE POPULATION OF PLAYER SCORES FOR THAT RANK
 
@@ -109,7 +105,7 @@ pos_rank <- scoring_history %>%
 
 ## DOWNLOADS LATEST FANTASYPROS RANKINGS
 
-fantasypros <- arrow::read_parquet("db_fpecr(1).parquet") %>% 
+fantasypros <- arrow::read_parquet("data-raw/db_fpecr(1).parquet") %>% 
   filter(ecr_type == "ro", scrape_date == max(scrape_date), pos %in% c("QB","RB","WR","TE")) %>% 
   select(player, fantasypros_id = id, pos, team, ecr, sd) %>% 
   group_by(pos) %>% 
@@ -125,10 +121,7 @@ rosters <- ff_rosters(conn) %>%
   left_join(fantasypros %>% select(fantasypros_id, rank),
             by = "fantasypros_id") %>% 
   left_join(pos_rank %>% select(pos,rank,all_points),
-            by = c("pos","rank"))
-
-## RANDOMLY SELECTS N GAMES FOR EACH RANK
-
+            by = c("pos","rank")) %>% 
   mutate(
     season_games = map_if(all_points,!is.na(rank), sample, size = 17, replace = TRUE)
   )
@@ -138,7 +131,7 @@ rosters <- ff_rosters(conn) %>%
 # two paths: a) develop heuristics b) use lpSolve
 # ideally solver does the optimisation
 
-starter_positions <- ffsimulator::ff_starter_positions(conn)
+starter_positions <- ff_starter_positions(conn)
 
 ## LOGIC FOR CALCULATING STARTED LINEUPS
 # a) Always choose highest ranked player by fantasypros
@@ -150,4 +143,79 @@ starter_positions <- ffsimulator::ff_starter_positions(conn)
 ## CALCULATE WIN/LOSS (H2H, ALL-PLAY) + TOTAL SEASON POINTS FOR/ POTENTIAL POINTS
 
 ## figure out plots and visualizations later? 
+```
+
+``` r
+redraft_rankings <- read.csv("data-raw/fp_redraft_20162020.csv")
+
+ppg_data <- scoring_history %>% 
+  group_by(season, gsis_id, mfl_id, player_name, pos, team) %>% 
+  summarise(
+    games = n(),
+    ppg = mean(points, na.rm = TRUE)
+  ) %>% 
+  ungroup()
+
+preseason_adp_outcomes <- redraft_rankings %>% 
+  filter(!pos %in% c("K","DST")) %>% 
+  group_by(season, pos) %>% 
+  mutate(pos_rank = rank(rank_ave, ties.method = "random")) %>% 
+  ungroup() %>% 
+  left_join(
+    scoring_history %>% select(sportradar_id, season, week, points) %>% filter(week <=17),
+    by = c("season","sportsdata_id"="sportradar_id")
+  ) %>% 
+  group_by(pos, pos_rank) %>% 
+  summarise(
+    all_outcomes = list(points),
+    n = n()
+  ) %>% 
+  ungroup() %>% 
+  group_by(pos) %>% 
+  mutate(
+    missing = (5*17) - n,
+    missing_na = map(missing, ~rep_len(x = 0, length.out = .x)),
+    new_all_outcomes = map2(all_outcomes, missing_na, ~c(...)),
+    new_n = map(new_all_outcomes, length),
+    extra_outcomes = ifelse(pos_rank == 1, new_all_outcomes, numeric()),
+    wide_bins = pmap(list(new_all_outcomes, lead(new_all_outcomes), lag(new_all_outcomes), extra_outcomes),~c(...)),
+    wide_n = map(wide_bins, length)
+  ) %>% 
+  ungroup()
+```
+
+``` r
+library(slider)
+library(ggridges)
+library(hrbrthemes)
+
+preseason_adp_outcomes %>% 
+  filter(pos == "RB", pos_rank <= 24) %>% 
+  mutate(pos_rank = as.factor(pos_rank)) %>% 
+  unnest(wide_bins) %>% 
+  mutate(wide_bins = replace_na(wide_bins, 0)) %>%
+  ggplot(aes(x = wide_bins, y = pos_rank, fill = pos_rank)) + 
+  # geom_density_ridges(colour = "white",quantile_lines = TRUE) + 
+  geom_density_ridges(colour = "white",stat = "binline") + 
+  theme_modern_rc()
+
+preseason_adp_outcomes %>% 
+  mutate(
+    sample_weeks = map(wide_bins, ~sample(.x,size = 17,replace = TRUE))
+  ) %>% 
+  filter(pos == "WR", pos_rank <= 24) %>% 
+  mutate(pos_rank = as.factor(pos_rank)) %>% 
+  unnest(sample_weeks) %>% 
+  ggplot(aes(x = sample_weeks, y = pos_rank, fill = pos_rank)) + 
+  # geom_density_ridges(colour = "white", quantile_lines = TRUE) +
+  geom_density_ridges(colour = "white",stat = "binline") +
+  theme_modern_rc()
+
+outcomes_rb_ppg <- pos_rank %>% 
+  select(-one_season) %>% 
+  mutate(n = map_dbl(all_points, length)) %>% 
+  filter(pos == "RB", rank <= 12)
+
+outcomes_rb <- outcomes_rb_adp %>% 
+  rename(all_outcomes = adp_outcomes)
 ```
