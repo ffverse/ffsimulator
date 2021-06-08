@@ -1,0 +1,82 @@
+destination: docs
+
+reference:
+- title: Main
+  desc: These are the primary functions of `ffscrapr` and are designed to work for all platforms.
+  contents:
+  - starts_with("ff_")
+- title: MFL
+  desc: Additional functions designed/optimized for the MFL platform.
+  contents:
+  - starts_with("mfl_")
+- title: Sleeper
+  desc: Additional functions designed/optimized for the Sleeper platform.
+  contents:
+  - starts_with("sleeper_")
+- title: Fleaflicker
+  desc: Additional functions designed/optimized for the Fleaflicker platform.
+  contents:
+  - starts_with("fleaflicker_")
+- title: ESPN
+  desc: Additional functions designed/optimized for the ESPN platform
+  contents:
+  - starts_with("espn_")
+- title: DynastyProcess
+  desc: Functions to interface with DynastyProcess data
+  contents:
+  - starts_with("dp_")
+- title: nflfastR
+  desc: Functions to interface with nflfastR data
+  contents:
+  - starts_with("nflfastr_")
+- title: Miscellaneous
+  desc: Additional helper functions
+  contents:
+  - starts_with(".ff")
+
+articles:
+- title: Getting Started
+  navbar: Getting Started
+  contents:
+  - starts_with("mfl_basics")
+  - starts_with("sleeper_basics")
+  - starts_with("fleaflicker_basics")
+  - starts_with("espn_basics")
+  - starts_with("espn_authentication")
+- title: Custom API calls
+  navbar: Custom API Calls
+  contents:
+  - starts_with("mfl_getendpoint")
+  - starts_with("sleeper_getendpoint")
+  - starts_with("fleaflicker_getendpoint")
+  - starts_with("espn_getendpoint")
+- title: Performance
+  navbar: "Cache"
+  contents:
+  - starts_with("ffscrapr_caching")
+
+url: ffscrapr.dynastyprocess.com
+
+authors:
+  Tan Ho:
+    href: https://twitter.com/_TanHo
+  Tony ElHabr:
+    href: https://twitter.com/TonyElHabr
+
+template:
+  params:
+    bootswatch: cosmo
+    docsearch:
+      api_key: 7abddd2aa591d955b365235f35d75a38
+      index_name: dynastyprocess
+  opengraph:
+    image:
+      src: man/figures/ffscrapr.svg
+      alt: "ffscrapr - an R client for fantasy football platforms"
+    twitter:
+      creator: "@_TanHo"
+      site: "@DynastyProcess"
+      card: summary
+
+development:
+  mode: auto
