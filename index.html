@@ -153,19 +153,42 @@
 <h2 class="hasAnchor">
 <a href="#roadmap" class="anchor"></a>Roadmap</h2>
 <ul>
-<li>Connect via ffsimulator</li>
-<li>Download scoring history</li>
+<li>Connect via ffsimulator <br><span class="math display"><em>f</em><em>f</em>_<em>c</em><em>o</em><em>n</em><em>n</em><em>e</em><em>c</em><em>t</em><em>a</em><em>n</em><em>d</em><em>f</em><em>r</em><em>i</em><em>e</em><em>n</em><em>d</em><em>s</em></span><br><br><span class="math display"><em>i</em><em>m</em><em>p</em><em>o</em><em>r</em><em>t</em><em>e</em><em>d</em>!</span><br>
+</li>
+<li>Download scoring history <br><span class="math display"><em>f</em><em>f</em>_<em>s</em><em>c</em><em>o</em><em>r</em><em>i</em><em>n</em><em>g</em><em>h</em><em>i</em><em>s</em><em>t</em><em>o</em><em>r</em><em>y</em></span><br><br><span class="math display"><em>i</em><em>m</em><em>p</em><em>o</em><em>r</em><em>t</em><em>e</em><em>d</em>!</span><br>
+</li>
 <li>Calculate season ranks and the population of player scores for that rank</li>
 <li>Download latest fantasypros rankings</li>
+<li>Download rosters <br><span class="math display"><em>I</em><em>m</em><em>p</em><em>o</em><em>r</em><em>t</em><em>e</em><em>d</em>!</span><br>
+</li>
 <li>Connect rosters to fantasypros rankings and player score outcomes</li>
 <li>randomly select n games for each player</li>
-<li>calculate optimal lineups (learn lpSolve?)</li>
+<li>calculate optimal lineups (learn lpSolve? seems easy to build out the constraints from ff_starter_positions…)</li>
 <li>calculate started lineups</li>
 <li>convert week scores into fantasy season schedule (via tony’s ffsched package)</li>
-<li>calculate win/loss (H2H + allplay) + total season poitns for/potential points</li>
+<li>calculate win/loss (H2H + allplay) + total season points for/potential points</li>
 <li>figure out plots and viz</li>
 </ul>
+<p>Main function:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">ff_simulate</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span>
+  <span class="va">conn</span>,
+  <span class="va">scoring_history</span> <span class="op">=</span> <span class="cn">NULL</span>, <span class="co"># figure out way to memoise this for the conn, or something?</span>
+  <span class="va">historical_fantasypros</span> <span class="op">=</span> <span class="cn">NULL</span>, <span class="co"># hardcode five years of data? memoise?</span>
+  <span class="va">rosters</span> <span class="op">=</span> <span class="cn">NULL</span>, 
+  <span class="va">latest_rankings</span> <span class="op">=</span> <span class="cn">NULL</span>, <span class="co"># either null (which triggers a download) OR a dataframe with rankings</span>
+  <span class="va">starter_positions</span> <span class="op">=</span> <span class="cn">NULL</span>, <span class="co"># memoised?</span>
+  <span class="va">n_seasons</span> <span class="op">=</span> <span class="fl">100</span>,
+  <span class="va">weeks_per_season</span> <span class="op">=</span> <span class="fl">14</span>, <span class="co"># most common regular season length going forward, probably?</span>
+  <span class="va">seed</span> <span class="op">=</span> <span class="cn">NULL</span>,
+  <span class="va">verbose</span> <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">{</span>
+  
+<span class="op">}</span></code></pre></div>
+</div>
+<div id="code-sketching" class="section level2">
+<h2 class="hasAnchor">
+<a href="#code-sketching" class="anchor"></a>Code sketching</h2>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># library(ffsimulator)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ffscrapr.dynastyprocess.com">ffscrapr</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>
@@ -251,7 +274,7 @@
 <span class="co">## CALCULATE WIN/LOSS (H2H, ALL-PLAY) + TOTAL SEASON POINTS FOR/ POTENTIAL POINTS</span>
 
 <span class="co">## figure out plots and visualizations later? </span></code></pre></div>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">redraft_rankings</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="st">"data-raw/fp_redraft_20162020.csv"</span><span class="op">)</span>
 
 <span class="va">ppg_data</span> <span class="op">&lt;-</span> <span class="va">scoring_history</span> <span class="op">%&gt;%</span> 
@@ -288,7 +311,7 @@
     wide_n <span class="op">=</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">wide_bins</span>, <span class="va">length</span><span class="op">)</span>
   <span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">ungroup</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">slider</span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">ggridges</span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">hrbrthemes</span><span class="op">)</span>
