@@ -24,21 +24,17 @@ navbar:
       text: "More"
       menu:
         - text: ffverse
-          menu:
-          - text: ffscrapr
-            href: https://ffscrapr.dynastyprocess.com
-          - text: GitHub
-            href: https://www.github.com/ffverse
-          - text: R-Universe
-            href: https://ffverse.r-universe.dev
+        - text: ffscrapr package
+          href: https://ffscrapr.dynastyprocess.com
+        - text: ffverse GitHub
+          href: https://www.github.com/ffverse
+        - text: -------
         - text: "nflverse"
-          menu:
-          - text: nflfastR
-            href: https://www.nflfastr.com
-          - text: GitHub
-            href: https://github.com/nflverse
-          - text: R-Universe
-            href: https://nflverse.r-universe.dev
+        - text: nflfastR package
+          href: https://www.nflfastr.com
+        - text: nflverse GitHub
+          href: https://github.com/nflverse
+        - text: ------
         - text: "DynastyProcess.com"
           href: https://dynastyprocess.com
 
