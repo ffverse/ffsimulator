@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# ffsimulator <a href='#'><img src="man/figures/ffsimulator.png" align="right" width="25%" min-width="120px"/></a>
+# ffsimulator <a href='#'><img src="man/figures/logo.png" align="right" width="25%" min-width="120px"/></a>
 
 <!-- badges: start -->
 <!-- [![CRAN status](https://img.shields.io/cran/v/ffsimulator?style=flat-square&logo=R&label=CRAN)](https://CRAN.R-project.org/package=ffsimulator)  -->

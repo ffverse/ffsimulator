@@ -6,6 +6,42 @@ authors:
   Tan Ho:
     href: https://twitter.com/_TanHo
 
+home:
+  title: ffsimulator • Simulate Fantasy Football Seasons
+  description: >
+    An R package that helps simulate fantasy football seasons,
+    using nflfastR data and FantasyPros rankings.
+
+navbar:
+  structure:
+    left:  [home, reference, news, articles]
+    right: [discord,  github, more]
+  components:
+    discord:
+      icon: "fab fa-discord fa-lg"
+      href: https://discord.com/invite/5Er2FBnnQa
+    more:
+      text: "More"
+      menu:
+        - text: ffverse
+          menu:
+          - text: ffscrapr
+            href: https://ffscrapr.dynastyprocess.com
+          - text: GitHub
+            href: https://www.github.com/ffverse
+          - text: R-Universe
+            href: https://ffverse.r-universe.dev
+        - text: "nflverse"
+          menu:
+          - text: nflfastR
+            href: https://www.nflfastr.com
+          - text: GitHub
+            href: https://github.com/nflverse
+          - text: R-Universe
+            href: https://nflverse.r-universe.dev
+        - text: "DynastyProcess.com"
+          href: https://dynastyprocess.com
+
 template:
   params:
     bootswatch: cosmo
