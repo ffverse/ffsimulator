@@ -45,17 +45,41 @@ remotes::install_github("dynastyprocess/ffsimulator", ref = "dev")
 
 ## Roadmap
 
-- Connect via ffsimulator
-- Download scoring history
+- Connect via ffsimulator [ff_connect and friends] [imported!]
+- Download scoring history [ff_scoringhistory] [imported!]
 - Calculate season ranks and the population of player scores for that rank
 - Download latest fantasypros rankings
+- Download rosters [Imported!]
 - Connect rosters to fantasypros rankings and player score outcomes
 - randomly select n games for each player
-- calculate optimal lineups (learn lpSolve?)
+- calculate optimal lineups (learn lpSolve? seems easy to build out the constraints from ff_starter_positions...)
 - calculate started lineups
 - convert week scores into fantasy season schedule (via tony's ffsched package)
-- calculate win/loss (H2H  + allplay) + total season poitns for/potential points
+- calculate win/loss (H2H  + allplay) + total season points for/potential points
 - figure out plots and viz
+
+Main function:
+
+```{r eval = FALSE}
+
+ff_simulate <- function(
+  conn,
+  scoring_history = NULL, # figure out way to memoise this for the conn, or something?
+  historical_fantasypros = NULL, # hardcode five years of data? memoise?
+  rosters = NULL, 
+  latest_rankings = NULL, # either null (which triggers a download) OR a dataframe with rankings
+  starter_positions = NULL, # memoised?
+  n_seasons = 100,
+  weeks_per_season = 14, # most common regular season length going forward, probably?
+  seed = NULL,
+  verbose = FALSE){
+  
+}
+
+```
+
+
+## Code sketching
 
 
 ```{r eval = FALSE}
