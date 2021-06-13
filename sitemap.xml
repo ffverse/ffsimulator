@@ -4,6 +4,18 @@
     <loc>ffsimulator.dynastyprocess.com/index.html</loc>
   </url>
   <url>
+    <loc>ffsimulator.dynastyprocess.com/reference/dot-ff_adp_outcomes.html</loc>
+  </url>
+  <url>
+    <loc>ffsimulator.dynastyprocess.com/reference/dot-ff_apply_injury_model.html</loc>
+  </url>
+  <url>
+    <loc>ffsimulator.dynastyprocess.com/reference/dot-ff_join_data.html</loc>
+  </url>
+  <url>
+    <loc>ffsimulator.dynastyprocess.com/reference/dot-ff_latest_rankings.html</loc>
+  </url>
+  <url>
     <loc>ffsimulator.dynastyprocess.com/reference/ff_connect.html</loc>
   </url>
   <url>
@@ -11,6 +23,9 @@
   </url>
   <url>
     <loc>ffsimulator.dynastyprocess.com/reference/ff_scoringhistory.html</loc>
+  </url>
+  <url>
+    <loc>ffsimulator.dynastyprocess.com/reference/ff_simulate.html</loc>
   </url>
   <url>
     <loc>ffsimulator.dynastyprocess.com/reference/ff_starter_positions.html</loc>

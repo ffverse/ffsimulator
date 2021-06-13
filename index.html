@@ -22,7 +22,7 @@
 <meta property="og:description" content="An R package that helps simulate fantasy football seasons, using nflfastR data and FantasyPros rankings.
 ">
 <meta property="og:image" content="ffsimulator.dynastyprocess.com/reference/figures/ffscrapr.svg">
-<meta property="og:image:alt" content="ffscrapr - an R client for fantasy football platforms">
+<meta property="og:image:alt" content="ffsimulator - An R Package For Simulating Fantasy Football Seasons">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:creator" content="@_TanHo">
 <meta name="twitter:site" content="@DynastyProcess">
@@ -133,37 +133,46 @@
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p>Install the development version from GitHub with:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># install.packages("remotes")</span>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"ffsimulator"</span>, repos <span class="op">=</span> <span class="st">"https://ffverse.r-universe.dev"</span><span class="op">)</span>
 
+<span class="co"># or use remotes/devtools</span>
+<span class="co"># install.packages("remotes")</span>
 <span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span><span class="op">(</span><span class="st">"dynastyprocess/ffsimulator"</span>, ref <span class="op">=</span> <span class="st">"dev"</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="roadmap" class="section level2">
 <h2 class="hasAnchor">
 <a href="#roadmap" class="anchor"></a>Roadmap</h2>
 <ul>
-<li>Connect via ffsimulator <br><span class="math display"><em>f</em><em>f</em>_<em>c</em><em>o</em><em>n</em><em>n</em><em>e</em><em>c</em><em>t</em><em>a</em><em>n</em><em>d</em><em>f</em><em>r</em><em>i</em><em>e</em><em>n</em><em>d</em><em>s</em></span><br><br><span class="math display"><em>i</em><em>m</em><em>p</em><em>o</em><em>r</em><em>t</em><em>e</em><em>d</em>!</span><br>
+<li>Connect via ffsimulator <br><span class="math display">$$`ff_connect` and friends$$</span><br><br><span class="math display"><em>i</em><em>m</em><em>p</em><em>o</em><em>r</em><em>t</em><em>e</em><em>d</em>!</span><br>
 </li>
-<li>Download scoring history <br><span class="math display"><em>f</em><em>f</em>_<em>s</em><em>c</em><em>o</em><em>r</em><em>i</em><em>n</em><em>g</em><em>h</em><em>i</em><em>s</em><em>t</em><em>o</em><em>r</em><em>y</em></span><br><br><span class="math display"><em>i</em><em>m</em><em>p</em><em>o</em><em>r</em><em>t</em><em>e</em><em>d</em>!</span><br>
+<li>Download scoring history <br><span class="math display">$$`ff_scoringhistory`$$</span><br><br><span class="math display"><em>i</em><em>m</em><em>p</em><em>o</em><em>r</em><em>t</em><em>e</em><em>d</em>!</span><br>
 </li>
 <li>Calculate season ranks and the population of player scores for that rank</li>
 <li>Download latest fantasypros rankings</li>
-<li>Download rosters <br><span class="math display"><em>I</em><em>m</em><em>p</em><em>o</em><em>r</em><em>t</em><em>e</em><em>d</em>!</span><br>
+<li>Download rosters <br><span class="math display">$$`ff_rosters`$$</span><br><br><span class="math display"><em>I</em><em>m</em><em>p</em><em>o</em><em>r</em><em>t</em><em>e</em><em>d</em>!</span><br>
 </li>
 <li>Connect rosters to fantasypros rankings and player score outcomes</li>
 <li>randomly select n games for each player</li>
 <li>calculate optimal lineups (learn lpSolve? seems easy to build out the constraints from ff_starter_positions…)</li>
-<li>calculate started lineups</li>
+<li>calculate started lineups (rnorm around 75+-0.05 of the optimal lineup points?)</li>
 <li>convert week scores into fantasy season schedule (via tony’s ffsched package)</li>
 <li>calculate win/loss (H2H + allplay) + total season points for/potential points</li>
 <li>figure out plots and viz</li>
 </ul>
+</div>
+<div id="decisions" class="section level2">
+<h2 class="hasAnchor">
+<a href="#decisions" class="anchor"></a>Decisions</h2>
+<ul>
+<li>Apply a separate injury model (or just use sampling from bimodal distribution)</li>
+</ul>
 <p>Main function:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">ff_simulate</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span>
-  <span class="va">conn</span>,
+  <span class="va">conn</span>, <span class="co"># ff_connect() only (?)</span>
   <span class="va">scoring_history</span> <span class="op">=</span> <span class="cn">NULL</span>, <span class="co"># figure out way to memoise this for the conn, or something?</span>
   <span class="va">historical_fantasypros</span> <span class="op">=</span> <span class="cn">NULL</span>, <span class="co"># hardcode five years of data? memoise?</span>
-  <span class="va">rosters</span> <span class="op">=</span> <span class="cn">NULL</span>, 
+  <span class="va">rosters</span> <span class="op">=</span> <span class="cn">NULL</span>, <span class="co"># almost unnecessary given that we're starting with a conn</span>
   <span class="va">latest_rankings</span> <span class="op">=</span> <span class="cn">NULL</span>, <span class="co"># either null (which triggers a download) OR a dataframe with rankings</span>
   <span class="va">starter_positions</span> <span class="op">=</span> <span class="cn">NULL</span>, <span class="co"># memoised?</span>
   <span class="va">n_seasons</span> <span class="op">=</span> <span class="fl">100</span>,
@@ -173,10 +182,47 @@
   
 <span class="op">}</span></code></pre></div>
 </div>
+<div id="user-flows" class="section level2">
+<h2 class="hasAnchor">
+<a href="#user-flows" class="anchor"></a>User Flows</h2>
+<p>Minimal user flow looks like:</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">conn</span> <span class="op">&lt;-</span> <span class="fu">mfl_connect</span><span class="op">(</span><span class="fl">2021</span>, <span class="fl">54040</span><span class="op">)</span> <span class="co"># or ff_connect etc for the platform</span>
+<span class="va">simulation_results</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/ff_simulate.html">ff_simulate</a></span><span class="op">(</span><span class="va">conn</span><span class="op">)</span></code></pre></div>
+<p>This route helps pick sensible defaults for everything, as best as I can design it.</p>
+<p>Reproducible - this route should have the same results every time. More or less.</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/ff_simulate.html">ff_simulate</a></span><span class="op">(</span><span class="va">conn</span>, seed <span class="op">=</span> <span class="fl">613</span><span class="op">)</span></code></pre></div>
+<p>Basic configs:</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/ff_simulate.html">ff_simulate</a></span><span class="op">(</span>
+  conn <span class="op">=</span> <span class="va">conn</span>,
+  seed <span class="op">=</span> <span class="fl">613</span>,
+  n_seasons <span class="op">=</span> <span class="fl">100</span>,
+  weeks_per_season <span class="op">=</span> <span class="fl">17</span>,
+  is_best_ball <span class="op">=</span> <span class="cn">FALSE</span>,
+  verbose <span class="op">=</span> <span class="cn">FALSE</span>
+<span class="op">)</span></code></pre></div>
+<p>More customization:</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/ff_simulate.html">ff_simulate</a></span><span class="op">(</span>
+  conn <span class="op">=</span> <span class="va">conn</span>,
+  custom_rankings <span class="op">=</span> <span class="va">df_rankings</span>,
+  seed <span class="op">=</span> <span class="fl">613</span>,
+  n_seasons <span class="op">=</span> <span class="fl">100</span>,
+  weeks_per_season <span class="op">=</span> <span class="fl">17</span>,
+  is_best_ball <span class="op">=</span> <span class="cn">FALSE</span>,
+  injury_model <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"simple"</span>, <span class="st">"none"</span><span class="op">)</span>,
+  owner_efficiency <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>average <span class="op">=</span> <span class="fl">0.75</span>, sd <span class="op">=</span> <span class="fl">0.025</span><span class="op">)</span>,
+  verbose <span class="op">=</span> <span class="cn">FALSE</span>
+<span class="op">)</span></code></pre></div>
+<p>Do everything from scratch:</p>
+<p>(lower level function access)</p>
+</div>
 <div id="code-sketching" class="section level2">
 <h2 class="hasAnchor">
 <a href="#code-sketching" class="anchor"></a>Code sketching</h2>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># library(ffsimulator)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ffscrapr.dynastyprocess.com">ffscrapr</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>
@@ -190,9 +236,9 @@
 
 <span class="co">## DOWNLOAD SCORING HISTORY</span>
 
-<span class="va">scoring_history</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/ff_scoringhistory.html">ff_scoringhistory</a></span><span class="op">(</span><span class="va">conn</span>,<span class="fl">2006</span><span class="op">:</span><span class="fl">2020</span><span class="op">)</span>
+<span class="va">scoring_history</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/ff_scoringhistory.html">ff_scoringhistory</a></span><span class="op">(</span><span class="va">conn</span>, <span class="fl">2006</span><span class="op">:</span><span class="fl">2020</span><span class="op">)</span>
 
-<span class="co">## CALCULATES SEASON RANKS AND THE POPULATION OF PLAYER SCORES FOR THAT RANK</span>
+<span class="co">## CALCULATES SEASON RANKS AND THE POPULATION OF PLAYER SCORES FOR THAT RANK </span>
 
 <span class="va">pos_rank</span> <span class="op">&lt;-</span> <span class="va">scoring_history</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">season</span>, <span class="va">gsis_id</span>, <span class="va">mfl_id</span>, <span class="va">player_name</span>, <span class="va">pos</span>, <span class="va">team</span><span class="op">)</span> <span class="op">%&gt;%</span> 
@@ -253,16 +299,18 @@
 <span class="va">starter_positions</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/ff_starter_positions.html">ff_starter_positions</a></span><span class="op">(</span><span class="va">conn</span><span class="op">)</span>
 
 <span class="co">## LOGIC FOR CALCULATING STARTED LINEUPS</span>
+
 <span class="co"># a) Always choose highest ranked player by fantasypros</span>
 <span class="co"># b) Assume random percentage between 70-85% of optimal points</span>
 
 <span class="co">## APPLY WEEK SCORES INTO FANTASY SEASON SCHEDULES</span>
+
 <span class="co"># (use tony's ffsched package)</span>
 
 <span class="co">## CALCULATE WIN/LOSS (H2H, ALL-PLAY) + TOTAL SEASON POINTS FOR/ POTENTIAL POINTS</span>
 
 <span class="co">## figure out plots and visualizations later? </span></code></pre></div>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">redraft_rankings</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="st">"data-raw/fp_redraft_20162020.csv"</span><span class="op">)</span>
 
 <span class="va">ppg_data</span> <span class="op">&lt;-</span> <span class="va">scoring_history</span> <span class="op">%&gt;%</span> 
@@ -299,10 +347,11 @@
     wide_n <span class="op">=</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">wide_bins</span>, <span class="va">length</span><span class="op">)</span>
   <span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">ungroup</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">slider</span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">ggridges</span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">hrbrthemes</span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">tidyverse</span><span class="op">)</span>
 
 <span class="va">preseason_adp_outcomes</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">pos</span> <span class="op">==</span> <span class="st">"RB"</span>, <span class="va">pos_rank</span> <span class="op">&lt;=</span> <span class="fl">24</span><span class="op">)</span> <span class="op">%&gt;%</span> 
@@ -310,8 +359,8 @@
   <span class="fu"><a href="https://tidyr.tidyverse.org/reference/nest.html">unnest</a></span><span class="op">(</span><span class="va">wide_bins</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>wide_bins <span class="op">=</span> <span class="fu"><a href="https://tidyr.tidyverse.org/reference/replace_na.html">replace_na</a></span><span class="op">(</span><span class="va">wide_bins</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">wide_bins</span>, y <span class="op">=</span> <span class="va">pos_rank</span>, fill <span class="op">=</span> <span class="va">pos_rank</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
-  <span class="co"># geom_density_ridges(colour = "white",quantile_lines = TRUE) + </span>
-  <span class="fu">geom_density_ridges</span><span class="op">(</span>colour <span class="op">=</span> <span class="st">"white"</span>,stat <span class="op">=</span> <span class="st">"binline"</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu">geom_density_ridges</span><span class="op">(</span>colour <span class="op">=</span> <span class="st">"white"</span>,quantile_lines <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span>
+  <span class="co"># geom_density_ridges(colour = "white",stat = "binline") + </span>
   <span class="fu">theme_modern_rc</span><span class="op">(</span><span class="op">)</span>
 
 <span class="va">preseason_adp_outcomes</span> <span class="op">%&gt;%</span> 
@@ -322,8 +371,8 @@
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>pos_rank <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="va">pos_rank</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="https://tidyr.tidyverse.org/reference/nest.html">unnest</a></span><span class="op">(</span><span class="va">sample_weeks</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">sample_weeks</span>, y <span class="op">=</span> <span class="va">pos_rank</span>, fill <span class="op">=</span> <span class="va">pos_rank</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
-  <span class="co"># geom_density_ridges(colour = "white", quantile_lines = TRUE) +</span>
-  <span class="fu">geom_density_ridges</span><span class="op">(</span>colour <span class="op">=</span> <span class="st">"white"</span>,stat <span class="op">=</span> <span class="st">"binline"</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">geom_density_ridges</span><span class="op">(</span>colour <span class="op">=</span> <span class="st">"white"</span>, quantile_lines <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span>
+  <span class="co"># geom_density_ridges(colour = "white",stat = "binline") +</span>
   <span class="fu">theme_modern_rc</span><span class="op">(</span><span class="op">)</span>
 
 <span class="va">outcomes_rb_ppg</span> <span class="op">&lt;-</span> <span class="va">pos_rank</span> <span class="op">%&gt;%</span> 
