@@ -35,38 +35,46 @@ strengths.
 Install the development version from GitHub with:
 
 ``` r
-# install.packages("remotes")
+install.packages("ffsimulator", repos = "https://ffverse.r-universe.dev")
 
+# or use remotes/devtools
+# install.packages("remotes")
 remotes::install_github("dynastyprocess/ffsimulator", ref = "dev")
 ```
 
 ## Roadmap
 
--   Connect via ffsimulator \[ff\_connect and friends\] \[imported!\]
--   Download scoring history \[ff\_scoringhistory\] \[imported!\]
+-   Connect via ffsimulator \[`ff_connect` and friends\] \[imported!\]
+-   Download scoring history \[`ff_scoringhistory`\] \[imported!\]
 -   Calculate season ranks and the population of player scores for that
     rank
 -   Download latest fantasypros rankings
--   Download rosters \[Imported!\]
+-   Download rosters \[`ff_rosters`\] \[Imported!\]
 -   Connect rosters to fantasypros rankings and player score outcomes
 -   randomly select n games for each player
 -   calculate optimal lineups (learn lpSolve? seems easy to build out
     the constraints from ff\_starter\_positions…)
--   calculate started lineups
+-   calculate started lineups (rnorm around 75+-0.05 of the optimal
+    lineup points?)
 -   convert week scores into fantasy season schedule (via tony’s ffsched
     package)
 -   calculate win/loss (H2H + allplay) + total season points
     for/potential points
 -   figure out plots and viz
 
+## Decisions
+
+-   Apply a separate injury model (or just use sampling from bimodal
+    distribution)
+
 Main function:
 
 ``` r
 ff_simulate <- function(
-  conn,
+  conn, # ff_connect() only (?)
   scoring_history = NULL, # figure out way to memoise this for the conn, or something?
   historical_fantasypros = NULL, # hardcode five years of data? memoise?
-  rosters = NULL, 
+  rosters = NULL, # almost unnecessary given that we're starting with a conn
   latest_rankings = NULL, # either null (which triggers a download) OR a dataframe with rankings
   starter_positions = NULL, # memoised?
   n_seasons = 100,
@@ -76,6 +84,58 @@ ff_simulate <- function(
   
 }
 ```
+
+## User Flows
+
+Minimal user flow looks like:
+
+``` r
+conn <- mfl_connect(2021, 54040) # or ff_connect etc for the platform
+simulation_results <- ff_simulate(conn)
+```
+
+This route helps pick sensible defaults for everything, as best as I can
+design it.
+
+Reproducible - this route should have the same results every time. More
+or less.
+
+``` r
+x <- ff_simulate(conn, seed = 613)
+```
+
+Basic configs:
+
+``` r
+x <- ff_simulate(
+  conn = conn,
+  seed = 613,
+  n_seasons = 100,
+  weeks_per_season = 17,
+  is_best_ball = FALSE,
+  verbose = FALSE
+)
+```
+
+More customization:
+
+``` r
+x <- ff_simulate(
+  conn = conn,
+  custom_rankings = df_rankings,
+  seed = 613,
+  n_seasons = 100,
+  weeks_per_season = 17,
+  is_best_ball = FALSE,
+  injury_model = c("simple", "none"),
+  owner_efficiency = list(average = 0.75, sd = 0.025),
+  verbose = FALSE
+)
+```
+
+Do everything from scratch:
+
+(lower level function access)
 
 ## Code sketching
 
@@ -93,9 +153,9 @@ conn <- mfl_connect(2021, 54040)
 
 ## DOWNLOAD SCORING HISTORY
 
-scoring_history <- ff_scoringhistory(conn,2006:2020)
+scoring_history <- ff_scoringhistory(conn, 2006:2020)
 
-## CALCULATES SEASON RANKS AND THE POPULATION OF PLAYER SCORES FOR THAT RANK
+## CALCULATES SEASON RANKS AND THE POPULATION OF PLAYER SCORES FOR THAT RANK 
 
 pos_rank <- scoring_history %>% 
   group_by(season, gsis_id, mfl_id, player_name, pos, team) %>% 
@@ -156,10 +216,12 @@ rosters <- ff_rosters(conn) %>%
 starter_positions <- ff_starter_positions(conn)
 
 ## LOGIC FOR CALCULATING STARTED LINEUPS
+
 # a) Always choose highest ranked player by fantasypros
 # b) Assume random percentage between 70-85% of optimal points
 
 ## APPLY WEEK SCORES INTO FANTASY SEASON SCHEDULES
+
 # (use tony's ffsched package)
 
 ## CALCULATE WIN/LOSS (H2H, ALL-PLAY) + TOTAL SEASON POINTS FOR/ POTENTIAL POINTS
@@ -210,6 +272,7 @@ preseason_adp_outcomes <- redraft_rankings %>%
 library(slider)
 library(ggridges)
 library(hrbrthemes)
+library(tidyverse)
 
 preseason_adp_outcomes %>% 
   filter(pos == "RB", pos_rank <= 24) %>% 
@@ -217,8 +280,8 @@ preseason_adp_outcomes %>%
   unnest(wide_bins) %>% 
   mutate(wide_bins = replace_na(wide_bins, 0)) %>%
   ggplot(aes(x = wide_bins, y = pos_rank, fill = pos_rank)) + 
-  # geom_density_ridges(colour = "white",quantile_lines = TRUE) + 
-  geom_density_ridges(colour = "white",stat = "binline") + 
+  geom_density_ridges(colour = "white",quantile_lines = TRUE) +
+  # geom_density_ridges(colour = "white",stat = "binline") + 
   theme_modern_rc()
 
 preseason_adp_outcomes %>% 
@@ -229,8 +292,8 @@ preseason_adp_outcomes %>%
   mutate(pos_rank = as.factor(pos_rank)) %>% 
   unnest(sample_weeks) %>% 
   ggplot(aes(x = sample_weeks, y = pos_rank, fill = pos_rank)) + 
-  # geom_density_ridges(colour = "white", quantile_lines = TRUE) +
-  geom_density_ridges(colour = "white",stat = "binline") +
+  geom_density_ridges(colour = "white", quantile_lines = TRUE) +
+  # geom_density_ridges(colour = "white",stat = "binline") +
   theme_modern_rc()
 
 outcomes_rb_ppg <- pos_rank %>% 

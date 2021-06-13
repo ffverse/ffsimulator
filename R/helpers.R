@@ -1,10 +1,8 @@
 #' Parse Raw RDS
 #'
-#' Useful for parsing the raw-content of RDS files downloaded from nflfastr repo
+#' Useful for parsing the raw-content of RDS files downloaded from various github repos
 #'
 #' @param raw raw-content that is known to be an RDS file
-#'
-#' @seealso `httr::set_cookies`
 #'
 #' @keywords internal
 

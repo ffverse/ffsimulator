@@ -60,6 +60,8 @@ ff_simulate <- function(conn,
   checkmate::assert_int(weeks_per_season, lower = 1)
   checkmate::assert_int(seed, null.ok = TRUE)
   checkmate::assert_flag(best_ball)
+  if(!is.null(seed)) set.seed(seed)
+
   # checkmate::assert_flag(verbose)
   if(!is.null(custom_rankings)) {
     checkmate::assert_data_frame(custom_rankings)
@@ -68,32 +70,40 @@ ff_simulate <- function(conn,
   if(!is.null(owner_efficiency)) checkmate::assert_list(owner_efficiency, names = c("average","sd"))
 
 
-  #### Set Seed ####
-
-  if(!is.null(seed)) set.seed(seed)
-
   #### DOWNLOAD SCORING HISTORY ####
 
   scoring_history <- ffscrapr::ff_scoringhistory(conn, base_seasons)
 
   #### CREATE ADP OUTCOMES ####
 
-  adp_outcomes <- .ff_adp_outcomes(scoring_history)
+  adp_outcomes <- .ff_adp_outcomes(scoring_history = scoring_history,
+                                   injury_model = injury_model)
 
   #### DOWNLOAD LATEST FANTASYPROS RANKINGS ####
 
-  historical_rankings <- .ff_latest_rankings()
+  latest_rankings <- .ff_latest_rankings()
 
   #### DOWNLOAD ROSTERS ####
 
-  rosters <- ffscrapr::ff_rosters()
+  rosters <- ffscrapr::ff_rosters(conn)
 
-  ####
+  #### JOIN DATA ####
+
+  preprocessed_data <- .ff_join_data(conn, rosters, latest_rankings, adp_outcomes)
+
+  rosters %>%
+    left
+
+  #### GENERATE PREDICTIONS ####
+
+
 
 }
 
 #' Connects ff_scoringhistory to past rankings
-.ff_adp_outcomes <- function(scoring_history){
+#'
+#' @return dataframe with position, rank, probability of games played, all week score outcomes
+.ff_adp_outcomes <- function(scoring_history, injury_model){
 
   adp_outcomes <- ffsimulator::fp_rankings_history %>%
     dplyr::select(-"page_pos") %>%
@@ -103,6 +113,7 @@ ff_simulate <- function(conn,
       by = "fantasypros_id"
     ) %>%
     dplyr::filter(!is.na(.data$gsis_id), pos %in% c("QB","RB","WR","TE")) %>%
+    .ff_apply_injury_model(injury_model) %>%
     dplyr::left_join(
       scoring_history %>%
         dplyr::filter(!is.na(.data$gsis_id), .data$week <= 17) %>%
@@ -112,6 +123,7 @@ ff_simulate <- function(conn,
     dplyr::group_by(.data$season,
                     .data$pos,
                     .data$rank,
+                    .data$prob_gp,
                     .data$fantasypros_id,
                     .data$player_name
                     ) %>%
@@ -119,16 +131,83 @@ ff_simulate <- function(conn,
       week_outcomes = list(points),
       games_played = dplyr::n()
     ) %>%
-    dplyr::group_by(.data$pos, .data$rank) %>%
+    dplyr::group_by(.data$pos, .data$rank, .data$prob_gp) %>%
     dplyr::summarise(
       week_outcomes = list(c(unlist(.data$week_outcomes))),
-      games_played = sum(.data$games_played, na.rm = TRUE),
+      games_played = round(sum(.data$games_played, na.rm = TRUE)/length(unique(season)),2),
+      games_missed = 16 - games_played,
       player_name = list(.data$player_name),
       fantasypros_id = list(.data$fantasypros_id)
     ) %>%
     dplyr::ungroup()
 
-
   return(adp_outcomes)
+}
+
+#' Applies various injury models to adp outcomes
+#'
+#' @internal
+.ff_apply_injury_model <- function(adp_outcomes, model_type){
+
+  if(model_type == "none") {adp_outcomes$prob_gp <- 1}
+
+  if(model_type == "simple") {
+    adp_outcomes <- adp_outcomes %>%
+      dplyr::left_join(ffsimulator::fp_injury_table, by = c("pos","rank"))
+    }
+
+  adp_outcomes
+}
+
+#' Download latest rankings from DynastyProcess GitHub
+#'
+#' Fetches a copy of FP data from DynastyProcess's data repository.
+#'
+#' If you have any issues with the output of this data, please open an issue in
+#' the DynastyProcess data repository.
+#'
+#' @seealso <https://github.com/dynastyprocess/data>
+#'
+#' @export
+.ff_latest_rankings <- function() {
+  url_query <- "https://github.com/dynastyprocess/data/raw/master/files/db_fpecr_latest.rds"
+
+  response <- httr::RETRY("GET", url_query)
+
+  if (httr::http_error(response)) {
+    stop(glue::glue("GitHub request failed with error: <{httr::status_code(response)}> \n
+                    while calling <{url_query}>"), call. = FALSE)
+  }
+
+  fp_latest <- response %>%
+    httr::content(as = "raw") %>%
+    parse_raw_rds()
+
+  fp_cleaned <- fp_latest %>%
+    dplyr::filter(.data$ecr_type == "rp") %>%
+    dplyr::select(
+      "player",
+      "fantasypros_id"="id",
+      "pos",
+      "team" = "tm",
+      "ecr",
+      "sd",
+      "sportradar_id"="sportsdata_id",
+      "scrape_date"
+    )
+
+  return(fp_cleaned)
+}
+
+#' Join all the data together ... maybe S3
+#'
+.ff_join_data <- function(conn, rosters, latest_rankings, adp_outcomes){
+
+  platform <- switch(class(conn),
+                     "mfl_conn" = c("mfl_id","fantasypros_id","sportradar_id"),
+                     "sleeper_conn" = c("sleeper_id","fantasypros_id","sportradar_id"),
+                     "flea_conn" = c("fantasypros_id","sportradar_id"),
+                     "espn_conn" = c("espn_id","fantasypros_id","sportradar_id")
+                     )
 
 }

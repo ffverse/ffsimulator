@@ -47,7 +47,7 @@ template:
   opengraph:
     image:
       src: man/figures/ffscrapr.svg
-      alt: "ffscrapr - an R client for fantasy football platforms"
+      alt: "ffsimulator - An R Package For Simulating Fantasy Football Seasons"
     twitter:
       creator: "@_TanHo"
       site: "@DynastyProcess"

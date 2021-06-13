@@ -10,9 +10,6 @@ parse_raw_rds(raw)
 \item{raw}{raw-content that is known to be an RDS file}
 }
 \description{
-Useful for parsing the raw-content of RDS files downloaded from nflfastr repo
-}
-\seealso{
-\code{httr::set_cookies}
+Useful for parsing the raw-content of RDS files downloaded from various github repos
 }
 \keyword{internal}
