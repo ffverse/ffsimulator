@@ -26,6 +26,8 @@ navbar:
         - text: ffverse
         - text: ffscrapr package
           href: https://ffscrapr.dynastyprocess.com
+        - text: ffpros package
+          href: https://ffpros.dynastyprocess.com
         - text: ffverse GitHub
           href: https://www.github.com/ffverse
         - text: -------
@@ -46,7 +48,7 @@ template:
 #      index_name: dynastyprocess
   opengraph:
     image:
-      src: man/figures/ffscrapr.svg
+      src: man/figures/logo.png
       alt: "ffsimulator - An R Package For Simulating Fantasy Football Seasons"
     twitter:
       creator: "@_TanHo"

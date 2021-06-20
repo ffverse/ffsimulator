@@ -202,12 +202,10 @@ ff_simulate <- function(conn,
 #' Join all the data together ... maybe S3
 #'
 .ff_join_data <- function(conn, rosters, latest_rankings, adp_outcomes){
-
-  platform <- switch(class(conn),
-                     "mfl_conn" = c("mfl_id","fantasypros_id","sportradar_id"),
-                     "sleeper_conn" = c("sleeper_id","fantasypros_id","sportradar_id"),
-                     "flea_conn" = c("fantasypros_id","sportradar_id"),
-                     "espn_conn" = c("espn_id","fantasypros_id","sportradar_id")
-                     )
-
+  UseMethod(".ff_join_data")
 }
+
+.ff_join_data.mfl_conn <- function(conn, rosters, latest_rankings, adp_outcomes){}
+.ff_join_data.sleeper_conn <- function(conn, rosters, latest_rankings, adp_outcomes){}
+.ff_join_data.espn_conn <- function(conn, rosters, latest_rankings, adp_outcomes){}
+.ff_join_data.flea_conn <- function(conn, rosters, latest_rankings, adp_outcomes){}

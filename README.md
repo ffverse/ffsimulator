@@ -44,12 +44,12 @@ remotes::install_github("dynastyprocess/ffsimulator", ref = "dev")
 
 ## Roadmap
 
--   Connect via ffsimulator \[`ff_connect` and friends\] \[imported!\]
--   Download scoring history \[`ff_scoringhistory`\] \[imported!\]
--   Calculate season ranks and the population of player scores for that
-    rank
--   Download latest fantasypros rankings
--   Download rosters \[`ff_rosters`\] \[Imported!\]
+-   Connect via ffsimulator -`ff_connect` and friends ✅
+-   Download scoring history - `ff_scoringhistory` ✅
+-   Calculate the population of player scores for a given adp ranking ✅
+-   Apply a separate injury model ✅ (- Download latest fantasypros
+    rankings ✅
+-   Download rosters - `ff_rosters` ✅
 -   Connect rosters to fantasypros rankings and player score outcomes
 -   randomly select n games for each player
 -   calculate optimal lineups (learn lpSolve? seems easy to build out
@@ -61,11 +61,6 @@ remotes::install_github("dynastyprocess/ffsimulator", ref = "dev")
 -   calculate win/loss (H2H + allplay) + total season points
     for/potential points
 -   figure out plots and viz
-
-## Decisions
-
--   Apply a separate injury model (or just use sampling from bimodal
-    distribution)
 
 Main function:
 
