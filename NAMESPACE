@@ -2,6 +2,7 @@
 
 export("%>%")
 export(.ff_latest_rankings)
+export(.ff_optimize_lineups)
 export(espn_connect)
 export(ff_connect)
 export(ff_rosters)

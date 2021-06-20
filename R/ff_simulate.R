@@ -200,7 +200,123 @@ ff_simulate <- function(conn,
   UseMethod(".ff_join_data")
 }
 
-.ff_join_data.mfl_conn <- function(conn, rosters, latest_rankings, adp_outcomes){}
+.ff_join_data.mfl_conn <- function(conn, rosters, latest_rankings, adp_outcomes){
+
+
+
+}
 .ff_join_data.sleeper_conn <- function(conn, rosters, latest_rankings, adp_outcomes){}
 .ff_join_data.espn_conn <- function(conn, rosters, latest_rankings, adp_outcomes){}
 .ff_join_data.flea_conn <- function(conn, rosters, latest_rankings, adp_outcomes){}
+
+#' Optimize Lineups
+#'
+#' Optimizes lineups for one franchise week at a time. Use purrr or loop to do more franchises/weeks/seasons
+#'
+#' @param franchise_scores a data frame of scores for one week and one franchise
+#' @param lineup_constraints a data frame as created by `ffscrapr::ff_starter_positions()`
+#' @param roi_engine see ROI docs
+#'
+#' @return a list including the optimal_score and the optimal_lineup tibble.
+#'
+#' @export
+.ff_optimize_lineups <- function(franchise_scores, lineup_constraints, roi_engine = "glpk"){
+
+  if(roi_engine == "glpk") suppressMessages(requireNamespace("ROI.plugin.glpk"))
+  if(roi_engine == "lpsolve") suppressMessages(requireNamespace("ROI.plugin.lpsolve"))
+
+  player_ids <- franchise_scores %>%
+    select(player_id,pos) %>%
+    group_by(pos) %>%
+    mutate(row_id = row_number()) %>%
+    ungroup() %>%
+    pivot_wider(names_from = pos, values_from = player_id) %>%
+    select(-row_id) %>%
+    as.matrix()
+
+  player_scores <- franchise_scores %>%
+    select(proj_score,pos) %>%
+    group_by(pos) %>%
+    mutate(row_id = row_number()) %>%
+    ungroup() %>%
+    pivot_wider(names_from = pos, values_from = proj_score) %>%
+    select(-row_id) %>%
+    mutate_all(replace_na,0) %>%
+    as.matrix()
+
+  constraints <- list(
+    qb_min = lineup_constraints$min[lineup_constraints$pos == "QB"],
+    rb_min = lineup_constraints$min[lineup_constraints$pos == "RB"],
+    wr_min = lineup_constraints$min[lineup_constraints$pos == "WR"],
+    te_min = lineup_constraints$min[lineup_constraints$pos == "TE"],
+    qb_max = lineup_constraints$max[lineup_constraints$pos == "QB"],
+    rb_max = lineup_constraints$max[lineup_constraints$pos == "RB"],
+    wr_max = lineup_constraints$max[lineup_constraints$pos == "WR"],
+    te_max = lineup_constraints$max[lineup_constraints$pos == "TE"],
+    total_offense = lineup_constraints$offense_starters[[1]]
+  )
+
+  model_result <- MIPModel() %>%
+    add_variable(x[i, pos],
+                 i = seq_len(nrow(player_scores)),
+                 pos = seq_len(ncol(player_scores)), type = "binary") %>%
+    set_objective(
+      sum_expr(
+        player_scores[i, pos] * x[i, pos],
+        i = seq_len(nrow(player_scores)),
+        pos = seq_len(ncol(player_scores)))) %>%
+    add_constraint(
+      sum_expr(x[i, pos], i = seq_len(nrow(player_scores))) >= constraints$qb_min,
+      pos = 1
+    ) %>%
+    add_constraint(
+      sum_expr(x[i, pos], i = seq_len(nrow(player_scores))) >= constraints$rb_min,
+      pos = 2
+    ) %>%
+    add_constraint(
+      sum_expr(x[i, pos], i = seq_len(nrow(player_scores))) >= constraints$wr_min,
+      pos = 3
+    ) %>%
+    add_constraint(
+      sum_expr(x[i, pos], i = seq_len(nrow(player_scores))) >= constraints$te_min,
+      pos = 4
+    ) %>%
+    add_constraint(
+      sum_expr(x[i, pos], i = seq_len(nrow(player_scores))) <= constraints$qb_max,
+      pos = 1
+    ) %>%
+    add_constraint(
+      sum_expr(x[i, pos], i = seq_len(nrow(player_scores))) <= constraints$rb_max,
+      pos = 2
+    ) %>%
+    add_constraint(
+      sum_expr(x[i, pos], i = seq_len(nrow(player_scores))) <= constraints$wr_max,
+      pos = 3
+    ) %>%
+    add_constraint(
+      sum_expr(x[i, pos], i = seq_len(nrow(player_scores))) <= constraints$te_max,
+      pos = 4
+    ) %>%
+    add_constraint(
+      sum_expr(x[i, pos],
+               i = seq_len(nrow(player_scores)),
+               pos = seq_len(4)) <= constraints$total_offense
+    ) %>%
+    solve_model(with_ROI(roi_engine))
+
+  optimal_lineup <- get_solution(model_result, x[i, j]) %>%
+    dplyr::filter(value == 1) %>%
+    dplyr::transmute(
+      player_id = map2_chr(i, j, ~player_ids[.x,.y]),
+      player_score = map2_dbl(i, j, ~player_scores[.x,.y])
+    ) %>%
+    dplyr::inner_join(x = franchise_scores %>% dplyr::select("player_id","player_name","pos"),
+                      by = c("player_id"))
+
+  return(
+    list(
+      optimal_score = sum(optimal_lineup$player_score, na.rm = TRUE),
+      optimal_lineup = optimal_lineup
+    )
+  )
+}
