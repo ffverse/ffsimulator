@@ -21,7 +21,7 @@
 <meta property="og:title" content="ffsimulator • Simulate Fantasy Football Seasons">
 <meta property="og:description" content="An R package that helps simulate fantasy football seasons, using nflfastR data and FantasyPros rankings.
 ">
-<meta property="og:image" content="ffsimulator.dynastyprocess.com/reference/figures/ffscrapr.svg">
+<meta property="og:image" content="ffsimulator.dynastyprocess.com/reference/figures/logo.png">
 <meta property="og:image:alt" content="ffsimulator - An R Package For Simulating Fantasy Football Seasons">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:creator" content="@_TanHo">
@@ -85,6 +85,9 @@
       <a href="https://ffscrapr.dynastyprocess.com">ffscrapr package</a>
     </li>
     <li>
+      <a href="https://ffpros.dynastyprocess.com">ffpros package</a>
+    </li>
+    <li>
       <a href="https://www.github.com/ffverse">ffverse GitHub</a>
     </li>
     <li class="divider">
@@ -143,14 +146,11 @@
 <h2 class="hasAnchor">
 <a href="#roadmap" class="anchor"></a>Roadmap</h2>
 <ul>
-<li>Connect via ffsimulator <br><span class="math display">$$`ff_connect` and friends$$</span><br><br><span class="math display"><em>i</em><em>m</em><em>p</em><em>o</em><em>r</em><em>t</em><em>e</em><em>d</em>!</span><br>
-</li>
-<li>Download scoring history <br><span class="math display">$$`ff_scoringhistory`$$</span><br><br><span class="math display"><em>i</em><em>m</em><em>p</em><em>o</em><em>r</em><em>t</em><em>e</em><em>d</em>!</span><br>
-</li>
-<li>Calculate season ranks and the population of player scores for that rank</li>
-<li>Download latest fantasypros rankings</li>
-<li>Download rosters <br><span class="math display">$$`ff_rosters`$$</span><br><br><span class="math display"><em>I</em><em>m</em><em>p</em><em>o</em><em>r</em><em>t</em><em>e</em><em>d</em>!</span><br>
-</li>
+<li>Connect via ffsimulator -<code>ff_connect</code> and friends ✅</li>
+<li>Download scoring history - <code>ff_scoringhistory</code> ✅</li>
+<li>Calculate the population of player scores for a given adp ranking ✅</li>
+<li>Apply a separate injury model ✅ (- Download latest fantasypros rankings ✅</li>
+<li>Download rosters - <code>ff_rosters</code> ✅</li>
 <li>Connect rosters to fantasypros rankings and player score outcomes</li>
 <li>randomly select n games for each player</li>
 <li>calculate optimal lineups (learn lpSolve? seems easy to build out the constraints from ff_starter_positions…)</li>
@@ -158,13 +158,6 @@
 <li>convert week scores into fantasy season schedule (via tony’s ffsched package)</li>
 <li>calculate win/loss (H2H + allplay) + total season points for/potential points</li>
 <li>figure out plots and viz</li>
-</ul>
-</div>
-<div id="decisions" class="section level2">
-<h2 class="hasAnchor">
-<a href="#decisions" class="anchor"></a>Decisions</h2>
-<ul>
-<li>Apply a separate injury model (or just use sampling from bimodal distribution)</li>
 </ul>
 <p>Main function:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
