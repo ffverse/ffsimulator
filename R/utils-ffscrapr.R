@@ -1,4 +1,4 @@
-#### ffscrapr ####
+#### ffscrapr imports ####
 
 #' Connect to a league
 #'
@@ -6,6 +6,7 @@
 #'
 #' @name ff_connect
 #' @rdname ff_connect
+#' @family ffscrapr-imports
 #' @importFrom ffscrapr ff_connect mfl_connect sleeper_connect fleaflicker_connect espn_connect
 #' @export ff_connect mfl_connect sleeper_connect fleaflicker_connect espn_connect
 NULL
@@ -16,6 +17,7 @@ NULL
 #'
 #' @name ff_rosters
 #' @rdname ff_rosters
+#' @family ffscrapr-imports
 #' @importFrom ffscrapr ff_rosters
 #' @export ff_rosters
 NULL
@@ -26,6 +28,7 @@ NULL
 #'
 #' @name ff_scoringhistory
 #' @rdname ff_scoringhistory
+#' @family ffscrapr-imports
 #' @importFrom ffscrapr ff_scoringhistory
 #' @export ff_scoringhistory
 NULL
@@ -36,5 +39,6 @@ NULL
 #'
 #' @name ff_starter_positions
 #' @importFrom ffscrapr ff_starter_positions
+#' @family ffscrapr-imports
 #' @export ff_starter_positions
 NULL

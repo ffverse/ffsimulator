@@ -34,6 +34,8 @@
 #'   verbose = FALSE
 #' )
 #' }
+#'
+#' @export
 
 ff_simulate <- function(conn,
                         n_seasons = 100,
@@ -141,7 +143,7 @@ ff_simulate <- function(conn,
 
 #' Applies various injury models to adp outcomes
 #'
-#' @internal
+#' @keywords internal
 .ff_apply_injury_model <- function(adp_outcomes, model_type){
 
   if(model_type == "none") {adp_outcomes$prob_gp <- 1}

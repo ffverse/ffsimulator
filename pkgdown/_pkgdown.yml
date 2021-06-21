@@ -2,6 +2,24 @@ destination: docs
 
 url: ffsimulator.dynastyprocess.com
 
+reference:
+- title: Main
+  desc: These are the primary functions of `ffsimulator`.
+  contents:
+  - "ff_simulate"
+- title: Customized Simulations
+  desc: Subfunctions used by ff_simulate
+  contents:
+  - starts_with(".ff_")
+- title: ffscrapr Imports
+  desc: Functions imported from ffscrapr
+  contents:
+  - has_concept("ffscrapr-imports")
+- title: Miscellaneous
+  desc: Additional helper functions
+  contents:
+  - "`%>%`"
+
 authors:
   Tan Ho:
     href: https://twitter.com/_TanHo
@@ -36,16 +54,16 @@ navbar:
           href: https://www.nflfastr.com
         - text: nflverse GitHub
           href: https://github.com/nflverse
-        - text: ------
+        - text: -------
         - text: "DynastyProcess.com"
           href: https://dynastyprocess.com
 
 template:
   params:
     bootswatch: cosmo
-#    docsearch:
-#      api_key: 7abddd2aa591d955b365235f35d75a38
-#      index_name: dynastyprocess
+   # docsearch:
+     # api_key: 7abddd2aa591d955b365235f35d75a38
+     # index_name: dynastyprocess
   opengraph:
     image:
       src: man/figures/logo.png
