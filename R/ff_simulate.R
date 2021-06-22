@@ -217,108 +217,61 @@ ff_simulate <- function(conn,
 #'
 #' @param franchise_scores a data frame of scores for one week and one franchise
 #' @param lineup_constraints a data frame as created by `ffscrapr::ff_starter_positions()`
-#' @param roi_engine see ROI docs
 #'
 #' @return a list including the optimal_score and the optimal_lineup tibble.
 #'
 #' @export
-.ff_optimize_lineups <- function(franchise_scores, lineup_constraints, roi_engine = "glpk"){
+.ff_optimize_lineups <- function(franchise_scores, lineup_constraints){
 
-  if(roi_engine == "glpk") suppressMessages(requireNamespace("ROI.plugin.glpk"))
-  if(roi_engine == "lpsolve") suppressMessages(requireNamespace("ROI.plugin.lpsolve"))
+  score_obj <- replace_na(franchise_scores$proj_score,0)
 
-  player_ids <- franchise_scores %>%
-    select(player_id,pos) %>%
-    group_by(pos) %>%
-    mutate(row_id = row_number()) %>%
-    ungroup() %>%
-    pivot_wider(names_from = pos, values_from = player_id) %>%
-    select(-row_id) %>%
-    as.matrix()
+  # binary - position identifiers
 
-  player_scores <- franchise_scores %>%
-    select(proj_score,pos) %>%
-    group_by(pos) %>%
-    mutate(row_id = row_number()) %>%
-    ungroup() %>%
-    pivot_wider(names_from = pos, values_from = proj_score) %>%
-    select(-row_id) %>%
-    mutate_all(replace_na,0) %>%
-    as.matrix()
+  pos_qb <- as.integer(franchise_scores$pos=="QB")
+  pos_rb <- as.integer(franchise_scores$pos=="RB")
+  pos_wr <- as.integer(franchise_scores$pos=="WR")
+  pos_te <- as.integer(franchise_scores$pos=="TE")
+  pos_off <- rep(1,length.out = length(score_obj))
 
-  constraints <- list(
-    qb_min = lineup_constraints$min[lineup_constraints$pos == "QB"],
-    rb_min = lineup_constraints$min[lineup_constraints$pos == "RB"],
-    wr_min = lineup_constraints$min[lineup_constraints$pos == "WR"],
-    te_min = lineup_constraints$min[lineup_constraints$pos == "TE"],
-    qb_max = lineup_constraints$max[lineup_constraints$pos == "QB"],
-    rb_max = lineup_constraints$max[lineup_constraints$pos == "RB"],
-    wr_max = lineup_constraints$max[lineup_constraints$pos == "WR"],
-    te_max = lineup_constraints$max[lineup_constraints$pos == "TE"],
-    total_offense = lineup_constraints$offense_starters[[1]]
+  constraints_matrix <- matrix(
+    c(pos_qb,pos_rb,pos_wr,pos_te, #pos minimums
+      pos_qb,pos_rb,pos_wr,pos_te, #pos maximums
+      pos_off), # total offensive starters
+    nrow = 9,
+    byrow = TRUE
   )
 
-  model_result <- MIPModel() %>%
-    add_variable(x[i, pos],
-                 i = seq_len(nrow(player_scores)),
-                 pos = seq_len(ncol(player_scores)), type = "binary") %>%
-    set_objective(
-      sum_expr(
-        player_scores[i, pos] * x[i, pos],
-        i = seq_len(nrow(player_scores)),
-        pos = seq_len(ncol(player_scores)))) %>%
-    add_constraint(
-      sum_expr(x[i, pos], i = seq_len(nrow(player_scores))) >= constraints$qb_min,
-      pos = 1
-    ) %>%
-    add_constraint(
-      sum_expr(x[i, pos], i = seq_len(nrow(player_scores))) >= constraints$rb_min,
-      pos = 2
-    ) %>%
-    add_constraint(
-      sum_expr(x[i, pos], i = seq_len(nrow(player_scores))) >= constraints$wr_min,
-      pos = 3
-    ) %>%
-    add_constraint(
-      sum_expr(x[i, pos], i = seq_len(nrow(player_scores))) >= constraints$te_min,
-      pos = 4
-    ) %>%
-    add_constraint(
-      sum_expr(x[i, pos], i = seq_len(nrow(player_scores))) <= constraints$qb_max,
-      pos = 1
-    ) %>%
-    add_constraint(
-      sum_expr(x[i, pos], i = seq_len(nrow(player_scores))) <= constraints$rb_max,
-      pos = 2
-    ) %>%
-    add_constraint(
-      sum_expr(x[i, pos], i = seq_len(nrow(player_scores))) <= constraints$wr_max,
-      pos = 3
-    ) %>%
-    add_constraint(
-      sum_expr(x[i, pos], i = seq_len(nrow(player_scores))) <= constraints$te_max,
-      pos = 4
-    ) %>%
-    add_constraint(
-      sum_expr(x[i, pos],
-               i = seq_len(nrow(player_scores)),
-               pos = seq_len(4)) <= constraints$total_offense
-    ) %>%
-    solve_model(with_ROI(roi_engine))
+  constraints_dir <- c(rep(">=",4), #pos minimums
+                       rep("<=",4), #pos maximums
+                       "<=") # total offensive starters
 
-  optimal_lineup <- get_solution(model_result, x[i, j]) %>%
-    dplyr::filter(value == 1) %>%
-    dplyr::transmute(
-      player_id = map2_chr(i, j, ~player_ids[.x,.y]),
-      player_score = map2_dbl(i, j, ~player_scores[.x,.y])
-    ) %>%
-    dplyr::inner_join(x = franchise_scores %>% dplyr::select("player_id","player_name","pos"),
-                      by = c("player_id"))
-
-  return(
-    list(
-      optimal_score = sum(optimal_lineup$player_score, na.rm = TRUE),
-      optimal_lineup = optimal_lineup
-    )
+  constraints_rhs <- c(
+    lineup_constraints$min[lineup_constraints$pos == "QB"],
+    lineup_constraints$min[lineup_constraints$pos == "RB"],
+    lineup_constraints$min[lineup_constraints$pos == "WR"],
+    lineup_constraints$min[lineup_constraints$pos == "TE"],
+    lineup_constraints$max[lineup_constraints$pos == "QB"],
+    lineup_constraints$max[lineup_constraints$pos == "RB"],
+    lineup_constraints$max[lineup_constraints$pos == "WR"],
+    lineup_constraints$max[lineup_constraints$pos == "TE"],
+    lineup_constraints$offense_starters[[1]]
   )
+
+  solve_lineup <- Rglpk::Rglpk_solve_LP(
+    obj = score_obj,
+    mat = constraints_matrix,
+    dir = constraints_dir,
+    rhs = constraints_rhs,
+    types = rep("B", length(score_obj)),
+    max = TRUE
+  )
+
+  optimals <- list(
+    optimal_score = sum(franchise_scores$proj_score * solve_lineup$solution),
+    optimal_lineup = data.frame(
+      player_id = franchise_scores$player_id[as.logical(solve_lineup$solution)],
+      player_score = franchise_scores$proj_score[as.logical(solve_lineup$solution)]
+    ))
+
+  return(optimals)
 }

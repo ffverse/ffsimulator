@@ -1,12 +1,8 @@
 
 library(ffscrapr)
 pkgload::load_all()
-library(furrr)
-# pak::pak(c("ROI", "ROI.plugin.glpk", "ROI.plugin.lpsolve", "ompr.roi"))
-library(ompr)
-library(ompr.roi)
-library(ROI)
 library(tidyverse)
+options(future.rng.onMisuse = "ignore")
 
 future::plan(multisession)
 
@@ -23,7 +19,7 @@ rosters <- ffscrapr::ff_rosters(conn)
 
 lineup_constraints <- ffscrapr::ff_starter_positions(conn)
 
-projected_score <- rosters %>%
+joined_data <- rosters %>%
   dplyr::left_join(
     ffscrapr::dp_playerids() %>% dplyr::select("mfl_id","fantasypros_id"),
     by = c("player_id"="mfl_id")
@@ -52,27 +48,36 @@ projected_score <- rosters %>%
     "rank",
     "prob_gp",
     "week_outcomes"
-  ) %>%
+  )
+
+n_weeks <- 1000
+set.seed(613)
+
+projected_score <- joined_data %>%
+  dplyr::filter(!is.na(ecr)) %>%
   dplyr::mutate(
-    projection = purrr::map_if(week_outcomes,
-                               Negate(is.null),
-                               ~sample(.x, size = 100, replace = TRUE)),
-    injury_model = purrr::map_if(prob_gp,
-                                 Negate(is.null),
-                                 ~rbinom(n = 100, size = 1, prob = .x)),
-    n = purrr::map(100,seq_len),
+    projection = purrr::map(week_outcomes,
+                            ~sample(.x, size = n_weeks, replace = TRUE)),
+    injury_model = purrr::map(prob_gp,
+                              ~rbinom(n = n_weeks, size = 1, prob = .x)),
+    n = purrr::map(n_weeks, seq_len),
     prob_gp = NULL,
     week_outcomes = NULL,
     pos = factor(pos, levels = c("QB","RB","WR","TE"))
   ) %>%
   tidyr::unnest(c(projection,injury_model,n)) %>%
   dplyr::arrange(n, franchise_id, pos, ecr) %>%
-  mutate(
-    proj_score = projection * injury_model
-  )
+  mutate(proj_score = projection * injury_model) %>%
+  group_by(n,franchise_id,pos) %>%
+  mutate(pos_rank = rank(desc(proj_score),ties.method = "random")) %>%
+  ungroup() %>%
+  left_join(lineup_constraints %>% select(pos,max),
+            by = "pos") %>%
+  filter(pos_rank <= max)
 
-pikachu_scores <- projected_score %>%
-  dplyr::filter(franchise_name == "Team Pikachu") %>%
+
+franchise_scores <- projected_score %>%
+  dplyr::filter(franchise_name == "Team Pikachu", n == 1) %>%
   dplyr::transmute(
     franchise_id,
     franchise_name,
@@ -82,6 +87,8 @@ pikachu_scores <- projected_score %>%
     proj_score = projection * injury_model)
 
 ####
+
+# x <- .ff_optimize_lineups(pikachu_scores,lineup_constraints)
 
 
 #### EXAMPLE MIP ####
@@ -106,12 +113,12 @@ optimal_scores <- projected_score %>%
   nest() %>%
   ungroup() %>%
   mutate(
-    optimals = future_map(data, ffsimulator::.ff_optimize_lineups, lineup_constraints, roi_engine = "lpsolve")
-  ) %>%
-  unnest_wider(optimals)
+    optimals = map(data, ffsimulator::.ff_optimize_lineups, lineup_constraints)
+  )
 tictoc::toc()
 
 optimal_scores <- optimal_scores %>%
+  unnest_wider(optimals) %>%
   select(-data,-optimal_lineup) %>%
   group_by(n) %>%
   mutate(all_play_wins = rank(optimal_score)-1) %>%
@@ -134,7 +141,7 @@ optimal_scores %>%
     alpha = 0.95,
     binwidth = 1
     # quantile_lines = TRUE
-                      ) +
+  ) +
   theme_modern_rc(base_family = "IBM Plex Sans") +
   theme(
     plot.title.position = "plot",

@@ -4,14 +4,12 @@
 \alias{.ff_optimize_lineups}
 \title{Optimize Lineups}
 \usage{
-.ff_optimize_lineups(franchise_scores, lineup_constraints, roi_engine = "glpk")
+.ff_optimize_lineups(franchise_scores, lineup_constraints)
 }
 \arguments{
 \item{franchise_scores}{a data frame of scores for one week and one franchise}
 
 \item{lineup_constraints}{a data frame as created by \code{ffscrapr::ff_starter_positions()}}
-
-\item{roi_engine}{see ROI docs}
 }
 \value{
 a list including the optimal_score and the optimal_lineup tibble.

@@ -17,10 +17,6 @@ knitr::opts_chunk$set(
 ```{r setup, message = FALSE}
 library(ffsimulator)
 library(ffscrapr)
-library(furrr)
-library(ompr)
-library(ompr.roi)
-library(ROI)
 library(dplyr)
 library(forcats)
 library(purrr)
@@ -28,8 +24,11 @@ library(tidyr)
 library(ggplot2)
 
 pkgload::load_all()
-future::plan(multisession)
-options(future.rng.onMisuse = "ignore")
+library(hrbrthemes)
+library(ggridges)
+library(tictoc)
+hrbrthemes::import_plex_sans()
+
 ```
 
 ```{r}
@@ -45,6 +44,8 @@ latest_rankings <- .ff_latest_rankings()
 rosters <- ffscrapr::ff_rosters(conn)
 
 lineup_constraints <- ffscrapr::ff_starter_positions(conn)
+
+n_weeks <- 1000
 
 projected_score <- rosters %>%
   dplyr::left_join(
@@ -80,11 +81,11 @@ projected_score <- rosters %>%
   dplyr::mutate(
     projection = purrr::map_if(week_outcomes,
                                Negate(is.null),
-                               ~sample(.x, size = 100, replace = TRUE)),
+                               ~sample(.x, size = n_weeks, replace = TRUE)),
     injury_model = purrr::map_if(prob_gp,
                                  Negate(is.null),
-                                 ~rbinom(n = 100, size = 1, prob = .x)),
-    n = purrr::map(100,seq_len),
+                                 ~rbinom(n = n_weeks, size = 1, prob = .x)),
+    n = purrr::map(n_weeks,seq_len),
     prob_gp = NULL,
     week_outcomes = NULL,
     pos = factor(pos, levels = c("QB","RB","WR","TE"))
@@ -101,7 +102,7 @@ optimal_scores <- projected_score %>%
   nest() %>%
   ungroup() %>%
   mutate(
-    optimals = future_map(data, ffsimulator::.ff_optimize_lineups, lineup_constraints, roi_engine = "glpk")
+    optimals = map(data, ffsimulator::.ff_optimize_lineups, lineup_constraints)
   ) %>%
   unnest_wider(optimals)
 tictoc::toc()
@@ -112,9 +113,6 @@ optimal_scores <- optimal_scores %>%
   mutate(all_play_wins = rank(optimal_score)-1) %>%
   ungroup()
 
-library(hrbrthemes)
-library(ggridges)
-hrbrthemes::import_plex_sans()
 
 optimal_scores %>%
   group_by(franchise_name) %>%
@@ -138,7 +136,7 @@ optimal_scores %>%
   ylab(NULL) +
   labs(
     title = "SSB Dynasty League Rankings",
-    subtitle = "100 Simulated Weeks",
+    subtitle = "1000 Simulated Weeks",
     caption = "@_TanHo | ffsimulator pkg"
   )
 
