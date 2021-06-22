@@ -86,7 +86,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ffsimulator</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.03</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.04</span>
       </span>
     </div>
 
@@ -180,7 +180,7 @@
     <p>Optimizes lineups for one franchise week at a time. Use purrr or loop to do more franchises/weeks/seasons</p>
     </div>
 
-    <pre class="usage"><span class='fu'>.ff_optimize_lineups</span><span class='op'>(</span><span class='va'>franchise_scores</span>, <span class='va'>lineup_constraints</span>, roi_engine <span class='op'>=</span> <span class='st'>"glpk"</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>.ff_optimize_lineups</span><span class='op'>(</span><span class='va'>franchise_scores</span>, <span class='va'>lineup_constraints</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -192,10 +192,6 @@
     <tr>
       <th>lineup_constraints</th>
       <td><p>a data frame as created by <code><a href='ffscrapr.dynastyprocess.com/reference/ff_starter_positions.html'>ffscrapr::ff_starter_positions()</a></code></p></td>
-    </tr>
-    <tr>
-      <th>roi_engine</th>
-      <td><p>see ROI docs</p></td>
     </tr>
     </table>
 
