@@ -117,6 +117,7 @@ ff_simulate <- function(conn,
         dplyr::select("season","gsis_id", "team", "points")
       , by = c("season","gsis_id")
     ) %>%
+    dplyr::filter(!is.na(.data$points)) %>%
     dplyr::group_by(.data$season,
                     .data$pos,
                     .data$rank,
