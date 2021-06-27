@@ -4,9 +4,11 @@ pkgload::load_all()
 library(tidyverse)
 options(future.rng.onMisuse = "ignore")
 
-future::plan(multisession)
+# future::plan(multisession)
 
-conn <- mfl_connect(2021, 54040)
+tictoc::tic()
+
+conn <- mfl_connect(2021, 22627)
 
 scoring_history <- ffscrapr::ff_scoringhistory(conn, 2016:2020)
 
@@ -20,19 +22,23 @@ rosters <- ffscrapr::ff_rosters(conn)
 lineup_constraints <- ffscrapr::ff_starter_positions(conn)
 
 joined_data <- rosters %>%
+  dplyr::filter(pos %in% c("QB","RB","WR","TE")) %>%
   dplyr::left_join(
-    ffscrapr::dp_playerids() %>% dplyr::select("mfl_id","fantasypros_id"),
+    ffscrapr::dp_playerids() %>%
+      dplyr::select("mfl_id","fantasypros_id"),
     by = c("player_id"="mfl_id")
   ) %>%
   dplyr::left_join(
-    latest_rankings %>% dplyr::select("fantasypros_id", "ecr"),
+    latest_rankings %>%
+      dplyr::select("fantasypros_id", "ecr"),
     by = c("fantasypros_id")
   ) %>%
   dplyr::group_by(pos) %>%
   dplyr::mutate(rank = round(ecr)) %>%
   dplyr::ungroup() %>%
   dplyr::left_join(
-    adp_outcomes %>% dplyr::select("pos", "rank", "prob_gp", "week_outcomes"),
+    adp_outcomes %>%
+      dplyr::select("pos", "rank", "prob_gp", "week_outcomes"),
     by = c("pos","rank")
   ) %>%
   dplyr::select(
@@ -50,7 +56,7 @@ joined_data <- rosters %>%
     "week_outcomes"
   )
 
-n_weeks <- 1000
+n_weeks <- 1300
 set.seed(613)
 
 projected_score <- joined_data %>%
@@ -62,8 +68,7 @@ projected_score <- joined_data %>%
                               ~rbinom(n = n_weeks, size = 1, prob = .x)),
     n = purrr::map(n_weeks, seq_len),
     prob_gp = NULL,
-    week_outcomes = NULL,
-    pos = factor(pos, levels = c("QB","RB","WR","TE"))
+    week_outcomes = NULL
   ) %>%
   tidyr::unnest(c(projection,injury_model,n)) %>%
   dplyr::arrange(n, franchise_id, pos, ecr) %>%
@@ -75,16 +80,16 @@ projected_score <- joined_data %>%
             by = "pos") %>%
   filter(pos_rank <= max)
 
-
-franchise_scores <- projected_score %>%
-  dplyr::filter(franchise_name == "Team Pikachu", n == 1) %>%
-  dplyr::transmute(
-    franchise_id,
-    franchise_name,
-    pos,
-    player_id,
-    player_name,
-    proj_score = projection * injury_model)
+#
+# franchise_scores <- projected_score %>%
+#   dplyr::filter(franchise_name == "Team Pikachu", n == 1) %>%
+#   dplyr::transmute(
+#     franchise_id,
+#     franchise_name,
+#     pos,
+#     player_id,
+#     player_name,
+#     proj_score = projection * injury_model)
 
 ####
 
@@ -121,24 +126,70 @@ optimal_scores <- optimal_scores %>%
   unnest_wider(optimals) %>%
   select(-data,-optimal_lineup) %>%
   group_by(n) %>%
-  mutate(all_play_wins = rank(optimal_score)-1) %>%
+  mutate(all_play_wins = rank(optimal_score)-1,
+         all_play_pct = all_play_wins/(n()-1)) %>%
   ungroup()
+
+tictoc::tic()
+schedules <- ff_build_schedules(n_teams = 12, n_seasons = 100, n_weeks = 14)
+tictoc::toc()
+
+matchups <- schedules %>%
+  group_by(team) %>%
+  mutate(n = row_number()) %>%
+  ungroup() %>%
+  left_join(optimal_scores %>%
+              mutate(franchise_id = as.integer(franchise_id)) %>%
+              rename(team_score = optimal_score),
+            by = c("team"="franchise_id", "n")) %>%
+  left_join(optimal_scores %>%
+              mutate(franchise_id = as.integer(franchise_id)) %>%
+              select(opponent_score = optimal_score,
+                     franchise_id,
+                     opponent_name = franchise_name,
+                     n),
+            by = c("opponent"="franchise_id","n")
+            ) %>%
+  mutate(
+    result = case_when(
+      team_score > opponent_score ~ "W",
+      team_score < opponent_score ~ "L",
+      team_score == opponent_score ~ "T",
+      TRUE ~ NA_character_
+    )
+  )
+
+season_summaries <- matchups %>%
+  group_by(season,franchise_name) %>%
+  summarise(
+    h2h_wins = sum(result == "W"),
+    h2h_winpct = h2h_wins / n(),
+    all_play_wins = sum(all_play_wins),
+    all_play_pct = all_play_wins / (n() * 11)
+  ) %>%
+  ungroup()
+
+tictoc::toc()
 
 library(hrbrthemes)
 library(ggridges)
+library(stringi)
+library(stringr)
 
 hrbrthemes::import_plex_sans()
 
-optimal_scores %>%
+season_summaries %>%
+  mutate(franchise_name = str_remove_all(franchise_name,"<[^>]*>"),
+         franchise_name = stri_trans_general(franchise_name,"latin-ascii")) %>%
   group_by(franchise_name) %>%
-  mutate(mean_ap = mean(all_play_wins)) %>%
+  mutate(mean_h2hwinpct = mean(h2h_winpct)) %>%
   ungroup() %>%
-  mutate(franchise_name = fct_reorder(franchise_name, mean_ap)) %>%
-  ggplot(aes(x = all_play_wins, y = franchise_name, fill = franchise_name)) +
+  mutate(franchise_name = fct_reorder(franchise_name, mean_h2hwinpct)) %>%
+  ggplot(aes(x = h2h_wins, y = franchise_name, fill = franchise_name)) +
   geom_density_ridges(
     color = "white",
     stat = "binline",
-    alpha = 0.95,
+    alpha = 0.80,
     binwidth = 1
     # quantile_lines = TRUE
   ) +
@@ -147,10 +198,42 @@ optimal_scores %>%
     plot.title.position = "plot",
     legend.position = "none"
   ) +
-  xlab("All Play Wins Per Week") +
+  scale_x_continuous(limits = c(-1,15), n.breaks = 9) +
+  xlab("Season Wins (13 game regular season)") +
   ylab(NULL) +
   labs(
-    title = "SSB Dynasty League Rankings",
-    subtitle = "100 Simulated Weeks",
+    title = "FourEight Dynasty - Season Simulation Rankings",
+    subtitle = "100 Simulated Seasons",
     caption = "@_TanHo | ffsimulator pkg"
   )
+
+# library(hrbrthemes)
+# library(ggridges)
+#
+# hrbrthemes::import_plex_sans()
+#
+# optimal_scores %>%
+#   group_by(franchise_name) %>%
+#   mutate(mean_ap = mean(all_play_wins)) %>%
+#   ungroup() %>%
+#   mutate(franchise_name = fct_reorder(franchise_name, mean_ap)) %>%
+#   ggplot(aes(x = all_play_wins, y = franchise_name, fill = franchise_name)) +
+#   geom_density_ridges(
+#     color = "white",
+#     stat = "binline",
+#     alpha = 0.95,
+#     binwidth = 1
+#     # quantile_lines = TRUE
+#   ) +
+#   theme_modern_rc(base_family = "IBM Plex Sans") +
+#   theme(
+#     plot.title.position = "plot",
+#     legend.position = "none"
+#   ) +
+#   xlab("All Play Wins Per Week") +
+#   ylab(NULL) +
+#   labs(
+#     title = "SSB Dynasty League Rankings",
+#     subtitle = "100 Simulated Weeks",
+#     caption = "@_TanHo | ffsimulator pkg"
+#   )
