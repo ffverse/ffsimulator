@@ -49,7 +49,7 @@
   
 
 <meta property="og:title" content="Function reference" />
-<meta property="og:image" content="ffsimulator.dynastyprocess.com/reference/figures/logo.png" />
+<meta property="og:image" content="ffsimulator.ffverse.com/reference/figures/logo.png" />
 <meta property="og:image:alt" content="ffsimulator - An R Package For Simulating Fantasy Football Seasons" />
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:creator" content="@_TanHo" />
@@ -85,7 +85,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ffsimulator</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.04</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.01</span>
       </span>
     </div>
 
@@ -108,7 +108,10 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/Test.html">Test</a>
+      <a href="../articles/basic.html">Basic Simulations</a>
+    </li>
+    <li>
+      <a href="../articles/manual.html">Manual Simulations</a>
     </li>
   </ul>
 </li>
@@ -221,9 +224,33 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="dot-ff_join_data.html">.ff_join_data()</a></code> </p>
+          <p><code><a href="dot-ff_build_schedules.html">.ff_build_schedules()</a></code> </p>
         </td>
-        <td><p>Join all the data together ... maybe S3</p></td>
+        <td><p>Generate fantasy schedules</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="dot-ff_join_data.espn_conn.html">.ff_join_data(<i>&lt;espn_conn&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>espn joins</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="dot-ff_join_data.flea_conn.html">.ff_join_data(<i>&lt;flea_conn&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>fleaflicker joins</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="dot-ff_join_data.mfl_conn.html">.ff_join_data(<i>&lt;mfl_conn&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>MFL joins</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="dot-ff_join_data.sleeper_conn.html">.ff_join_data(<i>&lt;sleeper_conn&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>sleeper joins</p></td>
       </tr><tr>
         
         <td>
@@ -236,6 +263,12 @@
           <p><code><a href="dot-ff_optimize_lineups.html">.ff_optimize_lineups()</a></code> </p>
         </td>
         <td><p>Optimize Lineups</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="dot-ff_optimize_one_lineup.html">.ff_optimize_one_lineup()</a></code> </p>
+        </td>
+        <td><p>Optimize single lineup</p></td>
       </tr>
     </tbody><tbody>
       <tr>

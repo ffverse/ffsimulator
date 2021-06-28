@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Get league rosters — ff_rosters • ffsimulator</title>
+<title>Optimize single lineup — .ff_optimize_one_lineup • ffsimulator</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -48,8 +48,8 @@
   <link href="../extra.css" rel="stylesheet">
   
 
-<meta property="og:title" content="Get league rosters — ff_rosters" />
-<meta property="og:description" content="See ffscrapr::ff_rosters for details." />
+<meta property="og:title" content="Optimize single lineup — .ff_optimize_one_lineup" />
+<meta property="og:description" content="Optimizes lineups for one franchise week at a time. Use purrr or loop to do more franchises/weeks/seasons" />
 <meta property="og:image" content="ffsimulator.ffverse.com/reference/figures/logo.png" />
 <meta property="og:image:alt" content="ffsimulator - An R Package For Simulating Fantasy Football Seasons" />
 <meta name="twitter:card" content="summary" />
@@ -174,23 +174,33 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Get league rosters</h1>
-    <small class="dont-index">Source: <a href='https://github.com/tanho63/ffsimulator/blob/master/R/utils-ffscrapr.R'><code>R/utils-ffscrapr.R</code></a></small>
-    <div class="hidden name"><code>ff_rosters.Rd</code></div>
+    <h1>Optimize single lineup</h1>
+    <small class="dont-index">Source: <a href='https://github.com/tanho63/ffsimulator/blob/master/R/5_optimize.R'><code>R/5_optimize.R</code></a></small>
+    <div class="hidden name"><code>dot-ff_optimize_one_lineup.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>See <code><a href='ffscrapr.dynastyprocess.com/reference/ff_rosters.html'>ffscrapr::ff_rosters</a></code> for details.</p>
+    <p>Optimizes lineups for one franchise week at a time. Use purrr or loop to do more franchises/weeks/seasons</p>
     </div>
 
+    <pre class="usage"><span class='fu'>.ff_optimize_one_lineup</span><span class='op'>(</span><span class='va'>franchise_scores</span>, <span class='va'>lineup_constraints</span><span class='op'>)</span></pre>
 
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>franchise_scores</th>
+      <td><p>a data frame of scores for one week and one franchise</p></td>
+    </tr>
+    <tr>
+      <th>lineup_constraints</th>
+      <td><p>a data frame as created by <code><a href='ffscrapr.dynastyprocess.com/reference/ff_starter_positions.html'>ffscrapr::ff_starter_positions()</a></code></p></td>
+    </tr>
+    </table>
 
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <div class='dont-index'><p>Other ffscrapr-imports: 
-<code><a href='ff_connect.html'>ff_connect</a>()</code>,
-<code><a href='ff_scoringhistory.html'>ff_scoringhistory</a>()</code>,
-<code><a href='ff_starter_positions.html'>ff_starter_positions</a>()</code></p></div>
+    <p>a list including the optimal_score and the optimal_lineup tibble.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

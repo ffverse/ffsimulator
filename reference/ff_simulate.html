@@ -50,7 +50,7 @@
 
 <meta property="og:title" content="Simulate Fantasy Seasons — ff_simulate" />
 <meta property="og:description" content="The main function of the package" />
-<meta property="og:image" content="ffsimulator.dynastyprocess.com/reference/figures/logo.png" />
+<meta property="og:image" content="ffsimulator.ffverse.com/reference/figures/logo.png" />
 <meta property="og:image:alt" content="ffsimulator - An R Package For Simulating Fantasy Football Seasons" />
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:creator" content="@_TanHo" />
@@ -86,7 +86,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ffsimulator</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.04</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.01</span>
       </span>
     </div>
 
@@ -109,7 +109,10 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/Test.html">Test</a>
+      <a href="../articles/basic.html">Basic Simulations</a>
+    </li>
+    <li>
+      <a href="../articles/manual.html">Manual Simulations</a>
     </li>
   </ul>
 </li>
@@ -172,7 +175,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Simulate Fantasy Seasons</h1>
-    <small class="dont-index">Source: <a href='https://github.com/tanho63/ffsimulator/blob/master/R/ff_simulate.R'><code>R/ff_simulate.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/tanho63/ffsimulator/blob/master/R/0_ff_simulate.R'><code>R/0_ff_simulate.R</code></a></small>
     <div class="hidden name"><code>ff_simulate.Rd</code></div>
     </div>
 
@@ -183,7 +186,7 @@
     <pre class="usage"><span class='fu'>ff_simulate</span><span class='op'>(</span>
   <span class='va'>conn</span>,
   n_seasons <span class='op'>=</span> <span class='fl'>100</span>,
-  weeks_per_season <span class='op'>=</span> <span class='fl'>17</span>,
+  weeks_per_season <span class='op'>=</span> <span class='fl'>14</span>,
   best_ball <span class='op'>=</span> <span class='cn'>FALSE</span>,
   seed <span class='op'>=</span> <span class='cn'>NULL</span>,
   custom_rankings <span class='op'>=</span> <span class='cn'>NULL</span>,
@@ -237,7 +240,7 @@
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
 
-<span class='va'>conn</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ffscrapr.dynastyprocess.com/reference/mfl_connect.html'>mfl_connect</a></span><span class='op'>(</span><span class='fl'>2021</span>, <span class='fl'>54040</span><span class='op'>)</span>
+<span class='va'>conn</span> <span class='op'>&lt;-</span> <span class='fu'>mfl_connect</span><span class='op'>(</span><span class='fl'>2021</span>, <span class='fl'>54040</span><span class='op'>)</span>
 
 <span class='va'>auto</span> <span class='op'>&lt;-</span> <span class='fu'>ff_simulate</span><span class='op'>(</span><span class='va'>conn</span><span class='op'>)</span>
 

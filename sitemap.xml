@@ -1,48 +1,69 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>ffsimulator.dynastyprocess.com/index.html</loc>
+    <loc>ffsimulator.ffverse.com/index.html</loc>
   </url>
   <url>
-    <loc>ffsimulator.dynastyprocess.com/reference/dot-ff_adp_outcomes.html</loc>
+    <loc>ffsimulator.ffverse.com/reference/dot-ff_adp_outcomes.html</loc>
   </url>
   <url>
-    <loc>ffsimulator.dynastyprocess.com/reference/dot-ff_apply_injury_model.html</loc>
+    <loc>ffsimulator.ffverse.com/reference/dot-ff_apply_injury_model.html</loc>
   </url>
   <url>
-    <loc>ffsimulator.dynastyprocess.com/reference/dot-ff_join_data.html</loc>
+    <loc>ffsimulator.ffverse.com/reference/dot-ff_build_schedules.html</loc>
   </url>
   <url>
-    <loc>ffsimulator.dynastyprocess.com/reference/dot-ff_latest_rankings.html</loc>
+    <loc>ffsimulator.ffverse.com/reference/dot-ff_join_data.html</loc>
   </url>
   <url>
-    <loc>ffsimulator.dynastyprocess.com/reference/dot-ff_optimize_lineups.html</loc>
+    <loc>ffsimulator.ffverse.com/reference/dot-ff_join_data.espn_conn.html</loc>
   </url>
   <url>
-    <loc>ffsimulator.dynastyprocess.com/reference/ff_connect.html</loc>
+    <loc>ffsimulator.ffverse.com/reference/dot-ff_join_data.flea_conn.html</loc>
   </url>
   <url>
-    <loc>ffsimulator.dynastyprocess.com/reference/ff_rosters.html</loc>
+    <loc>ffsimulator.ffverse.com/reference/dot-ff_join_data.mfl_conn.html</loc>
   </url>
   <url>
-    <loc>ffsimulator.dynastyprocess.com/reference/ff_scoringhistory.html</loc>
+    <loc>ffsimulator.ffverse.com/reference/dot-ff_join_data.sleeper_conn.html</loc>
   </url>
   <url>
-    <loc>ffsimulator.dynastyprocess.com/reference/ff_simulate.html</loc>
+    <loc>ffsimulator.ffverse.com/reference/dot-ff_latest_rankings.html</loc>
   </url>
   <url>
-    <loc>ffsimulator.dynastyprocess.com/reference/ff_starter_positions.html</loc>
+    <loc>ffsimulator.ffverse.com/reference/dot-ff_optimize_lineups.html</loc>
   </url>
   <url>
-    <loc>ffsimulator.dynastyprocess.com/reference/ffsimulator-package.html</loc>
+    <loc>ffsimulator.ffverse.com/reference/dot-ff_optimize_one_lineup.html</loc>
   </url>
   <url>
-    <loc>ffsimulator.dynastyprocess.com/reference/parse_raw_rds.html</loc>
+    <loc>ffsimulator.ffverse.com/reference/ff_connect.html</loc>
   </url>
   <url>
-    <loc>ffsimulator.dynastyprocess.com/reference/pipe.html</loc>
+    <loc>ffsimulator.ffverse.com/reference/ff_rosters.html</loc>
   </url>
   <url>
-    <loc>ffsimulator.dynastyprocess.com/articles/Test.html</loc>
+    <loc>ffsimulator.ffverse.com/reference/ff_scoringhistory.html</loc>
+  </url>
+  <url>
+    <loc>ffsimulator.ffverse.com/reference/ff_simulate.html</loc>
+  </url>
+  <url>
+    <loc>ffsimulator.ffverse.com/reference/ff_starter_positions.html</loc>
+  </url>
+  <url>
+    <loc>ffsimulator.ffverse.com/reference/ffsimulator-package.html</loc>
+  </url>
+  <url>
+    <loc>ffsimulator.ffverse.com/reference/parse_raw_rds.html</loc>
+  </url>
+  <url>
+    <loc>ffsimulator.ffverse.com/reference/pipe.html</loc>
+  </url>
+  <url>
+    <loc>ffsimulator.ffverse.com/articles/basic.html</loc>
+  </url>
+  <url>
+    <loc>ffsimulator.ffverse.com/articles/manual.html</loc>
   </url>
 </urlset>
