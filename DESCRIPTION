@@ -1,6 +1,6 @@
 Package: ffsimulator
 Title: Simulate Fantasy Football Seasons
-Version: 0.0.1.04
+Version: 0.1.0.01
 Authors@R: 
     person(given = "Tan",
            family = "Ho",
@@ -31,19 +31,15 @@ Suggests:
     covr (>= 3.0.0),
     curl (>= 4.0.0),
     furrr (>= 0.2.0),
+    future (>= 1.0.0),
     httptest (>= 3.0.0),
     knitr (>= 1.0),
     rmarkdown (>= 2.6),
     testthat (>= 3.0.0),
-    withr (>= 2.4.0),
-    ggplot2,
-    ggridges,
-    hrbrthemes,
-    forcats,
-    tictoc
-Config/testthat/edition: 3
+    withr (>= 2.4.0)
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
 VignetteBuilder: knitr
+Config/testthat/edition: 3

@@ -10,8 +10,6 @@
   stopifnot(is.logical(parallel))
   stopifnot(is.logical(best_ball))
 
-  #### Parallel checks ####
-
   if(!parallel) map <- purrr::map
 
   if(parallel && requireNamespace("furrr")) {

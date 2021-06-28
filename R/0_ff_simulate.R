@@ -103,10 +103,11 @@ ff_simulate <- function(conn,
 
   #### OPTIMIZE LINEUPS ####
 
-  optimal_scores <- .ff_optimize_lineups(projected_scores,
-                                         lineup_constraints,
-                                         best_ball,
-                                         parallel)
+  optimal_scores <- .ff_optimize_lineups(
+    projected_scores = projected_scores,
+    lineup_constraints = lineup_constraints,
+    best_ball = best_ball,
+    parallel = parallel)
 
   #### GENERATE SCHEDULES ####
 
@@ -116,46 +117,46 @@ ff_simulate <- function(conn,
 
   #### SUMMARISE SEASON ####
 
-  season_summary <- .ff_summarise_season(optimal_scores, schedules)
-
-  .ff_summarise_season <- function(optimal_scores, schedules){
-
-    scores <- optimal_scores %>%
-      dplyr::group_by(.data$n) %>%
-      dplyr::mutate(
-        all_play_wins = rank(-.data$actual_score),
-        all_play_games = n()
-      ) %>%
-      dplyr::ungroup()
-
-    matchups <- schedules %>%
-      dplyr::group_by(.data$team) %>%
-      dplyr::mutate(n = dplyr::row_number()) %>%
-      dplyr::ungroup() %>%
-      dplyr::left_join(scores %>%
-                  dplyr::mutate(franchise_id = as.integer(franchise_id)) %>%
-                  dplyr::rename(team_score = actual_score),
-                by = c("team"="franchise_id", "n")) %>%
-      dplyr::left_join(scores %>%
-                  dplyr::mutate(franchise_id = as.integer(franchise_id)) %>%
-                  dplyr::select("opponent_score" = "actual_score",
-                                "franchise_id",
-                                "opponent_name" = "franchise_name",
-                                "n"),
-                by = c("opponent"="franchise_id","n")
-      ) %>%
-      dplyr::mutate(
-        result = dplyr::case_when(
-          team_score > opponent_score ~ "W",
-          team_score < opponent_score ~ "L",
-          team_score == opponent_score ~ "T",
-          TRUE ~ NA_character_
-        )
-      )
-
-    # TODO
-
-  }
+  # season_summary <- .ff_summarise_season(optimal_scores, schedules)
+  #
+  # .ff_summarise_season <- function(optimal_scores, schedules){
+  #
+  #   scores <- optimal_scores %>%
+  #     dplyr::group_by(.data$n) %>%
+  #     dplyr::mutate(
+  #       all_play_wins = rank(-.data$actual_score),
+  #       all_play_games = n()
+  #     ) %>%
+  #     dplyr::ungroup()
+  #
+  #   matchups <- schedules %>%
+  #     dplyr::group_by(.data$team) %>%
+  #     dplyr::mutate(n = dplyr::row_number()) %>%
+  #     dplyr::ungroup() %>%
+  #     dplyr::left_join(scores %>%
+  #                 dplyr::mutate(franchise_id = as.integer(franchise_id)) %>%
+  #                 dplyr::rename(team_score = actual_score),
+  #               by = c("team"="franchise_id", "n")) %>%
+  #     dplyr::left_join(scores %>%
+  #                 dplyr::mutate(franchise_id = as.integer(franchise_id)) %>%
+  #                 dplyr::select("opponent_score" = "actual_score",
+  #                               "franchise_id",
+  #                               "opponent_name" = "franchise_name",
+  #                               "n"),
+  #               by = c("opponent"="franchise_id","n")
+  #     ) %>%
+  #     dplyr::mutate(
+  #       result = dplyr::case_when(
+  #         team_score > opponent_score ~ "W",
+  #         team_score < opponent_score ~ "L",
+  #         team_score == opponent_score ~ "T",
+  #         TRUE ~ NA_character_
+  #       )
+  #     )
+  #
+  #   # TODO
+  #
+  # }
 
   #### BUILD AND RETURN ####
 
