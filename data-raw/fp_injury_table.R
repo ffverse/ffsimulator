@@ -5,8 +5,8 @@ library(ffsimulator)
 # pkgload::load_all()
 
 conn <- mfl_connect(2021,54040)
-base_seasons <- 2016:2020
-scoring_history <- ff_scoringhistory(conn, 2016:2020)
+base_seasons <- 2010:2020
+scoring_history <- ff_scoringhistory(conn, base_seasons)
 
 model_gam <- function(data){
   gam(games_played_rate ~  s(rank,bs = "cs"), data = data)

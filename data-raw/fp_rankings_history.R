@@ -1,4 +1,4 @@
-library(fpscrapr) # https://fpscrapr.dynastyprocess.com
+library(ffpros) # https://fpscrapr.dynastyprocess.com
 library(tidyverse)
 library(ffscrapr)
 
@@ -24,16 +24,43 @@ fp_rankings_history <- crossing(pages,seasons) %>%
       toupper() %>%
       str_squish(),
     season = seasons,
-    fantasypros_id = as.character(player_id),
+    fantasypros_id = as.character(fantasypros_id),
     player_name = dp_cleannames(player_name),
-    pos = case_when(player_position_id %in% c("CB","S") ~ "DB",
-                    player_position_id %in% c("OLB","LB") ~ "LB",
-                    player_position_id %in% c("DE","DT","NT") ~ "DL",
-                    TRUE ~ player_position_id),
-    rank = rank_ecr,
-    ecr = as.numeric(rank_ave),
-    sd = as.numeric(rank_std)
+    pos = case_when(pos %in% c("CB","S") ~ "DB",
+                    pos %in% c("OLB","LB") ~ "LB",
+                    pos %in% c("DE","DT","NT") ~ "DL",
+                    TRUE ~ pos),
+    rank,
+    ecr,
+    sd
   ) %>%
   filter(page_pos == pos)
+
+
+seasons2 <- 2012:2015
+pages2 <- c("qb-cheatsheets",
+           "rb-cheatsheets",
+           "wr-cheatsheets",
+           "te-cheatsheets")
+
+fp_rankings_history2 <- crossing(pages2,seasons2) %>%
+  mutate(rankings = map2(pages2,seasons2, ~fp_rankings(page = .x, year = .y))) %>%
+  unnest(rankings) %>%
+  transmute(
+    page_pos =
+      str_remove_all(pages2,"cheatsheets|^ppr|\\-") %>%
+      toupper() %>%
+      str_squish(),
+    season = seasons2,
+    fantasypros_id = as.character(fantasypros_id),
+    player_name = dp_cleannames(player_name),
+    pos,
+    rank,
+    ecr,
+    sd
+  ) %>%
+  filter(page_pos == pos)
+
+fp_rankings_history <- bind_rows(fp_rankings_history2, fp_rankings_history)
 
 usethis::use_data(fp_rankings_history, overwrite = TRUE)

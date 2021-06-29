@@ -17,8 +17,11 @@ knitr::opts_chunk$set(
 # ffsimulator <a href='#'><img src="man/figures/logo.png" align="right" width="25%" min-width="120px"/></a>
 
 <!-- badges: start -->
+
 <!-- [![CRAN status](https://img.shields.io/cran/v/ffsimulator?style=flat-square&logo=R&label=CRAN)](https://CRAN.R-project.org/package=ffsimulator)  -->
+
 [![Dev status](https://img.shields.io/github/r-package/v/dynastyprocess/ffsimulator/main?label=dev%20version&style=flat-square&logo=github)](https://ffsimulator.dynastyprocess.com/) [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg?style=flat-square)](https://lifecycle.r-lib.org/articles/stages.html) [![R build status](https://img.shields.io/github/workflow/status/dynastyprocess/ffsimulator/R-CMD-check?label=R%20check&style=flat-square&logo=github)](https://github.com/DynastyProcess/ffsimulator/actions) [![Codecov test coverage](https://img.shields.io/codecov/c/github/dynastyprocess/ffsimulator?label=codecov&style=flat-square&logo=codecov)](https://codecov.io/gh/DynastyProcess/ffsimulator?branch=main) [![nflverse discord](https://img.shields.io/discord/591914197219016707.svg?color=5865F2&label=nflverse%20discord&logo=discord&logoColor=5865F2&style=flat-square)](https://discord.com/invite/5Er2FBnnQa)
+
 <!-- badges: end -->
 
 The `{ffsimulator}` package helps simulate fantasy football seasons. By leveraging historical weekly finishes, current expert consensus rankings, and your league's data, this package can quickly run your league through hundreds of seasons and may help you study:
@@ -28,7 +31,7 @@ The `{ffsimulator}` package helps simulate fantasy football seasons. By leveragi
 -   effects of potential trades
 -   and more!
 
-This package is part of the [ffverse](https://ffverse.com) family of R packages for fantasy football analysis. 
+This package is part of the [ffverse](https://ffverse.com) family of R packages for fantasy football analysis.
 
 ## Installation
 
@@ -53,7 +56,7 @@ The dev version has a [separate documentation site here](https://ffsimulator.ffv
 ## Roadmap
 
 -   Create logic in ADP outcomes to bin together nearby ranks (nearest one above/below)
--   Scrape more historical ranks to include in package so that we can use 2010-2020
+-   Scrape more historical ranks to include in package so that we can use 2010-2020 :white_check_mark:(2012-2020 is close enough!)
 -   Create join functions for each of the remaining ff_connect classes
 -   Create summary function (season-level H2H wins/winpct, AP wins/winpct, total PF + PP)
 -   Create simulation summary table
@@ -66,7 +69,7 @@ The dev version has a [separate documentation site here](https://ffsimulator.ffv
 
 ## Usage
 
-This package shares many conventions with the ffverse, including all main functions being prefixed with `ff_` for ease of autocomplete. 
+This package shares many conventions with the ffverse, including all main functions being prefixed with `ff_` for ease of autocomplete.
 
 ```{r}
 library(ffsimulate)
@@ -80,12 +83,12 @@ sims$summary
 
 Please also see the [basic usage](https://ffsimulator.ffverse.com/articles/basic.html) and [manual simulation](https://ffsimulator.ffverse.com/articles/manual.html) vignettes for a detailed introduction.
 
-## Support
+## Getting help
 
 The best places to get help on this package are:
 
-- the [nflverse discord](https://discord.com/invite/5Er2FBnnQa) (for both this package as well as anything R/NFL related)
-- opening [an issue](https://github.com/dynastyprocess/ffsimulator/issues/new/choose)
+-   the [nflverse discord](https://discord.com/invite/5Er2FBnnQa) (for both this package as well as anything R/NFL related)
+-   opening [an issue](https://github.com/dynastyprocess/ffsimulator/issues/new/choose)
 
 ## Contributing
 

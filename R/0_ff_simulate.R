@@ -45,7 +45,7 @@ ff_simulate <- function(conn,
                         custom_rankings = NULL,
                         injury_model = c("simple", "none"),
                         owner_efficiency = NULL,
-                        base_seasons = 2016:2020,
+                        base_seasons = 2012:2020,
                         parallel = FALSE,
                         verbose = TRUE
                         ){
@@ -69,7 +69,8 @@ ff_simulate <- function(conn,
   if(!is.null(custom_rankings)) {
     checkmate::assert_data_frame(custom_rankings)
     ## ADD ASSERTIONS FOR CORRECT RANKINGS COLUMNS
-    }
+  }
+
   if(!is.null(owner_efficiency)) checkmate::assert_list(owner_efficiency, names = c("average","sd"))
 
 
