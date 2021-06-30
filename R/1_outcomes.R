@@ -30,6 +30,11 @@
       week_outcomes = list(points),
       games_played = dplyr::n()
     ) %>%
+    dplyr::ungroup() %>%
+    dplyr::group_by(.data$season, .data$pos) %>%
+    dplyr::mutate(rank = purrr::map(.data$rank, ~c(ifelse(.x-1==0,.x,.x-1),.x,.x+1) %>% tidyr::replace_na(.x))) %>%
+    dplyr::ungroup() %>%
+    tidyr::unnest(rank) %>%
     dplyr::group_by(.data$pos, .data$rank, .data$prob_gp) %>%
     dplyr::summarise(
       week_outcomes = list(c(unlist(.data$week_outcomes))),
