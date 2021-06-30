@@ -16,6 +16,7 @@ status](https://img.shields.io/github/workflow/status/dynastyprocess/ffsimulator
 coverage](https://img.shields.io/codecov/c/github/dynastyprocess/ffsimulator?label=codecov&style=flat-square&logo=codecov)](https://codecov.io/gh/DynastyProcess/ffsimulator?branch=main)
 [![nflverse
 discord](https://img.shields.io/discord/591914197219016707.svg?color=5865F2&label=nflverse%20discord&logo=discord&logoColor=5865F2&style=flat-square)](https://discord.com/invite/5Er2FBnnQa)
+
 <!-- badges: end -->
 
 The `{ffsimulator}` package helps simulate fantasy football seasons. By
@@ -57,9 +58,9 @@ here](https://ffsimulator.ffverse.com/dev/).
 ## Roadmap
 
 -   Create logic in ADP outcomes to bin together nearby ranks (nearest
-    one above/below)
+    one above/below) :white\_check\_mark: *(binning +1 and -1 together)*
 -   Scrape more historical ranks to include in package so that we can
-    use 2010-2020
+    use 2010-2020 :white\_check\_mark:*(2012-2020 is close enough!)*
 -   Create join functions for each of the remaining ff\_connect classes
 -   Create summary function (season-level H2H wins/winpct, AP
     wins/winpct, total PF + PP)
@@ -91,7 +92,7 @@ usage](https://ffsimulator.ffverse.com/articles/basic.html) and [manual
 simulation](https://ffsimulator.ffverse.com/articles/manual.html)
 vignettes for a detailed introduction.
 
-## Support
+## Getting help
 
 The best places to get help on this package are:
 
