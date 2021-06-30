@@ -138,6 +138,7 @@
 <!-- badges: start -->
 <!-- [![CRAN status](https://img.shields.io/cran/v/ffsimulator?style=flat-square&logo=R&label=CRAN)](https://CRAN.R-project.org/package=ffsimulator)  -->
 
+<!-- badges: end -->
 <p>The <a href="https://github.com/tanho63/ffsimulator">ffsimulator</a> package helps simulate fantasy football seasons. By leveraging historical weekly finishes, current expert consensus rankings, and your league’s data, this package can quickly run your league through hundreds of seasons and may help you study:</p>
 <ul>
 <li>expected season finishes and range of outcomes</li>
@@ -165,8 +166,10 @@
 <h2 class="hasAnchor">
 <a href="#roadmap" class="anchor"></a>Roadmap</h2>
 <ul>
-<li>Create logic in ADP outcomes to bin together nearby ranks (nearest one above/below)</li>
-<li>Scrape more historical ranks to include in package so that we can use 2010-2020</li>
+<li>Create logic in ADP outcomes to bin together nearby ranks (nearest one above/below) :white_check_mark: <em>(binning +1 and -1 together)</em>
+</li>
+<li>Scrape more historical ranks to include in package so that we can use 2010-2020 :white_check_mark:<em>(2012-2020 is close enough!)</em>
+</li>
 <li>Create join functions for each of the remaining ff_connect classes</li>
 <li>Create summary function (season-level H2H wins/winpct, AP wins/winpct, total PF + PP)</li>
 <li>Create simulation summary table</li>
@@ -192,9 +195,9 @@
 <span class="va">sims</span><span class="op">$</span><span class="va">summary</span></code></pre></div>
 <p>Please also see the <a href="https://ffsimulator.ffverse.com/articles/basic.html">basic usage</a> and <a href="https://ffsimulator.ffverse.com/articles/manual.html">manual simulation</a> vignettes for a detailed introduction.</p>
 </div>
-<div id="support" class="section level2">
+<div id="getting-help" class="section level2">
 <h2 class="hasAnchor">
-<a href="#support" class="anchor"></a>Support</h2>
+<a href="#getting-help" class="anchor"></a>Getting help</h2>
 <p>The best places to get help on this package are:</p>
 <ul>
 <li>the <a href="https://discord.com/invite/5Er2FBnnQa">nflverse discord</a> (for both this package as well as anything R/NFL related)</li>
