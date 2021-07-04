@@ -67,10 +67,12 @@ here](https://ffsimulator.ffverse.com/dev/).
 -   Create summary function (season-level H2H wins/winpct, AP
     wins/winpct, total PF + PP) :white\_check\_mark:
 -   Create simulation summary table :white\_check\_mark:
--   Write function documentation
--   Write tests
+-   Write function documentation :white\_check\_mark:
+-   Write tests :white\_check\_mark:
+-   Add test cache infrastructure
 -   Write basic usage vignette
 -   Write custom usage vignette
+-   Add autoplot
 -   Clean up README
 -   CRAN prep
 

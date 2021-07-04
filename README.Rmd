@@ -61,8 +61,9 @@ The dev version has a [separate documentation site here](https://ffsimulator.ffv
 -   Create join functions for each of the remaining ff_connect classes :white_check_mark:
 -   Create summary function (season-level H2H wins/winpct, AP wins/winpct, total PF + PP) :white_check_mark:
 -   Create simulation summary table :white_check_mark:
--   Write function documentation
--   Write tests
+-   Write function documentation :white_check_mark:
+-   Write tests :white_check_mark:
+-   Add test cache infrastructure
 -   Write basic usage vignette
 -   Write custom usage vignette
 -   Add autoplot
