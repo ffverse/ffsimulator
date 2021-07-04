@@ -8,7 +8,7 @@
 #' @seealso <https://github.com/dynastyprocess/data>
 #'
 #' @export
-.ff_latest_rankings <- function() {
+ffs_latest_rankings <- function() {
   url_query <- "https://github.com/dynastyprocess/data/raw/master/files/db_fpecr_latest.rds"
 
   response <- httr::RETRY("GET", url_query)

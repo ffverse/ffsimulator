@@ -10,10 +10,10 @@ ff_simulate(
   weeks_per_season = 14,
   best_ball = FALSE,
   seed = NULL,
-  custom_rankings = NULL,
   injury_model = c("simple", "none"),
-  owner_efficiency = NULL,
-  base_seasons = 2016:2020
+  base_seasons = 2012:2020,
+  parallel = FALSE,
+  verbose = TRUE
 )
 }
 \arguments{
@@ -21,17 +21,13 @@ ff_simulate(
 
 \item{n_seasons}{number of seasons to simulate, default = 100}
 
-\item{weeks_per_season}{number of weeks per season, default = 17}
+\item{weeks_per_season}{number of weeks per season, default = 14}
 
-\item{best_ball}{Are weekly wins based on optimal score?}
+\item{best_ball}{logical: are weekly wins based on optimal lineups?}
 
 \item{seed}{an integer to control reproducibility}
 
-\item{custom_rankings}{a dataframe with x specification to pass in as latest fantasy rankings}
-
-\item{injury_model}{select between "bimodal", "none" - later we'll have separate}
-
-\item{owner_efficiency}{pass in a named list with average and sd}
+\item{injury_model}{select between "simple", "none"}
 
 \item{verbose}{print progress messages for debugging}
 }
@@ -47,7 +43,7 @@ auto <- ff_simulate(conn)
 
 reprex <- ff_simulate(conn = conn, seed = 613)
 
-basic <- ff_simulate(conn = conn, n_seasons = 100, weeks_per_season = 17, best_ball = FALSE)
+basic <- ff_simulate(conn = conn, n_seasons = 100, weeks_per_season = 14, best_ball = FALSE)
 
 custom <- ff_simulate(
   conn = conn,

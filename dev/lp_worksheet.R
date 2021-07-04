@@ -12,10 +12,10 @@ conn <- mfl_connect(2021, 22627)
 
 scoring_history <- ffscrapr::ff_scoringhistory(conn, 2016:2020)
 
-adp_outcomes <- .ff_adp_outcomes(scoring_history = scoring_history,
+adp_outcomes <- ffs_adp_outcomes(scoring_history = scoring_history,
                                  injury_model = "simple")
 
-latest_rankings <- .ff_latest_rankings()
+latest_rankings <- ffs_latest_rankings()
 
 rosters <- ffscrapr::ff_rosters(conn)
 
@@ -93,7 +93,7 @@ projected_score <- joined_data %>%
 
 ####
 
-# x <- .ff_optimize_lineups(pikachu_scores,lineup_constraints)
+# x <- ffs_optimize_lineups(pikachu_scores,lineup_constraints)
 
 
 #### EXAMPLE MIP ####
@@ -118,7 +118,7 @@ optimal_scores <- projected_score %>%
   nest() %>%
   ungroup() %>%
   mutate(
-    optimals = map(data, ffsimulator::.ff_optimize_lineups, lineup_constraints)
+    optimals = map(data, ffsimulator::ffs_optimize_lineups, lineup_constraints)
   )
 tictoc::toc()
 
@@ -160,6 +160,10 @@ matchups <- schedules %>%
   )
 
 season_summaries <- matchups %>%
+  group_by(n) %>%
+  mutate(all_play_wins = rank(team_score)-1,
+         all_play_pct = all_play_wins/(n()-1)) %>%
+  ungroup() %>%
   group_by(season,franchise_name) %>%
   summarise(
     h2h_wins = sum(result == "W"),
@@ -199,10 +203,10 @@ season_summaries %>%
     legend.position = "none"
   ) +
   scale_x_continuous(limits = c(-1,15), n.breaks = 9) +
-  xlab("Season Wins (13 game regular season)") +
+  xlab("Season Wins (14 game regular season)") +
   ylab(NULL) +
   labs(
-    title = "FourEight Dynasty - Season Simulation Rankings",
+    title = "Schenectady Dynasty - Season Simulation Rankings",
     subtitle = "100 Simulated Seasons",
     caption = "@_TanHo | ffsimulator pkg"
   )

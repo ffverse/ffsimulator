@@ -1,15 +1,17 @@
 
-#' Join all the data together for preprocessing
+#' Preprocess data for simulation
 #'
-#' @keywords internal
+#' Performs joins, cleaning, filtering.
+#'
 #' @export
-.ff_join_data <- function(conn, rosters, latest_rankings, adp_outcomes){
-  UseMethod(".ff_join_data")
+#' @rdname ffs_preprocess_data
+ffs_preprocess_data <- function(conn, rosters, latest_rankings, adp_outcomes){
+  UseMethod("ffs_preprocess_data")
 }
 
-#' MFL joins
+#' @rdname ffs_preprocess_data
 #' @export
-.ff_join_data.mfl_conn <- function(conn, rosters, latest_rankings, adp_outcomes){
+ffs_preprocess_data.mfl_conn <- function(conn, rosters, latest_rankings, adp_outcomes){
 
   joined_data <- rosters %>%
     dplyr::filter(.data$pos %in% c("QB","RB","WR","TE")) %>%
@@ -38,30 +40,160 @@
       pos = factor(.data$pos, levels = c("QB","RB","WR","TE"))
     ) %>%
     dplyr::select(
-      "franchise_id",
-      "franchise_name",
-      "player_id",
-      "player_name",
-      "pos",
-      "team",
-      "age",
-      "ecr",
-      "rank",
-      "prob_gp",
-      "week_outcomes"
-    )
+      dplyr::any_of(c(
+        "franchise_id",
+        "franchise_name",
+        "player_id",
+        "player_name",
+        "pos",
+        "team",
+        "age",
+        "ecr",
+        "rank",
+        "prob_gp",
+        "week_outcomes"
+      )))
 
   return(joined_data)
 }
 
-#' sleeper joins
+#' @rdname ffs_preprocess_data
 #' @export
-.ff_join_data.sleeper_conn <- function(conn, rosters, latest_rankings, adp_outcomes){}
+ffs_preprocess_data.sleeper_conn <- function(conn, rosters, latest_rankings, adp_outcomes){
 
-#' espn joins
-#' @export
-.ff_join_data.espn_conn <- function(conn, rosters, latest_rankings, adp_outcomes){}
+  joined_data <- rosters %>%
+    dplyr::filter(.data$pos %in% c("QB","RB","WR","TE")) %>%
+    dplyr::left_join(
+      ffscrapr::dp_playerids() %>%
+        dplyr::select("sleeper_id","fantasypros_id"),
+      by = c("player_id"="sleeper_id"),
+      na_matches = "never"
+    ) %>%
+    dplyr::left_join(
+      latest_rankings %>%
+        dplyr::select("fantasypros_id", "ecr"),
+      by = c("fantasypros_id"),
+      na_matches = "never"
+    ) %>%
+    dplyr::group_by(.data$pos) %>%
+    dplyr::mutate(rank = round(.data$ecr)) %>%
+    dplyr::ungroup() %>%
+    dplyr::left_join(
+      adp_outcomes %>%
+        dplyr::select("pos", "rank", "prob_gp", "week_outcomes"),
+      by = c("pos","rank"),
+      na_matches = "never"
+    ) %>%
+    dplyr::mutate(
+      pos = factor(.data$pos, levels = c("QB","RB","WR","TE"))
+    ) %>%
+    dplyr::select(
+      dplyr::any_of(c(
+        "franchise_id",
+        "franchise_name",
+        "player_id",
+        "player_name",
+        "pos",
+        "team",
+        "age",
+        "ecr",
+        "rank",
+        "prob_gp",
+        "week_outcomes"
+      )))
 
-#' fleaflicker joins
+}
+
+#' @rdname ffs_preprocess_data
 #' @export
-.ff_join_data.flea_conn <- function(conn, rosters, latest_rankings, adp_outcomes){}
+ffs_preprocess_data.espn_conn <- function(conn, rosters, latest_rankings, adp_outcomes){
+
+  joined_data <- rosters %>%
+    dplyr::filter(.data$pos %in% c("QB","RB","WR","TE")) %>%
+    dplyr::mutate(player_id = as.character(.data$player_id)) %>%
+    dplyr::left_join(
+      ffscrapr::dp_playerids() %>%
+        dplyr::select("espn_id","fantasypros_id"),
+      by = c("player_id"="espn_id"),
+      na_matches = "never"
+    ) %>%
+    dplyr::left_join(
+      latest_rankings %>%
+        dplyr::select("fantasypros_id", "ecr"),
+      by = c("fantasypros_id"),
+      na_matches = "never"
+    ) %>%
+    dplyr::group_by(.data$pos) %>%
+    dplyr::mutate(rank = round(.data$ecr)) %>%
+    dplyr::ungroup() %>%
+    dplyr::left_join(
+      adp_outcomes %>%
+        dplyr::select("pos", "rank", "prob_gp", "week_outcomes"),
+      by = c("pos","rank"),
+      na_matches = "never"
+    ) %>%
+    dplyr::mutate(
+      pos = factor(.data$pos, levels = c("QB","RB","WR","TE"))
+    ) %>%
+    dplyr::select(
+      dplyr::any_of(c(
+        "franchise_id",
+        "franchise_name",
+        "player_id",
+        "player_name",
+        "pos",
+        "team",
+        "ecr",
+        "rank",
+        "prob_gp",
+        "week_outcomes"
+      )))
+
+
+}
+
+#' @rdname ffs_preprocess_data
+#' @export
+ffs_preprocess_data.flea_conn <- function(conn, rosters, latest_rankings, adp_outcomes){
+
+  joined_data <- rosters %>%
+    dplyr::filter(.data$pos %in% c("QB","RB","WR","TE")) %>%
+    dplyr::left_join(
+      ffscrapr::dp_playerids() %>%
+        dplyr::select("sportradar_id","fantasypros_id"),
+      by = c("sportradar_id"),
+      na_matches = "never"
+    ) %>%
+    dplyr::left_join(
+      latest_rankings %>%
+        dplyr::select("fantasypros_id", "ecr"),
+      by = c("fantasypros_id"),
+      na_matches = "never"
+    ) %>%
+    dplyr::group_by(.data$pos) %>%
+    dplyr::mutate(rank = round(.data$ecr)) %>%
+    dplyr::ungroup() %>%
+    dplyr::left_join(
+      adp_outcomes %>%
+        dplyr::select("pos", "rank", "prob_gp", "week_outcomes"),
+      by = c("pos","rank"),
+      na_matches = "never"
+    ) %>%
+    dplyr::mutate(
+      pos = factor(.data$pos, levels = c("QB","RB","WR","TE"))
+    ) %>%
+    dplyr::select(
+      dplyr::any_of(c(
+        "franchise_id",
+        "franchise_name",
+        "player_id",
+        "player_name",
+        "pos",
+        "team",
+        "ecr",
+        "rank",
+        "prob_gp",
+        "week_outcomes"
+      )))
+
+}

@@ -9,7 +9,7 @@
 #'
 #' @export
 
-.ff_build_schedules <- function(n_teams = 14,
+ffs_build_schedules <- function(n_teams = 14,
                                n_seasons = 100,
                                n_weeks = 13,
                                seed = NULL){

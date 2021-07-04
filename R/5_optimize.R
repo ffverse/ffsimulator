@@ -2,7 +2,8 @@
 #'
 #' Optimizes lineups for all franchises in the dataframe
 #'
-.ff_optimize_lineups <- function(projected_scores,
+#' @export
+ffs_optimize_lineups <- function(projected_scores,
                                  lineup_constraints,
                                  best_ball = TRUE,
                                  parallel = FALSE){
@@ -109,3 +110,7 @@
 
   return(optimals)
 }
+
+#' @export
+#' @rdname ffs_optimize_lineups
+ffs_optimise_lineups <- ffs_optimize_lineups

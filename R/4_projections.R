@@ -1,5 +1,5 @@
 
-.ff_generate_projections <- function(preprocessed_data, n_weeks){
+ffs_generate_predictions <- function(preprocessed_data, n_weeks){
 
   projected_score <- preprocessed_data %>%
     dplyr::filter(!is.na(.data$ecr)) %>%

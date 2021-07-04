@@ -4,12 +4,10 @@
 #'
 #' @param conn an connection to a league made with `ff_connect()` and friends (required)
 #' @param n_seasons number of seasons to simulate, default = 100
-#' @param weeks_per_season number of weeks per season, default = 17
-#' @param best_ball Are weekly wins based on optimal score?
+#' @param weeks_per_season number of weeks per season, default = 14
+#' @param best_ball logical: are weekly wins based on optimal lineups?
 #' @param seed an integer to control reproducibility
-#' @param custom_rankings a dataframe with x specification to pass in as latest fantasy rankings
-#' @param injury_model select between "bimodal", "none" - later we'll have separate
-#' @param owner_efficiency pass in a named list with average and sd
+#' @param injury_model select between "simple", "none"
 #' @param verbose print progress messages for debugging
 #'
 #' @examples \dontrun{
@@ -20,7 +18,7 @@
 #'
 #' reprex <- ff_simulate(conn = conn, seed = 613)
 #'
-#' basic <- ff_simulate(conn = conn, n_seasons = 100, weeks_per_season = 17, best_ball = FALSE)
+#' basic <- ff_simulate(conn = conn, n_seasons = 100, weeks_per_season = 14, best_ball = FALSE)
 #'
 #' custom <- ff_simulate(
 #'   conn = conn,
@@ -40,11 +38,9 @@
 ff_simulate <- function(conn,
                         n_seasons = 100,
                         weeks_per_season = 14,
-                        best_ball = TRUE,
+                        best_ball = FALSE,
                         seed = NULL,
-                        custom_rankings = NULL,
                         injury_model = c("simple", "none"),
-                        owner_efficiency = NULL,
                         base_seasons = 2012:2020,
                         parallel = FALSE,
                         verbose = TRUE
@@ -80,12 +76,12 @@ ff_simulate <- function(conn,
 
   #### CREATE ADP OUTCOMES ####
 
-  adp_outcomes <- .ff_adp_outcomes(scoring_history = scoring_history,
+  adp_outcomes <- ffs_adp_outcomes(scoring_history = scoring_history,
                                    injury_model = injury_model)
 
   #### DOWNLOAD LATEST FANTASYPROS RANKINGS ####
 
-  latest_rankings <- .ff_latest_rankings()
+  latest_rankings <- ffs_latest_rankings()
 
   #### DOWNLOAD ROSTERS ####
 
@@ -94,17 +90,17 @@ ff_simulate <- function(conn,
 
   #### JOIN DATA ####
 
-  preprocessed_data <- .ff_join_data(conn, rosters, latest_rankings, adp_outcomes)
+  preprocessed_data <- ffs_preprocess_data(conn, rosters, latest_rankings, adp_outcomes)
 
   #### GENERATE PREDICTIONS ####
 
   n_weeks <- n_seasons * weeks_per_season
 
-  projected_scores <- .ff_generate_projections(preprocessed_data, n_weeks)
+  projected_scores <- ffs_generate_predictions(preprocessed_data, n_weeks)
 
   #### OPTIMIZE LINEUPS ####
 
-  optimal_scores <- .ff_optimize_lineups(
+  optimal_scores <- ffs_optimize_lineups(
     projected_scores = projected_scores,
     lineup_constraints = lineup_constraints,
     best_ball = best_ball,
@@ -112,63 +108,26 @@ ff_simulate <- function(conn,
 
   #### GENERATE SCHEDULES ####
 
-  schedules <- .ff_build_schedules(n_teams = length(unique(rosters$franchise_id)),
+  schedules <- ffs_build_schedules(n_teams = length(unique(rosters$franchise_id)),
                                   n_seasons = n_seasons,
                                   n_weeks = weeks_per_season)
 
   #### SUMMARISE SEASON ####
 
-  # season_summary <- .ff_summarise_season(optimal_scores, schedules)
-  #
-  # .ff_summarise_season <- function(optimal_scores, schedules){
-  #
-  #   scores <- optimal_scores %>%
-  #     dplyr::group_by(.data$n) %>%
-  #     dplyr::mutate(
-  #       all_play_wins = rank(-.data$actual_score),
-  #       all_play_games = n()
-  #     ) %>%
-  #     dplyr::ungroup()
-  #
-  #   matchups <- schedules %>%
-  #     dplyr::group_by(.data$team) %>%
-  #     dplyr::mutate(n = dplyr::row_number()) %>%
-  #     dplyr::ungroup() %>%
-  #     dplyr::left_join(scores %>%
-  #                 dplyr::mutate(franchise_id = as.integer(franchise_id)) %>%
-  #                 dplyr::rename(team_score = actual_score),
-  #               by = c("team"="franchise_id", "n")) %>%
-  #     dplyr::left_join(scores %>%
-  #                 dplyr::mutate(franchise_id = as.integer(franchise_id)) %>%
-  #                 dplyr::select("opponent_score" = "actual_score",
-  #                               "franchise_id",
-  #                               "opponent_name" = "franchise_name",
-  #                               "n"),
-  #               by = c("opponent"="franchise_id","n")
-  #     ) %>%
-  #     dplyr::mutate(
-  #       result = dplyr::case_when(
-  #         team_score > opponent_score ~ "W",
-  #         team_score < opponent_score ~ "L",
-  #         team_score == opponent_score ~ "T",
-  #         TRUE ~ NA_character_
-  #       )
-  #     )
-  #
-  #   # TODO
-  #
-  # }
+  summary_week <- ffs_summarise_week(optimal_scores, schedules)
+  summary_season <- ffs_summarise_season(summary_week)
+  summary_simulation <- ffs_summarise_simulation(summary_season)
 
   #### BUILD AND RETURN ####
 
-  # list(
-  #   summary = season,
-  #   matchups = matchups,
-  #   lineups = lineups,
-  #   latest_rankings = rankings,
-  #   adp_outcomes = adp_outcomes,
-  #   metadata = params
-  # )
+  out <- list(
+    summary_simulation = summary_simulation,
+    summary_season = summary_season,
+    summary_week = summary_week,
+    latest_rankings = latest_rankings,
+    raw_data = preprocessed_data
+  )
 
+  return(out)
 }
 

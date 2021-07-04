@@ -10,7 +10,7 @@ reference:
 - title: Customized Simulations
   desc: Subfunctions used by ff_simulate
   contents:
-  - starts_with(".ff_")
+  - starts_with("ffs_")
 - title: ffscrapr Imports
   desc: Functions imported from ffscrapr
   contents:
@@ -42,6 +42,7 @@ navbar:
       text: "More"
       menu:
         - text: ffverse
+          href: https://www.ffverse.com
         - text: ffscrapr package
           href: https://ffscrapr.dynastyprocess.com
         - text: ffpros package

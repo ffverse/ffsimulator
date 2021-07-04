@@ -60,11 +60,13 @@ here](https://ffsimulator.ffverse.com/dev/).
 -   Create logic in ADP outcomes to bin together nearby ranks (nearest
     one above/below) :white\_check\_mark: *(binning +1 and -1 together)*
 -   Scrape more historical ranks to include in package so that we can
-    use 2010-2020 :white\_check\_mark:*(2012-2020 is close enough!)*
+    use 2010-2020 :white\_check\_mark: *(2012-2020 is close enough!)*
+-   Patch data inconsistency for IDs (2012:2015)
 -   Create join functions for each of the remaining ff\_connect classes
+    :white\_check\_mark:
 -   Create summary function (season-level H2H wins/winpct, AP
-    wins/winpct, total PF + PP)
--   Create simulation summary table
+    wins/winpct, total PF + PP) :white\_check\_mark:
+-   Create simulation summary table :white\_check\_mark:
 -   Write function documentation
 -   Write tests
 -   Write basic usage vignette
