@@ -56,7 +56,8 @@ The dev version has a [separate documentation site here](https://ffsimulator.ffv
 ## Roadmap
 
 -   Create logic in ADP outcomes to bin together nearby ranks (nearest one above/below) :white_check_mark: *(binning +1 and -1 together)*
--   Scrape more historical ranks to include in package so that we can use 2010-2020 :white_check_mark:*(2012-2020 is close enough!)*
+-   Scrape more historical ranks to include in package so that we can use 2010-2020 :white_check_mark: *(2012-2020 is close enough!)*
+-   Patch data inconsistency for IDs (2012:2015)
 -   Create join functions for each of the remaining ff_connect classes
 -   Create summary function (season-level H2H wins/winpct, AP wins/winpct, total PF + PP)
 -   Create simulation summary table

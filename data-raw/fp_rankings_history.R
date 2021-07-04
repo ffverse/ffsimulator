@@ -1,4 +1,4 @@
-library(ffpros) # https://fpscrapr.dynastyprocess.com
+library(ffpros) # https://ffpros.dynastyprocess.com
 library(tidyverse)
 library(ffscrapr)
 
@@ -27,17 +27,18 @@ fp_rankings_history <- crossing(pages,seasons) %>%
       str_squish(),
     season = seasons,
     fantasypros_id = as.character(fantasypros_id),
+    sportradar_id,
     player_name = dp_cleannames(player_name),
     pos = case_when(pos %in% c("CB","S") ~ "DB",
                     pos %in% c("OLB","LB") ~ "LB",
                     pos %in% c("DE","DT","NT") ~ "DL",
                     TRUE ~ pos),
+    team,
     rank,
     ecr,
     sd
   ) %>%
   filter(page_pos == pos)
-
 
 seasons2 <- 2012:2015
 pages2 <- c("qb-cheatsheets",
@@ -55,8 +56,10 @@ fp_rankings_history2 <- crossing(pages2,seasons2) %>%
       str_squish(),
     season = seasons2,
     fantasypros_id = as.character(fantasypros_id),
+    sportradar_id,
     player_name = dp_cleannames(player_name),
     pos,
+    team,
     rank,
     ecr,
     sd
@@ -65,4 +68,4 @@ fp_rankings_history2 <- crossing(pages2,seasons2) %>%
 
 fp_rankings_history <- bind_rows(fp_rankings_history2, fp_rankings_history)
 
-usethis::use_data(fp_rankings_history, overwrite = TRUE)
+# usethis::use_data(fp_rankings_history, overwrite = TRUE)
