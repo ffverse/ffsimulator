@@ -65,7 +65,7 @@ projected_score <- joined_data %>%
     projection = purrr::map(week_outcomes,
                             ~sample(.x, size = n_weeks, replace = TRUE)),
     injury_model = purrr::map(prob_gp,
-                              ~rbinom(n = n_weeks, size = 1, prob = .x)),
+                              ~stats::rbinom(n = n_weeks, size = 1, prob = .x)),
     n = purrr::map(n_weeks, seq_len),
     prob_gp = NULL,
     week_outcomes = NULL
@@ -127,7 +127,7 @@ optimal_scores <- optimal_scores %>%
   select(-data,-optimal_lineup) %>%
   group_by(n) %>%
   mutate(all_play_wins = rank(optimal_score)-1,
-         all_play_pct = all_play_wins/(n()-1)) %>%
+         all_play_pct = all_play_wins/(dplyr::n()-1)) %>%
   ungroup()
 
 tictoc::tic()
@@ -162,14 +162,14 @@ matchups <- schedules %>%
 season_summaries <- matchups %>%
   group_by(n) %>%
   mutate(all_play_wins = rank(team_score)-1,
-         all_play_pct = all_play_wins/(n()-1)) %>%
+         all_play_pct = all_play_wins/(dplyr::n()-1)) %>%
   ungroup() %>%
   group_by(season,franchise_name) %>%
   summarise(
     h2h_wins = sum(result == "W"),
-    h2h_winpct = h2h_wins / n(),
+    h2h_winpct = h2h_wins / dplyr::n(),
     all_play_wins = sum(all_play_wins),
-    all_play_pct = all_play_wins / (n() * 11)
+    all_play_pct = all_play_wins / (dplyr::n() * 11)
   ) %>%
   ungroup()
 

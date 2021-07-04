@@ -2,13 +2,18 @@
 % Please edit documentation in R/1_outcomes.R
 \name{ffs_adp_outcomes}
 \alias{ffs_adp_outcomes}
-\title{Connects ff_scoringhistory to past rankings}
+\title{Connects ff_scoringhistory to past ADP rankings}
 \usage{
 ffs_adp_outcomes(scoring_history, injury_model)
+}
+\arguments{
+\item{scoring_history}{a scoring history table as created by \code{ffscrapr::ff_scoringhistory()}}
+
+\item{injury_model}{either "simple" or "none" - simple uses the average games played for each position/adp combination, none assumes every game is played.}
 }
 \value{
 dataframe with position, rank, probability of games played, all week score outcomes
 }
 \description{
-Connects ff_scoringhistory to past rankings
+Connects ff_scoringhistory to past ADP rankings
 }

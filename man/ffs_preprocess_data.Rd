@@ -18,6 +18,15 @@ ffs_preprocess_data(conn, rosters, latest_rankings, adp_outcomes)
 
 \method{ffs_preprocess_data}{flea_conn}(conn, rosters, latest_rankings, adp_outcomes)
 }
+\arguments{
+\item{conn}{a ff_connect object created by \code{ffscrapr::ff_connect()} and friends}
+
+\item{rosters}{a dataframe as created by \code{ffscrapr::ff_rosters()}}
+
+\item{latest_rankings}{a dataframe as created by \code{ffs_latest_rankings()}}
+
+\item{adp_outcomes}{a dataframe as created by \code{ffs_adp_outcomes()}}
+}
 \description{
 Performs joins, cleaning, filtering.
 }

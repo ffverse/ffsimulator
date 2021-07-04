@@ -65,6 +65,7 @@ The dev version has a [separate documentation site here](https://ffsimulator.ffv
 -   Write tests
 -   Write basic usage vignette
 -   Write custom usage vignette
+-   Add autoplot
 -   Clean up README
 -   CRAN prep
 

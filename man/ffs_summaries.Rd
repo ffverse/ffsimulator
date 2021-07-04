@@ -21,6 +21,15 @@ ffs_summarize_season(summary_week)
 
 ffs_summarize_week(optimal_scores, schedules)
 }
+\arguments{
+\item{optimal_scores}{a dataframe of optimized lineups as created by \code{ffs_optimize_lineups()}}
+
+\item{schedules}{a dataframe of schedules as created by \code{ffs_build_schedules()}}
+
+\item{summary_week}{a dataframe as created by \code{ffs_summarise_week()}}
+
+\item{summary_season}{a dataframe as created by \code{ffs_summarise_season()}}
+}
 \description{
 These functions are used to summarise the simulation outputs (i.e. optimal_scores + schedules)
 }

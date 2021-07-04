@@ -3,6 +3,11 @@
 #'
 #' Performs joins, cleaning, filtering.
 #'
+#' @param conn a ff_connect object created by `ffscrapr::ff_connect()` and friends
+#' @param rosters a dataframe as created by `ffscrapr::ff_rosters()`
+#' @param latest_rankings a dataframe as created by `ffs_latest_rankings()`
+#' @param adp_outcomes a dataframe as created by `ffs_adp_outcomes()`
+#'
 #' @export
 #' @rdname ffs_preprocess_data
 ffs_preprocess_data <- function(conn, rosters, latest_rankings, adp_outcomes){

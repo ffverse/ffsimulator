@@ -2,9 +2,11 @@
 #' Summarise simulation outputs
 #'
 #' These functions are used to summarise the simulation outputs (i.e. optimal_scores + schedules)
+#' @param optimal_scores a dataframe of optimized lineups as created by `ffs_optimize_lineups()`
+#' @param schedules a dataframe of schedules as created by `ffs_build_schedules()`
 #'
-#'@rdname ffs_summaries
-#'@export
+#' @rdname ffs_summaries
+#' @export
 ffs_summarise_week <- function(optimal_scores, schedules){
   scores <- optimal_scores %>%
     dplyr::group_by(.data$n) %>%
@@ -60,6 +62,7 @@ ffs_summarise_week <- function(optimal_scores, schedules){
   return(matchups)
 }
 
+#'@param summary_week a dataframe as created by `ffs_summarise_week()`
 #'@rdname ffs_summaries
 #'@export
 ffs_summarise_season <- function(summary_week){
@@ -81,6 +84,7 @@ ffs_summarise_season <- function(summary_week){
   return(summary_season)
 }
 
+#'@param summary_season a dataframe as created by `ffs_summarise_season()`
 #'@rdname ffs_summaries
 #'@export
 ffs_summarise_simulation <- function(summary_season){
@@ -88,7 +92,7 @@ ffs_summarise_simulation <- function(summary_season){
   summary_simulation <- summary_season %>%
     dplyr::group_by(.data$franchise_id, .data$franchise_name) %>%
     dplyr::summarise(
-      seasons = n(),
+      seasons = dplyr::n(),
       dplyr::across(c("h2h_wins","h2h_winpct", "allplay_wins","allplay_winpct", "points_for","points_against","potential_points"), ~mean(.x, na.rm = TRUE) %>% round(3))
     ) %>%
     dplyr::ungroup() %>%

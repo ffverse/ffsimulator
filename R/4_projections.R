@@ -9,7 +9,7 @@ ffs_generate_predictions <- function(preprocessed_data, n_weeks){
                    ~ sample(.x, size = n_weeks, replace = TRUE)),
       injury_model =
         purrr::map(.data$prob_gp,
-                   ~ rbinom(n = n_weeks, size = 1, prob = .x)),
+                   ~ stats::rbinom(n = n_weeks, size = 1, prob = .x)),
       n = purrr::map(n_weeks, seq_len),
       prob_gp = NULL,
       week_outcomes = NULL

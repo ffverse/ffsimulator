@@ -20,7 +20,7 @@ scoring_history <- ff_scoringhistory(conn, 2006:2020)
 pos_rank <- scoring_history %>%
   group_by(season, gsis_id, mfl_id, player_name, pos, team) %>%
   summarise(
-    games = n(),
+    games = dplyr::n(),
     ppg = mean(points, na.rm = TRUE)
   ) %>%
   ungroup() %>%
@@ -93,7 +93,7 @@ redraft_rankings <- read.csv("data-raw/fp_redraft_20162020.csv")
 ppg_data <- scoring_history %>%
   group_by(season, gsis_id, mfl_id, player_name, pos, team) %>%
   summarise(
-    games = n(),
+    games = dplyr::n(),
     ppg = mean(points, na.rm = TRUE)
   ) %>%
   ungroup()
@@ -110,7 +110,7 @@ preseason_adp_outcomes <- redraft_rankings %>%
   group_by(pos, pos_rank) %>%
   summarise(
     all_outcomes = list(points),
-    n = n()
+    n = dplyr::n()
   ) %>%
   ungroup() %>%
   group_by(pos) %>%

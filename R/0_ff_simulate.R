@@ -5,9 +5,11 @@
 #' @param conn an connection to a league made with `ff_connect()` and friends (required)
 #' @param n_seasons number of seasons to simulate, default = 100
 #' @param weeks_per_season number of weeks per season, default = 14
-#' @param best_ball logical: are weekly wins based on optimal lineups?
+#' @param best_ball a logical: are weekly wins based on optimal lineups?
 #' @param seed an integer to control reproducibility
 #' @param injury_model select between "simple", "none"
+#' @param base_seasons a numeric vector that selects seasons as base data, earliest available is 2012
+#' @param parallel a logical - use parallel processing for optimizing lineups, default is FALSE
 #' @param verbose print progress messages for debugging
 #'
 #' @examples \dontrun{
@@ -61,13 +63,13 @@ ff_simulate <- function(conn,
   checkmate::assert_flag(best_ball)
   if(!is.null(seed)) set.seed(seed)
 
-  # checkmate::assert_flag(verbose)
-  if(!is.null(custom_rankings)) {
-    checkmate::assert_data_frame(custom_rankings)
-    ## ADD ASSERTIONS FOR CORRECT RANKINGS COLUMNS
-  }
-
-  if(!is.null(owner_efficiency)) checkmate::assert_list(owner_efficiency, names = c("average","sd"))
+  # # checkmate::assert_flag(verbose)
+  # if(!is.null(custom_rankings)) {
+  #   checkmate::assert_data_frame(custom_rankings)
+  #   ## ADD ASSERTIONS FOR CORRECT RANKINGS COLUMNS
+  # }
+  #
+  # if(!is.null(owner_efficiency)) checkmate::assert_list(owner_efficiency, names = c("average","sd"))
 
 
   #### DOWNLOAD SCORING HISTORY ####

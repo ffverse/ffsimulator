@@ -4,7 +4,7 @@
 #'
 #' @param n_teams number of teams in simulation, default = 14
 #' @param n_seasons number of seasons to simulate, default = 100
-#' @param weeks_per_season number of weeks per season, default = 17
+#' @param n_weeks number of weeks per season, default = 17
 #' @param seed an integer to control reproducibility
 #'
 #' @export
@@ -57,24 +57,24 @@ ffs_build_schedules <- function(n_teams = 14,
 
   all_teams <- seq_len(n_teams)
 
-  half_one <- head(all_teams, n_teams / 2)
-  half_two <- rev(tail(all_teams, n_teams / 2))
+  half_one <- utils::head(all_teams, n_teams / 2)
+  half_two <- rev(utils::tail(all_teams, n_teams / 2))
 
   schedule <- vector(mode = "list", length = n_teams-1)
 
   week_one <- c(half_one,half_two) %>%
-    setNames(c(half_two,half_one))
+    stats::setNames((c(half_two,half_one)))
 
   schedule[[1]] <- week_one
 
   for(i in 2:(n_teams-1)){
 
-    half_one <- c(1L, head(half_two,1), tail(half_one,-1))
-    half_two <- c(tail(half_two,-1), tail(half_one,1))
-    half_one <- head(half_one,-1)
+    half_one <- c(1L, utils::head(half_two,1), utils::tail(half_one,-1))
+    half_two <- c(utils::tail(half_two,-1), utils::tail(half_one,1))
+    half_one <- utils::head(half_one,-1)
 
     schedule[[i]] <- c(half_one,half_two) %>%
-      setNames(c(half_two,half_one))
+      stats::setNames((c(half_two,half_one)))
   }
 
   df_schedule <- schedule %>%
@@ -108,15 +108,15 @@ ffs_build_schedules <- function(n_teams = 14,
   if(schedule_max < n_weeks) {
 
     x <- df_schedule %>%
-      dplyr::filter(week <= (n_weeks-schedule_max)) %>%
-      dplyr::mutate(week = week + schedule_max)
+      dplyr::filter(.data$week <= (n_weeks-schedule_max)) %>%
+      dplyr::mutate(week = .data$week + schedule_max)
 
     df_schedule <- dplyr::bind_rows(df_schedule, x)
   }
 
   if(schedule_max > n_weeks){
     df_schedule <- df_schedule %>%
-      dplyr::filter(week <= n_weeks)
+      dplyr::filter(.data$week <= n_weeks)
   }
 
   return(df_schedule)

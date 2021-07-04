@@ -11,9 +11,9 @@ ffs_build_schedules(n_teams = 14, n_seasons = 100, n_weeks = 13, seed = NULL)
 
 \item{n_seasons}{number of seasons to simulate, default = 100}
 
-\item{seed}{an integer to control reproducibility}
+\item{n_weeks}{number of weeks per season, default = 17}
 
-\item{weeks_per_season}{number of weeks per season, default = 17}
+\item{seed}{an integer to control reproducibility}
 }
 \description{
 The main function of the package

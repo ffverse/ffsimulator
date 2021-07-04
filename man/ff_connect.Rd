@@ -2,11 +2,43 @@
 % Please edit documentation in R/utils-ffscrapr.R
 \name{ff_connect}
 \alias{ff_connect}
+\alias{mfl_connect}
+\alias{sleeper_connect}
+\alias{fleaflicker_connect}
+\alias{espn_connect}
 \title{Connect to a league}
 \description{
 See \code{ffscrapr::ff_connect} for details.
+
+See \code{ffscrapr::ff_connect} for details.
+
+See \code{ffscrapr::ff_connect} for details.
+
+See \code{ffscrapr::ff_connect} for details.
+
+See \code{ffscrapr::ff_connect} for details.
 }
 \seealso{
+Other ffscrapr-imports: 
+\code{\link{ff_rosters}()},
+\code{\link{ff_scoringhistory}()},
+\code{\link{ff_starter_positions}()}
+
+Other ffscrapr-imports: 
+\code{\link{ff_rosters}()},
+\code{\link{ff_scoringhistory}()},
+\code{\link{ff_starter_positions}()}
+
+Other ffscrapr-imports: 
+\code{\link{ff_rosters}()},
+\code{\link{ff_scoringhistory}()},
+\code{\link{ff_starter_positions}()}
+
+Other ffscrapr-imports: 
+\code{\link{ff_rosters}()},
+\code{\link{ff_scoringhistory}()},
+\code{\link{ff_starter_positions}()}
+
 Other ffscrapr-imports: 
 \code{\link{ff_rosters}()},
 \code{\link{ff_scoringhistory}()},
