@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Connects ff_scoringhistory to past rankings — ffs_adp_outcomes • ffsimulator</title>
+<title>Connects ff_scoringhistory to past ADP rankings — ffs_adp_outcomes • ffsimulator</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -48,8 +48,8 @@
   <link href="../extra.css" rel="stylesheet">
   
 
-<meta property="og:title" content="Connects ff_scoringhistory to past rankings — ffs_adp_outcomes" />
-<meta property="og:description" content="Connects ff_scoringhistory to past rankings" />
+<meta property="og:title" content="Connects ff_scoringhistory to past ADP rankings — ffs_adp_outcomes" />
+<meta property="og:description" content="Connects ff_scoringhistory to past ADP rankings" />
 <meta property="og:image" content="ffsimulator.ffverse.com/reference/figures/logo.png" />
 <meta property="og:image:alt" content="ffsimulator - An R Package For Simulating Fantasy Football Seasons" />
 <meta name="twitter:card" content="summary" />
@@ -176,17 +176,29 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Connects ff_scoringhistory to past rankings</h1>
+    <h1>Connects ff_scoringhistory to past ADP rankings</h1>
     <small class="dont-index">Source: <a href='https://github.com/tanho63/ffsimulator/blob/master/R/1_outcomes.R'><code>R/1_outcomes.R</code></a></small>
     <div class="hidden name"><code>ffs_adp_outcomes.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Connects ff_scoringhistory to past rankings</p>
+    <p>Connects ff_scoringhistory to past ADP rankings</p>
     </div>
 
     <pre class="usage"><span class='fu'>ffs_adp_outcomes</span><span class='op'>(</span><span class='va'>scoring_history</span>, <span class='va'>injury_model</span><span class='op'>)</span></pre>
 
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>scoring_history</th>
+      <td><p>a scoring history table as created by <code><a href='ffscrapr.dynastyprocess.com/reference/ff_scoringhistory.html'>ffscrapr::ff_scoringhistory()</a></code></p></td>
+    </tr>
+    <tr>
+      <th>injury_model</th>
+      <td><p>either "simple" or "none" - simple uses the average games played for each position/adp combination, none assumes every game is played.</p></td>
+    </tr>
+    </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 

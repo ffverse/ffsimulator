@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Generate fantasy schedules — ffs_build_schedules • ffsimulator</title>
+<title>Historical position ranks — fp_rankings_history • ffsimulator</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -48,8 +48,8 @@
   <link href="../extra.css" rel="stylesheet">
   
 
-<meta property="og:title" content="Generate fantasy schedules — ffs_build_schedules" />
-<meta property="og:description" content="The main function of the package" />
+<meta property="og:title" content="Historical position ranks — fp_rankings_history" />
+<meta property="og:description" content="This dataframe has historical positional rankings for 2012:2020 QB/RB/WR/TE and 2015-2020 DL/LB/DB." />
 <meta property="og:image" content="ffsimulator.ffverse.com/reference/figures/logo.png" />
 <meta property="og:image:alt" content="ffsimulator - An R Package For Simulating Fantasy Football Seasons" />
 <meta name="twitter:card" content="summary" />
@@ -176,38 +176,21 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Generate fantasy schedules</h1>
-    <small class="dont-index">Source: <a href='https://github.com/tanho63/ffsimulator/blob/master/R/6_schedule.R'><code>R/6_schedule.R</code></a></small>
-    <div class="hidden name"><code>ffs_build_schedules.Rd</code></div>
+    <h1>Historical position ranks</h1>
+    <small class="dont-index">Source: <a href='https://github.com/tanho63/ffsimulator/blob/master/R/1_outcomes.R'><code>R/1_outcomes.R</code></a></small>
+    <div class="hidden name"><code>fp_rankings_history.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>The main function of the package</p>
+    <p>This dataframe has historical positional rankings for 2012:2020 QB/RB/WR/TE and 2015-2020 DL/LB/DB.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>ffs_build_schedules</span><span class='op'>(</span>n_teams <span class='op'>=</span> <span class='fl'>14</span>, n_seasons <span class='op'>=</span> <span class='fl'>100</span>, n_weeks <span class='op'>=</span> <span class='fl'>13</span>, seed <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='va'>fp_rankings_history</span></pre>
 
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>n_teams</th>
-      <td><p>number of teams in simulation, default = 14</p></td>
-    </tr>
-    <tr>
-      <th>n_seasons</th>
-      <td><p>number of seasons to simulate, default = 100</p></td>
-    </tr>
-    <tr>
-      <th>n_weeks</th>
-      <td><p>number of weeks per season, default = 17</p></td>
-    </tr>
-    <tr>
-      <th>seed</th>
-      <td><p>an integer to control reproducibility</p></td>
-    </tr>
-    </table>
 
+    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
+
+    <p>An object of class <code>tbl_df</code> (inherits from <code>tbl</code>, <code>data.frame</code>) with 7211 rows and 9 columns.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
