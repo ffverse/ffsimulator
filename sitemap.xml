@@ -4,34 +4,7 @@
     <loc>ffsimulator.ffverse.com/index.html</loc>
   </url>
   <url>
-    <loc>ffsimulator.ffverse.com/reference/dot-ff_adp_outcomes.html</loc>
-  </url>
-  <url>
     <loc>ffsimulator.ffverse.com/reference/dot-ff_apply_injury_model.html</loc>
-  </url>
-  <url>
-    <loc>ffsimulator.ffverse.com/reference/dot-ff_build_schedules.html</loc>
-  </url>
-  <url>
-    <loc>ffsimulator.ffverse.com/reference/dot-ff_join_data.html</loc>
-  </url>
-  <url>
-    <loc>ffsimulator.ffverse.com/reference/dot-ff_join_data.espn_conn.html</loc>
-  </url>
-  <url>
-    <loc>ffsimulator.ffverse.com/reference/dot-ff_join_data.flea_conn.html</loc>
-  </url>
-  <url>
-    <loc>ffsimulator.ffverse.com/reference/dot-ff_join_data.mfl_conn.html</loc>
-  </url>
-  <url>
-    <loc>ffsimulator.ffverse.com/reference/dot-ff_join_data.sleeper_conn.html</loc>
-  </url>
-  <url>
-    <loc>ffsimulator.ffverse.com/reference/dot-ff_latest_rankings.html</loc>
-  </url>
-  <url>
-    <loc>ffsimulator.ffverse.com/reference/dot-ff_optimize_lineups.html</loc>
   </url>
   <url>
     <loc>ffsimulator.ffverse.com/reference/dot-ff_optimize_one_lineup.html</loc>
@@ -50,6 +23,24 @@
   </url>
   <url>
     <loc>ffsimulator.ffverse.com/reference/ff_starter_positions.html</loc>
+  </url>
+  <url>
+    <loc>ffsimulator.ffverse.com/reference/ffs_adp_outcomes.html</loc>
+  </url>
+  <url>
+    <loc>ffsimulator.ffverse.com/reference/ffs_build_schedules.html</loc>
+  </url>
+  <url>
+    <loc>ffsimulator.ffverse.com/reference/ffs_latest_rankings.html</loc>
+  </url>
+  <url>
+    <loc>ffsimulator.ffverse.com/reference/ffs_optimize_lineups.html</loc>
+  </url>
+  <url>
+    <loc>ffsimulator.ffverse.com/reference/ffs_preprocess_data.html</loc>
+  </url>
+  <url>
+    <loc>ffsimulator.ffverse.com/reference/ffs_summaries.html</loc>
   </url>
   <url>
     <loc>ffsimulator.ffverse.com/reference/ffsimulator-package.html</loc>

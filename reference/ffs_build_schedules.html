@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Connect to a league — ff_connect • ffsimulator</title>
+<title>Generate fantasy schedules — ffs_build_schedules • ffsimulator</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -48,8 +48,8 @@
   <link href="../extra.css" rel="stylesheet">
   
 
-<meta property="og:title" content="Connect to a league — ff_connect" />
-<meta property="og:description" content="See ffscrapr::ff_connect for details." />
+<meta property="og:title" content="Generate fantasy schedules — ffs_build_schedules" />
+<meta property="og:description" content="The main function of the package" />
 <meta property="og:image" content="ffsimulator.ffverse.com/reference/figures/logo.png" />
 <meta property="og:image:alt" content="ffsimulator - An R Package For Simulating Fantasy Football Seasons" />
 <meta name="twitter:card" content="summary" />
@@ -176,23 +176,38 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Connect to a league</h1>
-    <small class="dont-index">Source: <a href='https://github.com/tanho63/ffsimulator/blob/master/R/utils-ffscrapr.R'><code>R/utils-ffscrapr.R</code></a></small>
-    <div class="hidden name"><code>ff_connect.Rd</code></div>
+    <h1>Generate fantasy schedules</h1>
+    <small class="dont-index">Source: <a href='https://github.com/tanho63/ffsimulator/blob/master/R/6_schedule.R'><code>R/6_schedule.R</code></a></small>
+    <div class="hidden name"><code>ffs_build_schedules.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>See <code><a href='ffscrapr.dynastyprocess.com/reference/ff_connect.html'>ffscrapr::ff_connect</a></code> for details.</p>
+    <p>The main function of the package</p>
     </div>
 
+    <pre class="usage"><span class='fu'>ffs_build_schedules</span><span class='op'>(</span>n_teams <span class='op'>=</span> <span class='fl'>14</span>, n_seasons <span class='op'>=</span> <span class='fl'>100</span>, n_weeks <span class='op'>=</span> <span class='fl'>13</span>, seed <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
 
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>n_teams</th>
+      <td><p>number of teams in simulation, default = 14</p></td>
+    </tr>
+    <tr>
+      <th>n_seasons</th>
+      <td><p>number of seasons to simulate, default = 100</p></td>
+    </tr>
+    <tr>
+      <th>seed</th>
+      <td><p>an integer to control reproducibility</p></td>
+    </tr>
+    <tr>
+      <th>weeks_per_season</th>
+      <td><p>number of weeks per season, default = 17</p></td>
+    </tr>
+    </table>
 
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <div class='dont-index'><p>Other ffscrapr-imports: 
-<code><a href='ff_rosters.html'>ff_rosters</a>()</code>,
-<code><a href='ff_scoringhistory.html'>ff_scoringhistory</a>()</code>,
-<code><a href='ff_starter_positions.html'>ff_starter_positions</a>()</code></p></div>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

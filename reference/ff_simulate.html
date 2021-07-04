@@ -86,7 +86,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ffsimulator</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.01</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.02</span>
       </span>
     </div>
 
@@ -137,7 +137,9 @@
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
-    <li class="dropdown-header">ffverse</li>
+    <li>
+      <a href="https://www.ffverse.com">ffverse</a>
+    </li>
     <li>
       <a href="https://ffscrapr.dynastyprocess.com">ffscrapr package</a>
     </li>
@@ -189,10 +191,10 @@
   weeks_per_season <span class='op'>=</span> <span class='fl'>14</span>,
   best_ball <span class='op'>=</span> <span class='cn'>FALSE</span>,
   seed <span class='op'>=</span> <span class='cn'>NULL</span>,
-  custom_rankings <span class='op'>=</span> <span class='cn'>NULL</span>,
   injury_model <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"simple"</span>, <span class='st'>"none"</span><span class='op'>)</span>,
-  owner_efficiency <span class='op'>=</span> <span class='cn'>NULL</span>,
-  base_seasons <span class='op'>=</span> <span class='fl'>2016</span><span class='op'>:</span><span class='fl'>2020</span>
+  base_seasons <span class='op'>=</span> <span class='fl'>2012</span><span class='op'>:</span><span class='fl'>2020</span>,
+  parallel <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  verbose <span class='op'>=</span> <span class='cn'>TRUE</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -208,27 +210,19 @@
     </tr>
     <tr>
       <th>weeks_per_season</th>
-      <td><p>number of weeks per season, default = 17</p></td>
+      <td><p>number of weeks per season, default = 14</p></td>
     </tr>
     <tr>
       <th>best_ball</th>
-      <td><p>Are weekly wins based on optimal score?</p></td>
+      <td><p>logical: are weekly wins based on optimal lineups?</p></td>
     </tr>
     <tr>
       <th>seed</th>
       <td><p>an integer to control reproducibility</p></td>
     </tr>
     <tr>
-      <th>custom_rankings</th>
-      <td><p>a dataframe with x specification to pass in as latest fantasy rankings</p></td>
-    </tr>
-    <tr>
       <th>injury_model</th>
-      <td><p>select between "bimodal", "none" - later we'll have separate</p></td>
-    </tr>
-    <tr>
-      <th>owner_efficiency</th>
-      <td><p>pass in a named list with average and sd</p></td>
+      <td><p>select between "simple", "none"</p></td>
     </tr>
     <tr>
       <th>verbose</th>
@@ -246,7 +240,7 @@
 
 <span class='va'>reprex</span> <span class='op'>&lt;-</span> <span class='fu'>ff_simulate</span><span class='op'>(</span>conn <span class='op'>=</span> <span class='va'>conn</span>, seed <span class='op'>=</span> <span class='fl'>613</span><span class='op'>)</span>
 
-<span class='va'>basic</span> <span class='op'>&lt;-</span> <span class='fu'>ff_simulate</span><span class='op'>(</span>conn <span class='op'>=</span> <span class='va'>conn</span>, n_seasons <span class='op'>=</span> <span class='fl'>100</span>, weeks_per_season <span class='op'>=</span> <span class='fl'>17</span>, best_ball <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+<span class='va'>basic</span> <span class='op'>&lt;-</span> <span class='fu'>ff_simulate</span><span class='op'>(</span>conn <span class='op'>=</span> <span class='va'>conn</span>, n_seasons <span class='op'>=</span> <span class='fl'>100</span>, weeks_per_season <span class='op'>=</span> <span class='fl'>14</span>, best_ball <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 
 <span class='va'>custom</span> <span class='op'>&lt;-</span> <span class='fu'>ff_simulate</span><span class='op'>(</span>
   conn <span class='op'>=</span> <span class='va'>conn</span>,

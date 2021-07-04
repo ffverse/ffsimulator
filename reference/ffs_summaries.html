@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Connect to a league — ff_connect • ffsimulator</title>
+<title>Summarise simulation outputs — ffs_summarise_week • ffsimulator</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -48,8 +48,8 @@
   <link href="../extra.css" rel="stylesheet">
   
 
-<meta property="og:title" content="Connect to a league — ff_connect" />
-<meta property="og:description" content="See ffscrapr::ff_connect for details." />
+<meta property="og:title" content="Summarise simulation outputs — ffs_summarise_week" />
+<meta property="og:description" content="These functions are used to summarise the simulation outputs (i.e. optimal_scores + schedules)" />
 <meta property="og:image" content="ffsimulator.ffverse.com/reference/figures/logo.png" />
 <meta property="og:image:alt" content="ffsimulator - An R Package For Simulating Fantasy Football Seasons" />
 <meta name="twitter:card" content="summary" />
@@ -176,23 +176,28 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Connect to a league</h1>
-    <small class="dont-index">Source: <a href='https://github.com/tanho63/ffsimulator/blob/master/R/utils-ffscrapr.R'><code>R/utils-ffscrapr.R</code></a></small>
-    <div class="hidden name"><code>ff_connect.Rd</code></div>
+    <h1>Summarise simulation outputs</h1>
+    <small class="dont-index">Source: <a href='https://github.com/tanho63/ffsimulator/blob/master/R/7_summaries.R'><code>R/7_summaries.R</code></a></small>
+    <div class="hidden name"><code>ffs_summaries.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>See <code><a href='ffscrapr.dynastyprocess.com/reference/ff_connect.html'>ffscrapr::ff_connect</a></code> for details.</p>
+    <p>These functions are used to summarise the simulation outputs (i.e. optimal_scores + schedules)</p>
     </div>
 
+    <pre class="usage"><span class='fu'>ffs_summarise_week</span><span class='op'>(</span><span class='va'>optimal_scores</span>, <span class='va'>schedules</span><span class='op'>)</span>
+
+<span class='fu'>ffs_summarise_season</span><span class='op'>(</span><span class='va'>summary_week</span><span class='op'>)</span>
+
+<span class='fu'>ffs_summarise_simulation</span><span class='op'>(</span><span class='va'>summary_season</span><span class='op'>)</span>
+
+<span class='fu'>ffs_summarize_simulation</span><span class='op'>(</span><span class='va'>summary_season</span><span class='op'>)</span>
+
+<span class='fu'>ffs_summarize_season</span><span class='op'>(</span><span class='va'>summary_week</span><span class='op'>)</span>
+
+<span class='fu'>ffs_summarize_week</span><span class='op'>(</span><span class='va'>optimal_scores</span>, <span class='va'>schedules</span><span class='op'>)</span></pre>
 
 
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <div class='dont-index'><p>Other ffscrapr-imports: 
-<code><a href='ff_rosters.html'>ff_rosters</a>()</code>,
-<code><a href='ff_scoringhistory.html'>ff_scoringhistory</a>()</code>,
-<code><a href='ff_starter_positions.html'>ff_starter_positions</a>()</code></p></div>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
