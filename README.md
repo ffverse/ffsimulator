@@ -49,7 +49,7 @@ r-universe](https://dynastyprocess.r-universe.dev) or remotes + GitHub:
 install.packages("ffsimulator", repos = "https://dynastyprocess.r-universe.dev")
 
 # or via GitHub c/o remotes/devtools: # install.packages('remotes')
-remotes::install_github("dynastyprocess/ffsimulator")
+remotes::install_github("ffverse/ffsimulator")
 ```
 
 The dev version has a [separate documentation site

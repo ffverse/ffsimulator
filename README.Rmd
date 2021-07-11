@@ -48,7 +48,7 @@ Install the development version with either [DynastyProcess's r-universe](https:
 install.packages("ffsimulator", repos = "https://dynastyprocess.r-universe.dev")
 
 # or via GitHub c/o remotes/devtools: # install.packages('remotes')
-remotes::install_github("dynastyprocess/ffsimulator")
+remotes::install_github("ffverse/ffsimulator")
 ```
 
 The dev version has a [separate documentation site here](https://ffsimulator.ffverse.com/dev/).

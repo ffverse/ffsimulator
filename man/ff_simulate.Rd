@@ -41,7 +41,7 @@ The main function of the package
 \examples{
 \dontrun{
 
-conn <- mfl_connect(2021, 54040)
+conn <- mfl_connect(2021, 22627)
 
 auto <- ff_simulate(conn)
 

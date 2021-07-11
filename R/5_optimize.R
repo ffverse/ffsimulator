@@ -18,11 +18,11 @@ ffs_optimize_lineups <- function(projected_scores,
 
   if(!parallel) map <- purrr::map
 
-  if(parallel && requireNamespace("furrr")) {
+  if(parallel && suppressMessages(requireNamespace("furrr"))) {
     map <- furrr::future_map
 
     if(inherits(future::plan(), "sequential")) {
-      message("Parallel processing was specified but no future::pladplyr::n() was found. Continuing sequentially.")
+      message("Parallel processing was specified but no future::plan() was found. Continuing sequentially.")
     }
   }
 
