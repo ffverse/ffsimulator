@@ -44,8 +44,7 @@ ff_simulate <- function(conn,
                         seed = NULL,
                         injury_model = c("simple", "none"),
                         base_seasons = 2012:2020,
-                        parallel = FALSE,
-                        verbose = TRUE
+                        parallel = FALSE
                         ){
 
   #### ASSERTIONS ####
@@ -71,6 +70,9 @@ ff_simulate <- function(conn,
   #
   # if(!is.null(owner_efficiency)) checkmate::assert_list(owner_efficiency, names = c("average","sd"))
 
+  #### LEAGUE INFO ####
+
+  league_info <- ffscrapr::ff_league(conn)
 
   #### DOWNLOAD SCORING HISTORY ####
 
@@ -122,13 +124,27 @@ ff_simulate <- function(conn,
 
   #### BUILD AND RETURN ####
 
-  out <- list(
-    summary_simulation = summary_simulation,
-    summary_season = summary_season,
-    summary_week = summary_week,
-    latest_rankings = latest_rankings,
-    raw_data = preprocessed_data
-  )
+  out <-
+    structure(
+      list(
+        summary_simulation = summary_simulation,
+        summary_season = summary_season,
+        summary_week = summary_week,
+        projected_scores = projected_scores,
+        latest_rankings = latest_rankings,
+        raw_data = preprocessed_data,
+        league_info = league_info,
+        simulation_params = list(
+          n_seasons = n_seasons,
+          weeks_per_season = weeks_per_season,
+          best_ball = best_ball,
+          seed = seed,
+          injury_model = injury_model,
+          base_seasons = 2012:2020
+        )
+      ),
+      class = "ff_simulation"
+    )
 
   return(out)
 }

@@ -12,8 +12,7 @@ ff_simulate(
   seed = NULL,
   injury_model = c("simple", "none"),
   base_seasons = 2012:2020,
-  parallel = FALSE,
-  verbose = TRUE
+  parallel = FALSE
 )
 }
 \arguments{
