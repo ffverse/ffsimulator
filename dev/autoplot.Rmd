@@ -1,0 +1,26 @@
+---
+title: "R Notebook"
+output: github_document
+---
+
+```{r}
+library(ffsimulator)
+library(ggplot2)
+conn <- mfl_connect(2021,22627)
+
+sims <- ff_simulate(conn)
+
+autoplot(sims)
+```
+
+
+```{r}
+autoplot(sims,"rank")
+```
+
+
+```{r}
+autoplot(sims,"points")
+
+```
+

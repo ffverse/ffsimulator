@@ -50,7 +50,7 @@ autoplot.ff_simulation <- function(
       alpha = 0.8
     ) +
     ggplot2::scale_x_continuous(
-      breaks = seq.int(0, max(sims$summary_season$h2h_wins) + 1, by = 2)) +
+      breaks = seq.int(0, max(object$summary_season$h2h_wins) + 1, by = 2)) +
     ggplot2::xlab("Season Wins") +
     ggplot2::ylab(NULL) +
     ggplot2::theme_minimal()+
@@ -76,10 +76,10 @@ autoplot.ff_simulation <- function(
     dplyr::mutate(season_rank = rank(-.data$h2h_wins, ties.method = "min")) %>%
     dplyr::ungroup() %>%
     dplyr::mutate(
-      franchise_name = fct_reorder(.f = .data$franchise_name, .x = .data$season_rank),
+      franchise_name = forcats::fct_reorder(.f = .data$franchise_name, .x = .data$season_rank),
       rank_label = scales::ordinal(.data$season_rank) %>% forcats::fct_reorder(.data$season_rank),
     ) %>%
-    ggplot2::ggplot(aes(x = .data$franchise_name, color = .data$franchise_name, fill = .data$franchise_name)) +
+    ggplot2::ggplot(ggplot2::aes(x = .data$franchise_name, color = .data$franchise_name, fill = .data$franchise_name)) +
     ggplot2::geom_bar() +
     ggplot2::facet_wrap(~.data$rank_label) +
     ggplot2::xlab(NULL) +
