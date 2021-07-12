@@ -2,7 +2,7 @@
 ffs_generate_predictions <- function(preprocessed_data, n_weeks){
 
   projected_score <- preprocessed_data %>%
-    dplyr::filter(!is.na(.data$ecr)) %>%
+    dplyr::filter(!is.na(.data$ecr), !is.na(.data$prob_gp)) %>%
     dplyr::mutate(
       projection =
         purrr::map(.data$week_outcomes,
