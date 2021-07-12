@@ -31,11 +31,9 @@ ff_simulate(
 \item{base_seasons}{a numeric vector that selects seasons as base data, earliest available is 2012}
 
 \item{parallel}{a logical - use parallel processing for optimizing lineups, default is FALSE}
-
-\item{verbose}{print progress messages for debugging}
 }
 \description{
-The main function of the package
+The main function of the package.
 }
 \examples{
 \dontrun{
