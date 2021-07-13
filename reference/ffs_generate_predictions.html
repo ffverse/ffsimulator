@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Summarise simulation outputs — ffs_summarise_week • ffsimulator</title>
+<title>Generate Predictions — ffs_generate_predictions • ffsimulator</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -48,8 +48,8 @@
   <link href="../extra.css" rel="stylesheet">
   
 
-<meta property="og:title" content="Summarise simulation outputs — ffs_summarise_week" />
-<meta property="og:description" content="These functions are used to summarise the simulation outputs (i.e. optimal_scores + schedules)" />
+<meta property="og:title" content="Generate Predictions — ffs_generate_predictions" />
+<meta property="og:description" content="Run the bootstrapped resampling of player week outcomes on preprocessed dataframes for a given number of seasons and weeks per season." />
 <meta property="og:image" content="ffsimulator.ffverse.com/reference/figures/logo.png" />
 <meta property="og:image:alt" content="ffsimulator - An R Package For Simulating Fantasy Football Seasons" />
 <meta name="twitter:card" content="summary" />
@@ -176,48 +176,42 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Summarise simulation outputs</h1>
-    <small class="dont-index">Source: <a href='https://github.com/tanho63/ffsimulator/blob/master/R/7_summaries.R'><code>R/7_summaries.R</code></a></small>
-    <div class="hidden name"><code>ffs_summaries.Rd</code></div>
+    <h1>Generate Predictions</h1>
+    <small class="dont-index">Source: <a href='https://github.com/tanho63/ffsimulator/blob/master/R/4_projections.R'><code>R/4_projections.R</code></a></small>
+    <div class="hidden name"><code>ffs_generate_predictions.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>These functions are used to summarise the simulation outputs (i.e. optimal_scores + schedules)</p>
+    <p>Run the bootstrapped resampling of player week outcomes on preprocessed dataframes for a given number of seasons and weeks per season.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>ffs_summarise_week</span><span class='op'>(</span><span class='va'>optimal_scores</span>, <span class='va'>schedules</span><span class='op'>)</span>
-
-<span class='fu'>ffs_summarise_season</span><span class='op'>(</span><span class='va'>summary_week</span><span class='op'>)</span>
-
-<span class='fu'>ffs_summarise_simulation</span><span class='op'>(</span><span class='va'>summary_season</span><span class='op'>)</span>
-
-<span class='fu'>ffs_summarize_simulation</span><span class='op'>(</span><span class='va'>summary_season</span><span class='op'>)</span>
-
-<span class='fu'>ffs_summarize_season</span><span class='op'>(</span><span class='va'>summary_week</span><span class='op'>)</span>
-
-<span class='fu'>ffs_summarize_week</span><span class='op'>(</span><span class='va'>optimal_scores</span>, <span class='va'>schedules</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>ffs_generate_predictions</span><span class='op'>(</span><span class='va'>preprocessed_data</span>, <span class='va'>n_seasons</span>, <span class='va'>n_weeks</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>optimal_scores</th>
-      <td><p>a dataframe of optimized lineups as created by <code><a href='ffs_optimize_lineups.html'>ffs_optimize_lineups()</a></code></p></td>
+      <th>preprocessed_data</th>
+      <td><p>a dataframe as created by <code>ffs_preprocess_data</code></p></td>
     </tr>
     <tr>
-      <th>schedules</th>
-      <td><p>a dataframe of schedules as created by <code><a href='ffs_build_schedules.html'>ffs_build_schedules()</a></code></p></td>
+      <th>n_seasons</th>
+      <td><p>number of seasons</p></td>
     </tr>
     <tr>
-      <th>summary_week</th>
-      <td><p>a dataframe as created by <code>ffs_summarise_week()</code></p></td>
-    </tr>
-    <tr>
-      <th>summary_season</th>
-      <td><p>a dataframe as created by <code>ffs_summarise_season()</code></p></td>
+      <th>n_weeks</th>
+      <td><p>weeks per season</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    
+
+
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>Dataframe should contain ecr, prob_gp, week_outcomes, injury_model, franchise_id, pos, and bye</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
