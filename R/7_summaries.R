@@ -8,8 +8,9 @@
 #' @rdname ffs_summaries
 #' @export
 ffs_summarise_week <- function(optimal_scores, schedules){
+
   scores <- optimal_scores %>%
-    dplyr::group_by(.data$n) %>%
+    dplyr::group_by(.data$season, .data$week) %>%
     dplyr::mutate(
       allplay_wins = rank(.data$actual_score)-1,
       allplay_games = dplyr::n()-1,
@@ -19,18 +20,15 @@ ffs_summarise_week <- function(optimal_scores, schedules){
     dplyr::ungroup()
 
   matchups <- schedules %>%
-    dplyr::group_by(.data$team) %>%
-    dplyr::mutate(n = dplyr::row_number()) %>%
-    dplyr::ungroup() %>%
     dplyr::left_join(scores %>%
                        dplyr::rename("team_score" = "actual_score"),
-                     by = c("team"="schedule_id", "n")) %>%
+                     by = c("team"="schedule_id", "season", "week")) %>%
     dplyr::left_join(scores %>%
                        dplyr::select("opponent_score" = "actual_score",
                                      "schedule_id",
                                      "opponent_name" = "franchise_name",
-                                     "n"),
-                     by = c("opponent"="schedule_id","n")
+                                     "season","week"),
+                     by = c("opponent"="schedule_id","season", "week")
     ) %>%
     dplyr::mutate(
       result = dplyr::case_when(
@@ -42,7 +40,6 @@ ffs_summarise_week <- function(optimal_scores, schedules){
     ) %>%
     dplyr::mutate_if(is.numeric,round,3) %>%
     dplyr::select(
-      "n",
       "season",
       "season_week"="week",
       "franchise_name",

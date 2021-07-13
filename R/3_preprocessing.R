@@ -28,7 +28,7 @@ ffs_preprocess_data.mfl_conn <- function(conn, rosters, latest_rankings, adp_out
     ) %>%
     dplyr::left_join(
       latest_rankings %>%
-        dplyr::select("fantasypros_id", "ecr"),
+        dplyr::select("fantasypros_id", "ecr", "bye"),
       by = c("fantasypros_id"),
       na_matches = "never"
     ) %>%
@@ -52,6 +52,7 @@ ffs_preprocess_data.mfl_conn <- function(conn, rosters, latest_rankings, adp_out
         "player_name",
         "pos",
         "team",
+        "bye",
         "age",
         "ecr",
         "rank",
@@ -76,7 +77,7 @@ ffs_preprocess_data.sleeper_conn <- function(conn, rosters, latest_rankings, adp
     ) %>%
     dplyr::left_join(
       latest_rankings %>%
-        dplyr::select("fantasypros_id", "ecr"),
+        dplyr::select("fantasypros_id", "ecr","bye"),
       by = c("fantasypros_id"),
       na_matches = "never"
     ) %>%
@@ -101,6 +102,7 @@ ffs_preprocess_data.sleeper_conn <- function(conn, rosters, latest_rankings, adp
         "pos",
         "team",
         "age",
+        "bye",
         "ecr",
         "rank",
         "prob_gp",
@@ -118,7 +120,7 @@ ffs_preprocess_data.espn_conn <- function(conn, rosters, latest_rankings, adp_ou
     dplyr::mutate(player_id = as.character(.data$player_id)) %>%
     dplyr::left_join(
       ffscrapr::dp_playerids() %>%
-        dplyr::select("espn_id","fantasypros_id"),
+        dplyr::select("espn_id","fantasypros_id","bye"),
       by = c("player_id"="espn_id"),
       na_matches = "never"
     ) %>%
@@ -148,6 +150,7 @@ ffs_preprocess_data.espn_conn <- function(conn, rosters, latest_rankings, adp_ou
         "player_name",
         "pos",
         "team",
+        "bye",
         "ecr",
         "rank",
         "prob_gp",
@@ -171,7 +174,7 @@ ffs_preprocess_data.flea_conn <- function(conn, rosters, latest_rankings, adp_ou
     ) %>%
     dplyr::left_join(
       latest_rankings %>%
-        dplyr::select("fantasypros_id", "ecr"),
+        dplyr::select("fantasypros_id", "ecr","bye"),
       by = c("fantasypros_id"),
       na_matches = "never"
     ) %>%
@@ -195,6 +198,7 @@ ffs_preprocess_data.flea_conn <- function(conn, rosters, latest_rankings, adp_ou
         "player_name",
         "pos",
         "team",
+        "bye",
         "ecr",
         "rank",
         "prob_gp",

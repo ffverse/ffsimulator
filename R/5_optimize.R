@@ -31,7 +31,7 @@ ffs_optimize_lineups <- function(projected_scores,
       lineup_constraints %>% dplyr::select("pos", "max"),
       by = "pos") %>%
     dplyr::filter(.data$pos_rank <= .data$max, pos %in% c("QB","RB","WR","TE")) %>%
-    dplyr::group_by(.data$franchise_id, .data$franchise_name, .data$n) %>%
+    dplyr::group_by(.data$franchise_id, .data$franchise_name, .data$season, .data$week) %>%
     tidyr::nest() %>%
     dplyr::ungroup()
 

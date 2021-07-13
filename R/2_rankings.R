@@ -32,6 +32,7 @@ ffs_latest_rankings <- function() {
       "fantasypros_id"="id",
       "pos",
       "team" = "tm",
+      "bye",
       "ecr",
       "sd",
       "sportradar_id"="sportsdata_id",

@@ -97,9 +97,7 @@ ff_simulate <- function(conn,
 
   #### GENERATE PREDICTIONS ####
 
-  n_weeks <- n_seasons * weeks_per_season
-
-  projected_scores <- ffs_generate_predictions(preprocessed_data, n_weeks)
+  projected_scores <- ffs_generate_predictions(preprocessed_data, n_seasons, weeks_per_season)
 
   #### OPTIMIZE LINEUPS ####
 
