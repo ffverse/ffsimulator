@@ -8,7 +8,7 @@ NULL
 
 #' Pipe operator
 #'
-#' See `magrittr::[\%>\%][magrittr::pipe]` for details.
+#' See `magrittr::pipe` for details.
 #'
 #' @name %>%
 #' @rdname pipe

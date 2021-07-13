@@ -26,11 +26,13 @@ ffs_optimize_lineups <- function(projected_scores,
     }
   }
 
+  lineup_constraints <- lineup_constraints %>% dplyr::filter(pos %in% c("QB","RB","WR","TE"))
+
   nest_data <- projected_scores %>%
     dplyr::left_join(
       lineup_constraints %>% dplyr::select("pos", "max"),
       by = "pos") %>%
-    dplyr::filter(.data$pos_rank <= .data$max, pos %in% c("QB","RB","WR","TE")) %>%
+    dplyr::filter(.data$pos_rank <= .data$max, pos %in% lineup_constraints$pos) %>%
     dplyr::group_by(.data$franchise_id, .data$franchise_name, .data$season, .data$week) %>%
     tidyr::nest() %>%
     dplyr::ungroup()
