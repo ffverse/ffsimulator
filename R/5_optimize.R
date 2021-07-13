@@ -30,7 +30,7 @@ ffs_optimize_lineups <- function(projected_scores,
     dplyr::left_join(
       lineup_constraints %>% dplyr::select("pos", "max"),
       by = "pos") %>%
-    dplyr::filter(.data$pos_rank <= .data$max) %>%
+    dplyr::filter(.data$pos_rank <= .data$max, pos %in% c("QB","RB","WR","TE")) %>%
     dplyr::group_by(.data$franchise_id, .data$franchise_name, .data$n) %>%
     tidyr::nest() %>%
     dplyr::ungroup()
@@ -67,35 +67,25 @@ ffs_optimize_lineups <- function(projected_scores,
 
   # binary - position identifiers
 
-  pos_qb <- as.integer(franchise_scores$pos=="QB")
-  pos_rb <- as.integer(franchise_scores$pos=="RB")
-  pos_wr <- as.integer(franchise_scores$pos=="WR")
-  pos_te <- as.integer(franchise_scores$pos=="TE")
-  pos_off <- rep(1,length.out = length(score_obj))
+  pos_ids <- NULL
+
+  for(i in lineup_constraints$pos) pos_ids <- c(pos_ids, as.integer(franchise_scores$pos == i))
 
   constraints_matrix <- matrix(
-    c(pos_qb,pos_rb,pos_wr,pos_te, #pos minimums
-      pos_qb,pos_rb,pos_wr,pos_te, #pos maximums
-      pos_off), # total offensive starters
-    nrow = 9,
+    c(pos_ids, #pos minimums
+      pos_ids, #pos maximums
+      as.integer(franchise_scores$pos %in% c("QB","RB","WR","TE"))), # total offensive starters
+    nrow = nrow(lineup_constraints)*2 + 1,
     byrow = TRUE
   )
 
-  constraints_dir <- c(rep(">=",4), #pos minimums
-                       rep("<=",4), #pos maximums
-                       "<=") # total offensive starters
+  constraints_dir <- c(rep_len(">=", nrow(lineup_constraints)),
+                       rep_len("<=", nrow(lineup_constraints)),
+                       "<=")
 
-  constraints_rhs <- c(
-    lineup_constraints$min[lineup_constraints$pos == "QB"],
-    lineup_constraints$min[lineup_constraints$pos == "RB"],
-    lineup_constraints$min[lineup_constraints$pos == "WR"],
-    lineup_constraints$min[lineup_constraints$pos == "TE"],
-    lineup_constraints$max[lineup_constraints$pos == "QB"],
-    lineup_constraints$max[lineup_constraints$pos == "RB"],
-    lineup_constraints$max[lineup_constraints$pos == "WR"],
-    lineup_constraints$max[lineup_constraints$pos == "TE"],
-    lineup_constraints$offense_starters[[1]]
-  )
+  constraints_rhs <- c(lineup_constraints$min,
+                       lineup_constraints$max,
+                       lineup_constraints$offense_starters[[1]])
 
   solve_lineup <- Rglpk::Rglpk_solve_LP(
     obj = score_obj,
