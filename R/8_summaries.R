@@ -15,7 +15,7 @@ ffs_summarise_week <- function(optimal_scores, schedules){
       allplay_wins = rank(.data$actual_score)-1,
       allplay_games = dplyr::n()-1,
       allplay_pct = round(.data$allplay_wins / .data$allplay_games, 3),
-      schedule_id = rank(as.integer(.data$franchise_id))
+      schedule_id = rank(as.integer(paste0(.data$league_id,.data$franchise_id)))
     ) %>%
     dplyr::ungroup()
 
@@ -52,6 +52,7 @@ ffs_summarise_week <- function(optimal_scores, schedules){
       "allplay_wins",
       "allplay_games",
       "allplay_pct",
+      "league_id",
       "franchise_id",
       "optimal_lineup"
     )
@@ -65,7 +66,7 @@ ffs_summarise_week <- function(optimal_scores, schedules){
 ffs_summarise_season <- function(summary_week){
 
   summary_season <- summary_week %>%
-    dplyr::group_by(.data$season,.data$franchise_id, .data$franchise_name) %>%
+    dplyr::group_by(.data$season,.data$league_id, .data$franchise_id, .data$franchise_name) %>%
     dplyr::summarise(
       h2h_wins = sum(.data$result == "W", na.rm = TRUE),
       h2h_winpct = round(.data$h2h_wins / dplyr::n(), 3),
@@ -87,7 +88,7 @@ ffs_summarise_season <- function(summary_week){
 ffs_summarise_simulation <- function(summary_season){
 
   summary_simulation <- summary_season %>%
-    dplyr::group_by(.data$franchise_id, .data$franchise_name) %>%
+    dplyr::group_by(.data$league_id, .data$franchise_id, .data$franchise_name) %>%
     dplyr::summarise(
       seasons = dplyr::n(),
       dplyr::across(c("h2h_wins","h2h_winpct", "allplay_wins","allplay_winpct", "points_for","points_against","potential_points"), ~mean(.x, na.rm = TRUE) %>% round(3))

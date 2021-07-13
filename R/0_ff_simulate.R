@@ -9,7 +9,8 @@
 #' @param seed an integer to control reproducibility
 #' @param injury_model select between "simple", "none"
 #' @param base_seasons a numeric vector that selects seasons as base data, earliest available is 2012
-#' @param parallel a logical - use parallel processing for optimizing lineups, default is FALSE
+#' @param parallel a logical: use parallel processing for optimizing lineups, default is FALSE
+#' @param actual_schedule a logical:  use actual fantasy schedule instead of generating randomized schedule? Default FALSE (generates random)
 #'
 #' @examples \dontrun{
 #'
@@ -43,10 +44,11 @@ ff_simulate <- function(conn,
                         seed = NULL,
                         injury_model = c("simple", "none"),
                         base_seasons = 2012:2020,
-                        parallel = FALSE
+                        parallel = FALSE,
+                        actual_schedule = FALSE
                         ){
 
-  #### ASSERTIONS ####
+  #### Assertions ####
 
   if(!class(conn) %in% c("mfl_conn","sleeper_conn","flea_conn","espn_conn")) {
     stop("conn should be a connection object created by `ff_connect()` and friends!",
@@ -59,9 +61,10 @@ ff_simulate <- function(conn,
   checkmate::assert_int(n_weeks, lower = 1)
   checkmate::assert_int(seed, null.ok = TRUE)
   checkmate::assert_flag(best_ball)
+  checkmate::assert_flag(actual_schedule)
   if(!is.null(seed)) set.seed(seed)
 
-  # # checkmate::assert_flag(verbose)
+  # checkmate::assert_flag(verbose)
   # if(!is.null(custom_rankings)) {
   #   checkmate::assert_data_frame(custom_rankings)
   #   ## ADD ASSERTIONS FOR CORRECT RANKINGS COLUMNS
@@ -69,51 +72,47 @@ ff_simulate <- function(conn,
   #
   # if(!is.null(owner_efficiency)) checkmate::assert_list(owner_efficiency, names = c("average","sd"))
 
-  #### LEAGUE INFO ####
+
+  #### Import Data ####
 
   league_info <- ffscrapr::ff_league(conn)
 
-  #### DOWNLOAD SCORING HISTORY ####
-
   scoring_history <- ffscrapr::ff_scoringhistory(conn, base_seasons)
 
-  #### CREATE ADP OUTCOMES ####
+  latest_rankings <- ffs_latest_rankings()
+
+  rosters <- ffs_rosters(conn)
+
+  lineup_constraints <- ffscrapr::ff_starter_positions(conn)
+
+  #### Generate Projections ####
 
   adp_outcomes <- ffs_adp_outcomes(scoring_history = scoring_history,
                                    injury_model = injury_model)
 
-  #### DOWNLOAD LATEST FANTASYPROS RANKINGS ####
+  projected_scores <- ffs_generate_projections(adp_outcomes = adp_outcomes,
+                                               latest_rankings = latest_rankings,
+                                               n_seasons = n_seasons,
+                                               n_weeks = n_weeks,
+                                               rosters = rosters)
 
-  latest_rankings <- ffs_latest_rankings()
+  #### Calculate Roster Scores ####
 
-  #### DOWNLOAD ROSTERS ####
+  roster_scores <- ffs_score_rosters(projected_scores = projected_scores,
+                                     rosters = rosters)
 
-  rosters <- ffscrapr::ff_rosters(conn)
-  lineup_constraints <- ffscrapr::ff_starter_positions(conn)
+  optimal_scores <- ffs_optimize_lineups(roster_scores = roster_scores,
+                                         lineup_constraints = lineup_constraints,
+                                         best_ball = best_ball,
+                                         parallel = parallel)
 
-  #### JOIN DATA ####
-
-  preprocessed_data <- ffs_preprocess_data(conn, rosters, latest_rankings, adp_outcomes)
-
-  #### GENERATE PREDICTIONS ####
-
-  projected_scores <- ffs_generate_predictions(preprocessed_data, n_seasons, n_weeks)
-
-  #### OPTIMIZE LINEUPS ####
-
-  optimal_scores <- ffs_optimize_lineups(
-    projected_scores = projected_scores,
-    lineup_constraints = lineup_constraints,
-    best_ball = best_ball,
-    parallel = parallel)
-
-  #### GENERATE SCHEDULES ####
+  #### Generate Schedules ####
 
   schedules <- ffs_build_schedules(n_teams = length(unique(rosters$franchise_id)),
                                   n_seasons = n_seasons,
                                   n_weeks = n_weeks)
 
-  #### SUMMARISE SEASON ####
+  #### Summarise Season ####
 
   summary_week <- ffs_summarise_week(optimal_scores, schedules)
   summary_season <- ffs_summarise_season(summary_week)
@@ -127,9 +126,8 @@ ff_simulate <- function(conn,
         summary_simulation = summary_simulation,
         summary_season = summary_season,
         summary_week = summary_week,
+        roster_scores = roster_scores,
         projected_scores = projected_scores,
-        latest_rankings = latest_rankings,
-        raw_data = preprocessed_data,
         league_info = league_info,
         simulation_params = list(
           n_seasons = n_seasons,

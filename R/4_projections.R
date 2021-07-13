@@ -1,22 +1,33 @@
 
-#' Generate Predictions
+#' Generate Projections
 #'
-#' Run the bootstrapped resampling of player week outcomes on preprocessed dataframes for a given number of seasons and weeks per season.
+#' Run the bootstrapped resampling of player week outcomes on the latest rankings and rosters for a given number of seasons and weeks per season.
 #'
 #' Dataframe should contain ecr, prob_gp, week_outcomes, injury_model, franchise_id, pos, and bye
 #'
-#' @param preprocessed_data a dataframe as created by `ffs_preprocess_data`
+#' @param adp_outcomes a dataframe of adp-based weekly outcomes, as created by `ffs_adp_outcomes()`
+#' @param latest_rankings a dataframe of rankings, as created by `ffs_latest_rankings()`
+#' @param rosters a dataframe of rosters, as created by `ffs_rosters()` - optional, reduces computation to just rostered players
 #' @param n_seasons number of seasons
 #' @param n_weeks weeks per season
 #'
 #' @return
 #' @export
-ffs_generate_predictions <- function(preprocessed_data, n_seasons, n_weeks){
+ffs_generate_projections <- function(adp_outcomes, latest_rankings, n_seasons, n_weeks, rosters = NULL){
+
+  if(is.null(rosters))  rosters <- latest_rankings %>% dplyr::select("fantasypros_id")
 
   total_weeks <- n_seasons * n_weeks
 
-  projected_score <- preprocessed_data %>%
+  projected_score <- latest_rankings %>%
+    dplyr::group_by(.data$pos) %>%
+    dplyr::mutate(rank = round(.data$ecr)) %>%
+    dplyr::ungroup() %>%
+    dplyr::inner_join(
+      adp_outcomes %>% dplyr::select("pos","rank","prob_gp","week_outcomes"),
+      by = c("pos","rank")) %>%
     dplyr::filter(!is.na(.data$ecr), !is.na(.data$prob_gp)) %>%
+    dplyr::semi_join(rosters, by = "fantasypros_id") %>%
     dplyr::mutate(
       projection =
         purrr::map(.data$week_outcomes,
@@ -30,12 +41,8 @@ ffs_generate_predictions <- function(preprocessed_data, n_seasons, n_weeks){
       week_outcomes = NULL
     ) %>%
     tidyr::unnest(c("projection", "injury_model", "season", "week")) %>%
-    dplyr::arrange(.data$season,.data$week, .data$franchise_id, .data$pos, .data$ecr) %>%
-    dplyr::mutate(projected_score = .data$projection * .data$injury_model * (.data$week != .data$bye)) %>%
-    dplyr::group_by(.data$season, .data$week, .data$franchise_id, .data$pos) %>%
-    dplyr::mutate(pos_rank = rank(-.data$projected_score,
-                                  ties.method = "random")) %>%
-    dplyr::ungroup()
+    dplyr::arrange(.data$season,.data$week, .data$pos, .data$ecr) %>%
+    dplyr::mutate(projected_score = .data$projection * .data$injury_model * (.data$week != .data$bye))
 
   return(projected_score)
 }

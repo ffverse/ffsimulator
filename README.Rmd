@@ -64,11 +64,15 @@ The dev version has a [separate documentation site here](https://ffsimulator.ffv
 -   Write function documentation `r emo::ji("white_check_mark")`
 -   Write tests `r emo::ji("white_check_mark")`
 -   Add autoplot `r emo::ji("white_check_mark")`
+-   Bye week handling `r emo::ji("white_check_mark")`
 -   Write basic usage vignette
 -   Write custom usage vignette
 -   Add integration testing
 -   Clean up README
 -   CRAN prep
+-   rewrite with collapse (?)
+
+
 
 ## Usage
 

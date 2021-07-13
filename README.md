@@ -69,12 +69,14 @@ here](https://ffsimulator.ffverse.com/dev/).
 -   Create simulation summary table ✅
 -   Write function documentation ✅
 -   Write tests ✅
--   Add autoplot
+-   Add autoplot ✅
+-   Bye week handling ✅
 -   Write basic usage vignette
 -   Write custom usage vignette
 -   Add integration testing
 -   Clean up README
 -   CRAN prep
+-   rewrite with collapse (?)
 
 ## Usage
 
@@ -86,7 +88,7 @@ library(ffsimulate)
 
 conn <- mfl_connect(2021,22627)
 
-sims <- ff_simulate(conn, n_seasons = 100, weeks_per_season = 14, best_ball = FALSE)
+sims <- ff_simulate(conn, n_seasons = 50, n_weeks = 14, best_ball = FALSE)
 
 sims$summary
 ```

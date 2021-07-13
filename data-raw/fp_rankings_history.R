@@ -44,7 +44,10 @@ seasons2 <- 2012:2015
 pages2 <- c("qb-cheatsheets",
            "rb-cheatsheets",
            "wr-cheatsheets",
-           "te-cheatsheets")
+           "te-cheatsheets",
+           "k-cheatsheets",
+           "dst-cheatsheets"
+           )
 
 fp_rankings_history2 <- crossing(pages2,seasons2) %>%
   mutate(rankings = map2(pages2,seasons2, ~fp_rankings(page = .x, year = .y))) %>%
