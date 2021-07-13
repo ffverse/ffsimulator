@@ -4,7 +4,7 @@
 #'
 #' @param conn an connection to a league made with `ff_connect()` and friends (required)
 #' @param n_seasons number of seasons to simulate, default = 100
-#' @param weeks_per_season number of weeks per season, default = 14
+#' @param n_weeks number of weeks per season, default = 14
 #' @param best_ball a logical: are weekly wins based on optimal lineups?
 #' @param seed an integer to control reproducibility
 #' @param injury_model select between "simple", "none"
@@ -19,12 +19,12 @@
 #'
 #' reprex <- ff_simulate(conn = conn, seed = 613)
 #'
-#' basic <- ff_simulate(conn = conn, n_seasons = 100, weeks_per_season = 14, best_ball = FALSE)
+#' basic <- ff_simulate(conn = conn, n_seasons = 100, n_weeks = 14, best_ball = FALSE)
 #'
 #' custom <- ff_simulate(
 #'   conn = conn,
 #'   n_seasons = 100,
-#'   weeks_per_season = 17,
+#'   n_weeks = 17,
 #'   custom_rankings = df_rankings,
 #'   seed = 613,
 #'   best_ball = FALSE,
@@ -38,7 +38,7 @@
 
 ff_simulate <- function(conn,
                         n_seasons = 100,
-                        weeks_per_season = 14,
+                        n_weeks = 14,
                         best_ball = FALSE,
                         seed = NULL,
                         injury_model = c("simple", "none"),
@@ -56,7 +56,7 @@ ff_simulate <- function(conn,
   injury_model <- match.arg(injury_model)
   checkmate::assert_numeric(base_seasons)
   checkmate::assert_int(n_seasons, lower = 1)
-  checkmate::assert_int(weeks_per_season, lower = 1)
+  checkmate::assert_int(n_weeks, lower = 1)
   checkmate::assert_int(seed, null.ok = TRUE)
   checkmate::assert_flag(best_ball)
   if(!is.null(seed)) set.seed(seed)
@@ -97,7 +97,7 @@ ff_simulate <- function(conn,
 
   #### GENERATE PREDICTIONS ####
 
-  projected_scores <- ffs_generate_predictions(preprocessed_data, n_seasons, weeks_per_season)
+  projected_scores <- ffs_generate_predictions(preprocessed_data, n_seasons, n_weeks)
 
   #### OPTIMIZE LINEUPS ####
 
@@ -111,7 +111,7 @@ ff_simulate <- function(conn,
 
   schedules <- ffs_build_schedules(n_teams = length(unique(rosters$franchise_id)),
                                   n_seasons = n_seasons,
-                                  n_weeks = weeks_per_season)
+                                  n_weeks = n_weeks)
 
   #### SUMMARISE SEASON ####
 
@@ -133,7 +133,7 @@ ff_simulate <- function(conn,
         league_info = league_info,
         simulation_params = list(
           n_seasons = n_seasons,
-          weeks_per_season = weeks_per_season,
+          n_weeks = n_weeks,
           best_ball = best_ball,
           seed = seed,
           injury_model = injury_model,

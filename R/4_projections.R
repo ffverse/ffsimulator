@@ -7,25 +7,25 @@
 #'
 #' @param preprocessed_data a dataframe as created by `ffs_preprocess_data`
 #' @param n_seasons number of seasons
-#' @param weeks_per_season weeks per season
+#' @param n_weeks weeks per season
 #'
 #' @return
 #' @export
-ffs_generate_predictions <- function(preprocessed_data, n_seasons, weeks_per_season){
+ffs_generate_predictions <- function(preprocessed_data, n_seasons, n_weeks){
 
-  n_weeks <- n_seasons * weeks_per_season
+  total_weeks <- n_seasons * n_weeks
 
   projected_score <- preprocessed_data %>%
     dplyr::filter(!is.na(.data$ecr), !is.na(.data$prob_gp)) %>%
     dplyr::mutate(
       projection =
         purrr::map(.data$week_outcomes,
-                   ~ sample(.x, size = n_weeks, replace = TRUE)),
+                   ~ sample(.x, size = total_weeks, replace = TRUE)),
       injury_model =
         purrr::map(.data$prob_gp,
-                   ~ stats::rbinom(n = n_weeks, size = 1, prob = .x)),
-      season = list(sort(rep_len(seq_len(n_seasons),n_weeks))),
-      week = list(rep_len(seq_len(weeks_per_season),n_weeks)),
+                   ~ stats::rbinom(n = total_weeks, size = 1, prob = .x)),
+      season = list(sort(rep_len(seq_len(n_seasons),total_weeks))),
+      week = list(rep_len(seq_len(n_weeks),total_weeks)),
       prob_gp = NULL,
       week_outcomes = NULL
     ) %>%

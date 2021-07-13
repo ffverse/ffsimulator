@@ -62,18 +62,18 @@ test_that("preprocessing works for the snapshotted data from each platform",{
   checkmate::expect_tibble(preprocessed_data_fleaflicker, min.rows = 300)
 
   checkmate::expect_subset(
-    c("franchise_id","player_id","pos","prob_gp","week_outcomes"),
+    c("franchise_id","player_id","pos","bye","prob_gp","week_outcomes"),
     names(preprocessed_data))
   checkmate::expect_subset(
-    c("franchise_id","player_id","pos","prob_gp","week_outcomes"),
+    c("franchise_id","player_id","pos","bye","prob_gp","week_outcomes"),
     names(preprocessed_data_espn)
     )
   checkmate::expect_subset(
-    c("franchise_id","player_id","pos","prob_gp","week_outcomes"),
+    c("franchise_id","player_id","pos","bye","prob_gp","week_outcomes"),
     names(preprocessed_data_fleaflicker)
     )
   checkmate::expect_subset(
-    c("franchise_id","player_id","pos","prob_gp","week_outcomes"),
+    c("franchise_id","player_id","pos","bye","prob_gp","week_outcomes"),
     names(preprocessed_data_sleeper)
     )
 
@@ -84,12 +84,13 @@ test_that("ffs_generate_predictions() returns a tibble and specific columns",{
 
   projected_scores <- ffs_generate_predictions(
     preprocessed_data = cache$preprocessed_data,
-    n_weeks =  20)
+    n_seasons = 2,
+    n_weeks = 10)
 
   checkmate::expect_tibble(projected_scores, min.rows = 3500)
 
   checkmate::expect_subset(
-    c("franchise_id","player_id","pos","projected_score","pos_rank","n"),
+    c("franchise_id","player_id","pos","projected_score","pos_rank","season","week"),
     names(projected_scores)
   )
 
@@ -117,11 +118,11 @@ test_that("ffs_optimize_lineups() returns a tibble and specific columns", {
   checkmate::expect_tibble(optimal_scores_parallel_bestball, min.rows = 120)
 
   checkmate::expect_subset(
-    c("franchise_id","franchise_name","n","optimal_score","optimal_lineup","n","lineup_efficiency","actual_score"),
+    c("franchise_id","franchise_name","season","week","optimal_score","optimal_lineup","lineup_efficiency","actual_score"),
     names(optimal_scores)
   )
   checkmate::expect_subset(
-    c("franchise_id","franchise_name","n","optimal_score","optimal_lineup","n","lineup_efficiency","actual_score"),
+    c("franchise_id","franchise_name","season","week","optimal_score","optimal_lineup","lineup_efficiency","actual_score"),
     names(optimal_scores_parallel_bestball)
   )
 
@@ -170,7 +171,7 @@ test_that("summary functions return tibbles", {
     label = "summary_season names check"
   )
   checkmate::expect_subset(
-    c("n", "season", "season_week", "franchise_name", "optimal_score",
+    c("season", "season_week", "franchise_name", "optimal_score",
       "lineup_efficiency", "team_score", "opponent_score", "result",
       "opponent_name", "allplay_wins", "allplay_games", "allplay_pct",
       "franchise_id", "optimal_lineup"),

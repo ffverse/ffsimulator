@@ -125,7 +125,7 @@ autoplot.ff_simulation <- function(
     ) +
     ggplot2::labs(
       title = glue::glue("Weekly Scores - {
-                         object$simulation_params$n_seasons * object$simulation_params$weeks_per_season
+                         object$simulation_params$n_seasons * object$simulation_params$n_weeks
                          } Simulated Weeks"),
       subtitle = glue::glue("{object$league_info$league_name}"),
       caption = glue::glue("ffsimulator R pkg | FP rankings as of {object$latest_rankings$scrape_date[[1]]}")
