@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Historical position ranks — fp_rankings_history • ffsimulator</title>
+<title>Join Rosters to Projected Scores — ffs_score_rosters • ffsimulator</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -48,8 +48,8 @@
   <link href="../extra.css" rel="stylesheet">
   
 
-<meta property="og:title" content="Historical position ranks — fp_rankings_history" />
-<meta property="og:description" content="This dataframe has historical positional rankings for 2012:2020 QB/RB/WR/TE and 2015-2020 DL/LB/DB." />
+<meta property="og:title" content="Join Rosters to Projected Scores — ffs_score_rosters" />
+<meta property="og:description" content="Attaches projected scores to rosters (via a left-join)" />
 <meta property="og:image" content="ffsimulator.ffverse.com/reference/figures/logo.png" />
 <meta property="og:image:alt" content="ffsimulator - An R Package For Simulating Fantasy Football Seasons" />
 <meta name="twitter:card" content="summary" />
@@ -176,21 +176,33 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Historical position ranks</h1>
-    <small class="dont-index">Source: <a href='https://github.com/tanho63/ffsimulator/blob/master/R/1_outcomes.R'><code>R/1_outcomes.R</code></a></small>
-    <div class="hidden name"><code>fp_rankings_history.Rd</code></div>
+    <h1>Join Rosters to Projected Scores</h1>
+    <small class="dont-index">Source: <a href='https://github.com/tanho63/ffsimulator/blob/master/R/5_roster_scores.R'><code>R/5_roster_scores.R</code></a></small>
+    <div class="hidden name"><code>ffs_score_rosters.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This dataframe has historical positional rankings for 2012:2020 QB/RB/WR/TE and 2015-2020 DL/LB/DB.</p>
+    <p>Attaches projected scores to rosters (via a left-join)</p>
     </div>
 
-    <pre class="usage"><span class='va'>fp_rankings_history</span></pre>
+    <pre class="usage"><span class='fu'>ffs_score_rosters</span><span class='op'>(</span><span class='va'>projected_scores</span>, <span class='va'>rosters</span><span class='op'>)</span></pre>
 
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>projected_scores</th>
+      <td><p>a dataframe of projected scores, as created by <code><a href='ffs_generate_projections.html'>ffs_generate_projections()</a></code></p></td>
+    </tr>
+    <tr>
+      <th>rosters</th>
+      <td><p>a dataframe of rosters, as created by <code><a href='ffs_rosters.html'>ffs_rosters()</a></code> - must contain fantasypros_id</p></td>
+    </tr>
+    </table>
 
-    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>An object of class <code>tbl_df</code> (inherits from <code>tbl</code>, <code>data.frame</code>) with 7503 rows and 10 columns.</p>
+    <p>A dataframe of roster-level projected scores</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

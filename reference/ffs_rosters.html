@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Historical position ranks — fp_rankings_history • ffsimulator</title>
+<title>Get Rosters — ffs_rosters • ffsimulator</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -48,8 +48,8 @@
   <link href="../extra.css" rel="stylesheet">
   
 
-<meta property="og:title" content="Historical position ranks — fp_rankings_history" />
-<meta property="og:description" content="This dataframe has historical positional rankings for 2012:2020 QB/RB/WR/TE and 2015-2020 DL/LB/DB." />
+<meta property="og:title" content="Get Rosters — ffs_rosters" />
+<meta property="og:description" content="This function loosely wraps ffscrapr::ff_rosters() and adds fantasypros_id." />
 <meta property="og:image" content="ffsimulator.ffverse.com/reference/figures/logo.png" />
 <meta property="og:image:alt" content="ffsimulator - An R Package For Simulating Fantasy Football Seasons" />
 <meta name="twitter:card" content="summary" />
@@ -176,21 +176,41 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Historical position ranks</h1>
-    <small class="dont-index">Source: <a href='https://github.com/tanho63/ffsimulator/blob/master/R/1_outcomes.R'><code>R/1_outcomes.R</code></a></small>
-    <div class="hidden name"><code>fp_rankings_history.Rd</code></div>
+    <h1>Get Rosters</h1>
+    <small class="dont-index">Source: <a href='https://github.com/tanho63/ffsimulator/blob/master/R/3_rosters.R'><code>R/3_rosters.R</code></a></small>
+    <div class="hidden name"><code>ffs_rosters.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This dataframe has historical positional rankings for 2012:2020 QB/RB/WR/TE and 2015-2020 DL/LB/DB.</p>
+    <p>This function loosely wraps <code><a href='ffscrapr.dynastyprocess.com/reference/ff_rosters.html'>ffscrapr::ff_rosters()</a></code> and adds fantasypros_id.</p>
     </div>
 
-    <pre class="usage"><span class='va'>fp_rankings_history</span></pre>
+    <pre class="usage"><span class='fu'>ffs_rosters</span><span class='op'>(</span><span class='va'>conn</span><span class='op'>)</span>
 
+<span class='co'># S3 method for mfl_conn</span>
+<span class='fu'>ffs_rosters</span><span class='op'>(</span><span class='va'>conn</span><span class='op'>)</span>
 
-    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
+<span class='co'># S3 method for sleeper_conn</span>
+<span class='fu'>ffs_rosters</span><span class='op'>(</span><span class='va'>conn</span><span class='op'>)</span>
 
-    <p>An object of class <code>tbl_df</code> (inherits from <code>tbl</code>, <code>data.frame</code>) with 7503 rows and 10 columns.</p>
+<span class='co'># S3 method for flea_conn</span>
+<span class='fu'>ffs_rosters</span><span class='op'>(</span><span class='va'>conn</span><span class='op'>)</span>
+
+<span class='co'># S3 method for espn_conn</span>
+<span class='fu'>ffs_rosters</span><span class='op'>(</span><span class='va'>conn</span><span class='op'>)</span></pre>
+
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>conn</th>
+      <td><p>a connection object as created by <code><a href='ffscrapr.dynastyprocess.com/reference/ff_connect.html'>ffscrapr::ff_connect()</a></code> and friends.</p></td>
+    </tr>
+    </table>
+
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>a dataframe of rosters that includes a fantasypros_id column</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

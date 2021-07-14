@@ -34,7 +34,7 @@
     <loc>ffsimulator.ffverse.com/reference/ffs_build_schedules.html</loc>
   </url>
   <url>
-    <loc>ffsimulator.ffverse.com/reference/ffs_generate_predictions.html</loc>
+    <loc>ffsimulator.ffverse.com/reference/ffs_generate_projections.html</loc>
   </url>
   <url>
     <loc>ffsimulator.ffverse.com/reference/ffs_latest_rankings.html</loc>
@@ -43,7 +43,10 @@
     <loc>ffsimulator.ffverse.com/reference/ffs_optimize_lineups.html</loc>
   </url>
   <url>
-    <loc>ffsimulator.ffverse.com/reference/ffs_preprocess_data.html</loc>
+    <loc>ffsimulator.ffverse.com/reference/ffs_rosters.html</loc>
+  </url>
+  <url>
+    <loc>ffsimulator.ffverse.com/reference/ffs_score_rosters.html</loc>
   </url>
   <url>
     <loc>ffsimulator.ffverse.com/reference/ffs_summaries.html</loc>

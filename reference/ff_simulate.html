@@ -193,7 +193,8 @@
   seed <span class='op'>=</span> <span class='cn'>NULL</span>,
   injury_model <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"simple"</span>, <span class='st'>"none"</span><span class='op'>)</span>,
   base_seasons <span class='op'>=</span> <span class='fl'>2012</span><span class='op'>:</span><span class='fl'>2020</span>,
-  parallel <span class='op'>=</span> <span class='cn'>FALSE</span>
+  parallel <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  actual_schedule <span class='op'>=</span> <span class='cn'>FALSE</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -229,7 +230,11 @@
     </tr>
     <tr>
       <th>parallel</th>
-      <td><p>a logical - use parallel processing for optimizing lineups, default is FALSE</p></td>
+      <td><p>a logical: use parallel processing for optimizing lineups, default is FALSE</p></td>
+    </tr>
+    <tr>
+      <th>actual_schedule</th>
+      <td><p>a logical:  use actual fantasy schedule instead of generating randomized schedule? Default FALSE (generates random)</p></td>
     </tr>
     </table>
 

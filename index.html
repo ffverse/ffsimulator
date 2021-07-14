@@ -178,12 +178,14 @@
 <li>Create simulation summary table ✅</li>
 <li>Write function documentation ✅</li>
 <li>Write tests ✅</li>
-<li>Add autoplot</li>
+<li>Add autoplot ✅</li>
+<li>Bye week handling ✅</li>
 <li>Write basic usage vignette</li>
 <li>Write custom usage vignette</li>
 <li>Add integration testing</li>
 <li>Clean up README</li>
 <li>CRAN prep</li>
+<li>rewrite with collapse (?)</li>
 </ul>
 </div>
 <div id="usage" class="section level2">
@@ -195,7 +197,7 @@
 
 <span class="va">conn</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/ff_connect.html">mfl_connect</a></span><span class="op">(</span><span class="fl">2021</span>,<span class="fl">22627</span><span class="op">)</span>
 
-<span class="va">sims</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/ff_simulate.html">ff_simulate</a></span><span class="op">(</span><span class="va">conn</span>, n_seasons <span class="op">=</span> <span class="fl">100</span>, weeks_per_season <span class="op">=</span> <span class="fl">14</span>, best_ball <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
+<span class="va">sims</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/ff_simulate.html">ff_simulate</a></span><span class="op">(</span><span class="va">conn</span>, n_seasons <span class="op">=</span> <span class="fl">50</span>, n_weeks <span class="op">=</span> <span class="fl">14</span>, best_ball <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
 
 <span class="va">sims</span><span class="op">$</span><span class="va">summary</span></code></pre></div>
 <p>Please also see the <a href="https://ffsimulator.ffverse.com/articles/basic.html">basic usage</a> and <a href="https://ffsimulator.ffverse.com/articles/manual.html">manual simulation</a> vignettes for a detailed introduction.</p>
