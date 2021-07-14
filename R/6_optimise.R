@@ -43,7 +43,7 @@ ffs_optimise_lineups <- function(roster_scores,
 
   optimal_scores <- nest_data %>%
     dplyr::mutate(
-      optimals = map(.data$data, ffsimulator::.ff_optimise_one_lineup, lineup_constraints),
+      optimals = map(.data$data, .ff_optimise_one_lineup, lineup_constraints),
       data = NULL
     ) %>%
     tidyr::unnest_wider("optimals") %>%
