@@ -7,18 +7,28 @@ reference:
   desc: These are the primary functions of `ffsimulator`.
   contents:
   - "ff_simulate"
+  - "autoplot.ff_simulation"
 - title: Customized Simulations
   desc: Subfunctions used by ff_simulate
   contents:
-  - starts_with("ffs_")
+  - "ffs_adp_outcomes"
+  - "ffs_latest_rankings"
+  - "ffs_rosters"
+  - "ffs_generate_projections"
+  - "ffs_score_rosters"
+  - "ffs_optimise_lineups"
+  - "ffs_build_schedules"
+  - starts_with("ffs_summarise")
 - title: ffscrapr Imports
   desc: Functions imported from ffscrapr
   contents:
   - has_concept("ffscrapr-imports")
 - title: Miscellaneous
-  desc: Additional helper functions
+  desc: Additional helper functions and data
   contents:
   - "`%>%`"
+  - "fp_rankings_history"
+  - "fp_injury_table"
 
 authors:
   Tan Ho:

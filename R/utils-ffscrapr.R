@@ -52,17 +52,6 @@ NULL
 #' @export espn_connect
 NULL
 
-#' Get league rosters
-#'
-#' See `ffscrapr::ff_rosters` for details.
-#'
-#' @name ff_rosters
-#' @rdname ff_rosters
-#' @family ffscrapr-imports
-#' @importFrom ffscrapr ff_rosters
-#' @export ff_rosters
-NULL
-
 #' Get league scoring history
 #'
 #' See `ffscrapr::ff_scoringhistory` for details.

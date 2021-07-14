@@ -17,8 +17,8 @@ autoplot.ff_simulation <- function(
 
   type <- match.arg(type)
 
-  if(!requireNamespace("ggplot2",quietly = TRUE)) {
-    stop("`ggplot2` must be installed to use `autoplot`.", call. = FALSE)
+  if(!requireNamespace("ggplot2",quietly = TRUE) && !requireNamespace("forcats",quietly = TRUE)) {
+    stop("`ggplot2` and `forcats` must be installed to use `autoplot`.", call. = FALSE)
     }
 
   if (type == "wins" && !requireNamespace("ggridges", quietly = TRUE)) {

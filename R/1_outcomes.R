@@ -4,7 +4,7 @@
 #' @param injury_model either "simple" or "none" - simple uses the average games played for each position/adp combination, none assumes every game is played.
 #'
 #' @return dataframe with position, rank, probability of games played, all week score outcomes
-ffs_adp_outcomes <- function(scoring_history, injury_model){
+ffs_adp_outcomes <- function(scoring_history, injury_model = "simple"){
 
   adp_outcomes <- ffsimulator::fp_rankings_history %>%
     dplyr::select(-"page_pos") %>%
@@ -63,14 +63,3 @@ ffs_adp_outcomes <- function(scoring_history, injury_model){
   adp_outcomes
 }
 
-#' Injury table
-#'
-#' This dataframe gives the probability of a given position/rank playing in a given game.
-#'
-"fp_injury_table"
-
-#' Historical position ranks
-#'
-#' This dataframe has historical positional rankings for 2012:2020 QB/RB/WR/TE and 2015-2020 DL/LB/DB.
-#'
-"fp_rankings_history"

@@ -20,27 +20,22 @@ See \code{ffscrapr::ff_connect} for details.
 }
 \seealso{
 Other ffscrapr-imports: 
-\code{\link{ff_rosters}()},
 \code{\link{ff_scoringhistory}()},
 \code{\link{ff_starter_positions}()}
 
 Other ffscrapr-imports: 
-\code{\link{ff_rosters}()},
 \code{\link{ff_scoringhistory}()},
 \code{\link{ff_starter_positions}()}
 
 Other ffscrapr-imports: 
-\code{\link{ff_rosters}()},
 \code{\link{ff_scoringhistory}()},
 \code{\link{ff_starter_positions}()}
 
 Other ffscrapr-imports: 
-\code{\link{ff_rosters}()},
 \code{\link{ff_scoringhistory}()},
 \code{\link{ff_starter_positions}()}
 
 Other ffscrapr-imports: 
-\code{\link{ff_rosters}()},
 \code{\link{ff_scoringhistory}()},
 \code{\link{ff_starter_positions}()}
 }

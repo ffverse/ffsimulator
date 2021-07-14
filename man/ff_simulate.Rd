@@ -12,8 +12,7 @@ ff_simulate(
   seed = NULL,
   injury_model = c("simple", "none"),
   base_seasons = 2012:2020,
-  parallel = FALSE,
-  actual_schedule = FALSE
+  parallel = FALSE
 )
 }
 \arguments{
@@ -32,8 +31,6 @@ ff_simulate(
 \item{base_seasons}{a numeric vector that selects seasons as base data, earliest available is 2012}
 
 \item{parallel}{a logical: use parallel processing for optimizing lineups, default is FALSE}
-
-\item{actual_schedule}{a logical:  use actual fantasy schedule instead of generating randomized schedule? Default FALSE (generates random)}
 }
 \description{
 The main function of the package.

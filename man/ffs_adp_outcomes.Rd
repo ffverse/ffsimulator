@@ -4,7 +4,7 @@
 \alias{ffs_adp_outcomes}
 \title{Connects ff_scoringhistory to past ADP rankings}
 \usage{
-ffs_adp_outcomes(scoring_history, injury_model)
+ffs_adp_outcomes(scoring_history, injury_model = "simple")
 }
 \arguments{
 \item{scoring_history}{a scoring history table as created by \code{ffscrapr::ff_scoringhistory()}}

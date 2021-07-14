@@ -9,7 +9,6 @@ See \code{ffscrapr::ff_starter_positions} for details.
 \seealso{
 Other ffscrapr-imports: 
 \code{\link{ff_connect}()},
-\code{\link{ff_rosters}()},
 \code{\link{ff_scoringhistory}()}
 }
 \concept{ffscrapr-imports}

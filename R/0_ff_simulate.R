@@ -10,8 +10,6 @@
 #' @param injury_model select between "simple", "none"
 #' @param base_seasons a numeric vector that selects seasons as base data, earliest available is 2012
 #' @param parallel a logical: use parallel processing for optimizing lineups, default is FALSE
-#' @param actual_schedule a logical:  use actual fantasy schedule instead of generating randomized schedule? Default FALSE (generates random)
-#'
 #' @examples \dontrun{
 #'
 #' conn <- mfl_connect(2021, 22627)
@@ -44,8 +42,7 @@ ff_simulate <- function(conn,
                         seed = NULL,
                         injury_model = c("simple", "none"),
                         base_seasons = 2012:2020,
-                        parallel = FALSE,
-                        actual_schedule = FALSE
+                        parallel = FALSE
                         ){
 
   #### Assertions ####
@@ -101,7 +98,7 @@ ff_simulate <- function(conn,
   roster_scores <- ffs_score_rosters(projected_scores = projected_scores,
                                      rosters = rosters)
 
-  optimal_scores <- ffs_optimize_lineups(roster_scores = roster_scores,
+  optimal_scores <- ffs_optimise_lineups(roster_scores = roster_scores,
                                          lineup_constraints = lineup_constraints,
                                          best_ball = best_ball,
                                          parallel = parallel)
