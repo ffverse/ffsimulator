@@ -20,31 +20,36 @@ ffs_generate_projections <- function(adp_outcomes, latest_rankings, n_seasons, n
   total_weeks <- n_seasons * n_weeks
 
   projected_score <- latest_rankings %>%
-    dplyr::group_by(.data$pos) %>%
-    dplyr::mutate(rank = round(.data$ecr)) %>%
-    dplyr::ungroup() %>%
+    dplyr::semi_join(rosters, by = "fantasypros_id") %>%
+    dplyr::mutate(
+      rank = purrr::map2(.data$ecr,
+                        .data$sd,
+                        ~ stats::rnorm(n = n_seasons, mean = .x, sd = .y/2) %>%
+                          round() %>%
+                          .replace_zero()),
+      season = list(seq_len(n_seasons))
+    ) %>%
+    tidyr::unnest(c("rank","season")) %>%
     dplyr::inner_join(
       adp_outcomes %>% dplyr::select("pos","rank","prob_gp","week_outcomes"),
       by = c("pos","rank")) %>%
     dplyr::filter(!is.na(.data$ecr), !is.na(.data$prob_gp)) %>%
-    dplyr::semi_join(rosters, by = "fantasypros_id") %>%
     dplyr::mutate(
       projection =
         purrr::map(.data$week_outcomes,
-                   ~ sample(.x, size = total_weeks, replace = TRUE)),
+                   ~ sample(.x, size = n_weeks, replace = TRUE)),
       injury_model =
         purrr::map(.data$prob_gp,
-                   ~ stats::rbinom(n = total_weeks, size = 1, prob = .x)),
-      season = list(sort(rep_len(seq_len(n_seasons),total_weeks))),
-      week = list(rep_len(seq_len(n_weeks),total_weeks)),
+                   ~ stats::rbinom(n = n_weeks, size = 1, prob = .x)),
+      week = list(seq_len(n_weeks)),
       prob_gp = NULL,
       week_outcomes = NULL
     ) %>%
-    tidyr::unnest(c("projection", "injury_model", "season", "week")) %>%
+    tidyr::unnest(c("projection", "injury_model", "week")) %>%
     dplyr::arrange(.data$season,.data$week, .data$pos, .data$ecr) %>%
     dplyr::mutate(projected_score = .data$projection * .data$injury_model * (.data$week != .data$bye))
 
   return(projected_score)
 }
 
-
+.replace_zero <- function(x){replace(x,x==0,1)}

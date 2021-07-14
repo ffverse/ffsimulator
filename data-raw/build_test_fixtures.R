@@ -6,7 +6,7 @@ mfl_conn <- ffscrapr::mfl_connect(season = 2021, league_id = 22627)
 mfl_scoring_history <- ffscrapr::ff_scoringhistory(mfl_conn, 2015:2020) %>%
   select(season, week, gsis_id, sportradar_id, mfl_id, player_name, pos, team, points)
 
-mfl_rosters <- ffscrapr::ff_rosters(mfl_conn) %>%
+mfl_rosters <- ffs_rosters(mfl_conn) %>%
   select(-salary, -contract_years, -roster_status, -draft_year, -draft_round)
 
 mfl_lineup_constraints <- ffscrapr::ff_starter_positions(mfl_conn)
@@ -21,7 +21,7 @@ sleeper_conn <- ff_connect(platform = "sleeper", league_id = "652718526494253056
 sleeper_scoring_history <- ffscrapr::ff_scoringhistory(sleeper_conn, 2015:2020) %>%
   select(season, week, gsis_id, sportradar_id, sleeper_id, player_name, pos, team, points)
 
-sleeper_rosters <- ffscrapr::ff_rosters(sleeper_conn)
+sleeper_rosters <- ffs_rosters(sleeper_conn)
 
 sleeper_lineup_constraints <- ffscrapr::ff_starter_positions(sleeper_conn)
 
@@ -35,7 +35,7 @@ fleaflicker_conn <- fleaflicker_connect(2020, 206154)
 fleaflicker_scoring_history <- ffscrapr::ff_scoringhistory(fleaflicker_conn, 2015:2020) %>%
   select(season, week, gsis_id, sportradar_id, player_name, pos, team, points)
 
-fleaflicker_rosters <- ffscrapr::ff_rosters(fleaflicker_conn)
+fleaflicker_rosters <- ffs_rosters(fleaflicker_conn)
 
 fleaflicker_lineup_constraints <- ffscrapr::ff_starter_positions(fleaflicker_conn)
 
@@ -49,7 +49,7 @@ espn_conn <- espn_connect(season = 2020, league_id = 899513)
 espn_scoring_history <- ffscrapr::ff_scoringhistory(espn_conn, 2015:2020) %>%
   select(season, week, gsis_id, sportradar_id, player_name, pos, team, points)
 
-espn_rosters <- ffscrapr::ff_rosters(espn_conn)
+espn_rosters <- ffs_rosters(espn_conn)
 
 espn_lineup_constraints <- ffscrapr::ff_starter_positions(espn_conn)
 

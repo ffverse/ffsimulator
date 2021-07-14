@@ -86,7 +86,7 @@ sims$summary_week %>%
     plot.title.position = "plot"
   ) +
   labs(
-    title = glue::glue("Weekly Scores - {sims$simulation_params$n_seasons * sims$simulation_params$weeks_per_season} Simulated Weeks"),
+    title = glue::glue("Weekly Scores - {sims$simulation_params$n_seasons * sims$simulation_params$n_weeks} Simulated Weeks"),
     subtitle = glue::glue("{sims$league_info$league_name}"),
     caption = glue::glue("ffsimulator R pkg | FP rankings as of {sims$latest_rankings$scrape_date[[1]]}")
   )

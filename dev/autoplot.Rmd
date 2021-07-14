@@ -1,14 +1,27 @@
 ---
-title: "R Notebook"
+title: "Autoplot"
 output: github_document
 ---
 
 ```{r}
-library(ffsimulator)
+# library(ffsimulator)
+pkgload::load_all()
 library(ggplot2)
+library(furrr)
+
+plan(multisession)
+
 conn <- mfl_connect(2021,22627)
 
-sims <- ff_simulate(conn)
+tictoc::tic()
+sims_p <- ff_simulate(conn, parallel = TRUE, n_seasons=100, seed = 613)
+tictoc::toc()
+
+tictoc::tic()
+sims <- ff_simulate(conn, parallel = FALSE, n_seasons=100, seed = 613)
+tictoc::toc()
+
+waldo::compare(sims$summary_simulation, sims_p$summary_simulation)
 
 autoplot(sims)
 ```
