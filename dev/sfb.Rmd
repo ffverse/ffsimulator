@@ -13,7 +13,7 @@ plan(multisession)
 ```
 
 
-```{r}
+```{r import_data}
 conn <- mfl_connect(2021, 47747)
 
 league_info <- ffscrapr::ff_league(conn)
@@ -27,11 +27,13 @@ tictoc::toc()
 tictoc::tic()
 latest_rankings <- ffs_latest_rankings()
 tictoc::toc()
+
+lineup_constraints <- ffscrapr::ff_starter_positions(conn)
+
 ```
 
 
-```{r}
-# projected_scores <- ffs_generate_projections(scoring_history, adp_outcomes, n_season, n_weeks)
+```{r sfb_rosters}
 conn2 <- mfl_connect(2021)
 
 leagues <- mfl_getendpoint(conn2, "leagueSearch", SEARCH = "#SFB11") %>%
@@ -66,10 +68,10 @@ rosters <- rosters_raw %>%
   select(rosters) %>%
   unnest(rosters) %>%
   left_join(franchises,by = c("league_id","franchise_id"))
+```
 
-lineup_constraints <- ffscrapr::ff_starter_positions(conn)
 
-#### GENERATE PREDICTIONS ####
+```{r generate_projections}
 n_seasons <- 100
 n_weeks <- 13
 tictoc::tic()
@@ -79,10 +81,17 @@ projected_scores <- ffs_generate_projections(adp_outcomes = adp_outcomes,
                                              n_weeks = n_weeks,
                                              rosters = rosters)
 tictoc::toc()
+```
+
+
+```{r join_projections_to_rosters}
 tictoc::tic()
 roster_scores <- ffs_score_rosters(projected_scores, rosters)
 tictoc::toc()
-#### OPTIMIZE LINEUPS ####
+```
+
+
+```{r optimize_lineups}
 tictoc::tic()
 optimal_scores <- ffs_optimize_lineups(
   roster_scores = roster_scores,
@@ -90,7 +99,10 @@ optimal_scores <- ffs_optimize_lineups(
   best_ball = FALSE,
   parallel = TRUE)
 tictoc::toc()
-#### GENERATE SCHEDULES ####
+```
+
+
+```{r schedule_and_summarise}
 tictoc::tic()
 schedules <- ffs_build_schedules(n_teams = rosters %>%
                                    dplyr::distinct(.data$league_id,.data$franchise_id) %>%
@@ -98,7 +110,6 @@ schedules <- ffs_build_schedules(n_teams = rosters %>%
                                  n_seasons = n_seasons,
                                  n_weeks = n_weeks)
 tictoc::toc()
-#### SUMMARISE SEASON ####
 tictoc::tic()
 summary_week <- ffs_summarise_week(optimal_scores, schedules)
 tictoc::toc()

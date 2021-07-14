@@ -83,7 +83,7 @@ library(ffsimulate)
 
 conn <- mfl_connect(2021,22627)
 
-sims <- ff_simulate(conn, n_seasons = 50, n_weeks = 14, best_ball = FALSE)
+sims <- ff_simulate(conn, n_seasons = 100, n_weeks = 14, best_ball = FALSE)
 
 sims$summary
 ```
