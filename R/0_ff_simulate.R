@@ -10,6 +10,7 @@
 #' @param injury_model select between "simple", "none"
 #' @param base_seasons a numeric vector that selects seasons as base data, earliest available is 2012
 #' @param parallel a logical: use parallel processing for optimizing lineups, default is FALSE
+#' @param verbose a logical: print progress messages? default TRUE
 #' @examples \dontrun{
 #'
 #' conn <- mfl_connect(2021, 22627)
@@ -42,7 +43,8 @@ ff_simulate <- function(conn,
                         seed = NULL,
                         injury_model = c("simple", "none"),
                         base_seasons = 2012:2020,
-                        parallel = FALSE
+                        parallel = FALSE,
+                        verbose = TRUE
                         ){
 
   #### Assertions ####
@@ -58,7 +60,7 @@ ff_simulate <- function(conn,
   checkmate::assert_int(n_weeks, lower = 1)
   checkmate::assert_int(seed, null.ok = TRUE)
   checkmate::assert_flag(best_ball)
-  checkmate::assert_flag(actual_schedule)
+  # checkmate::assert_flag(actual_schedule)
   if(!is.null(seed)) set.seed(seed)
 
   # checkmate::assert_flag(verbose)
@@ -71,6 +73,8 @@ ff_simulate <- function(conn,
 
 
   #### Import Data ####
+
+  cli::
 
   league_info <- ffscrapr::ff_league(conn)
 
@@ -115,28 +119,25 @@ ff_simulate <- function(conn,
   summary_season <- ffs_summarise_season(summary_week)
   summary_simulation <- ffs_summarise_simulation(summary_season)
 
-  #### BUILD AND RETURN ####
+  #### Build and Return ####
 
-  out <-
-    structure(
-      list(
-        summary_simulation = summary_simulation,
-        summary_season = summary_season,
-        summary_week = summary_week,
-        roster_scores = roster_scores,
-        projected_scores = projected_scores,
-        league_info = league_info,
-        simulation_params = list(
-          n_seasons = n_seasons,
-          n_weeks = n_weeks,
-          best_ball = best_ball,
-          seed = seed,
-          injury_model = injury_model,
-          base_seasons = 2012:2020
-        )
-      ),
-      class = "ff_simulation"
-    )
+  out <- structure(
+    list(summary_simulation = summary_simulation,
+         summary_season = summary_season,
+         summary_week = summary_week,
+         roster_scores = roster_scores,
+         projected_scores = projected_scores,
+         league_info = league_info,
+         simulation_params = list(n_seasons = n_seasons,
+                                  n_weeks = n_weeks,
+                                  best_ball = best_ball,
+                                  seed = seed,
+                                  injury_model = injury_model,
+                                  base_seasons = 2012:2020
+         )
+    ),
+    class = "ff_simulation"
+  )
 
   return(out)
 }
