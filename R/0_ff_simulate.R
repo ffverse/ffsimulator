@@ -74,8 +74,6 @@ ff_simulate <- function(conn,
 
   #### Import Data ####
 
-  cli::
-
   league_info <- ffscrapr::ff_league(conn)
 
   scoring_history <- ffscrapr::ff_scoringhistory(conn, base_seasons)
