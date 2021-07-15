@@ -1,6 +1,6 @@
 Package: ffsimulator
 Title: Simulate Fantasy Football Seasons
-Version: 0.2.2.02
+Version: 0.2.2.03
 Authors@R: 
     person(given = "Tan",
            family = "Ho",
