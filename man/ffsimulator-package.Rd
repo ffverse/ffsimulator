@@ -8,7 +8,10 @@
 \description{
 \if{html}{\figure{logo.png}{options: align='right' alt='logo' width='120'}}
 
-Simulate fantasy football seasons.
+Runs bootstrap resampling style fantasy football season
+    simulations using historical rankings and nflfastR data, calculating
+    optimal lineups, and returning aggregated results to help determine
+    team roster strengths.
 }
 \seealso{
 Useful links:

@@ -1,5 +1,5 @@
 library(testthat)
 library(ffsimulator)
-library(httptest)
+library(checkmate)
 
 test_check("ffsimulator")

@@ -9,11 +9,14 @@ ffs_score_rosters(projected_scores, rosters)
 \arguments{
 \item{projected_scores}{a dataframe of projected scores, as created by \code{ffs_generate_projections()}}
 
-\item{rosters}{a dataframe of rosters, as created by \code{ffs_rosters()} - must contain fantasypros_id}
+\item{rosters}{a dataframe of rosters, as created by \code{ffs_rosters()}}
 }
 \value{
 A dataframe of roster-level projected scores
 }
 \description{
-Attaches projected scores to rosters (via a left-join)
+Attaches projected scores to rosters (via a left-join) and creates a positional ranking column.
+}
+\seealso{
+vignette("Custom Simulations") for example usage
 }

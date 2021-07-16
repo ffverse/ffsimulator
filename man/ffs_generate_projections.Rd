@@ -7,8 +7,8 @@
 ffs_generate_projections(
   adp_outcomes,
   latest_rankings,
-  n_seasons,
-  n_weeks,
+  n_seasons = 100,
+  n_weeks = 14,
   rosters = NULL
 )
 }
@@ -17,18 +17,18 @@ ffs_generate_projections(
 
 \item{latest_rankings}{a dataframe of rankings, as created by \code{ffs_latest_rankings()}}
 
-\item{n_seasons}{number of seasons}
+\item{n_seasons}{number of seasons, default is 100}
 
-\item{n_weeks}{weeks per season}
+\item{n_weeks}{weeks per season, default is 14}
 
 \item{rosters}{a dataframe of rosters, as created by \code{ffs_rosters()} - optional, reduces computation to just rostered players}
 }
 \value{
-
+a dataframe of weekly scores for each player in the simulation, approximately of length n_seasons x n_weeks x latest_rankings
 }
 \description{
-Run the bootstrapped resampling of player week outcomes on the latest rankings and rosters for a given number of seasons and weeks per season.
+Runs the bootstrapped resampling of player week outcomes on the latest rankings and rosters for a given number of seasons and weeks per season.
 }
-\details{
-Dataframe should contain ecr, prob_gp, week_outcomes, injury_model, franchise_id, pos, and bye
+\seealso{
+vignette("Custom Simulations") for example usage
 }

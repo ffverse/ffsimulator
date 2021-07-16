@@ -11,19 +11,19 @@ nflfastr_rosters <- nflfastr_rosters(2012:2020) %>%
     pos = position,
     team
   ) %>%
-  filter(pos %in% c("QB","RB","WR","TE")) %>%
+  filter(pos %in% c("QB", "RB", "WR", "TE")) %>%
   group_by(gsis_id) %>%
   fill(sportradar_id, .direction = "downup") %>%
   ungroup()
 
 fp_rankings <- ffsimulator::fp_rankings_history %>%
-  filter(pos %in% c("QB","RB","WR","TE")) %>%
+  filter(pos %in% c("QB", "RB", "WR", "TE")) %>%
   group_by(fantasypros_id) %>%
   fill(sportradar_id, .direction = "downup") %>%
   ungroup() %>%
   dplyr::left_join(
     ffscrapr::dp_playerids() %>%
-      dplyr::select("fantasypros_id","gsis_id"),
+      dplyr::select("fantasypros_id", "gsis_id"),
     by = "fantasypros_id"
   ) %>%
   filter(is.na(gsis_id)) %>%
@@ -33,7 +33,7 @@ fp_rankings <- ffsimulator::fp_rankings_history %>%
     fantasypros_id,
     sportradar_id,
     player_name,
-    merge_name = ffscrapr::dp_cleannames(player_name,lowercase = TRUE),
+    merge_name = ffscrapr::dp_cleannames(player_name, lowercase = TRUE),
     pos
   ) %>%
   left_join(
@@ -44,9 +44,9 @@ fp_rankings <- ffsimulator::fp_rankings_history %>%
         season,
         pos,
         nfl_team = team
-        ) %>%
+      ) %>%
       distinct(gsis_id, .keep_all = TRUE),
-    by = c("merge_name","pos","season")
+    by = c("merge_name", "pos", "season")
   ) %>%
   filter(
     !gsis_id %in% c("00-0029169")
@@ -62,8 +62,7 @@ fp_rankings <- ffsimulator::fp_rankings_history %>%
   distinct(fantasypros_id, .keep_all = TRUE) %>%
   select(player_name, pos, fantasypros_id, sportradar_id, gsis_id)
 
-write.csv(fp_rankings %>% filter(!is.na(gsis_id)),"data-raw/supplemental_gsis_ids.csv")
-write.csv(fp_rankings %>% filter(is.na(gsis_id)),"data-raw/missing_gsis_ids.csv")
+write.csv(fp_rankings %>% filter(!is.na(gsis_id)), "data-raw/supplemental_gsis_ids.csv")
+write.csv(fp_rankings %>% filter(is.na(gsis_id)), "data-raw/missing_gsis_ids.csv")
 
-janitor::get_dupes(fp_rankings,fantasypros_id,season) %>% View()
-
+janitor::get_dupes(fp_rankings, fantasypros_id, season) %>% View()
