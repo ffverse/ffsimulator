@@ -2,26 +2,27 @@
 
 #' Get Rosters
 #'
-#' This function loosely wraps `ffscrapr::ff_rosters()` and adds fantasypros_id.
+#' This function lightly wraps `ffscrapr::ff_rosters()` and adds fantasypros_id, which is a required column for ffsimulator.
 #'
 #' @param conn a connection object as created by `ffscrapr::ff_connect()` and friends.
 #'
 #' @return a dataframe of rosters that includes a fantasypros_id column
 #'
+#' @seealso vignette("Custom Simulations") for example usage
+#'
 #' @export
-ffs_rosters <- function(conn){
+ffs_rosters <- function(conn) {
   UseMethod("ffs_rosters")
 }
 
 #' @rdname ffs_rosters
 #' @export
-ffs_rosters.mfl_conn <- function(conn){
-
+ffs_rosters.mfl_conn <- function(conn) {
   rosters <- ffscrapr::ff_rosters(conn) %>%
     dplyr::left_join(
       ffscrapr::dp_playerids() %>%
-        dplyr::select("mfl_id","fantasypros_id"),
-      by = c("player_id"="mfl_id"),
+        dplyr::select("mfl_id", "fantasypros_id"),
+      by = c("player_id" = "mfl_id"),
       na_matches = "never"
     ) %>%
     dplyr::mutate(league_id = conn$league_id)
@@ -31,15 +32,14 @@ ffs_rosters.mfl_conn <- function(conn){
 
 #' @rdname ffs_rosters
 #' @export
-ffs_rosters.sleeper_conn <- function(conn){
-
+ffs_rosters.sleeper_conn <- function(conn) {
   rosters <- ffscrapr::ff_rosters(conn) %>%
     dplyr::left_join(
       ffscrapr::dp_playerids() %>%
-        dplyr::select("sleeper_id","fantasypros_id"),
-      by = c("player_id"="sleeper_id"),
+        dplyr::select("sleeper_id", "fantasypros_id"),
+      by = c("player_id" = "sleeper_id"),
       na_matches = "never"
-    )%>%
+    ) %>%
     dplyr::mutate(league_id = conn$league_id)
 
   return(rosters)
@@ -47,15 +47,14 @@ ffs_rosters.sleeper_conn <- function(conn){
 
 #' @rdname ffs_rosters
 #' @export
-ffs_rosters.flea_conn <- function(conn){
-
+ffs_rosters.flea_conn <- function(conn) {
   rosters <- ffscrapr::ff_rosters(conn) %>%
     dplyr::left_join(
       ffscrapr::dp_playerids() %>%
-        dplyr::select("sportradar_id","fantasypros_id"),
+        dplyr::select("sportradar_id", "fantasypros_id"),
       by = c("sportradar_id"),
       na_matches = "never"
-    )%>%
+    ) %>%
     dplyr::mutate(league_id = conn$league_id)
 
   return(rosters)
@@ -63,17 +62,27 @@ ffs_rosters.flea_conn <- function(conn){
 
 #' @rdname ffs_rosters
 #' @export
-ffs_rosters.espn_conn <- function(conn){
-
+ffs_rosters.espn_conn <- function(conn) {
   rosters <- ffscrapr::ff_rosters(conn) %>%
+    dplyr::mutate(player_id=as.character(.data$player_id)) %>%
     dplyr::left_join(
       ffscrapr::dp_playerids() %>%
-        dplyr::select("espn_id","fantasypros_id"),
-      by = c("player_id"="espn_id"),
+        dplyr::select("espn_id", "fantasypros_id"),
+      by = c("player_id" = "espn_id"),
       na_matches = "never"
-    )%>%
+    ) %>%
     dplyr::mutate(league_id = conn$league_id)
 
   return(rosters)
 }
 
+
+#' @noRd
+#' @export
+ffs_rosters.default <- function(conn) {
+  # nocov start
+  stop(glue::glue("Could not find a method of <ff_rosters> for class {class(conn)} - was this created by ff_connect()?"),
+    call. = FALSE
+  )
+  # nocov end
+}

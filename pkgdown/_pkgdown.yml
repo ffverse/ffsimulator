@@ -56,7 +56,7 @@ navbar:
         - text: ffscrapr package
           href: https://ffscrapr.dynastyprocess.com
         - text: ffpros package
-          href: https://ffpros.dynastyprocess.com
+          href: https://ffpros.ffverse.com
         - text: ffverse GitHub
           href: https://www.github.com/ffverse
         - text: -------
@@ -84,5 +84,5 @@ template:
       site: "@DynastyProcess"
       card: summary
 
-#development:
+# development:
 #  mode: auto

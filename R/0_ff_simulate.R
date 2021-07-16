@@ -11,7 +11,8 @@
 #' @param base_seasons a numeric vector that selects seasons as base data, earliest available is 2012
 #' @param parallel a logical: use parallel processing for optimizing lineups, default is FALSE
 #' @param verbose a logical: print progress messages? default TRUE
-#' @examples \dontrun{
+#' @examples
+#' \dontrun{
 #'
 #' conn <- mfl_connect(2021, 22627)
 #'
@@ -44,14 +45,14 @@ ff_simulate <- function(conn,
                         injury_model = c("simple", "none"),
                         base_seasons = 2012:2020,
                         parallel = FALSE,
-                        verbose = TRUE
-                        ){
+                        verbose = TRUE) {
 
   #### Assertions ####
 
-  if(!class(conn) %in% c("mfl_conn","sleeper_conn","flea_conn","espn_conn")) {
+  if (!class(conn) %in% c("mfl_conn", "sleeper_conn", "flea_conn", "espn_conn")) {
     stop("conn should be a connection object created by `ff_connect()` and friends!",
-         call. = FALSE)
+      call. = FALSE
+    )
   }
 
   injury_model <- match.arg(injury_model)
@@ -61,7 +62,7 @@ ff_simulate <- function(conn,
   checkmate::assert_int(seed, null.ok = TRUE)
   checkmate::assert_flag(best_ball)
   # checkmate::assert_flag(actual_schedule)
-  if(!is.null(seed)) set.seed(seed)
+  if (!is.null(seed)) set.seed(seed)
 
   # checkmate::assert_flag(verbose)
   # if(!is.null(custom_rankings)) {
@@ -86,30 +87,40 @@ ff_simulate <- function(conn,
 
   #### Generate Projections ####
 
-  adp_outcomes <- ffs_adp_outcomes(scoring_history = scoring_history,
-                                   injury_model = injury_model)
+  adp_outcomes <- ffs_adp_outcomes(
+    scoring_history = scoring_history,
+    injury_model = injury_model
+  )
 
-  projected_scores <- ffs_generate_projections(adp_outcomes = adp_outcomes,
-                                               latest_rankings = latest_rankings,
-                                               n_seasons = n_seasons,
-                                               n_weeks = n_weeks,
-                                               rosters = rosters)
+  projected_scores <- ffs_generate_projections(
+    adp_outcomes = adp_outcomes,
+    latest_rankings = latest_rankings,
+    n_seasons = n_seasons,
+    n_weeks = n_weeks,
+    rosters = rosters
+  )
 
   #### Calculate Roster Scores ####
 
-  roster_scores <- ffs_score_rosters(projected_scores = projected_scores,
-                                     rosters = rosters)
+  roster_scores <- ffs_score_rosters(
+    projected_scores = projected_scores,
+    rosters = rosters
+  )
 
-  optimal_scores <- ffs_optimise_lineups(roster_scores = roster_scores,
-                                         lineup_constraints = lineup_constraints,
-                                         best_ball = best_ball,
-                                         parallel = parallel)
+  optimal_scores <- ffs_optimise_lineups(
+    roster_scores = roster_scores,
+    lineup_constraints = lineup_constraints,
+    best_ball = best_ball,
+    parallel = parallel
+  )
 
   #### Generate Schedules ####
 
-  schedules <- ffs_build_schedules(n_teams = length(unique(rosters$franchise_id)),
-                                  n_seasons = n_seasons,
-                                  n_weeks = n_weeks)
+  schedules <- ffs_build_schedules(
+    n_teams = length(unique(rosters$franchise_id)),
+    n_seasons = n_seasons,
+    n_weeks = n_weeks
+  )
 
   #### Summarise Season ####
 
@@ -120,23 +131,24 @@ ff_simulate <- function(conn,
   #### Build and Return ####
 
   out <- structure(
-    list(summary_simulation = summary_simulation,
-         summary_season = summary_season,
-         summary_week = summary_week,
-         roster_scores = roster_scores,
-         projected_scores = projected_scores,
-         league_info = league_info,
-         simulation_params = list(n_seasons = n_seasons,
-                                  n_weeks = n_weeks,
-                                  best_ball = best_ball,
-                                  seed = seed,
-                                  injury_model = injury_model,
-                                  base_seasons = 2012:2020
-         )
+    list(
+      summary_simulation = summary_simulation,
+      summary_season = summary_season,
+      summary_week = summary_week,
+      roster_scores = roster_scores,
+      projected_scores = projected_scores,
+      league_info = league_info,
+      simulation_params = list(
+        n_seasons = n_seasons,
+        n_weeks = n_weeks,
+        best_ball = best_ball,
+        seed = seed,
+        injury_model = injury_model,
+        base_seasons = 2012:2020
+      )
     ),
     class = "ff_simulation"
   )
 
   return(out)
 }
-

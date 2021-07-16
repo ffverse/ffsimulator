@@ -25,5 +25,8 @@ ffs_rosters(conn)
 a dataframe of rosters that includes a fantasypros_id column
 }
 \description{
-This function loosely wraps \code{ffscrapr::ff_rosters()} and adds fantasypros_id.
+This function lightly wraps \code{ffscrapr::ff_rosters()} and adds fantasypros_id, which is a required column for ffsimulator.
+}
+\seealso{
+vignette("Custom Simulations") for example usage
 }

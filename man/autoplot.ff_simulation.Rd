@@ -14,7 +14,7 @@ autoplot.ff_simulation(object, type = c("wins", "rank", "points"), ...)
 
 \item{type}{one of "wins", "rank", "points"}
 
-\item{...}{unused}
+\item{...}{unused, required by autoplot generic}
 
 \item{x}{A \code{ff_simulation} object.}
 
@@ -24,8 +24,11 @@ autoplot.ff_simulation(object, type = c("wins", "rank", "points"), ...)
 a ggplot object
 }
 \description{
-Creates some plots for wins, ranks, or points for an \code{ff_simulation} object as created by \code{ff_simulate()}
+Creates automatic plots for wins, ranks, or points for an \code{ff_simulation} object as created by \code{ff_simulate()}.
 }
-\examples{
-
+\details{
+Usage of this function/method requires the ggplot2 package and (for wins and points plots) the ggridges package.
+}
+\seealso{
+\code{vignette("Basic Simulations")} for example usage
 }

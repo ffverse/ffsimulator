@@ -9,11 +9,16 @@ ffs_adp_outcomes(scoring_history, injury_model = "simple")
 \arguments{
 \item{scoring_history}{a scoring history table as created by \code{ffscrapr::ff_scoringhistory()}}
 
-\item{injury_model}{either "simple" or "none" - simple uses the average games played for each position/adp combination, none assumes every game is played.}
+\item{injury_model}{either "simple" or "none" - simple uses the average games played per season for each position/adp combination, none assumes every game is played.}
 }
 \value{
-dataframe with position, rank, probability of games played, all week score outcomes
+a tibble with position, rank, probability of games played, and a corresponding nested list per row of all week score outcomes.
 }
 \description{
-Connects ff_scoringhistory to past ADP rankings
+The backbone of the ffsimulator resampling process is coming up with a population of weekly outcomes for every preseason positional rank. This function creates that dataframe by connecting historical FantasyPros.com rankings to nflfastR-based scoring data, as created by \code{ffscrapr::ff_scoringhistory()}.
+}
+\seealso{
+\code{fp_rankings_history} for the included historical rankings, and \code{fp_injury_table} for the historical injury table
+
+\code{vignette("Custom Simulation")} for example usage.
 }

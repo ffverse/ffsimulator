@@ -31,5 +31,8 @@ ffs_summarize_week(optimal_scores, schedules)
 \item{summary_season}{a dataframe as created by \code{ffs_summarise_season()}}
 }
 \description{
-These functions are used to summarise the simulation outputs (i.e. optimal_scores + schedules)
+These functions are used to summarise the simulation outputs, typically by joining the optimal scores with a matching schedule.
+}
+\seealso{
+\code{vignette("Custom Simulations")} for example usage
 }

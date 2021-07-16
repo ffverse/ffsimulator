@@ -12,7 +12,8 @@ ff_simulate(
   seed = NULL,
   injury_model = c("simple", "none"),
   base_seasons = 2012:2020,
-  parallel = FALSE
+  parallel = FALSE,
+  verbose = TRUE
 )
 }
 \arguments{
@@ -31,6 +32,8 @@ ff_simulate(
 \item{base_seasons}{a numeric vector that selects seasons as base data, earliest available is 2012}
 
 \item{parallel}{a logical: use parallel processing for optimizing lineups, default is FALSE}
+
+\item{verbose}{a logical: print progress messages? default TRUE}
 }
 \description{
 The main function of the package.

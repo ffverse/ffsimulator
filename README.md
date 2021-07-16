@@ -84,7 +84,7 @@ This package shares many conventions with the ffverse, including all
 main functions being prefixed with `ff_` for ease of autocomplete.
 
 ``` r
-library(ffsimulate)
+library(ffsimulator)
 
 conn <- mfl_connect(2021,22627)
 

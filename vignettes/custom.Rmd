@@ -1,8 +1,8 @@
 ---
-title: "Manual Simulations"
+title: "Custom Simulations"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{manual}
+  %\VignetteIndexEntry{Custom Simulations}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

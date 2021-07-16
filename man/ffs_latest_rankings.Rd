@@ -7,7 +7,7 @@
 ffs_latest_rankings()
 }
 \description{
-Fetches a copy of FP data from DynastyProcess's data repository.
+Fetches a copy of the latest FantasyPros redraft positional rankings data from DynastyProcess.com's data repository.
 }
 \details{
 If you have any issues with the output of this data, please open an issue in
@@ -15,4 +15,6 @@ the DynastyProcess data repository.
 }
 \seealso{
 \url{https://github.com/dynastyprocess/data}
+
+\code{vignette("Custom Simulation")} for example usage
 }

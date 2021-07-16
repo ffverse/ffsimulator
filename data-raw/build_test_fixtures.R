@@ -1,5 +1,8 @@
 library(tidyverse)
 library(ffscrapr)
+pkgload::load_all()
+
+setwd(here::here())
 
 mfl_conn <- ffscrapr::mfl_connect(season = 2021, league_id = 22627)
 
@@ -60,3 +63,45 @@ saveRDS(espn_lineup_constraints, "tests/testthat/cache/espn_lineup_constraints.r
 
 latest_rankings <- ffs_latest_rankings()
 saveRDS(latest_rankings, "tests/testthat/cache/latest_rankings.rds")
+
+adp_outcomes <- ffs_adp_outcomes(
+  scoring_history = mfl_scoring_history,
+  injury_model = "simple"
+)
+saveRDS(adp_outcomes, "tests/testthat/cache/adp_outcomes.rds")
+
+projected_scores <- ffs_generate_projections(
+  adp_outcomes = adp_outcomes,
+  latest_rankings = latest_rankings,
+  n_seasons = 2,
+  n_weeks = 10,
+  rosters = mfl_rosters
+)
+saveRDS(projected_scores, "tests/testthat/cache/projected_scores.rds")
+
+roster_scores <- ffs_score_rosters(
+  projected_scores = projected_scores,
+  rosters = mfl_rosters
+)
+saveRDS(roster_scores, "tests/testthat/cache/roster_scores.rds")
+
+optimal_scores <- ffs_optimize_lineups(
+  roster_scores = roster_scores,
+  lineup_constraints = mfl_lineup_constraints,
+  best_ball = FALSE,
+  parallel = FALSE
+)
+saveRDS(optimal_scores, "tests/testthat/cache/optimal_scores.rds")
+
+schedules <- ffs_build_schedules(
+  n_teams = 12,
+  n_seasons = 2,
+  n_weeks = 10
+)
+
+saveRDS(schedules, "tests/testthat/cache/schedules.rds")
+
+foureight <- mfl_connect(2021,22627)
+foureight_sim <- ff_simulate(foureight, n_seasons = 5)
+
+saveRDS(foureight_sim, "tests/testthat/cache/foureight_sim.rds")
