@@ -49,7 +49,7 @@
   
 
 <meta property="og:title" content="Join Rosters to Projected Scores — ffs_score_rosters" />
-<meta property="og:description" content="Attaches projected scores to rosters (via a left-join)" />
+<meta property="og:description" content="Attaches projected scores to rosters (via a left-join) and creates a positional ranking column." />
 <meta property="og:image" content="ffsimulator.ffverse.com/reference/figures/logo.png" />
 <meta property="og:image:alt" content="ffsimulator - An R Package For Simulating Fantasy Football Seasons" />
 <meta name="twitter:card" content="summary" />
@@ -86,7 +86,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ffsimulator</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.2.03</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.4</span>
       </span>
     </div>
 
@@ -112,7 +112,7 @@
       <a href="../articles/basic.html">Basic Simulations</a>
     </li>
     <li>
-      <a href="../articles/manual.html">Manual Simulations</a>
+      <a href="../articles/custom.html">Custom Simulations</a>
     </li>
   </ul>
 </li>
@@ -144,7 +144,7 @@
       <a href="https://ffscrapr.dynastyprocess.com">ffscrapr package</a>
     </li>
     <li>
-      <a href="https://ffpros.dynastyprocess.com">ffpros package</a>
+      <a href="https://ffpros.ffverse.com">ffpros package</a>
     </li>
     <li>
       <a href="https://www.github.com/ffverse">ffverse GitHub</a>
@@ -182,7 +182,7 @@
     </div>
 
     <div class="ref-description">
-    <p>Attaches projected scores to rosters (via a left-join)</p>
+    <p>Attaches projected scores to rosters (via a left-join) and creates a positional ranking column.</p>
     </div>
 
     <pre class="usage"><span class='fu'>ffs_score_rosters</span><span class='op'>(</span><span class='va'>projected_scores</span>, <span class='va'>rosters</span><span class='op'>)</span></pre>
@@ -196,13 +196,16 @@
     </tr>
     <tr>
       <th>rosters</th>
-      <td><p>a dataframe of rosters, as created by <code><a href='ffs_rosters.html'>ffs_rosters()</a></code> - must contain fantasypros_id</p></td>
+      <td><p>a dataframe of rosters, as created by <code><a href='ffs_rosters.html'>ffs_rosters()</a></code></p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A dataframe of roster-level projected scores</p>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p>vignette("Custom Simulations") for example usage</p></div>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

@@ -49,7 +49,7 @@
   
 
 <meta property="og:title" content="Generate Projections — ffs_generate_projections" />
-<meta property="og:description" content="Run the bootstrapped resampling of player week outcomes on the latest rankings and rosters for a given number of seasons and weeks per season." />
+<meta property="og:description" content="Runs the bootstrapped resampling of player week outcomes on the latest rankings and rosters for a given number of seasons and weeks per season." />
 <meta property="og:image" content="ffsimulator.ffverse.com/reference/figures/logo.png" />
 <meta property="og:image:alt" content="ffsimulator - An R Package For Simulating Fantasy Football Seasons" />
 <meta name="twitter:card" content="summary" />
@@ -86,7 +86,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ffsimulator</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.2.03</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.4</span>
       </span>
     </div>
 
@@ -112,7 +112,7 @@
       <a href="../articles/basic.html">Basic Simulations</a>
     </li>
     <li>
-      <a href="../articles/manual.html">Manual Simulations</a>
+      <a href="../articles/custom.html">Custom Simulations</a>
     </li>
   </ul>
 </li>
@@ -144,7 +144,7 @@
       <a href="https://ffscrapr.dynastyprocess.com">ffscrapr package</a>
     </li>
     <li>
-      <a href="https://ffpros.dynastyprocess.com">ffpros package</a>
+      <a href="https://ffpros.ffverse.com">ffpros package</a>
     </li>
     <li>
       <a href="https://www.github.com/ffverse">ffverse GitHub</a>
@@ -182,14 +182,14 @@
     </div>
 
     <div class="ref-description">
-    <p>Run the bootstrapped resampling of player week outcomes on the latest rankings and rosters for a given number of seasons and weeks per season.</p>
+    <p>Runs the bootstrapped resampling of player week outcomes on the latest rankings and rosters for a given number of seasons and weeks per season.</p>
     </div>
 
     <pre class="usage"><span class='fu'>ffs_generate_projections</span><span class='op'>(</span>
   <span class='va'>adp_outcomes</span>,
   <span class='va'>latest_rankings</span>,
-  <span class='va'>n_seasons</span>,
-  <span class='va'>n_weeks</span>,
+  n_seasons <span class='op'>=</span> <span class='fl'>100</span>,
+  n_weeks <span class='op'>=</span> <span class='fl'>14</span>,
   rosters <span class='op'>=</span> <span class='cn'>NULL</span>
 <span class='op'>)</span></pre>
 
@@ -206,11 +206,11 @@
     </tr>
     <tr>
       <th>n_seasons</th>
-      <td><p>number of seasons</p></td>
+      <td><p>number of seasons, default is 100</p></td>
     </tr>
     <tr>
       <th>n_weeks</th>
-      <td><p>weeks per season</p></td>
+      <td><p>weeks per season, default is 14</p></td>
     </tr>
     <tr>
       <th>rosters</th>
@@ -220,12 +220,10 @@
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    
+    <p>a dataframe of weekly scores for each player in the simulation, approximately of length n_seasons x n_weeks x latest_rankings</p>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>Dataframe should contain ecr, prob_gp, week_outcomes, injury_model, franchise_id, pos, and bye</p>
+    <div class='dont-index'><p>vignette("Custom Simulations") for example usage</p></div>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

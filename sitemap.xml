@@ -10,6 +10,9 @@
     <loc>ffsimulator.ffverse.com/reference/dot-ff_apply_injury_model.html</loc>
   </url>
   <url>
+    <loc>ffsimulator.ffverse.com/reference/dot-ff_optimise_one_lineup.html</loc>
+  </url>
+  <url>
     <loc>ffsimulator.ffverse.com/reference/ff_connect.html</loc>
   </url>
   <url>
@@ -64,6 +67,6 @@
     <loc>ffsimulator.ffverse.com/articles/basic.html</loc>
   </url>
   <url>
-    <loc>ffsimulator.ffverse.com/articles/manual.html</loc>
+    <loc>ffsimulator.ffverse.com/articles/custom.html</loc>
   </url>
 </urlset>

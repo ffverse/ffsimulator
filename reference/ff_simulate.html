@@ -86,7 +86,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ffsimulator</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.2.03</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.4</span>
       </span>
     </div>
 
@@ -112,7 +112,7 @@
       <a href="../articles/basic.html">Basic Simulations</a>
     </li>
     <li>
-      <a href="../articles/manual.html">Manual Simulations</a>
+      <a href="../articles/custom.html">Custom Simulations</a>
     </li>
   </ul>
 </li>
@@ -144,7 +144,7 @@
       <a href="https://ffscrapr.dynastyprocess.com">ffscrapr package</a>
     </li>
     <li>
-      <a href="https://ffpros.dynastyprocess.com">ffpros package</a>
+      <a href="https://ffpros.ffverse.com">ffpros package</a>
     </li>
     <li>
       <a href="https://www.github.com/ffverse">ffverse GitHub</a>
@@ -193,7 +193,8 @@
   seed <span class='op'>=</span> <span class='cn'>NULL</span>,
   injury_model <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"simple"</span>, <span class='st'>"none"</span><span class='op'>)</span>,
   base_seasons <span class='op'>=</span> <span class='fl'>2012</span><span class='op'>:</span><span class='fl'>2020</span>,
-  parallel <span class='op'>=</span> <span class='cn'>FALSE</span>
+  parallel <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  verbose <span class='op'>=</span> <span class='cn'>TRUE</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -230,6 +231,10 @@
     <tr>
       <th>parallel</th>
       <td><p>a logical: use parallel processing for optimizing lineups, default is FALSE</p></td>
+    </tr>
+    <tr>
+      <th>verbose</th>
+      <td><p>a logical: print progress messages? default TRUE</p></td>
     </tr>
     </table>
 
