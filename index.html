@@ -44,7 +44,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">ffsimulator</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.5.01</span>
       </span>
     </div>
 
@@ -58,6 +58,9 @@
 </li>
 <li>
   <a href="reference/index.html">Reference</a>
+</li>
+<li>
+  <a href="news/index.html">Changelog</a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -83,7 +86,7 @@
   </a>
 </li>
 <li>
-  <a href="https://github.com/tanho63/ffsimulator/">
+  <a href="https://github.com/ffverse/ffsimulator/">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -141,7 +144,7 @@
 <!-- [![CRAN status](https://img.shields.io/cran/v/ffsimulator?style=flat-square&logo=R&label=CRAN)](https://CRAN.R-project.org/package=ffsimulator)  -->
 
 <!-- badges: end -->
-<p>The <a href="https://github.com/tanho63/ffsimulator">ffsimulator</a> package helps simulate fantasy football seasons. By leveraging historical weekly finishes, current expert consensus rankings, and your league’s data, this package can quickly run your league through hundreds of seasons and may help you study:</p>
+<p>The <a href="https://ffsimulator.ffverse.com">ffsimulator</a> package helps simulate fantasy football seasons. By leveraging historical weekly finishes, current expert consensus rankings, and your league’s data, this package can quickly run your league through hundreds of seasons and may help you study:</p>
 <ul>
 <li>expected season finishes and range of outcomes</li>
 <li>player contributions to season wins</li>
@@ -164,43 +167,17 @@
 <span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"ffverse/ffsimulator"</span><span class="op">)</span></code></pre></div>
 <p>The dev version has a <a href="https://ffsimulator.ffverse.com/dev/">separate documentation site here</a>.</p>
 </div>
-<div id="roadmap" class="section level2">
-<h2 class="hasAnchor">
-<a href="#roadmap" class="anchor"></a>Roadmap</h2>
-<ul>
-<li>Create logic in ADP outcomes to bin together nearby ranks (nearest one above/below) ✅ <em>(binning +1 and -1 together)</em>
-</li>
-<li>Scrape more historical ranks to include in package so that we can use 2010-2020 ✅ <em>(2012-2020 is close enough!)</em>
-</li>
-<li>Patch data inconsistency for IDs (2012:2015) ✅</li>
-<li>Create join functions for each of the remaining ff_connect classes ✅</li>
-<li>Create summary function (season-level H2H wins/winpct, AP wins/winpct, total PF + PP) ✅</li>
-<li>Create simulation summary table ✅</li>
-<li>Write function documentation ✅</li>
-<li>Write tests ✅</li>
-<li>Add autoplot ✅</li>
-<li>Bye week handling ✅</li>
-<li>Write basic usage vignette</li>
-<li>Write custom usage vignette</li>
-<li>Add integration testing</li>
-<li>Clean up README</li>
-<li>CRAN prep</li>
-<li>rewrite with collapse (?)</li>
-</ul>
-</div>
 <div id="usage" class="section level2">
 <h2 class="hasAnchor">
 <a href="#usage" class="anchor"></a>Usage</h2>
-<p>This package shares many conventions with the ffverse, including all main functions being prefixed with <code>ff_</code> for ease of autocomplete.</p>
+<p>A season simulation can be run very simply as follows:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tanho63/ffsimulator">ffsimulator</a></span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">foureight_conn</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/ff_connect.html">mfl_connect</a></span><span class="op">(</span><span class="fl">2021</span>, <span class="fl">22627</span><span class="op">)</span>
 
-<span class="va">conn</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/ff_connect.html">mfl_connect</a></span><span class="op">(</span><span class="fl">2021</span>,<span class="fl">22627</span><span class="op">)</span>
+<span class="va">foureight_sim</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/ff_simulate.html">ff_simulate</a></span><span class="op">(</span>conn <span class="op">=</span> <span class="va">foureight_conn</span>, n_seasons <span class="op">=</span> <span class="fl">25</span>, n_weeks <span class="op">=</span> <span class="fl">14</span><span class="op">)</span>
 
-<span class="va">sims</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/ff_simulate.html">ff_simulate</a></span><span class="op">(</span><span class="va">conn</span>, n_seasons <span class="op">=</span> <span class="fl">100</span>, n_weeks <span class="op">=</span> <span class="fl">14</span>, best_ball <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
-
-<span class="va">sims</span><span class="op">$</span><span class="va">summary</span></code></pre></div>
-<p>Please also see the <a href="https://ffsimulator.ffverse.com/articles/basic.html">basic usage</a> and <a href="https://ffsimulator.ffverse.com/articles/manual.html">manual simulation</a> vignettes for a detailed introduction.</p>
+<span class="fu">autoplot</span><span class="op">(</span><span class="va">foureight_sim</span><span class="op">)</span></code></pre></div>
+<p>Please also see the <a href="https://ffsimulator.ffverse.com/articles/basic.html">basic usage</a>, <a href="https://ffsimulator.ffverse.com/articles/motivations.html">motivations</a> and <a href="https://ffsimulator.ffverse.com/articles/custom.html">custom simulation</a> vignettes for a detailed introduction.</p>
 </div>
 <div id="getting-help" class="section level2">
 <h2 class="hasAnchor">
@@ -225,8 +202,31 @@
 <div id="terms-of-use" class="section level2">
 <h2 class="hasAnchor">
 <a href="#terms-of-use" class="anchor"></a>Terms of Use</h2>
-<p>The R code for this package is released as open source under the <a href="https://ffsimulator.ffverse.com/LICENSE.html">MIT License</a>.</p>
-<p>Fantasy football and NFL data accessed by this package belong to their respective owners, and are governed by their terms of use.</p>
+<p>The R code for this package is released as open source under the <a href="https://ffsimulator.ffverse.com/LICENSE.html">MIT License</a>. Fantasy football and NFL data accessed by this package belong to their respective owners, and are governed by their terms of use.</p>
+</div>
+<div id="roadmap" class="section level2">
+<h2 class="hasAnchor">
+<a href="#roadmap" class="anchor"></a>Roadmap</h2>
+<ul>
+<li>Create logic in ADP outcomes to bin together nearby ranks (nearest one above/below) ✅ <em>(binning +1 and -1 together)</em>
+</li>
+<li>Scrape more historical ranks to include in package so that we can use 2010-2020 ✅ <em>(2012-2020 is close enough!)</em>
+</li>
+<li>Patch data inconsistency for IDs (2012:2015) ✅</li>
+<li>Create join functions for each of the remaining ff_connect classes ✅</li>
+<li>Create summary function (season-level H2H wins/winpct, AP wins/winpct, total PF + PP) ✅</li>
+<li>Create simulation summary table ✅</li>
+<li>Write function documentation ✅</li>
+<li>Write tests ✅</li>
+<li>Add autoplot ✅</li>
+<li>Bye week handling ✅</li>
+<li>Add integration testing ✅</li>
+<li>Add to support invalid lineups ✅</li>
+<li>Write basic usage vignette ✅</li>
+<li>Write custom usage vignette</li>
+<li>Clean up README</li>
+<li>CRAN prep</li>
+</ul>
 </div>
 </div>
   </div>
@@ -235,9 +235,9 @@
     <div class="links">
 <h2>Links</h2>
 <ul class="list-unstyled">
-<li>Browse source code at <br><a href="https://github.com/tanho63/ffsimulator/">https://​github.com/​tanho63/​ffsimulator/​</a>
+<li>Browse source code at <br><a href="https://github.com/ffverse/ffsimulator/">https://​github.com/​ffverse/​ffsimulator/​</a>
 </li>
-<li>Report a bug at <br><a href="https://github.com/tanho63/ffsimulator/issues">https://​github.com/​tanho63/​ffsimulator/​issues</a>
+<li>Report a bug at <br><a href="https://github.com/ffverse/ffsimulator/issues">https://​github.com/​ffverse/​ffsimulator/​issues</a>
 </li>
 </ul>
 </div>
