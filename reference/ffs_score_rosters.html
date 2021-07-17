@@ -86,7 +86,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ffsimulator</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.5.01</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
       </span>
     </div>
 
@@ -210,6 +210,32 @@
 
     <div class='dont-index'><p>vignette("Custom Simulations") for example usage</p></div>
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='co'># \donttest{</span>
+<span class='co'># cached examples</span>
+<span class='va'>projected_scores</span> <span class='op'>&lt;-</span> <span class='fu'>.ffs_cache</span><span class='op'>(</span><span class='st'>"projected_scores.rds"</span><span class='op'>)</span>
+<span class='va'>rosters</span> <span class='op'>&lt;-</span> <span class='fu'>.ffs_cache</span><span class='op'>(</span><span class='st'>"mfl_rosters.rds"</span><span class='op'>)</span>
+
+<span class='fu'>ffs_score_rosters</span><span class='op'>(</span><span class='va'>projected_scores</span>, <span class='va'>rosters</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 7,120 x 18</span>
+#&gt;    franchise_id franchise_name         player_id player_name   pos   team    age
+#&gt;    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>        <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>                  <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>         <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
+#&gt; <span style='color: #BCBCBC;'> 1</span> 0003         Alberta Armadillos     14802     Taylor, Jona… RB    IND    22.5
+#&gt; <span style='color: #BCBCBC;'> 2</span> 0010         [Redacted]             15254     Harris, Najee RB    PIT    23.4
+#&gt; <span style='color: #BCBCBC;'> 3</span> 0012         Indigo Plateau Elite   13671     Andrews, Mark TE    BAL    24.9
+#&gt; <span style='color: #BCBCBC;'> 4</span> 0009         Kill Devil Hills Carp… 11222     Allen, Keenan WR    LAC    29.2
+#&gt; <span style='color: #BCBCBC;'> 5</span> 0004         Electric Woodies       13319     Jones, Aaron  RB    GBP    26.6
+#&gt; <span style='color: #BCBCBC;'> 6</span> 0008         Domination Station     11675     Adams, Davan… WR    GBP    28.6
+#&gt; <span style='color: #BCBCBC;'> 7</span> 0008         Domination Station     13604     Barkley, Saq… RB    NYG    24.4
+#&gt; <span style='color: #BCBCBC;'> 8</span> 0008         Domination Station     14798     Moss, Zack    RB    BUF    23.6
+#&gt; <span style='color: #BCBCBC;'> 9</span> 0001         Mexico City Space For… 14104     Brown, A.J.   WR    TEN    24  
+#&gt; <span style='color: #BCBCBC;'>10</span> 0009         Kill Devil Hills Carp… 13132     Kamara, Alvin RB    NOS    26  
+#&gt; <span style='color: #949494;'># … with 7,110 more rows, and 11 more variables: fantasypros_id &lt;chr&gt;,</span>
+#&gt; <span style='color: #949494;'>#   league_id &lt;chr&gt;, ecr &lt;dbl&gt;, rank &lt;dbl&gt;, projection &lt;dbl&gt;,</span>
+#&gt; <span style='color: #949494;'>#   injury_model &lt;int&gt;, season &lt;int&gt;, week &lt;int&gt;, projected_score &lt;dbl&gt;,</span>
+#&gt; <span style='color: #949494;'>#   scrape_date &lt;date&gt;, pos_rank &lt;int&gt;</span></div><div class='input'><span class='co'># }</span>
+
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

@@ -86,7 +86,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ffsimulator</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.5.01</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
       </span>
     </div>
 
@@ -200,6 +200,27 @@ the DynastyProcess data repository.</p>
     <div class='dont-index'><p><a href='https://github.com/dynastyprocess/data'>https://github.com/dynastyprocess/data</a></p>
 <p><code>vignette("Custom Simulation")</code> for example usage</p></div>
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='co'># \donttest{</span>
+
+<span class='fu'>ffs_latest_rankings</span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 1,301 x 9</span>
+#&gt;    player fantasypros_id pos   team    bye   ecr    sd sportradar_id scrape_date
+#&gt;    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>          <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>         <span style='color: #949494; font-style: italic;'>&lt;date&gt;</span>     
+#&gt; <span style='color: #BCBCBC;'> 1</span> Budda… 16733          DB    ARI      12  1.5   0.5  5ce20f3e-0f0… 2021-07-16 
+#&gt; <span style='color: #BCBCBC;'> 2</span> Jamal… 16375          DB    SEA       9  1.63  0.48 1a92b0ad-3eb… 2021-07-16 
+#&gt; <span style='color: #BCBCBC;'> 3</span> Jerem… 19429          DB    CAR      13  5.38  2.55 5f623fbc-415… 2021-07-16 
+#&gt; <span style='color: #BCBCBC;'> 4</span> Jorda… 11759          DB    BUF       7  5.63  2.69 95fab6fa-3ee… 2021-07-16 
+#&gt; <span style='color: #BCBCBC;'> 5</span> Derwi… 17310          DB    LAC       7  6     1.87 01c52412-725… 2021-07-16 
+#&gt; <span style='color: #BCBCBC;'> 6</span> Jessi… 17544          DB    CIN      10  7.38  2    89c84a59-18a… 2021-07-16 
+#&gt; <span style='color: #BCBCBC;'> 7</span> Jabri… 16382          DB    NYG      10  8.5   2.4  45ef2670-238… 2021-07-16 
+#&gt; <span style='color: #BCBCBC;'> 8</span> Lando… 13895          DB    WAS       9  8.75  3.03 a9c41c5b-0dc… 2021-07-16 
+#&gt; <span style='color: #BCBCBC;'> 9</span> John … 16747          DB    CLE      13 10     4.21 8c824157-eb3… 2021-07-16 
+#&gt; <span style='color: #BCBCBC;'>10</span> Justi… 15649          DB    DEN      11 10.4   2.5  2df474e5-711… 2021-07-16 
+#&gt; <span style='color: #949494;'># … with 1,291 more rows</span></div><div class='input'>
+<span class='co'># }</span>
+
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
