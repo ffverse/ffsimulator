@@ -1,5 +1,7 @@
 ---
 title: "Custom Simulations"
+author: Tan Ho
+date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Custom Simulations}
@@ -10,10 +12,252 @@ vignette: >
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>"
+  comment = "#>",
+  fig.width = 7,
+  fig.height = 5,
+  eval = FALSE
 )
+options(dplyr.summarise.inform = FALSE)
 ```
 
-```{r setup}
+ffsimulator also provides the component subfunctions (prefixed with `ffs_`) in case you want to customize and run certain components individually. This vignette will discuss various options and paths you might use in your own analysis, and wrap up with an example of custom code for the [2021 Scott Fish Bowl](https://scottfishbowl.com/2021) - but not actually execute the code, since there are 1920 teams and such a script has taken approximately 30 minutes to run on my machine!
+
+```{r setup, message = FALSE}
 library(ffsimulator)
+library(ffscrapr)
+library(dplyr)
+library(ggplot2)
 ```
+
+## Overview of ff_simulate()
+
+Loosely speaking, the main ff_simulate function has the following components:
+
+-   importing data
+-   generating projections
+-   calculate roster scores
+-   building schedules
+-   aggregating by week, season, and simulation
+
+so we'll reuse this structure in this vignette!
+
+### Data sources
+
+By default, ff_simulate imports the following data based on the ff_connect `conn` object that is passed in:
+
+```{r eval = FALSE}
+scoring_history <- ffscrapr::ff_scoringhistory(conn, seasons = 2012:2020)
+```
+This retrieves week-level fantasy scoring for the specified years, and is built from nflfastR weekly data combined with the platform-specified league rules.
+
+```{r eval = FALSE}
+latest_rankings <- ffs_latest_rankings()
+```
+This retrieves the latest FantasyPros positional rankings available from the DynastyProcess data repository. If you want to customize the rankings used in your simulation, you can construct and replace this latest_rankings dataframe with one of a similar structure and column naming - the important ones are "ecr", "sd", "bye", and "fantasypros_id". 
+
+```{r eval = FALSE}
+rosters <- ffs_rosters(conn)
+```
+This retrieves rosters and attaches a fantasypros_id to them. You could run hypothetical scenarios such as trades by editing this rosters dataframe by hand and then running the simulation!
+
+```{r eval = FALSE}
+lineup_constraints <- ffscrapr::ff_starter_positions(conn)
+```
+This retrieves lineup constraints from your fantasy platform. You can edit these to test out hypothetical starting lineup settings and minimum requirements!
+
+```{r eval = FALSE}
+league_info <- ffscrapr::ff_league(conn)
+```
+This brings in league information and is primarily used for plot names. 
+
+### Generating Projections
+
+`ff_simulate` runs two functions to generate "projections" - the first one builds the population of weekly scores to resample from, and the second one runs the bootstrap resampling for n_seasons x n_weeks.
+
+```{r eval = FALSE}
+adp_outcomes <- ffs_adp_outcomes(
+    scoring_history = scoring_history,
+    injury_model = "simple" # or "none"
+  )
+```
+This builds out the population of weekly outcomes for each positional adp rank, using the abovementioned scoring history as well as `fp_rankings_history` (2012-2020 historical positional rankings) and `fp_injury_table`(an injury model). 
+
+```{r eval = FALSE}
+projected_scores <- ffs_generate_projections(
+    adp_outcomes = adp_outcomes,
+    latest_rankings = latest_rankings,
+    n_seasons = 100, # number of seasons
+    n_weeks = 14, # weeks per season
+    rosters = rosters # optional, reduces the sample to just rostered players
+  )
+```
+
+This uses the adp_outcomes table, latest rankings, some flags (number of seasons, number of weeks per season), and rosters, generating a dataframe of length n_seasons x n_weeks x nrow(latest_rankings) and automatically blanking out NFL bye weeks.
+
+### Calculate Roster Scores
+
+This is a simple process conceptually, but probably the most computationally expensive parts of the simulation:
+inner-join the projected_scores for each player onto the rosters, then run a linear programming optimizer to determine the optimal lineup and calculate the week's score.
+
+```{r eval = FALSE}
+roster_scores <- ffs_score_rosters(
+    projected_scores = projected_scores,
+    rosters = rosters
+  )
+```
+This function performs an inner join of these two tables and calculates position rank for each player (based on the scores for each week).
+
+```{r eval = FALSE}
+optimal_scores <- ffs_optimise_lineups(
+    roster_scores = roster_scores,
+    lineup_constraints = lineup_constraints,
+    lineup_efficiency_mean = 0.775,
+    lineup_efficiency_sd = 0.05,
+    best_ball = FALSE, # or TRUE
+    parallel = FALSE # or TRUE 
+  )
+```
+This function runs the lineup optimisation and applies a small lineup efficiency model. 
+
+Lineup efficiency refers to the ratio of "actual lineup score" vs "optimal lineup score". Lineup efficiency is generated as a random number that is normally distributed around 0.775 (77.5%) and has a standard deviation of 0.05. This gives the usual lineup efficiency range to be somewhere between 0.65 and 0.85, which is (in my experience) the typical range of lineup efficiency. You can adjust the lineup efficiency model for yourself, or perhaps apply your own modelling afterwards. `best_ball` forces lineup efficiency to be 100% of the optimal score. 
+
+There are options to use parallel processing - in my experience, 100 seasons of a 12 team league is too small to see benefit from parallel. I'd recommend it for running larger simulations!
+
+### Building Schedules
+
+In order to calculate head to head wins, you need a schedule! Enter `ffs_build_schedules()`:
+
+```{r eval = FALSE}
+  schedules <- ffs_build_schedules(
+    n_teams = length(unique(rosters$franchise_id)), 
+    n_seasons = n_seasons,
+    n_weeks = n_weeks,
+    seed = NULL
+  )
+```
+
+This efficiently builds a randomized head to head schedule for a given number of seasons, teams, and weeks.
+
+It starts with the [circle method for round robin scheduling](https://en.wikipedia.org/wiki/Round-robin_tournament#Scheduling_algorithm), grows or shrinks the schedule to match the required number of weeks, and then shuffles both the order that teams are assigned in and the order that weeks are generated. This doesn't "guarantee" unique schedules, but there are `n_teams! x n_weeks!` permutations of the schedule so it's very very likely that the schedules are unique (3x10^18 possible schedules for a 12 team league playing 13 weeks).
+
+### Aggregate Results
+
+Now that we have a schedule, we can aggregate by week, and then by season, and then by simulation:
+
+```{r eval = FALSE}
+summary_week <- ffs_summarise_week(optimal_scores, schedules)
+summary_season <- ffs_summarise_season(summary_week)
+summary_simulation <- ffs_summarise_simulation(summary_season)
+```
+
+Each summary function feeds into the next summary function!
+
+## SFB Simulation
+
+Okay! So now that we've done that, let's have a look at how I'd customize these functions to simulate a 1920 team league, SFB:
+
+```{r eval = FALSE}
+options(ffscrapr.cache = "filesystem")
+library(ffsimulator)
+library(ffscrapr)
+library(tidyverse)
+library(furrr) 
+library(tictoc)
+
+plan(multisession)
+set.seed(613)
+```
+
+Package list here is pretty standard, I add furrr and set plan(multisession) so that the optimizer can be run in parallel, set ffscrapr to cache to my hard drive, and set a seed for reproducibility. 
+
+### Import Data
+
+
+```{r eval = FALSE}
+conn <- mfl_connect(2021, 47747) # a random SFB league to grab league info from
+
+league_info <- ffscrapr::ff_league(conn)
+
+scoring_history <- ffscrapr::ff_scoringhistory(conn, 2012:2020)
+
+adp_outcomes <- ffs_adp_outcomes(scoring_history = scoring_history, injury_model = "simple")
+
+latest_rankings <- ffs_latest_rankings()
+lineup_constraints <- ffscrapr::ff_starter_positions(conn)
+```
+We can use one league ID here to grab most of the historical scoring data and rules/lineups etc, so this is pretty straightforward so far.
+
+```{r eval = FALSE}
+conn2 <- mfl_connect(2021)
+
+leagues <- mfl_getendpoint(conn2, "leagueSearch", SEARCH = "#SFB11") %>%
+  pluck("content","leagues","league") %>%
+  tibble() %>%
+  unnest_wider(1) %>%
+  filter(str_detect(name,"Mock|Copy|Satellite|Template",negate = TRUE))
+
+
+get_rosters <- function(league_id){
+  mfl_connect(2021, league_id) %>%
+    ffs_rosters()
+}
+get_franchises <- function(league_id){
+  mfl_connect(2021, league_id) %>%
+    ff_franchises()
+}
+
+rosters_raw <- leagues %>%
+  select(-homeURL) %>%
+  mutate(
+    rosters = future_map(id, get_rosters),
+    franchises = future_map(id, get_franchises)
+  )
+
+franchises <- rosters_raw %>%
+  select(league_id = id, franchises) %>%
+  unnest(franchises) %>%
+  select(league_id, franchise_id, division_name)
+
+rosters <- rosters_raw %>%
+  select(rosters) %>%
+  unnest(rosters) %>%
+  left_join(franchises,by = c("league_id","franchise_id"))
+```
+Because SFB is spread over multiple league IDs, we need to get a list of IDs from the leagueSearch endpoint, map over them with the get_rosters and get_franchises helper functions we just defined, and attach the division name.
+
+```{r eval = FALSE}
+n_seasons <- 100
+n_weeks <- 13
+projected_scores <- ffs_generate_projections(adp_outcomes = adp_outcomes,
+                                             latest_rankings = latest_rankings,
+                                             n_seasons = n_seasons,
+                                             n_weeks = n_weeks,
+                                             rosters = rosters)
+
+tictoc::tic(glue::glue("ffs_score_rosters {Sys.time()}"))
+roster_scores <- ffs_score_rosters(projected_scores, rosters)
+tictoc::toc()
+
+tictoc::tic("ffs_optimize_lineups {Sys.time()}")
+optimal_scores <- ffs_optimize_lineups(
+  roster_scores = roster_scores,
+  lineup_constraints = lineup_constraints,
+  best_ball = FALSE,
+  parallel = TRUE)
+tictoc::toc()
+```
+These are pretty straight forward, I use tictoc here to time the most expensive parts of the computation so that I know how long it takes - on my machine, this takes between 20-25 minutes to compute. 
+
+```{r eval = FALSE}
+schedules <- ffs_build_schedules(n_teams = rosters %>%
+                                   dplyr::distinct(.data$league_id,.data$franchise_id) %>%
+                                   nrow(),
+                                 n_seasons = n_seasons,
+                                 n_weeks = n_weeks)
+
+summary_week <- ffs_summarise_week(optimal_scores, schedules)
+summary_season <- ffs_summarise_season(summary_week)
+summary_simulation <- ffs_summarise_simulation(summary_season)
+```
+
+By comparison, these are very fast to compute (a minute or two total). 

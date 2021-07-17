@@ -7,26 +7,28 @@
 <!-- [![CRAN status](https://img.shields.io/cran/v/ffsimulator?style=flat-square&logo=R&label=CRAN)](https://CRAN.R-project.org/package=ffsimulator)  -->
 
 [![Dev
-status](https://img.shields.io/github/r-package/v/ffverse/ffsimulator/main?label=dev%20version&style=flat-square&logo=github)](https://ffsimulator.ffverse.com/)
+version](https://img.shields.io/github/r-package/v/ffverse/ffsimulator/dev?label=dev&style=flat-square&logo=github)](https://ffsimulator.ffverse.com/)
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg?style=flat-square)](https://lifecycle.r-lib.org/articles/stages.html)
 [![R build
 status](https://img.shields.io/github/workflow/status/ffverse/ffsimulator/R-CMD-check?label=R%20check&style=flat-square&logo=github)](https://github.com/ffverse/ffsimulator/actions)
 [![Codecov test
-coverage](https://img.shields.io/codecov/c/github/ffverse/ffsimulator?label=codecov&style=flat-square&logo=codecov)](https://codecov.io/gh/ffverse/ffsimulator?branch=main)
+coverage](https://img.shields.io/codecov/c/github/ffverse/ffsimulator?label=codecov&style=flat-square&logo=codecov)](https://codecov.io/gh/ffverse/ffsimulator?branch=dev)
 [![nflverse
 discord](https://img.shields.io/discord/591914197219016707.svg?color=5865F2&label=nflverse%20discord&logo=discord&logoColor=5865F2&style=flat-square)](https://discord.com/invite/5Er2FBnnQa)
 
 <!-- badges: end -->
 
-The `{ffsimulator}` package helps simulate fantasy football seasons. By
-leveraging historical weekly finishes, current expert consensus
-rankings, and your league’s data, this package can quickly run your
-league through hundreds of seasons and may help you study:
+The `{ffsimulator}` package uses bootstrap resampling to run fantasy
+football season simulations supported by historical rankings and
+nflfastR data, calculating optimal lineups, and returning aggregated
+results. This package can quickly run your league through hundreds of
+seasons and may help you study:
 
 -   expected season finishes and range of outcomes
 -   player contributions to season wins
--   effects of potential trades
+-   roster constructions
+-   effects of (potential) trades
 -   and more!
 
 This package is part of the [ffverse](https://ffverse.com) family of R
@@ -57,7 +59,7 @@ here](https://ffsimulator.ffverse.com/dev/).
 
 ## Usage
 
-A season simulation can be run very simply as follows:
+A season simulation can be run as follows:
 
 ``` r
 foureight_conn <- mfl_connect(2021, 22627)
@@ -67,12 +69,15 @@ foureight_sim <- ff_simulate(conn = foureight_conn, n_seasons = 25, n_weeks = 14
 autoplot(foureight_sim)
 ```
 
-Please also see the [basic
-usage](https://ffsimulator.ffverse.com/articles/basic.html),
-[motivations](https://ffsimulator.ffverse.com/articles/motivations.html)
-and [custom
-simulation](https://ffsimulator.ffverse.com/articles/custom.html)
-vignettes for a detailed introduction.
+<img src="man/figures/README-unnamed-chunk-5-1.png" width="100%" />
+Please also see the
+
+-   [basic usage](https://ffsimulator.ffverse.com/articles/basic.html)
+    and
+-   [custom
+    simulations](https://ffsimulator.ffverse.com/articles/custom.html)
+
+vignettes for more detailed introductions.
 
 ## Getting help
 
@@ -104,26 +109,3 @@ The R code for this package is released as open source under the [MIT
 License](https://ffsimulator.ffverse.com/LICENSE.html). Fantasy football
 and NFL data accessed by this package belong to their respective owners,
 and are governed by their terms of use.
-
-## Roadmap
-
--   Create logic in ADP outcomes to bin together nearby ranks (nearest
-    one above/below) ✅ *(binning +1 and -1 together)*
--   Scrape more historical ranks to include in package so that we can
-    use 2010-2020 ✅ *(2012-2020 is close enough!)*
--   Patch data inconsistency for IDs (2012:2015) ✅
--   Create join functions for each of the remaining ff\_connect classes
-    ✅
--   Create summary function (season-level H2H wins/winpct, AP
-    wins/winpct, total PF + PP) ✅
--   Create simulation summary table ✅
--   Write function documentation ✅
--   Write tests ✅
--   Add autoplot ✅
--   Bye week handling ✅
--   Add integration testing ✅
--   Add to support invalid lineups ✅
--   Write basic usage vignette ✅
--   Write custom usage vignette
--   Clean up README
--   CRAN prep

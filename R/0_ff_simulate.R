@@ -1,6 +1,6 @@
 #' Simulate Fantasy Seasons
 #'
-#' The main function of the package.
+#' The main function of the package - uses bootstrap resampling to run fantasy football season simulations supported by historical rankings and nflfastR data, calculating optimal lineups, and returns aggregated results.
 #'
 #' @param conn an connection to a league made with `ff_connect()` and friends (required)
 #' @param n_seasons number of seasons to simulate, default = 100
@@ -10,42 +10,23 @@
 #' @param injury_model select between "simple", "none"
 #' @param base_seasons a numeric vector that selects seasons as base data, earliest available is 2012
 #' @param parallel a logical: use parallel processing for optimizing lineups, default is FALSE
-#' @param verbose a logical: print progress messages? default TRUE
-#' @examples
-#' \dontrun{
 #'
-#' conn <- mfl_connect(2021, 22627)
+#' @seealso `vignette("Basic Simulations")` for example usage
+#' @seealso `vignette("Custom Simulations")` for examples on using the subfunctions for your own processes.
 #'
-#' auto <- ff_simulate(conn)
-#'
-#' reprex <- ff_simulate(conn = conn, seed = 613)
-#'
-#' basic <- ff_simulate(conn = conn, n_seasons = 100, n_weeks = 14, best_ball = FALSE)
-#'
-#' custom <- ff_simulate(
-#'   conn = conn,
-#'   n_seasons = 100,
-#'   n_weeks = 17,
-#'   custom_rankings = df_rankings,
-#'   seed = 613,
-#'   best_ball = FALSE,
-#'   injury_model = c("bimodal", "separate", "none"),
-#'   owner_efficiency = list(average = 0.75, sd = 0.025),
-#'   verbose = FALSE
-#' )
-#' }
+#' @return an `ff_simulation` object which can be passed to `plot()` and contains the output data from the simulation.
 #'
 #' @export
-
-ff_simulate <- function(conn,
-                        n_seasons = 100,
-                        n_weeks = 14,
-                        best_ball = FALSE,
-                        seed = NULL,
-                        injury_model = c("simple", "none"),
-                        base_seasons = 2012:2020,
-                        parallel = FALSE,
-                        verbose = TRUE) {
+ff_simulate <- function(
+  conn,
+  n_seasons = 100,
+  n_weeks = 14,
+  best_ball = FALSE,
+  seed = NULL,
+  injury_model = c("simple", "none"),
+  base_seasons = 2012:2020,
+  parallel = FALSE
+) {
 
   #### Assertions ####
 
@@ -56,22 +37,13 @@ ff_simulate <- function(conn,
   }
 
   injury_model <- match.arg(injury_model)
-  checkmate::assert_numeric(base_seasons)
+  checkmate::assert_numeric(base_seasons, lower = 2012, upper = 2020)
   checkmate::assert_int(n_seasons, lower = 1)
   checkmate::assert_int(n_weeks, lower = 1)
   checkmate::assert_int(seed, null.ok = TRUE)
-  checkmate::assert_flag(best_ball)
-  # checkmate::assert_flag(actual_schedule)
   if (!is.null(seed)) set.seed(seed)
-
-  # checkmate::assert_flag(verbose)
-  # if(!is.null(custom_rankings)) {
-  #   checkmate::assert_data_frame(custom_rankings)
-  #   ## ADD ASSERTIONS FOR CORRECT RANKINGS COLUMNS
-  # }
-  #
-  # if(!is.null(owner_efficiency)) checkmate::assert_list(owner_efficiency, names = c("average","sd"))
-
+  checkmate::assert_flag(best_ball)
+  checkmate::assert_flag(parallel)
 
   #### Import Data ####
 
@@ -91,7 +63,6 @@ ff_simulate <- function(conn,
     scoring_history = scoring_history,
     injury_model = injury_model
   )
-
   projected_scores <- ffs_generate_projections(
     adp_outcomes = adp_outcomes,
     latest_rankings = latest_rankings,
@@ -99,7 +70,6 @@ ff_simulate <- function(conn,
     n_weeks = n_weeks,
     rosters = rosters
   )
-
   #### Calculate Roster Scores ####
 
   roster_scores <- ffs_score_rosters(

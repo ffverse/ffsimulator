@@ -69,7 +69,7 @@ foureight_sim$summary_week
 
 The `roster_scores` and `projected_scores` tables both provide individual player-level scores, with the difference being that the roster_scores table is attached to franchise rosters. 
 
-In leagues where there is only one copy of each player, that means these are identical, but in multi-copy leagues it may be more beneficial to look at the `projected_scores` table. 
+In leagues where there is only one copy of each player, that means these are identical, but in multi-copy leagues it may be more efficient to look at the `projected_scores` table for some cases.
 ```{r}
 foureight_sim$roster_scores
 ```
