@@ -5,9 +5,19 @@
 #' @param projected_scores a dataframe of projected scores, as created by `ffs_generate_projections()`
 #' @param rosters a dataframe of rosters, as created by `ffs_rosters()`
 #'
+#' @examples \donttest{
+#' # cached examples
+#' projected_scores <- .ffs_cache("projected_scores.rds")
+#' rosters <- .ffs_cache("mfl_rosters.rds")
+#'
+#' ffs_score_rosters(projected_scores, rosters)
+#' }
+#'
 #' @seealso vignette("Custom Simulations") for example usage
 #'
 #' @return A dataframe of roster-level projected scores
+#'
+#' @export
 
 ffs_score_rosters <- function(projected_scores, rosters) {
   checkmate::assert_data_frame(projected_scores)

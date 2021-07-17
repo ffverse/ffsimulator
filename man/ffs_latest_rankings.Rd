@@ -13,6 +13,14 @@ Fetches a copy of the latest FantasyPros redraft positional rankings data from D
 If you have any issues with the output of this data, please open an issue in
 the DynastyProcess data repository.
 }
+\examples{
+\donttest{
+
+ffs_latest_rankings()
+
+}
+
+}
 \seealso{
 \url{https://github.com/dynastyprocess/data}
 

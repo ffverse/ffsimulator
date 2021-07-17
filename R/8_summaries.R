@@ -7,6 +7,17 @@
 #'
 #' @seealso `vignette("Custom Simulations")` for example usage
 #'
+#' @examples \donttest{
+#' # cached examples
+#' optimal_scores <- .ffs_cache("optimal_scores.rds")
+#' schedules <- .ffs_cache("schedules.rds")
+#'
+#' summary_week <- ffs_summarise_week(optimal_scores, schedules)
+#' summary_season <- ffs_summarise_season(summary_week)
+#' summary_simulation <- ffs_summarise_simulation(summary_simulation)
+#'
+#' }
+#'
 #' @rdname ffs_summaries
 #'
 #' @export

@@ -39,11 +39,11 @@ an \code{ff_simulation} object which can be passed to \code{plot()} and contains
 The main function of the package - uses bootstrap resampling to run fantasy football season simulations supported by historical rankings and nflfastR data, calculating optimal lineups, and returns aggregated results.
 }
 \examples{
-{
+
 \donttest{
   conn <- mfl_connect(2021, 22627)
   sims <- ff_simulate(conn, n_seasons = 25)
-}}
+}
 
 }
 \seealso{

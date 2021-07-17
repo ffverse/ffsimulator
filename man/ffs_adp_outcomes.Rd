@@ -17,8 +17,20 @@ a tibble with position, rank, probability of games played, and a corresponding n
 \description{
 The backbone of the ffsimulator resampling process is coming up with a population of weekly outcomes for every preseason positional rank. This function creates that dataframe by connecting historical FantasyPros.com rankings to nflfastR-based scoring data, as created by \code{ffscrapr::ff_scoringhistory()}.
 }
-\seealso{
-\code{fp_rankings_history} for the included historical rankings, and \code{fp_injury_table} for the historical injury table
+\examples{
+\donttest{
+ #cached data
+ scoring_history <- .ffs_cache("mfl_scoring_history.rds")
 
-\code{vignette("Custom Simulation")} for example usage.
+ ffs_adp_outcomes(scoring_history, injury_model = "simple")
+ ffs_adp_outcomes(scoring_history, injury_model = "none")
+}
+
+}
+\seealso{
+\code{fp_rankings_history} for the included historical rankings
+
+\code{fp_injury_table} for the historical injury table
+
+\code{vignette("Custom Simulation")} for usage details.
 }

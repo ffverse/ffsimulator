@@ -9,10 +9,10 @@
 #' @param n_weeks number of weeks per season, default = 14
 #' @param seed an integer to control reproducibility
 #'
-#' @examples
-#' {
+#' @examples \donttest{
 #'   ffs_build_schedules(n_teams = 12, n_seasons = 1, n_weeks = 14)
 #' }
+#'
 #' @return a dataframe of schedules
 #'
 #' @seealso `vignette("Custom Simulations")` for example usage

@@ -9,6 +9,17 @@
 #' @param type one of "wins", "rank", "points"
 #' @param ... unused, required by autoplot generic
 #'
+#' @examples
+#' \donttest{
+#'
+#'   simulation <- .ffs_cache("foureight_sim.rds")
+#'
+#'   ggplot2::autoplot(simulation) # default is type = "wins"
+#'   ggplot2::autoplot(simulation, type = "rank")
+#'   ggplot2::autoplot(simulation, type = "points")
+#'
+#' }
+#'
 #' @seealso `vignette("Basic Simulations")` for example usage
 #'
 #' @return a ggplot object

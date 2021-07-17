@@ -15,9 +15,9 @@ Uses bootstrap resampling to run fantasy football season
 \seealso{
 Useful links:
 \itemize{
-  \item \url{<https://ffsimulator.ffverse.com>}
-  \item \url{<https://github.com/ffverse/ffsimulator>}
-  \item Report bugs at \url{<https://github.com/ffverse/ffsimulator/issues>}
+  \item \url{https://ffsimulator.ffverse.com}
+  \item \url{https://github.com/ffverse/ffsimulator}
+  \item Report bugs at \url{https://github.com/ffverse/ffsimulator/issues}
 }
 
 }

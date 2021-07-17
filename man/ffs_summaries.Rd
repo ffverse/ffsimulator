@@ -33,6 +33,19 @@ ffs_summarize_week(optimal_scores, schedules)
 \description{
 These functions are used to summarise the simulation outputs, typically by joining the optimal scores with a matching schedule.
 }
+\examples{
+\donttest{
+# cached examples
+optimal_scores <- .ffs_cache("optimal_scores.rds")
+schedules <- .ffs_cache("schedules.rds")
+
+summary_week <- ffs_summarise_week(optimal_scores, schedules)
+summary_season <- ffs_summarise_season(summary_week)
+summary_simulation <- ffs_summarise_simulation(summary_simulation)
+
+}
+
+}
 \seealso{
 \code{vignette("Custom Simulations")} for example usage
 }

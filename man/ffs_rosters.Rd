@@ -27,6 +27,15 @@ a dataframe of rosters that includes a fantasypros_id column
 \description{
 This function lightly wraps \code{ffscrapr::ff_rosters()} and adds fantasypros_id, which is a required column for ffsimulator.
 }
+\examples{
+\donttest{
+# cached examples
+conn <- .ffs_cache("mfl_conn.rds")
+
+ffs_rosters(conn)
+}
+
+}
 \seealso{
-vignette("Custom Simulations") for example usage
+vignette("Custom Simulations") for more detailed example usage
 }

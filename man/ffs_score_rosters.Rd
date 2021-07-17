@@ -17,6 +17,16 @@ A dataframe of roster-level projected scores
 \description{
 Attaches projected scores to rosters (via a left-join) and creates a positional ranking column.
 }
+\examples{
+\donttest{
+# cached examples
+projected_scores <- .ffs_cache("projected_scores.rds")
+rosters <- .ffs_cache("mfl_rosters.rds")
+
+ffs_score_rosters(projected_scores, rosters)
+}
+
+}
 \seealso{
 vignette("Custom Simulations") for example usage
 }

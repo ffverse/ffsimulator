@@ -29,6 +29,16 @@ a dataframe of weekly scores for each player in the simulation, approximately of
 \description{
 Runs the bootstrapped resampling of player week outcomes on the latest rankings and rosters for a given number of seasons and weeks per season.
 }
+\examples{
+\donttest{
+# cached examples
+adp_outcomes <- .ffs_cache("adp_outcomes.rds")
+latest_rankings <- .ffs_cache("latest_rankings.rds")
+
+ffs_generate_projections(adp_outcomes,latest_rankings)
+}
+
+}
 \seealso{
 vignette("Custom Simulations") for example usage
 }

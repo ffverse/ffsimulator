@@ -46,3 +46,13 @@ parse_raw_rds <- function(raw) {
   readRDS(con) %>%
     tibble::tibble()
 }
+
+#' Access cached function data
+#'
+#' @noRd
+#' @export
+.ffs_cache <- function(filename){
+  file.path("cache",filename) %>%
+    system.file(package = "ffsimulator") %>%
+    readRDS()
+}
