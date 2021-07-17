@@ -250,7 +250,7 @@
 <span class="co">#&gt; #   allplay_pct &lt;dbl&gt;, league_id &lt;chr&gt;, franchise_id &lt;chr&gt;,</span>
 <span class="co">#&gt; #   optimal_lineup &lt;list&gt;</span></code></pre></div>
 <p>The <code>roster_scores</code> and <code>projected_scores</code> tables both provide individual player-level scores, with the difference being that the roster_scores table is attached to franchise rosters.</p>
-<p>In leagues where there is only one copy of each player, that means these are identical, but in multi-copy leagues it may be more beneficial to look at the <code>projected_scores</code> table.</p>
+<p>In leagues where there is only one copy of each player, that means these are identical, but in multi-copy leagues it may be more efficient to look at the <code>projected_scores</code> table for some cases.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">foureight_sim</span><span class="op">$</span><span class="va">roster_scores</span>
 <span class="co">#&gt; # A tibble: 124,600 x 23</span>

@@ -144,11 +144,12 @@
 <!-- [![CRAN status](https://img.shields.io/cran/v/ffsimulator?style=flat-square&logo=R&label=CRAN)](https://CRAN.R-project.org/package=ffsimulator)  -->
 
 <!-- badges: end -->
-<p>The <a href="https://ffsimulator.ffverse.com">ffsimulator</a> package helps simulate fantasy football seasons. By leveraging historical weekly finishes, current expert consensus rankings, and your league’s data, this package can quickly run your league through hundreds of seasons and may help you study:</p>
+<p>The <a href="https://ffsimulator.ffverse.com">ffsimulator</a> package uses bootstrap resampling to run fantasy football season simulations supported by historical rankings and nflfastR data, calculating optimal lineups, and returning aggregated results. This package can quickly run your league through hundreds of seasons and may help you study:</p>
 <ul>
 <li>expected season finishes and range of outcomes</li>
 <li>player contributions to season wins</li>
-<li>effects of potential trades</li>
+<li>roster constructions</li>
+<li>effects of (potential) trades</li>
 <li>and more!</li>
 </ul>
 <p>This package is part of the <a href="https://ffverse.com">ffverse</a> family of R packages for fantasy football analysis.</p>
@@ -170,14 +171,20 @@
 <div id="usage" class="section level2">
 <h2 class="hasAnchor">
 <a href="#usage" class="anchor"></a>Usage</h2>
-<p>A season simulation can be run very simply as follows:</p>
+<p>A season simulation can be run as follows:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">foureight_conn</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/ff_connect.html">mfl_connect</a></span><span class="op">(</span><span class="fl">2021</span>, <span class="fl">22627</span><span class="op">)</span>
 
 <span class="va">foureight_sim</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/ff_simulate.html">ff_simulate</a></span><span class="op">(</span>conn <span class="op">=</span> <span class="va">foureight_conn</span>, n_seasons <span class="op">=</span> <span class="fl">25</span>, n_weeks <span class="op">=</span> <span class="fl">14</span><span class="op">)</span>
 
 <span class="fu">autoplot</span><span class="op">(</span><span class="va">foureight_sim</span><span class="op">)</span></code></pre></div>
-<p>Please also see the <a href="https://ffsimulator.ffverse.com/articles/basic.html">basic usage</a>, <a href="https://ffsimulator.ffverse.com/articles/motivations.html">motivations</a> and <a href="https://ffsimulator.ffverse.com/articles/custom.html">custom simulation</a> vignettes for a detailed introduction.</p>
+<p><img src="reference/figures/README-unnamed-chunk-5-1.png" width="100%"> Please also see the</p>
+<ul>
+<li>
+<a href="https://ffsimulator.ffverse.com/articles/basic.html">basic usage</a> and</li>
+<li><a href="https://ffsimulator.ffverse.com/articles/custom.html">custom simulations</a></li>
+</ul>
+<p>vignettes for more detailed introductions.</p>
 </div>
 <div id="getting-help" class="section level2">
 <h2 class="hasAnchor">
@@ -203,30 +210,6 @@
 <h2 class="hasAnchor">
 <a href="#terms-of-use" class="anchor"></a>Terms of Use</h2>
 <p>The R code for this package is released as open source under the <a href="https://ffsimulator.ffverse.com/LICENSE.html">MIT License</a>. Fantasy football and NFL data accessed by this package belong to their respective owners, and are governed by their terms of use.</p>
-</div>
-<div id="roadmap" class="section level2">
-<h2 class="hasAnchor">
-<a href="#roadmap" class="anchor"></a>Roadmap</h2>
-<ul>
-<li>Create logic in ADP outcomes to bin together nearby ranks (nearest one above/below) ✅ <em>(binning +1 and -1 together)</em>
-</li>
-<li>Scrape more historical ranks to include in package so that we can use 2010-2020 ✅ <em>(2012-2020 is close enough!)</em>
-</li>
-<li>Patch data inconsistency for IDs (2012:2015) ✅</li>
-<li>Create join functions for each of the remaining ff_connect classes ✅</li>
-<li>Create summary function (season-level H2H wins/winpct, AP wins/winpct, total PF + PP) ✅</li>
-<li>Create simulation summary table ✅</li>
-<li>Write function documentation ✅</li>
-<li>Write tests ✅</li>
-<li>Add autoplot ✅</li>
-<li>Bye week handling ✅</li>
-<li>Add integration testing ✅</li>
-<li>Add to support invalid lineups ✅</li>
-<li>Write basic usage vignette ✅</li>
-<li>Write custom usage vignette</li>
-<li>Clean up README</li>
-<li>CRAN prep</li>
-</ul>
 </div>
 </div>
   </div>
@@ -266,10 +249,10 @@
   <div class="dev-status">
 <h2>Dev status</h2>
 <ul class="list-unstyled">
-<li><a href="https://ffsimulator.ffverse.com/"><img src="https://img.shields.io/github/r-package/v/ffverse/ffsimulator/main?label=dev%20version&amp;style=flat-square&amp;logo=github" alt="Dev status"></a></li>
+<li><a href="https://ffsimulator.ffverse.com/"><img src="https://img.shields.io/github/r-package/v/ffverse/ffsimulator/dev?label=dev&amp;style=flat-square&amp;logo=github" alt="Dev version"></a></li>
 <li><a href="https://lifecycle.r-lib.org/articles/stages.html"><img src="https://img.shields.io/badge/lifecycle-experimental-orange.svg?style=flat-square" alt="Lifecycle: experimental"></a></li>
 <li><a href="https://github.com/ffverse/ffsimulator/actions"><img src="https://img.shields.io/github/workflow/status/ffverse/ffsimulator/R-CMD-check?label=R%20check&amp;style=flat-square&amp;logo=github" alt="R build status"></a></li>
-<li><a href="https://codecov.io/gh/ffverse/ffsimulator?branch=main"><img src="https://img.shields.io/codecov/c/github/ffverse/ffsimulator?label=codecov&amp;style=flat-square&amp;logo=codecov" alt="Codecov test coverage"></a></li>
+<li><a href="https://codecov.io/gh/ffverse/ffsimulator?branch=dev"><img src="https://img.shields.io/codecov/c/github/ffverse/ffsimulator?label=codecov&amp;style=flat-square&amp;logo=codecov" alt="Codecov test coverage"></a></li>
 <li><a href="https://discord.com/invite/5Er2FBnnQa"><img src="https://img.shields.io/discord/591914197219016707.svg?color=5865F2&amp;label=nflverse%20discord&amp;logo=discord&amp;logoColor=5865F2&amp;style=flat-square" alt="nflverse discord"></a></li>
 </ul>
 </div>
