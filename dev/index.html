@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Simulate Fantasy Football Seasons • ffsimulator</title>
+<title>ffsimulator • Simulate Fantasy Football Seasons • ffsimulator</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
 <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="apple-touch-icon.png">
@@ -17,13 +17,12 @@
 <script src="bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
-<script src="pkgdown.js"></script><!-- docsearch --><script src="docsearch.js"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.3/docsearch.min.css" integrity="sha256-QOSRU/ra9ActyXkIBbiIB144aDBdtvXBcNc3OTNuX/Q=" crossorigin="anonymous">
-<link href="docsearch.css" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script><link href="extra.css" rel="stylesheet">
-<meta property="og:title" content="Simulate Fantasy Football Seasons">
-<meta property="og:description" content="Simulate fantasy football seasons.">
-<meta property="og:image" content="ffscrapr.dynastyprocess.com/reference/figures/ffscrapr.svg">
-<meta property="og:image:alt" content="ffscrapr - an R client for fantasy football platforms">
+<script src="pkgdown.js"></script><link href="extra.css" rel="stylesheet">
+<meta property="og:title" content="ffsimulator • Simulate Fantasy Football Seasons">
+<meta property="og:description" content="An R package that helps simulate fantasy football seasons, using nflfastR data and FantasyPros rankings.
+">
+<meta property="og:image" content="ffsimulator.ffverse.com/reference/figures/logo.png">
+<meta property="og:image:alt" content="ffsimulator - An R Package For Simulating Fantasy Football Seasons">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:creator" content="@_TanHo">
 <meta name="twitter:site" content="@DynastyProcess">
@@ -46,7 +45,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">ffsimulator</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.0.1.01</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.2.5.01</span>
       </span>
     </div>
 
@@ -61,6 +60,9 @@
 <li>
   <a href="reference/index.html">Reference</a>
 </li>
+<li>
+  <a href="news/index.html">Changelog</a>
+</li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
     Articles
@@ -68,30 +70,57 @@
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
-<li class="divider">
-    <li class="dropdown-header">Getting Started</li>
-    <li class="divider">
-    <li class="dropdown-header">Custom API Calls</li>
-    <li class="divider">
-    <li class="dropdown-header">Cache</li>
+<li>
+      <a href="articles/basic.html">Basic Simulations</a>
+    </li>
+    <li>
+      <a href="articles/custom.html">Custom Simulations</a>
+    </li>
   </ul>
 </li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/tanho63/ffsimulator/">
-    <span class="fab fa-github fa-lg"></span>
+  <a href="https://discord.com/invite/5Er2FBnnQa">
+    <span class="fab fa-discord fa-lg"></span>
      
   </a>
 </li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    More
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+<li>
+      <a href="https://www.ffverse.com">ffverse</a>
+    </li>
+    <li>
+      <a href="https://ffscrapr.dynastyprocess.com">ffscrapr package</a>
+    </li>
+    <li>
+      <a href="https://ffpros.ffverse.com">ffpros package</a>
+    </li>
+    <li>
+      <a href="https://www.github.com/ffverse">ffverse GitHub</a>
+    </li>
+    <li class="divider">
+    <li class="dropdown-header">nflverse</li>
+    <li>
+      <a href="https://www.nflfastr.com">nflfastR package</a>
+    </li>
+    <li>
+      <a href="https://github.com/nflverse">nflverse GitHub</a>
+    </li>
+    <li class="divider">
+    <li>
+      <a href="https://dynastyprocess.com">DynastyProcess.com</a>
+    </li>
+  </ul>
+</li>
       </ul>
-<form class="navbar-form navbar-right hidden-xs hidden-sm" role="search">
-        <div class="form-group">
-          <input type="search" class="form-control" name="search-input" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
 </div>
-      </form>
-      
-    </div>
 <!--/.nav-collapse -->
   </div>
 <!--/.container -->
@@ -102,147 +131,80 @@
 
       </header><div class="row">
   <div class="contents col-md-9">
-<div id="ffsimulator" class="section level1">
+<div id="ffsimulator-" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
-<a href="#ffsimulator" class="anchor"></a>ffsimulator</h1></div>
+<a href="#ffsimulator-" class="anchor"></a>ffsimulator <a href="#"><img src="reference/figures/logo.png" align="right" width="25%" min-width="120px"></a>
+</h1></div>
 <!-- badges: start -->
 
 <!-- badges: end -->
-<p>The goal of ffsimulator is to simulate fantasy football seasons. This helps analyze distributions of:</p>
+<p>The <code>{ffsimulator}</code> package uses bootstrap resampling to run fantasy football season simulations supported by historical rankings and nflfastR data, calculating optimal lineups, and returning aggregated results. This package can quickly run your league through hundreds of seasons and may help you study:</p>
 <ul>
-<li>expected season finish</li>
-<li>player contribution to wins</li>
-<li>etc?</li>
+<li>expected season finishes and range of outcomes</li>
+<li>player contributions to season wins</li>
+<li>roster constructions</li>
+<li>effects of (potential) trades</li>
+<li>and more!</li>
 </ul>
-<p>by simulating 100 fantasy seasons with historical weekly finishes + fantasypros current redraft rankings to determine overall/relative team strengths.</p>
+<p>This package is part of the <a href="https://www.ffverse.com">ffverse</a> family of R packages for fantasy football analysis.</p>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
-<p>Install the development version from GitHub with:</p>
+<p>Install the stable version of this package from CRAN or the <a href="https://ffverse.r-universe.dev">ffverse r-universe repository</a>:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># install.packages("remotes")</span>
-
-<span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span><span class="op">(</span><span class="st">"dynastyprocess/ffsimulator"</span>, ref <span class="op">=</span> <span class="st">"dev"</span><span class="op">)</span></code></pre></div>
-</div>
-<div id="roadmap" class="section level2">
-<h2 class="hasAnchor">
-<a href="#roadmap" class="anchor"></a>Roadmap</h2>
-<ul>
-<li>Connect via ffsimulator</li>
-<li>DOWNLOAD SCORING HISTORY</li>
-<li>CALCULATES SEASON RANKS AND THE POPULATION OF PLAYER SCORES FOR THAT RANK</li>
-<li>DOWNLOADS LATEST FANTASYPROS RANKINGS</li>
-<li>CONNECTS ROSTERS TO FANTASYPROS RANKINGS + PLAYER SCORES</li>
-<li>RANDOMLY SELECTS N GAMES FOR EACH RANK</li>
-<li>CALCULATE OPTIMAL LINEUPS
-<ul>
-<li>two paths: a) develop heuristics b) use lpSolve</li>
-<li>prefer lpSolve given the current output of ff_starterpositions</li>
-</ul>
-</li>
-<li>LOGIC FOR CALCULATING STARTED LINEUPS
-<ul>
-<li><ol>
-<li>Always choose highest ranked player by fantasypros</li>
-</ol></li>
-<li><ol>
-<li>Assume random percentage between 70-85% of optimal points</li>
-</ol></li>
-</ul>
-</li>
-<li>APPLY WEEK SCORES INTO FANTASY SEASON SCHEDULES (use tony’s ffsched package)</li>
-<li>CALCULATE WIN/LOSS (H2H, ALL-PLAY) + TOTAL SEASON POINTS FOR/ POTENTIAL POINTS</li>
-<li>figure out plots and visualizations later?</li>
-</ul>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"ffsimulator"</span><span class="op">)</span> <span class="co"># CRAN</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"ffsimulator"</span>, repos <span class="op">=</span> <span class="st">"https://ffverse.r-universe.dev"</span><span class="op">)</span></code></pre></div>
+<p>Install the development version with either <a href="https://dynastyprocess.r-universe.dev">DynastyProcess’s r-universe</a> or remotes + GitHub:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># library(ffsimulator)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ffscrapr.dynastyprocess.com">ffscrapr</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyr.tidyverse.org">tidyr</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://purrr.tidyverse.org">purrr</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">arrow</span><span class="op">)</span>
+<code class="sourceCode R"><span class="co"># DynastyProcess's r-universe</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"ffsimulator"</span>, repos <span class="op">=</span> <span class="st">"https://dynastyprocess.r-universe.dev"</span><span class="op">)</span>
 
-<span class="co">## CONNECT TO LEAGUE</span>
+<span class="co"># or via GitHub c/o remotes/devtools: # install.packages('remotes')</span>
+<span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"ffverse/ffsimulator"</span><span class="op">)</span></code></pre></div>
+<p>The development version has a <a href="https://ffsimulator.ffverse.com/dev/">separate documentation site here</a>.</p>
+</div>
+<div id="usage" class="section level2">
+<h2 class="hasAnchor">
+<a href="#usage" class="anchor"></a>Usage</h2>
+<p>A season simulation can be run as follows:</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">foureight_conn</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/ff_connect.html">mfl_connect</a></span><span class="op">(</span><span class="fl">2021</span>, <span class="fl">22627</span><span class="op">)</span>
 
-<span class="va">conn</span> <span class="op">&lt;-</span> <span class="fu"><a href="ffscrapr.dynastyprocess.com/reference/mfl_connect.html">mfl_connect</a></span><span class="op">(</span><span class="fl">2021</span>, <span class="fl">54040</span><span class="op">)</span>
+<span class="va">foureight_sim</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/ff_simulate.html">ff_simulate</a></span><span class="op">(</span>conn <span class="op">=</span> <span class="va">foureight_conn</span>, n_seasons <span class="op">=</span> <span class="fl">25</span>, n_weeks <span class="op">=</span> <span class="fl">14</span><span class="op">)</span>
 
-<span class="co">## DOWNLOAD SCORING HISTORY</span>
-
-<span class="va">scoring_history</span> <span class="op">&lt;-</span> <span class="fu">ffsimulator</span><span class="fu">::</span><span class="fu"><a href="ffscrapr.dynastyprocess.com/reference/ff_scoringhistory.html">ff_scoringhistory</a></span><span class="op">(</span><span class="va">conn</span>,<span class="fl">2006</span><span class="op">:</span><span class="fl">2020</span><span class="op">)</span>
-
-<span class="co">## CALCULATES SEASON RANKS AND THE POPULATION OF PLAYER SCORES FOR THAT RANK</span>
-
-<span class="va">pos_rank</span> <span class="op">&lt;-</span> <span class="va">scoring_history</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">season</span>, <span class="va">gsis_id</span>, <span class="va">mfl_id</span>, <span class="va">player_name</span>, <span class="va">pos</span>, <span class="va">team</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>
-    games <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span>,
-    ppg <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">points</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-  <span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">ungroup</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span>
-    <span class="va">games</span> <span class="op">&gt;</span> <span class="fl">4</span>
-  <span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">season</span>, <span class="va">pos</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>rank <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rank.html">rank</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html">desc</a></span><span class="op">(</span><span class="va">ppg</span><span class="op">)</span>,ties.method <span class="op">=</span> <span class="st">"random"</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">ungroup</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="va">season</span>, <span class="va">pos</span>, <span class="va">rank</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span>
-    <span class="va">scoring_history</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">season</span>, <span class="va">gsis_id</span>, <span class="va">week</span>, <span class="va">points</span><span class="op">)</span>,
-    by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"season"</span>, <span class="st">"gsis_id"</span><span class="op">)</span>
-  <span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">pos</span>, <span class="va">rank</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>
-    all_points <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">points</span><span class="op">)</span>
-  <span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">ungroup</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>one_season <span class="op">=</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">all_points</span>, <span class="va">sample</span>, size <span class="op">=</span> <span class="fl">1000</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>
-
-<span class="co"># fp_parquet &lt;- tempfile()</span>
-<span class="co"># download.file("https://github.com/dynastyprocess/data/raw/master/files/db_fpecr.parquet",fp_parquet)</span>
-
-<span class="co">## DOWNLOADS LATEST FANTASYPROS RANKINGS</span>
-
-<span class="va">fantasypros</span> <span class="op">&lt;-</span> <span class="fu">arrow</span><span class="fu">::</span><span class="fu">read_parquet</span><span class="op">(</span><span class="st">"db_fpecr(1).parquet"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">ecr_type</span> <span class="op">==</span> <span class="st">"ro"</span>, <span class="va">scrape_date</span> <span class="op">==</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">scrape_date</span><span class="op">)</span>, <span class="va">pos</span> <span class="op">%in%</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"QB"</span>,<span class="st">"RB"</span>,<span class="st">"WR"</span>,<span class="st">"TE"</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">player</span>, fantasypros_id <span class="op">=</span> <span class="va">id</span>, <span class="va">pos</span>, <span class="va">team</span>, <span class="va">ecr</span>, <span class="va">sd</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">pos</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>rank <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rank.html">rank</a></span><span class="op">(</span><span class="va">ecr</span>, ties.method <span class="op">=</span> <span class="st">"random"</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">ungroup</a></span><span class="op">(</span><span class="op">)</span>
-
-<span class="co">## CONNECTS ROSTERS TO FANTASYPROS + PLAYER SCORES </span>
-
-<span class="va">rosters</span> <span class="op">&lt;-</span> <span class="fu"><a href="ffscrapr.dynastyprocess.com/reference/ff_rosters.html">ff_rosters</a></span><span class="op">(</span><span class="va">conn</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">franchise_id</span>, <span class="va">franchise_name</span>, mfl_id <span class="op">=</span> <span class="va">player_id</span>, <span class="va">player_name</span>, <span class="va">pos</span>, <span class="va">team</span>, <span class="va">age</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="fu"><a href="ffscrapr.dynastyprocess.com/reference/dp_playerids.html">dp_playerids</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">fantasypros_id</span>, <span class="va">mfl_id</span><span class="op">)</span>,
-            by <span class="op">=</span> <span class="st">"mfl_id"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">fantasypros</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">fantasypros_id</span>, <span class="va">rank</span><span class="op">)</span>,
-            by <span class="op">=</span> <span class="st">"fantasypros_id"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">pos_rank</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">pos</span>,<span class="va">rank</span>,<span class="va">all_points</span><span class="op">)</span>,
-            by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"pos"</span>,<span class="st">"rank"</span><span class="op">)</span><span class="op">)</span>
-
-<span class="co">## RANDOMLY SELECTS N GAMES FOR EACH RANK</span>
-
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>
-    season_games <span class="op">=</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map_if.html">map_if</a></span><span class="op">(</span><span class="va">all_points</span>,<span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">rank</span><span class="op">)</span>, <span class="va">sample</span>, size <span class="op">=</span> <span class="fl">17</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-  <span class="op">)</span>
-
-<span class="co">## CALCULATE OPTIMAL LINEUPS</span>
-
-<span class="co"># two paths: a) develop heuristics b) use lpSolve</span>
-<span class="co"># ideally solver does the optimisation</span>
-
-<span class="va">starter_positions</span> <span class="op">&lt;-</span> <span class="fu">ffsimulator</span><span class="fu">::</span><span class="fu"><a href="ffscrapr.dynastyprocess.com/reference/ff_starter_positions.html">ff_starter_positions</a></span><span class="op">(</span><span class="va">conn</span><span class="op">)</span>
-
-<span class="co">## LOGIC FOR CALCULATING STARTED LINEUPS</span>
-<span class="co"># a) Always choose highest ranked player by fantasypros</span>
-<span class="co"># b) Assume random percentage between 70-85% of optimal points</span>
-
-<span class="co">## APPLY WEEK SCORES INTO FANTASY SEASON SCHEDULES</span>
-<span class="co"># (use tony's ffsched package)</span>
-
-<span class="co">## CALCULATE WIN/LOSS (H2H, ALL-PLAY) + TOTAL SEASON POINTS FOR/ POTENTIAL POINTS</span>
-
-<span class="co">## figure out plots and visualizations later? </span></code></pre></div>
+<span class="fu">autoplot</span><span class="op">(</span><span class="va">foureight_sim</span><span class="op">)</span></code></pre></div>
+<p><img src="reference/figures/README-unnamed-chunk-5-1.png" width="100%"> Please also see the</p>
+<ul>
+<li>
+<a href="https://ffsimulator.ffverse.com/articles/basic.html">basic usage</a> and</li>
+<li><a href="https://ffsimulator.ffverse.com/articles/custom.html">custom simulations</a></li>
+</ul>
+<p>vignettes for more detailed introductions.</p>
+</div>
+<div id="getting-help" class="section level2">
+<h2 class="hasAnchor">
+<a href="#getting-help" class="anchor"></a>Getting help</h2>
+<p>The best places to get help on this package are:</p>
+<ul>
+<li>the <a href="https://discord.com/invite/5Er2FBnnQa">nflverse discord</a> (for both this package as well as anything R/NFL related)</li>
+<li>opening <a href="https://github.com/ffverse/ffsimulator/issues/new/choose">an issue</a>
+</li>
+</ul>
+</div>
+<div id="contributing" class="section level2">
+<h2 class="hasAnchor">
+<a href="#contributing" class="anchor"></a>Contributing</h2>
+<p>Many hands make light work! Here are some ways you can contribute to this project:</p>
+<ul>
+<li><p>You can <a href="https://github.com/ffverse/ffsimulator/issues/new/choose">open an issue</a> if you’d like to request specific data or report a bug/error.</p></li>
+<li><p>You can <a href="https://github.com/sponsors/tanho63">sponsor this project with donations</a>!</p></li>
+<li><p>If you’d like to contribute code, please check out <a href="https://ffsimulator.ffverse.com/CONTRIBUTING.html">the contribution guidelines</a>.</p></li>
+</ul>
+</div>
+<div id="terms-of-use" class="section level2">
+<h2 class="hasAnchor">
+<a href="#terms-of-use" class="anchor"></a>Terms of Use</h2>
+<p>The R code for this package is released as open source under the <a href="https://ffsimulator.ffverse.com/LICENSE.html">MIT License</a>. Fantasy football and NFL data accessed by this package belong to their respective owners, and are governed by their terms of use.</p>
 </div>
 </div>
   </div>
@@ -251,9 +213,7 @@
     <div class="links">
 <h2>Links</h2>
 <ul class="list-unstyled">
-<li>Browse source code at <br><a href="https://github.com/tanho63/ffsimulator/">https://​github.com/​tanho63/​ffsimulator/​</a>
-</li>
-<li>Report a bug at <br><a href="https://github.com/tanho63/ffsimulator/issues">https://​github.com/​tanho63/​ffsimulator/​issues</a>
+<li>Report a bug at <br><a href="&lt;https://github.com/ffverse/ffsimulator/issues&gt;"><https:></https:></a>
 </li>
 </ul>
 </div>
@@ -283,9 +243,10 @@
 <h2>Dev status</h2>
 <ul class="list-unstyled">
 <li><a href="https://CRAN.R-project.org/package=ffsimulator"><img src="https://img.shields.io/cran/v/ffsimulator?style=flat-square&amp;logo=R&amp;label=CRAN" alt="CRAN status"></a></li>
-<li><a href="https://ffsimulator.dynastyprocess.com/dev/"><img src="https://img.shields.io/github/r-package/v/dynastyprocess/ffsimulator/main?label=dev&amp;style=flat-square&amp;logo=github" alt="Dev status"></a></li>
+<li><a href="https://ffsimulator.ffverse.com/"><img src="https://img.shields.io/github/r-package/v/ffverse/ffsimulator/dev?label=dev&amp;style=flat-square&amp;logo=github" alt="Dev version"></a></li>
 <li><a href="https://lifecycle.r-lib.org/articles/stages.html"><img src="https://img.shields.io/badge/lifecycle-experimental-orange.svg?style=flat-square" alt="Lifecycle: experimental"></a></li>
-<li><a href="https://github.com/DynastyProcess/ffsimulator/actions"><img src="https://img.shields.io/github/workflow/status/dynastyprocess/ffsimulator/R-CMD-check?label=R%20check&amp;style=flat-square&amp;logo=github" alt="R build status"></a></li>
+<li><a href="https://github.com/ffverse/ffsimulator/actions"><img src="https://img.shields.io/github/workflow/status/ffverse/ffsimulator/R-CMD-check?label=R%20check&amp;style=flat-square&amp;logo=github" alt="R build status"></a></li>
+<li><a href="https://codecov.io/gh/ffverse/ffsimulator?branch=dev"><img src="https://img.shields.io/codecov/c/github/ffverse/ffsimulator?label=codecov&amp;style=flat-square&amp;logo=codecov" alt="Codecov test coverage"></a></li>
 <li><a href="https://discord.com/invite/5Er2FBnnQa"><img src="https://img.shields.io/discord/591914197219016707.svg?color=5865F2&amp;label=nflverse%20discord&amp;logo=discord&amp;logoColor=5865F2&amp;style=flat-square" alt="nflverse discord"></a></li>
 </ul>
 </div>
@@ -305,20 +266,7 @@
 </div>
 
   
-<script src="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.js" integrity="sha256-GKvGqXDznoRYHCwKXGnuchvKSwmx9SRMrZOTh2g4Sb0=" crossorigin="anonymous"></script><script>
-  docsearch({
-    
-    
-    apiKey: '7abddd2aa591d955b365235f35d75a38',
-    indexName: 'dynastyprocess',
-    inputSelector: 'input#search-input.form-control',
-    transformData: function(hits) {
-      return hits.map(function (hit) {
-        hit.url = updateHitURL(hit);
-        return hit;
-      });
-    }
-  });
-</script>
-</body>
+
+
+  </body>
 </html>
