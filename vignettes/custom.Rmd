@@ -20,7 +20,7 @@ knitr::opts_chunk$set(
 options(dplyr.summarise.inform = FALSE)
 ```
 
-ffsimulator also provides the component subfunctions (prefixed with `ffs_`) in case you want to customize and run certain components individually. This vignette will discuss various options and paths you might use in your own analysis, and wrap up with an example of custom code for the [2021 Scott Fish Bowl](https://scottfishbowl.com/2021) - but not actually execute the code, since there are 1920 teams and such a script has taken approximately 30 minutes to run on my machine!
+ffsimulator also provides the component subfunctions (prefixed with `ffs_`) in case you want to customize and run certain components individually. This vignette will discuss various options and paths you might use in your own analysis, and wrap up with an example of custom code for the [2021 Scott Fish Bowl](https://scottfishbowl.com/2021/) - but not actually execute the code, since there are 1920 teams and such a script has taken approximately 30 minutes to run on my machine!
 
 ```{r setup, message = FALSE}
 library(ffsimulator)
