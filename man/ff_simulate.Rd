@@ -33,15 +33,21 @@ ff_simulate(
 \item{parallel}{a logical: use parallel processing for optimizing lineups, default is FALSE}
 }
 \value{
-an \code{ff_simulation} object which can be passed to \code{autoplot()} and contains the output data from the simulation.
+an \code{ff_simulation} object which can be passed to \code{plot()} and contains the output data from the simulation.
 }
 \description{
 The main function of the package - uses bootstrap resampling to run fantasy football season simulations supported by historical rankings and nflfastR data, calculating optimal lineups, and returns aggregated results.
 }
+\examples{
+{
+\donttest{
+  conn <- mfl_connect(2021, 22627)
+  sims <- ff_simulate(conn, n_seasons = 25)
+}}
+
+}
 \seealso{
 \code{vignette("Basic Simulations")} for example usage
 
-\code{vignette("Motivations")} for motivations and methodology
-
-\code{vignette("Custom Simulations")} to use the subfunctions for your own processes.
+\code{vignette("Custom Simulations")} for examples on using the subfunctions for your own processes.
 }

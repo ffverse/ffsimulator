@@ -84,5 +84,5 @@ template:
       site: "@DynastyProcess"
       card: summary
 
-# development:
-#  mode: auto
+development:
+ mode: auto

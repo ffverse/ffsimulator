@@ -11,6 +11,12 @@
 #' @param base_seasons a numeric vector that selects seasons as base data, earliest available is 2012
 #' @param parallel a logical: use parallel processing for optimizing lineups, default is FALSE
 #'
+#' @examples {
+#' \donttest{
+#'   conn <- mfl_connect(2021, 22627)
+#'   sims <- ff_simulate(conn, n_seasons = 25)
+#' }}
+#'
 #' @seealso `vignette("Basic Simulations")` for example usage
 #' @seealso `vignette("Custom Simulations")` for examples on using the subfunctions for your own processes.
 #'

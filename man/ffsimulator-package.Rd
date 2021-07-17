@@ -9,15 +9,15 @@
 \if{html}{\figure{logo.png}{options: align='right' alt='logo' width='120'}}
 
 Uses bootstrap resampling to run fantasy football season
-    simulations supported by historical rankings and nflfastR data,
+    simulations supported by historical rankings and 'nflfastR' data,
     calculating optimal lineups, and returning aggregated results.
 }
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://ffsimulator.ffverse.com}
-  \item \url{https://github.com/ffverse/ffsimulator}
-  \item Report bugs at \url{https://github.com/ffverse/ffsimulator/issues}
+  \item \url{<https://ffsimulator.ffverse.com>}
+  \item \url{<https://github.com/ffverse/ffsimulator>}
+  \item Report bugs at \url{<https://github.com/ffverse/ffsimulator/issues>}
 }
 
 }
