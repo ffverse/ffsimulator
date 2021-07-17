@@ -152,3 +152,17 @@ ff_simulate <- function(conn,
 
   return(out)
 }
+
+#' @export
+#' @noRd
+print.ff_simulation <- function(x,...){
+  cat("<ff_simulation: ",
+      x$simulation_params$n_seasons,
+      " simulated seasons of ",
+      x$league_info$league_name,
+      ">\n",
+      sep = ""
+      )
+  str(x,max.level = 2)
+  invisible(x)
+}

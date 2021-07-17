@@ -14,10 +14,10 @@ mfl_rosters <- ffs_rosters(mfl_conn) %>%
 
 mfl_lineup_constraints <- ffscrapr::ff_starter_positions(mfl_conn)
 
-saveRDS(mfl_conn, "tests/testthat/cache/mfl_conn.rds")
-saveRDS(mfl_scoring_history, "tests/testthat/cache/mfl_scoring_history.rds")
-saveRDS(mfl_rosters, "tests/testthat/cache/mfl_rosters.rds")
-saveRDS(mfl_lineup_constraints, "tests/testthat/cache/mfl_lineup_constraints.rds")
+saveRDS(mfl_conn, "inst/cache/mfl_conn.rds")
+saveRDS(mfl_scoring_history, "inst/cache/mfl_scoring_history.rds")
+saveRDS(mfl_rosters, "inst/cache/mfl_rosters.rds")
+saveRDS(mfl_lineup_constraints, "inst/cache/mfl_lineup_constraints.rds")
 
 sleeper_conn <- ff_connect(platform = "sleeper", league_id = "652718526494253056", season = 2021)
 
@@ -28,10 +28,10 @@ sleeper_rosters <- ffs_rosters(sleeper_conn)
 
 sleeper_lineup_constraints <- ffscrapr::ff_starter_positions(sleeper_conn)
 
-saveRDS(sleeper_conn, "tests/testthat/cache/sleeper_conn.rds")
-saveRDS(sleeper_scoring_history, "tests/testthat/cache/sleeper_scoring_history.rds")
-saveRDS(sleeper_rosters, "tests/testthat/cache/sleeper_rosters.rds")
-saveRDS(sleeper_lineup_constraints, "tests/testthat/cache/sleeper_lineup_constraints.rds")
+saveRDS(sleeper_conn, "inst/cache/sleeper_conn.rds")
+saveRDS(sleeper_scoring_history, "inst/cache/sleeper_scoring_history.rds")
+saveRDS(sleeper_rosters, "inst/cache/sleeper_rosters.rds")
+saveRDS(sleeper_lineup_constraints, "inst/cache/sleeper_lineup_constraints.rds")
 
 fleaflicker_conn <- fleaflicker_connect(2020, 206154)
 
@@ -42,10 +42,10 @@ fleaflicker_rosters <- ffs_rosters(fleaflicker_conn)
 
 fleaflicker_lineup_constraints <- ffscrapr::ff_starter_positions(fleaflicker_conn)
 
-saveRDS(fleaflicker_conn, "tests/testthat/cache/fleaflicker_conn.rds")
-saveRDS(fleaflicker_scoring_history, "tests/testthat/cache/fleaflicker_scoring_history.rds")
-saveRDS(fleaflicker_rosters, "tests/testthat/cache/fleaflicker_rosters.rds")
-saveRDS(fleaflicker_lineup_constraints, "tests/testthat/cache/fleaflicker_lineup_constraints.rds")
+saveRDS(fleaflicker_conn, "inst/cache/fleaflicker_conn.rds")
+saveRDS(fleaflicker_scoring_history, "inst/cache/fleaflicker_scoring_history.rds")
+saveRDS(fleaflicker_rosters, "inst/cache/fleaflicker_rosters.rds")
+saveRDS(fleaflicker_lineup_constraints, "inst/cache/fleaflicker_lineup_constraints.rds")
 
 espn_conn <- espn_connect(season = 2020, league_id = 899513)
 
@@ -56,19 +56,19 @@ espn_rosters <- ffs_rosters(espn_conn)
 
 espn_lineup_constraints <- ffscrapr::ff_starter_positions(espn_conn)
 
-saveRDS(espn_conn, "tests/testthat/cache/espn_conn.rds")
-saveRDS(espn_scoring_history, "tests/testthat/cache/espn_scoring_history.rds")
-saveRDS(espn_rosters, "tests/testthat/cache/espn_rosters.rds")
-saveRDS(espn_lineup_constraints, "tests/testthat/cache/espn_lineup_constraints.rds")
+saveRDS(espn_conn, "inst/cache/espn_conn.rds")
+saveRDS(espn_scoring_history, "inst/cache/espn_scoring_history.rds")
+saveRDS(espn_rosters, "inst/cache/espn_rosters.rds")
+saveRDS(espn_lineup_constraints, "inst/cache/espn_lineup_constraints.rds")
 
 latest_rankings <- ffs_latest_rankings()
-saveRDS(latest_rankings, "tests/testthat/cache/latest_rankings.rds")
+saveRDS(latest_rankings, "inst/cache/latest_rankings.rds")
 
 adp_outcomes <- ffs_adp_outcomes(
   scoring_history = mfl_scoring_history,
   injury_model = "simple"
 )
-saveRDS(adp_outcomes, "tests/testthat/cache/adp_outcomes.rds")
+saveRDS(adp_outcomes, "inst/cache/adp_outcomes.rds")
 
 projected_scores <- ffs_generate_projections(
   adp_outcomes = adp_outcomes,
@@ -77,13 +77,13 @@ projected_scores <- ffs_generate_projections(
   n_weeks = 10,
   rosters = mfl_rosters
 )
-saveRDS(projected_scores, "tests/testthat/cache/projected_scores.rds")
+saveRDS(projected_scores, "inst/cache/projected_scores.rds")
 
 roster_scores <- ffs_score_rosters(
   projected_scores = projected_scores,
   rosters = mfl_rosters
 )
-saveRDS(roster_scores, "tests/testthat/cache/roster_scores.rds")
+saveRDS(roster_scores, "inst/cache/roster_scores.rds")
 
 optimal_scores <- ffs_optimize_lineups(
   roster_scores = roster_scores,
@@ -91,7 +91,7 @@ optimal_scores <- ffs_optimize_lineups(
   best_ball = FALSE,
   parallel = FALSE
 )
-saveRDS(optimal_scores, "tests/testthat/cache/optimal_scores.rds")
+saveRDS(optimal_scores, "inst/cache/optimal_scores.rds")
 
 schedules <- ffs_build_schedules(
   n_teams = 12,
@@ -99,9 +99,9 @@ schedules <- ffs_build_schedules(
   n_weeks = 10
 )
 
-saveRDS(schedules, "tests/testthat/cache/schedules.rds")
+saveRDS(schedules, "inst/cache/schedules.rds")
 
 foureight <- mfl_connect(2021,22627)
-foureight_sim <- ff_simulate(foureight, n_seasons = 5)
+foureight_sim <- ff_simulate(foureight, n_seasons = 25)
 
-saveRDS(foureight_sim, "tests/testthat/cache/foureight_sim.rds")
+saveRDS(foureight_sim, "inst/cache/foureight_sim.rds")

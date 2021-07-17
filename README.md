@@ -55,47 +55,23 @@ remotes::install_github("ffverse/ffsimulator")
 The dev version has a [separate documentation site
 here](https://ffsimulator.ffverse.com/dev/).
 
-## Roadmap
-
--   Create logic in ADP outcomes to bin together nearby ranks (nearest
-    one above/below) ✅ *(binning +1 and -1 together)*
--   Scrape more historical ranks to include in package so that we can
-    use 2010-2020 ✅ *(2012-2020 is close enough!)*
--   Patch data inconsistency for IDs (2012:2015) ✅
--   Create join functions for each of the remaining ff\_connect classes
-    ✅
--   Create summary function (season-level H2H wins/winpct, AP
-    wins/winpct, total PF + PP) ✅
--   Create simulation summary table ✅
--   Write function documentation ✅
--   Write tests ✅
--   Add autoplot ✅
--   Bye week handling ✅
--   Write basic usage vignette
--   Write custom usage vignette
--   Add integration testing
--   Clean up README
--   CRAN prep
--   rewrite with collapse (?)
-
 ## Usage
 
-This package shares many conventions with the ffverse, including all
-main functions being prefixed with `ff_` for ease of autocomplete.
+A season simulation can be run very simply as follows:
 
 ``` r
-library(ffsimulator)
+foureight_conn <- mfl_connect(2021, 22627)
 
-conn <- mfl_connect(2021,22627)
+foureight_sim <- ff_simulate(conn = foureight_conn, n_seasons = 25, n_weeks = 14)
 
-sims <- ff_simulate(conn, n_seasons = 100, n_weeks = 14, best_ball = FALSE)
-
-sims$summary
+autoplot(foureight_sim)
 ```
 
 Please also see the [basic
-usage](https://ffsimulator.ffverse.com/articles/basic.html) and [manual
-simulation](https://ffsimulator.ffverse.com/articles/manual.html)
+usage](https://ffsimulator.ffverse.com/articles/basic.html),
+[motivations](https://ffsimulator.ffverse.com/articles/motivations.html)
+and [custom
+simulation](https://ffsimulator.ffverse.com/articles/custom.html)
 vignettes for a detailed introduction.
 
 ## Getting help
@@ -125,7 +101,29 @@ this project:
 ## Terms of Use
 
 The R code for this package is released as open source under the [MIT
-License](https://ffsimulator.ffverse.com/LICENSE.html).
+License](https://ffsimulator.ffverse.com/LICENSE.html). Fantasy football
+and NFL data accessed by this package belong to their respective owners,
+and are governed by their terms of use.
 
-Fantasy football and NFL data accessed by this package belong to their
-respective owners, and are governed by their terms of use.
+## Roadmap
+
+-   Create logic in ADP outcomes to bin together nearby ranks (nearest
+    one above/below) ✅ *(binning +1 and -1 together)*
+-   Scrape more historical ranks to include in package so that we can
+    use 2010-2020 ✅ *(2012-2020 is close enough!)*
+-   Patch data inconsistency for IDs (2012:2015) ✅
+-   Create join functions for each of the remaining ff\_connect classes
+    ✅
+-   Create summary function (season-level H2H wins/winpct, AP
+    wins/winpct, total PF + PP) ✅
+-   Create simulation summary table ✅
+-   Write function documentation ✅
+-   Write tests ✅
+-   Add autoplot ✅
+-   Bye week handling ✅
+-   Add integration testing ✅
+-   Add to support invalid lineups ✅
+-   Write basic usage vignette ✅
+-   Write custom usage vignette
+-   Clean up README
+-   CRAN prep
