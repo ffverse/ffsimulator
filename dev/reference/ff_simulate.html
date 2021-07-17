@@ -127,6 +127,12 @@
      
   </a>
 </li>
+<li>
+  <a href="https://github.com/ffverse/ffsimulator/">
+    <span class="fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
     More
@@ -174,7 +180,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Simulate Fantasy Seasons</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/ffverse/ffsimulator/blob/master/R/0_ff_simulate.R'><code>R/0_ff_simulate.R</code></a></small>
     <div class="hidden name"><code>ff_simulate.Rd</code></div>
     </div>
 
@@ -239,7 +245,13 @@
 <p><code>vignette("Custom Simulations")</code> for examples on using the subfunctions for your own processes.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"></pre>
+    <pre class="examples"><div class='input'>
+<span class='co'># \donttest{</span>
+  <span class='va'>conn</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ff_connect.html'>mfl_connect</a></span><span class='op'>(</span><span class='fl'>2021</span>, <span class='fl'>22627</span><span class='op'>)</span>
+  <span class='va'>sims</span> <span class='op'>&lt;-</span> <span class='fu'>ff_simulate</span><span class='op'>(</span><span class='va'>conn</span>, n_seasons <span class='op'>=</span> <span class='fl'>25</span><span class='op'>)</span>
+<span class='co'># }</span>
+
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

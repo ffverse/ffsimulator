@@ -127,6 +127,12 @@
      
   </a>
 </li>
+<li>
+  <a href="https://github.com/ffverse/ffsimulator/">
+    <span class="fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
     More
@@ -174,7 +180,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Generate Projections</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/ffverse/ffsimulator/blob/master/R/4_projections.R'><code>R/4_projections.R</code></a></small>
     <div class="hidden name"><code>ffs_generate_projections.Rd</code></div>
     </div>
 
@@ -222,6 +228,30 @@
 
     <div class='dont-index'><p>vignette("Custom Simulations") for example usage</p></div>
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='co'># \donttest{</span>
+<span class='co'># cached examples</span>
+<span class='va'>adp_outcomes</span> <span class='op'>&lt;-</span> <span class='fu'>.ffs_cache</span><span class='op'>(</span><span class='st'>"adp_outcomes.rds"</span><span class='op'>)</span>
+<span class='va'>latest_rankings</span> <span class='op'>&lt;-</span> <span class='fu'>.ffs_cache</span><span class='op'>(</span><span class='st'>"latest_rankings.rds"</span><span class='op'>)</span>
+
+<span class='fu'>ffs_generate_projections</span><span class='op'>(</span><span class='va'>adp_outcomes</span>,<span class='va'>latest_rankings</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 892,682 x 15</span>
+#&gt;    player fantasypros_id pos   team    bye   ecr    sd sportradar_id scrape_date
+#&gt;    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>          <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>         <span style='color: #949494; font-style: italic;'>&lt;date&gt;</span>     
+#&gt; <span style='color: #BCBCBC;'> 1</span> Patri… 16413          QB    KCC      12  1.28  0.65 11cad59d-90d… 2021-07-16 
+#&gt; <span style='color: #BCBCBC;'> 2</span> Josh … 17298          QB    BUF       7  2.42  0.85 3069db07-aa4… 2021-07-16 
+#&gt; <span style='color: #BCBCBC;'> 3</span> Kyler… 18600          QB    ARI      12  3.7   0.99 dd5a6b6e-ffa… 2021-07-16 
+#&gt; <span style='color: #BCBCBC;'> 4</span> Lamar… 17233          QB    BAL       8  3.87  1.38 e06a9c07-453… 2021-07-16 
+#&gt; <span style='color: #BCBCBC;'> 5</span> Dak P… 15600          QB    DAL       7  4.27  1.39 86197778-8d4… 2021-07-16 
+#&gt; <span style='color: #BCBCBC;'> 6</span> Russe… 11180          QB    SEA       9  6.51  1.2  409d4cac-ee9… 2021-07-16 
+#&gt; <span style='color: #BCBCBC;'> 7</span> Justi… 18635          QB    LAC       7  7.53  1.62 f0a8f8e3-b9e… 2021-07-16 
+#&gt; <span style='color: #BCBCBC;'> 8</span> Aaron… 9001           QB    GBP      13  8.58  1.88 0ce48193-e2f… 2021-07-16 
+#&gt; <span style='color: #BCBCBC;'> 9</span> Jalen… 19275          QB    PHI      14  9.74  2.81 64bd0f02-6a5… 2021-07-16 
+#&gt; <span style='color: #BCBCBC;'>10</span> Ryan … 11174          QB    TEN      13 10.2   1.79 5812204c-6da… 2021-07-16 
+#&gt; <span style='color: #949494;'># … with 892,672 more rows, and 6 more variables: rank &lt;dbl&gt;, season &lt;int&gt;,</span>
+#&gt; <span style='color: #949494;'>#   projection &lt;dbl&gt;, injury_model &lt;int&gt;, week &lt;int&gt;, projected_score &lt;dbl&gt;</span></div><div class='input'><span class='co'># }</span>
+
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
