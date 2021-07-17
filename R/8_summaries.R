@@ -14,7 +14,7 @@
 #'
 #' summary_week <- ffs_summarise_week(optimal_scores, schedules)
 #' summary_season <- ffs_summarise_season(summary_week)
-#' summary_simulation <- ffs_summarise_simulation(summary_simulation)
+#' summary_simulation <- ffs_summarise_simulation(summary_season)
 #'
 #' }
 #'
