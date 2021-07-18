@@ -64,6 +64,8 @@ here](https://ffsimulator.ffverse.com/dev/).
 A season simulation can be run as follows:
 
 ``` r
+library(ffsimulator)
+
 foureight_conn <- mfl_connect(2021, 22627)
 
 foureight_sim <- ff_simulate(conn = foureight_conn, n_seasons = 25, n_weeks = 14)
