@@ -23,8 +23,8 @@ discord](https://img.shields.io/discord/591914197219016707.svg?color=5865F2&labe
 The `{ffsimulator}` package uses bootstrap resampling to run fantasy
 football season simulations supported by historical rankings and
 nflfastR data, calculating optimal lineups, and returning aggregated
-results. This package can quickly run your league through hundreds of
-seasons and may help you study:
+results. This can quickly run your league through hundreds of seasons
+and may help you study:
 
 -   expected season finishes and range of outcomes
 -   player contributions to season wins
