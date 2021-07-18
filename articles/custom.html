@@ -139,7 +139,7 @@
       <h1 data-toc-skip>Custom Simulations</h1>
                         <h4 class="author">Tan Ho</h4>
             
-            <h4 class="date">2021-07-17</h4>
+            <h4 class="date">2021-07-18</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/ffverse/ffsimulator/blob/master/vignettes/custom.Rmd"><code>vignettes/custom.Rmd</code></a></small>
       <div class="hidden name"><code>custom.Rmd</code></div>
@@ -257,7 +257,7 @@
 <div id="sfb-simulation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#sfb-simulation" class="anchor"></a>SFB Simulation</h2>
-<p>Okay! So now that we’ve done that, let’s have a look at how I’d customize these functions to simulate a 1920 team league, SFB:</p>
+<p>Okay! So now that we’ve done that, let’s have a look at how I’d customize these functions to simulate SFB11, a 1920 team contest spread over 20 league IDs:</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/options.html">options</a></span><span class="op">(</span>ffscrapr.cache <span class="op">=</span> <span class="st">"filesystem"</span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ffsimulator.ffverse.com">ffsimulator</a></span><span class="op">)</span>
@@ -268,7 +268,7 @@
 
 <span class="fu">plan</span><span class="op">(</span><span class="va">multisession</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">613</span><span class="op">)</span></code></pre></div>
-<p>Package list here is pretty standard, I add furrr and set plan(multisession) so that the optimizer can be run in parallel, set ffscrapr to cache to my hard drive, and set a seed for reproducibility.</p>
+<p>Package listing. I add furrr and set plan(multisession) so that the optimizer can be run in parallel, set ffscrapr to cache to my hard drive, and set a seed for reproducibility.</p>
 <div id="import-data" class="section level3">
 <h3 class="hasAnchor">
 <a href="#import-data" class="anchor"></a>Import Data</h3>
@@ -283,7 +283,7 @@
 
 <span class="va">latest_rankings</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ffs_latest_rankings.html">ffs_latest_rankings</a></span><span class="op">(</span><span class="op">)</span>
 <span class="va">lineup_constraints</span> <span class="op">&lt;-</span> <span class="fu">ffscrapr</span><span class="fu">::</span><span class="fu"><a href="ffscrapr.dynastyprocess.com/reference/ff_starter_positions.html">ff_starter_positions</a></span><span class="op">(</span><span class="va">conn</span><span class="op">)</span></code></pre></div>
-<p>We can use one league ID here to grab most of the historical scoring data and rules/lineups etc, so this is pretty straightforward so far.</p>
+<p>We can use one league ID here to grab most of the historical scoring data and rules/lineups etc for the entire SFB contest (rather than running it once for each of the twenty league IDs).</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">conn2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ff_connect.html">mfl_connect</a></span><span class="op">(</span><span class="fl">2021</span><span class="op">)</span>
 
