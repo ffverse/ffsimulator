@@ -42,7 +42,7 @@ The main function of the package - uses bootstrap resampling to run fantasy foot
 
 \donttest{
   conn <- mfl_connect(2021, 22627)
-  sims <- ff_simulate(conn, n_seasons = 25)
+  ff_simulate(conn, n_seasons = 25)
 }
 
 }

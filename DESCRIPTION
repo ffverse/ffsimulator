@@ -4,7 +4,7 @@ Version: 1.0.0
 Authors@R: 
     person(given = "Tan",
            family = "Ho",
-           role = c("aut", "cre"),
+           role = c("aut", "cre","cph"),
            email = "tan@tanho.ca",
            comment = c(ORCID = "0000-0001-8388-5155"))
 Description: Uses bootstrap resampling to run fantasy football season
@@ -22,7 +22,6 @@ Imports:
     glue (>= 1.3.0),
     httr (>= 1.4.0),
     magrittr (>= 1.0.0),
-    memoise (>= 2.0.0),
     purrr (>= 0.3.0),
     Rglpk (>= 0.6.0),
     rlang (>= 0.4.0),
@@ -40,8 +39,7 @@ Suggests:
     rmarkdown (>= 2.6),
     scales (>= 1.0.0),
     testthat (>= 3.0.0),
-    vdiffr (>= 1.0.2),
-    withr (>= 2.4.0)
+    vdiffr (>= 1.0.2)
 VignetteBuilder: 
     knitr
 Encoding: UTF-8

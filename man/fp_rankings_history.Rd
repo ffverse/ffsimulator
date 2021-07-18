@@ -11,6 +11,6 @@ An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) w
 fp_rankings_history
 }
 \description{
-This dataframe has historical positional rankings for 2012-2020 QB/RB/WR/TE and 2015-2020 DL/LB/DB, as gathered by the ffpros package.
+This dataframe has historical positional rankings for 2012-2020 QB/RB/WR/TE/PK and 2015-2020 DL/LB/DB, as gathered by the ffpros package.
 }
 \keyword{datasets}

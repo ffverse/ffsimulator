@@ -2,10 +2,9 @@
 
 #' Connect to a league
 #'
-#' See `ffscrapr::ff_connect` for details.
+#' See `ffscrapr::ff_connect()` for details.
 #'
 #' @name ff_connect
-#' @rdname ff_connect
 #' @family ffscrapr-imports
 #' @importFrom ffscrapr ff_connect
 #' @export ff_connect
@@ -13,40 +12,36 @@ NULL
 
 #' Connect to a league
 #'
-#' See `ffscrapr::ff_connect` for details.
+#' See `ffscrapr::mfl_connect()` for details.
 #'
 #' @name mfl_connect
-#' @rdname ff_connect
 #' @family ffscrapr-imports
 #' @importFrom ffscrapr mfl_connect
 #' @export mfl_connect
 NULL
 #' Connect to a league
 #'
-#' See `ffscrapr::ff_connect` for details.
+#' See `ffscrapr::sleeper_connect()` for details.
 #'
 #' @name sleeper_connect
-#' @rdname ff_connect
 #' @family ffscrapr-imports
 #' @importFrom ffscrapr sleeper_connect
 #' @export sleeper_connect
 NULL
 #' Connect to a league
 #'
-#' See `ffscrapr::ff_connect` for details.
+#' See `ffscrapr::fleaflicker_connect()` for details.
 #'
 #' @name fleaflicker_connect
-#' @rdname ff_connect
 #' @family ffscrapr-imports
 #' @importFrom ffscrapr fleaflicker_connect
 #' @export fleaflicker_connect
 NULL
 #' Connect to a league
 #'
-#' See `ffscrapr::ff_connect` for details.
+#' See `ffscrapr::espn_connect()` for details.
 #'
 #' @name espn_connect
-#' @rdname ff_connect
 #' @family ffscrapr-imports
 #' @importFrom ffscrapr espn_connect
 #' @export espn_connect

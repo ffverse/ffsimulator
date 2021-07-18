@@ -15,7 +15,7 @@ ffs_score_rosters(projected_scores, rosters)
 A dataframe of roster-level projected scores
 }
 \description{
-Attaches projected scores to rosters (via a left-join) and creates a positional ranking column.
+Attaches projected scores to rosters (via an inner-join) and creates a positional ranking column.
 }
 \examples{
 \donttest{
