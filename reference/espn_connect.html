@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Function reference • ffsimulator</title>
+<title>Connect to a league — espn_connect • ffsimulator</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -48,7 +48,8 @@
   <link href="../extra.css" rel="stylesheet">
   
 
-<meta property="og:title" content="Function reference" />
+<meta property="og:title" content="Connect to a league — espn_connect" />
+<meta property="og:description" content="See ffscrapr::espn_connect() for details." />
 <meta property="og:image" content="ffsimulator.ffverse.com/reference/figures/logo.png" />
 <meta property="og:image:alt" content="ffsimulator - An R Package For Simulating Fantasy Football Seasons" />
 <meta name="twitter:card" content="summary" />
@@ -72,7 +73,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-reference-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -176,195 +177,30 @@
       </header>
 
 <div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Reference</h1>
+    <h1>Connect to a league</h1>
+    <small class="dont-index">Source: <a href='https://github.com/ffverse/ffsimulator/blob/master/R/utils-ffscrapr.R'><code>R/utils-ffscrapr.R</code></a></small>
+    <div class="hidden name"><code>espn_connect.Rd</code></div>
     </div>
 
-    <table class="ref-index">
+    <div class="ref-description">
+    <p>See <code><a href='ffscrapr.dynastyprocess.com/reference/espn_connect.html'>ffscrapr::espn_connect()</a></code> for details.</p>
+    </div>
 
-    <colgroup>
-      
-      <col class="alias" />
-      <col class="title" />
-    </colgroup>
 
-    <tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-main" class="hasAnchor"><a href="#section-main" class="anchor"></a>Main</h2>
-          <p class="section-desc"><p>These are the primary functions of <code>ffsimulator</code>.</p></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="ff_simulate.html">ff_simulate()</a></code> </p>
-        </td>
-        <td><p>Simulate Fantasy Seasons</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="autoplot.ff_simulation.html">autoplot.ff_simulation()</a></code> <code><a href="autoplot.ff_simulation.html">plot(<i>&lt;ff_simulation&gt;</i>)</a></code> </p>
-        </td>
-        <td><p>Automatically Plot ff_simulation Object</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-customized-simulations" class="hasAnchor"><a href="#section-customized-simulations" class="anchor"></a>Customized Simulations</h2>
-          <p class="section-desc"><p>Subfunctions used by ff_simulate</p></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="ffs_adp_outcomes.html">ffs_adp_outcomes()</a></code> </p>
-        </td>
-        <td><p>Connects ff_scoringhistory to past ADP rankings</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="ffs_latest_rankings.html">ffs_latest_rankings()</a></code> </p>
-        </td>
-        <td><p>Download latest rankings from DynastyProcess GitHub</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="ffs_rosters.html">ffs_rosters()</a></code> </p>
-        </td>
-        <td><p>Get Rosters</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="ffs_generate_projections.html">ffs_generate_projections()</a></code> </p>
-        </td>
-        <td><p>Generate Projections</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="ffs_score_rosters.html">ffs_score_rosters()</a></code> </p>
-        </td>
-        <td><p>Join Rosters to Projected Scores</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="ffs_optimise_lineups.html">ffs_optimise_lineups()</a></code> <code><a href="ffs_optimise_lineups.html">ffs_optimize_lineups()</a></code> </p>
-        </td>
-        <td><p>Optimise Lineups</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="ffs_build_schedules.html">ffs_build_schedules()</a></code> </p>
-        </td>
-        <td><p>Generate fantasy schedules</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="ffs_summaries.html">ffs_summarise_week()</a></code> <code><a href="ffs_summaries.html">ffs_summarise_season()</a></code> <code><a href="ffs_summaries.html">ffs_summarise_simulation()</a></code> <code><a href="ffs_summaries.html">ffs_summarize_simulation()</a></code> <code><a href="ffs_summaries.html">ffs_summarize_season()</a></code> <code><a href="ffs_summaries.html">ffs_summarize_week()</a></code> </p>
-        </td>
-        <td><p>Summarise simulation outputs</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-ffscrapr-imports" class="hasAnchor"><a href="#section-ffscrapr-imports" class="anchor"></a>ffscrapr Imports</h2>
-          <p class="section-desc"><p>Functions imported from ffscrapr</p></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="espn_connect.html">espn_connect</a></code> </p>
-        </td>
-        <td><p>Connect to a league</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="ff_connect.html">ff_connect</a></code> </p>
-        </td>
-        <td><p>Connect to a league</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="ff_scoringhistory.html">ff_scoringhistory</a></code> </p>
-        </td>
-        <td><p>Get league scoring history</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="ff_starter_positions.html">ff_starter_positions</a></code> </p>
-        </td>
-        <td><p>Get league starter positions</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="fleaflicker_connect.html">fleaflicker_connect</a></code> </p>
-        </td>
-        <td><p>Connect to a league</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="mfl_connect.html">mfl_connect</a></code> </p>
-        </td>
-        <td><p>Connect to a league</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="sleeper_connect.html">sleeper_connect</a></code> </p>
-        </td>
-        <td><p>Connect to a league</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-miscellaneous" class="hasAnchor"><a href="#section-miscellaneous" class="anchor"></a>Miscellaneous</h2>
-          <p class="section-desc"><p>Additional helper functions and data</p></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="pipe.html">`%&gt;%`</a></code> </p>
-        </td>
-        <td><p>Pipe operator</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="fp_rankings_history.html">fp_rankings_history</a></code> </p>
-        </td>
-        <td><p>Historical position ranks</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="fp_injury_table.html">fp_injury_table</a></code> </p>
-        </td>
-        <td><p>FP injury table</p></td>
-      </tr>
-    </tbody>
-    </table>
+
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p>Other ffscrapr-imports: 
+<code><a href='ff_connect.html'>ff_connect</a>()</code>,
+<code><a href='ff_scoringhistory.html'>ff_scoringhistory</a>()</code>,
+<code><a href='ff_starter_positions.html'>ff_starter_positions</a>()</code>,
+<code><a href='fleaflicker_connect.html'>fleaflicker_connect</a>()</code>,
+<code><a href='mfl_connect.html'>mfl_connect</a>()</code>,
+<code><a href='sleeper_connect.html'>sleeper_connect</a>()</code></p></div>
+
   </div>
-
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
       <h2 data-toc-skip>Contents</h2>
