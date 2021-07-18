@@ -8,7 +8,11 @@ See \code{ffscrapr::ff_scoringhistory} for details.
 }
 \seealso{
 Other ffscrapr-imports: 
+\code{\link{espn_connect}()},
 \code{\link{ff_connect}()},
-\code{\link{ff_starter_positions}()}
+\code{\link{ff_starter_positions}()},
+\code{\link{fleaflicker_connect}()},
+\code{\link{mfl_connect}()},
+\code{\link{sleeper_connect}()}
 }
 \concept{ffscrapr-imports}

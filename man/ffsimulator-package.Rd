@@ -22,7 +22,7 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Tan Ho \email{tan@tanho.ca} (\href{https://orcid.org/0000-0001-8388-5155}{ORCID})
+\strong{Maintainer}: Tan Ho \email{tan@tanho.ca} (\href{https://orcid.org/0000-0001-8388-5155}{ORCID}) [copyright holder]
 
 }
 \keyword{internal}
