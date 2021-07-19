@@ -3,6 +3,9 @@
 \name{ff_starter_positions}
 \alias{ff_starter_positions}
 \title{Get league starter positions}
+\value{
+A tidy dataframe of positional lineup rules, one row per position with minimum and maximum starters as well as total starter calculations.
+}
 \description{
 See \code{ffscrapr::ff_starter_positions} for details.
 }

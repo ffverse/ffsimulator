@@ -3,6 +3,9 @@
 \name{sleeper_connect}
 \alias{sleeper_connect}
 \title{Connect to a league}
+\value{
+a connection object to be used with \verb{ff_*} functions
+}
 \description{
 See \code{ffscrapr::sleeper_connect()} for details.
 }

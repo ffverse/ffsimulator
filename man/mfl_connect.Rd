@@ -3,6 +3,9 @@
 \name{mfl_connect}
 \alias{mfl_connect}
 \title{Connect to a league}
+\value{
+a connection object to be used with \verb{ff_*} functions
+}
 \description{
 See \code{ffscrapr::mfl_connect()} for details.
 }

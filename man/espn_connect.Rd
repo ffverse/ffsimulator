@@ -3,6 +3,9 @@
 \name{espn_connect}
 \alias{espn_connect}
 \title{Connect to a league}
+\value{
+a connection object to be used with \verb{ff_*} functions
+}
 \description{
 See \code{ffscrapr::espn_connect()} for details.
 }

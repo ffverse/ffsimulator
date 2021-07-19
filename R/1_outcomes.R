@@ -73,6 +73,7 @@ ffs_adp_outcomes <- function(scoring_history, injury_model = "simple") {
 #' Applies various injury models to adp outcomes
 #'
 #' @keywords internal
+#' @return same adp outcomes dataframe but with a prob_gp column
 .ff_apply_injury_model <- function(adp_outcomes, model_type) {
   if (model_type == "none") {
     adp_outcomes$prob_gp <- 1

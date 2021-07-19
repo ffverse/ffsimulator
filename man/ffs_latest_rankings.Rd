@@ -6,6 +6,9 @@
 \usage{
 ffs_latest_rankings()
 }
+\value{
+a dataframe with a copy of the latest FP rankings from DynastyProcess's data repository
+}
 \description{
 Fetches a copy of the latest FantasyPros redraft positional rankings data from DynastyProcess.com's data repository.
 }

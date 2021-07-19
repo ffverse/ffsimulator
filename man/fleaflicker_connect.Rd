@@ -3,6 +3,9 @@
 \name{fleaflicker_connect}
 \alias{fleaflicker_connect}
 \title{Connect to a league}
+\value{
+a connection object to be used with \verb{ff_*} functions
+}
 \description{
 See \code{ffscrapr::fleaflicker_connect()} for details.
 }

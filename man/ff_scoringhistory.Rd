@@ -3,6 +3,9 @@
 \name{ff_scoringhistory}
 \alias{ff_scoringhistory}
 \title{Get league scoring history}
+\value{
+A tidy dataframe of weekly fantasy scoring data, one row per player per week
+}
 \description{
 See \code{ffscrapr::ff_scoringhistory} for details.
 }

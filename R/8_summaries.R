@@ -13,13 +13,16 @@
 #' schedules <- .ffs_cache("schedules.rds")
 #'
 #' summary_week <- ffs_summarise_week(optimal_scores, schedules)
+#' summary_week
 #' summary_season <- ffs_summarise_season(summary_week)
+#' summary_season
 #' summary_simulation <- ffs_summarise_simulation(summary_season)
+#' summary_simulation
 #'
 #' }
 #'
 #' @rdname ffs_summaries
-#'
+#' @return ffs_summarise_week: a dataframe summarising team results by simulation week
 #' @export
 ffs_summarise_week <- function(optimal_scores, schedules) {
   checkmate::assert_data_frame(optimal_scores)
@@ -87,8 +90,11 @@ ffs_summarise_week <- function(optimal_scores, schedules) {
   return(matchups)
 }
 
+#' Summarise Season
+#'
 #' @param summary_week a dataframe as created by `ffs_summarise_week()`
 #' @rdname ffs_summaries
+#' @return ffs_summarise_season: a dataframe summarising franchise results across each simulation season
 #' @export
 ffs_summarise_season <- function(summary_week) {
   checkmate::assert_data_frame(summary_week)
@@ -118,8 +124,11 @@ ffs_summarise_season <- function(summary_week) {
   return(summary_season)
 }
 
+#' Summarise Simulation
+#'
 #' @param summary_season a dataframe as created by `ffs_summarise_season()`
 #' @rdname ffs_summaries
+#' @return ffs_summarise_simulation: a dataframe summarising franchise results across the simulation
 #' @export
 ffs_summarise_simulation <- function(summary_season) {
   checkmate::assert_data_frame(summary_season)
@@ -146,10 +155,10 @@ ffs_summarise_simulation <- function(summary_season) {
 
 #' @rdname ffs_summaries
 #' @export
-ffs_summarize_simulation <- ffs_summarise_simulation
+ffs_summarize_week <- ffs_summarise_week
 #' @rdname ffs_summaries
 #' @export
 ffs_summarize_season <- ffs_summarise_season
 #' @rdname ffs_summaries
 #' @export
-ffs_summarize_week <- ffs_summarise_week
+ffs_summarize_simulation <- ffs_summarise_simulation
