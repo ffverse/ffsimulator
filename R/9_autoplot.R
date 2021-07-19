@@ -79,7 +79,7 @@ autoplot.ff_simulation <- function(
     ggplot2::labs(
       title = glue::glue("Season Win Totals - {object$simulation_params$n_seasons} Simulated Seasons"),
       subtitle = glue::glue("{object$league_info$league_name}"),
-      caption = glue::glue("ffsimulator R pkg | Generated on {Sys.Date()}")
+      caption = glue::glue("ffsimulator R pkg | Based on rankings as of {object$roster_scores$scrape_date[[1]]}")
     )
 }
 
@@ -108,7 +108,7 @@ autoplot.ff_simulation <- function(
     ggplot2::labs(
       title = glue::glue("Final Season Rank - {object$simulation_params$n_seasons} Simulated Seasons"),
       subtitle = glue::glue("{object$league_info$league_name}"),
-      caption = glue::glue("ffsimulator R pkg | Generated on {Sys.Date()}"),
+      caption = glue::glue("ffsimulator R pkg | Based on rankings as of {object$roster_scores$scrape_date[[1]]}"),
       fill = "Franchise Name",
       color = "Franchise Name"
     )
@@ -143,7 +143,7 @@ autoplot.ff_simulation <- function(
                          object$simulation_params$n_seasons * object$simulation_params$n_weeks
                          } Simulated Weeks"),
       subtitle = glue::glue("{object$league_info$league_name}"),
-      caption = glue::glue("ffsimulator R pkg | Generated on {Sys.Date()}")
+      caption = glue::glue("ffsimulator R pkg | Based on rankings as of {object$roster_scores$scrape_date[[1]]}")
     )
 }
 
