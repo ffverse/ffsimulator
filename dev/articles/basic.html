@@ -44,7 +44,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ffsimulator</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.2.5.01</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.0.0.00</span>
       </span>
     </div>
 
@@ -140,7 +140,7 @@
       <h1 data-toc-skip>Basic Simulations</h1>
                         <h4 class="author">Tan Ho</h4>
             
-            <h4 class="date">2021-07-17</h4>
+            <h4 class="date">2021-07-20</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/ffverse/ffsimulator/blob/master/vignettes/basic.Rmd"><code>vignettes/basic.Rmd</code></a></small>
       <div class="hidden name"><code>basic.Rmd</code></div>
@@ -154,12 +154,12 @@
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span></code></pre></div>
 <p>ffsimulator runs simulations on a given fantasy league based that league’s rosters, scoring settings, and current redraft rankings, connecting this data to historical weekly performances for each (preseason) positional ranking.</p>
 <p>This vignette will introduce the basic usage of ffsimulator - you may also be interested in the motivations and custom simulations vignettes!</p>
-<div id="usage" class="section level2">
-<h2 class="hasAnchor">
-<a href="#usage" class="anchor"></a>Usage</h2>
+<div id="usage" class="section level1">
+<h1 class="hasAnchor">
+<a href="#usage" class="anchor"></a>Usage</h1>
 <p>ffsimulator connects directly to your league (via the <a href="https://ffscrapr.dynastyprocess.com">ffscrapr package</a>) and can be used at a high level with just a few lines of code:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">foureight_conn</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ff_connect.html">mfl_connect</a></span><span class="op">(</span><span class="fl">2021</span>, <span class="fl">22627</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">foureight_conn</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/mfl_connect.html">mfl_connect</a></span><span class="op">(</span><span class="fl">2021</span>, <span class="fl">22627</span><span class="op">)</span>
 
 <span class="va">foureight_sim</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ff_simulate.html">ff_simulate</a></span><span class="op">(</span>conn <span class="op">=</span> <span class="va">foureight_conn</span>, n_seasons <span class="op">=</span> <span class="fl">25</span>, n_weeks <span class="op">=</span> <span class="fl">14</span><span class="op">)</span>
 <span class="va">foureight_sim</span></code></pre></div>
@@ -250,8 +250,7 @@
 <span class="co">#&gt; #   result &lt;chr&gt;, opponent_name &lt;chr&gt;, allplay_wins &lt;dbl&gt;, allplay_games &lt;dbl&gt;,</span>
 <span class="co">#&gt; #   allplay_pct &lt;dbl&gt;, league_id &lt;chr&gt;, franchise_id &lt;chr&gt;,</span>
 <span class="co">#&gt; #   optimal_lineup &lt;list&gt;</span></code></pre></div>
-<p>The <code>roster_scores</code> and <code>projected_scores</code> tables both provide individual player-level scores, with the difference being that the roster_scores table is attached to franchise rosters.</p>
-<p>In leagues where there is only one copy of each player, that means these are identical, but in multi-copy leagues it may be more efficient to look at the <code>projected_scores</code> table for some cases.</p>
+<p>The <code>roster_scores</code> and <code>projected_scores</code> tables both provide individual player-week level scores, with the difference being that the <code>roster_scores</code> table is attached to franchise rosters (and thus duplicates rows if there are multiple copies of players within the league).</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">foureight_sim</span><span class="op">$</span><span class="va">roster_scores</span>
 <span class="co">#&gt; # A tibble: 124,600 x 23</span>

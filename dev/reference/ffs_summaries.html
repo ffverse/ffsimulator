@@ -86,7 +86,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ffsimulator</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.2.5.01</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.0.0.00</span>
       </span>
     </div>
 
@@ -194,11 +194,11 @@
 
 <span class='fu'>ffs_summarise_simulation</span><span class='op'>(</span><span class='va'>summary_season</span><span class='op'>)</span>
 
-<span class='fu'>ffs_summarize_simulation</span><span class='op'>(</span><span class='va'>summary_season</span><span class='op'>)</span>
+<span class='fu'>ffs_summarize_week</span><span class='op'>(</span><span class='va'>optimal_scores</span>, <span class='va'>schedules</span><span class='op'>)</span>
 
 <span class='fu'>ffs_summarize_season</span><span class='op'>(</span><span class='va'>summary_week</span><span class='op'>)</span>
 
-<span class='fu'>ffs_summarize_week</span><span class='op'>(</span><span class='va'>optimal_scores</span>, <span class='va'>schedules</span><span class='op'>)</span></pre>
+<span class='fu'>ffs_summarize_simulation</span><span class='op'>(</span><span class='va'>summary_season</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -221,6 +221,11 @@
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>ffs_summarise_week: a dataframe summarising team results by simulation week</p>
+<p>ffs_summarise_season: a dataframe summarising franchise results across each simulation season</p>
+<p>ffs_summarise_simulation: a dataframe summarising franchise results across the simulation</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code>vignette("Custom Simulations")</code> for example usage</p></div>
@@ -232,9 +237,59 @@
 <span class='va'>schedules</span> <span class='op'>&lt;-</span> <span class='fu'>.ffs_cache</span><span class='op'>(</span><span class='st'>"schedules.rds"</span><span class='op'>)</span>
 
 <span class='va'>summary_week</span> <span class='op'>&lt;-</span> <span class='fu'>ffs_summarise_week</span><span class='op'>(</span><span class='va'>optimal_scores</span>, <span class='va'>schedules</span><span class='op'>)</span>
-<span class='va'>summary_season</span> <span class='op'>&lt;-</span> <span class='fu'>ffs_summarise_season</span><span class='op'>(</span><span class='va'>summary_week</span><span class='op'>)</span>
-<span class='va'>summary_simulation</span> <span class='op'>&lt;-</span> <span class='fu'>ffs_summarise_simulation</span><span class='op'>(</span><span class='va'>summary_season</span><span class='op'>)</span>
-
+<span class='va'>summary_week</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 240 x 15</span>
+#&gt;    season season_week franchise_name   optimal_score lineup_efficien… team_score
+#&gt;     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>       <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>                    <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>            <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>      <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
+#&gt; <span style='color: #BCBCBC;'> 1</span>      1           1 Mexico City Spa…          200.            0.835      167. 
+#&gt; <span style='color: #BCBCBC;'> 2</span>      1           1 Dirty Dgens               154.            0.88       136. 
+#&gt; <span style='color: #BCBCBC;'> 3</span>      1           1 Alberta Armadil…          126.            0.684       86.1
+#&gt; <span style='color: #BCBCBC;'> 4</span>      1           1 Electric Woodies          144.            0.752      108. 
+#&gt; <span style='color: #BCBCBC;'> 5</span>      1           1 Motor City Mutts          185.            0.803      148. 
+#&gt; <span style='color: #BCBCBC;'> 6</span>      1           1 Hoth City Taunt…          110.            0.709       78.1
+#&gt; <span style='color: #BCBCBC;'> 7</span>      1           1 Paw Patrol                166.            0.713      118. 
+#&gt; <span style='color: #BCBCBC;'> 8</span>      1           1 Domination Stat…          197.            0.851      167. 
+#&gt; <span style='color: #BCBCBC;'> 9</span>      1           1 Kill Devil Hill…          129.            0.811      105. 
+#&gt; <span style='color: #BCBCBC;'>10</span>      1           1 [Redacted]                145.            0.797      115. 
+#&gt; <span style='color: #949494;'># … with 230 more rows, and 9 more variables: opponent_score &lt;dbl&gt;,</span>
+#&gt; <span style='color: #949494;'>#   result &lt;chr&gt;, opponent_name &lt;chr&gt;, allplay_wins &lt;dbl&gt;, allplay_games &lt;dbl&gt;,</span>
+#&gt; <span style='color: #949494;'>#   allplay_pct &lt;dbl&gt;, league_id &lt;chr&gt;, franchise_id &lt;chr&gt;,</span>
+#&gt; <span style='color: #949494;'>#   optimal_lineup &lt;list&gt;</span></div><div class='input'><span class='va'>summary_season</span> <span class='op'>&lt;-</span> <span class='fu'>ffs_summarise_season</span><span class='op'>(</span><span class='va'>summary_week</span><span class='op'>)</span>
+<span class='va'>summary_season</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 24 x 12</span>
+#&gt;    season league_id franchise_id franchise_name h2h_wins h2h_winpct allplay_wins
+#&gt;     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>        <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>             <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span>      <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>        <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
+#&gt; <span style='color: #BCBCBC;'> 1</span>      1 22627     0001         Mexico City S…        8        0.8           75
+#&gt; <span style='color: #BCBCBC;'> 2</span>      1 22627     0002         Dirty Dgens           1        0.1           23
+#&gt; <span style='color: #BCBCBC;'> 3</span>      1 22627     0003         Alberta Armad…        3        0.3           47
+#&gt; <span style='color: #BCBCBC;'> 4</span>      1 22627     0004         Electric Wood…        6        0.6           50
+#&gt; <span style='color: #BCBCBC;'> 5</span>      1 22627     0005         Motor City Mu…        6        0.6           54
+#&gt; <span style='color: #BCBCBC;'> 6</span>      1 22627     0006         Hoth City Tau…        4        0.4           36
+#&gt; <span style='color: #BCBCBC;'> 7</span>      1 22627     0007         Paw Patrol            7        0.7           52
+#&gt; <span style='color: #BCBCBC;'> 8</span>      1 22627     0008         Domination St…        5        0.5           74
+#&gt; <span style='color: #BCBCBC;'> 9</span>      1 22627     0009         Kill Devil Hi…        4        0.4           45
+#&gt; <span style='color: #BCBCBC;'>10</span>      1 22627     0010         [Redacted]            5        0.5           51
+#&gt; <span style='color: #949494;'># … with 14 more rows, and 5 more variables: allplay_games &lt;dbl&gt;,</span>
+#&gt; <span style='color: #949494;'>#   allplay_winpct &lt;dbl&gt;, points_for &lt;dbl&gt;, points_against &lt;dbl&gt;,</span>
+#&gt; <span style='color: #949494;'>#   potential_points &lt;dbl&gt;</span></div><div class='input'><span class='va'>summary_simulation</span> <span class='op'>&lt;-</span> <span class='fu'>ffs_summarise_simulation</span><span class='op'>(</span><span class='va'>summary_season</span><span class='op'>)</span>
+<span class='va'>summary_simulation</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 12 x 11</span>
+#&gt;    league_id franchise_id franchise_name             seasons h2h_wins h2h_winpct
+#&gt;    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>        <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>                        <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>      <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
+#&gt; <span style='color: #BCBCBC;'> 1</span> 22627     0012         Indigo Plateau Elite             2      7.5       0.75
+#&gt; <span style='color: #BCBCBC;'> 2</span> 22627     0001         Mexico City Space Force          2      8         0.8 
+#&gt; <span style='color: #BCBCBC;'> 3</span> 22627     0011         TB12                             2      5.5       0.55
+#&gt; <span style='color: #BCBCBC;'> 4</span> 22627     0008         Domination Station               2      5         0.5 
+#&gt; <span style='color: #BCBCBC;'> 5</span> 22627     0003         Alberta Armadillos               2      4         0.4 
+#&gt; <span style='color: #BCBCBC;'> 6</span> 22627     0010         [Redacted]                       2      4.5       0.45
+#&gt; <span style='color: #BCBCBC;'> 7</span> 22627     0005         Motor City Mutts                 2      5         0.5 
+#&gt; <span style='color: #BCBCBC;'> 8</span> 22627     0009         Kill Devil Hills Carpetba…       2      5         0.5 
+#&gt; <span style='color: #BCBCBC;'> 9</span> 22627     0004         Electric Woodies                 2      6         0.6 
+#&gt; <span style='color: #BCBCBC;'>10</span> 22627     0007         Paw Patrol                       2      4.5       0.45
+#&gt; <span style='color: #BCBCBC;'>11</span> 22627     0002         Dirty Dgens                      2      2         0.2 
+#&gt; <span style='color: #BCBCBC;'>12</span> 22627     0006         Hoth City Tauntauns              2      3         0.3 
+#&gt; <span style='color: #949494;'># … with 5 more variables: allplay_wins &lt;dbl&gt;, allplay_winpct &lt;dbl&gt;,</span>
+#&gt; <span style='color: #949494;'>#   points_for &lt;dbl&gt;, points_against &lt;dbl&gt;, potential_points &lt;dbl&gt;</span></div><div class='input'>
 <span class='co'># }</span>
 
 </div></pre>
