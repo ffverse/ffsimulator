@@ -1,0 +1,59 @@
+on:
+  schedule:
+    - 8 3 15 * *
+  workflow_dispatch:
+
+name: api-check
+
+jobs:
+  api-check:
+
+    runs-on: ubuntu-20.04
+
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+      RSPM: "https://packagemanager.rstudio.com/cran/__linux__/focal/latest"
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: r-lib/actions/setup-r@v1
+
+      - uses: r-lib/actions/setup-pandoc@v1
+
+      - name: Install pak and query dependencies
+        run: |
+          install.packages("pak", repos = "https://r-lib.github.io/p/pak/dev/")
+          saveRDS(pak::pkg_deps("local::.", dependencies = TRUE), ".github/r-depends.rds")
+        shell: Rscript {0}
+
+      - name: Restore R package cache
+        uses: actions/cache@v2
+        with:
+          path: |
+            ${{ env.R_LIBS_USER }}/*
+            !${{ env.R_LIBS_USER }}/pak
+          key: ffsimulator-${{ hashFiles('DESCRIPTION') }}-${{ hashFiles('.github/r-depends.rds') }}
+          restore-keys: |
+            ffsimulator-${{ hashFiles('DESCRIPTION') }}
+            ffsimulator-
+
+      - name: Install system dependencies
+        run: |
+          pak::local_system_requirements(execute = TRUE)
+          pak::local_install_dev_deps()
+          pak::pak("rcmdcheck")
+        shell: Rscript {0}
+
+      - name: Check
+        env:
+          _R_CHECK_CRAN_INCOMING_REMOTE_: false
+        run: rcmdcheck::rcmdcheck(args = c("--no-manual", "--as-cran"), error_on = "warning", check_dir = "check")
+        shell: Rscript {0}
+
+      - name: Upload check results
+        if: failure()
+        uses: actions/upload-artifact@main
+        with:
+          name: ${{ runner.os }}-results
+          path: check

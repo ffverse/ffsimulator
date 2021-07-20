@@ -13,6 +13,8 @@ version](https://img.shields.io/github/r-package/v/ffverse/ffsimulator/dev?label
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg?style=flat-square)](https://lifecycle.r-lib.org/articles/stages.html)
 [![R build
 status](https://img.shields.io/github/workflow/status/ffverse/ffsimulator/R-CMD-check?label=R%20check&style=flat-square&logo=github)](https://github.com/ffverse/ffsimulator/actions)
+[![Integration
+testing](https://img.shields.io/github/workflow/status/ffverse/ffsimulator/api-check?label=api%20check&style=flat-square&logo=github)](https://github.com/ffverse/ffsimulator/actions)
 [![Codecov test
 coverage](https://img.shields.io/codecov/c/github/ffverse/ffsimulator?label=codecov&style=flat-square&logo=codecov)](https://codecov.io/gh/ffverse/ffsimulator?branch=dev)
 [![nflverse
