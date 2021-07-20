@@ -1,3 +1,5 @@
+# ffsimulator (development version)
+
 # ffsimulator 1.0.0
 
 The `ffsimulator` package uses bootstrap resampling to run fantasy football season simulations supported by historical rankings and nflfastR data, calculating optimal lineups, and returning aggregated results.
