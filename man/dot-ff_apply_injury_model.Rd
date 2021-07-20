@@ -6,6 +6,9 @@
 \usage{
 .ff_apply_injury_model(adp_outcomes, model_type)
 }
+\value{
+same adp outcomes dataframe but with a prob_gp column
+}
 \description{
 Applies various injury models to adp outcomes
 }

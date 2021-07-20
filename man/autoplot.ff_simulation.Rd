@@ -29,6 +29,18 @@ Creates automatic plots for wins, ranks, or points for an \code{ff_simulation} o
 \details{
 Usage of this function/method requires the ggplot2 package and (for wins and points plots) the ggridges package.
 }
+\examples{
+\donttest{
+
+  simulation <- .ffs_cache("foureight_sim.rds")
+
+  ggplot2::autoplot(simulation) # default is type = "wins"
+  ggplot2::autoplot(simulation, type = "rank")
+  ggplot2::autoplot(simulation, type = "points")
+
+}
+
+}
 \seealso{
 \code{vignette("Basic Simulations")} for example usage
 }

@@ -8,6 +8,14 @@
 #' @seealso <https://github.com/dynastyprocess/data>
 #' @seealso `vignette("Custom Simulation")` for example usage
 #'
+#' @examples \donttest{
+#'
+#' ffs_latest_rankings()
+#'
+#' }
+#'
+#' @return a dataframe with a copy of the latest FP rankings from DynastyProcess's data repository
+#'
 #' @export
 ffs_latest_rankings <- function() {
   url_query <- "https://github.com/dynastyprocess/data/raw/master/files/db_fpecr_latest.rds"

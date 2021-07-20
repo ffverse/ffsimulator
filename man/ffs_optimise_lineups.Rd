@@ -45,6 +45,17 @@ Calculates optimal lineups for all franchises in the dataframe based on a table 
 \details{
 Lineup efficiency is the percentage of optimal/best-ball score that is used as the actual score - by default, the lineup efficiency for a team in non-best-ball settings is normally distributed around a mean of 77.5\% and a standard deviation of 5\%.
 }
+\examples{
+\donttest{
+# cached examples
+roster_scores <- .ffs_cache("roster_scores.rds")
+lineup_constraints <- .ffs_cache("mfl_lineup_constraints.rds")
+
+ffs_optimise_lineups(roster_scores, lineup_constraints)
+
+}
+
+}
 \seealso{
 \code{vignette("Custom Simulations")} for example usage
 }

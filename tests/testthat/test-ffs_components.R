@@ -1,8 +1,8 @@
 
-cache <- tibble::tibble(file = list.files("cache", full.names = TRUE)) %>%
+cache <- tibble::tibble(file = list.files(system.file("cache",package = "ffsimulator"), full.names = TRUE)) %>%
   dplyr::transmute(
     data = purrr::map(.data$file, readRDS),
-    name = stringr::str_remove_all(.data$file, "^cache/|\\.rds$")
+    name = stringr::str_remove_all(.data$file, ".+cache/|\\.rds$")
   ) %>%
   dplyr::select("name", "data") %>%
   tibble::deframe()

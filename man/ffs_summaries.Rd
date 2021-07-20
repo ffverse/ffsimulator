@@ -4,9 +4,9 @@
 \alias{ffs_summarise_week}
 \alias{ffs_summarise_season}
 \alias{ffs_summarise_simulation}
-\alias{ffs_summarize_simulation}
-\alias{ffs_summarize_season}
 \alias{ffs_summarize_week}
+\alias{ffs_summarize_season}
+\alias{ffs_summarize_simulation}
 \title{Summarise simulation outputs}
 \usage{
 ffs_summarise_week(optimal_scores, schedules)
@@ -15,11 +15,11 @@ ffs_summarise_season(summary_week)
 
 ffs_summarise_simulation(summary_season)
 
-ffs_summarize_simulation(summary_season)
+ffs_summarize_week(optimal_scores, schedules)
 
 ffs_summarize_season(summary_week)
 
-ffs_summarize_week(optimal_scores, schedules)
+ffs_summarize_simulation(summary_season)
 }
 \arguments{
 \item{optimal_scores}{a dataframe of optimized lineups as created by \code{ffs_optimize_lineups()}}
@@ -30,8 +30,31 @@ ffs_summarize_week(optimal_scores, schedules)
 
 \item{summary_season}{a dataframe as created by \code{ffs_summarise_season()}}
 }
+\value{
+ffs_summarise_week: a dataframe summarising team results by simulation week
+
+ffs_summarise_season: a dataframe summarising franchise results across each simulation season
+
+ffs_summarise_simulation: a dataframe summarising franchise results across the simulation
+}
 \description{
 These functions are used to summarise the simulation outputs, typically by joining the optimal scores with a matching schedule.
+}
+\examples{
+\donttest{
+# cached examples
+optimal_scores <- .ffs_cache("optimal_scores.rds")
+schedules <- .ffs_cache("schedules.rds")
+
+summary_week <- ffs_summarise_week(optimal_scores, schedules)
+summary_week
+summary_season <- ffs_summarise_season(summary_week)
+summary_season
+summary_simulation <- ffs_summarise_simulation(summary_season)
+summary_simulation
+
+}
+
 }
 \seealso{
 \code{vignette("Custom Simulations")} for example usage

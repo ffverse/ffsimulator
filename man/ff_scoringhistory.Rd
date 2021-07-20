@@ -3,12 +3,19 @@
 \name{ff_scoringhistory}
 \alias{ff_scoringhistory}
 \title{Get league scoring history}
+\value{
+A tidy dataframe of weekly fantasy scoring data, one row per player per week
+}
 \description{
 See \code{ffscrapr::ff_scoringhistory} for details.
 }
 \seealso{
 Other ffscrapr-imports: 
+\code{\link{espn_connect}()},
 \code{\link{ff_connect}()},
-\code{\link{ff_starter_positions}()}
+\code{\link{ff_starter_positions}()},
+\code{\link{fleaflicker_connect}()},
+\code{\link{mfl_connect}()},
+\code{\link{sleeper_connect}()}
 }
 \concept{ffscrapr-imports}

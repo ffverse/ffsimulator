@@ -9,6 +9,17 @@
 #' @param type one of "wins", "rank", "points"
 #' @param ... unused, required by autoplot generic
 #'
+#' @examples
+#' \donttest{
+#'
+#'   simulation <- .ffs_cache("foureight_sim.rds")
+#'
+#'   ggplot2::autoplot(simulation) # default is type = "wins"
+#'   ggplot2::autoplot(simulation, type = "rank")
+#'   ggplot2::autoplot(simulation, type = "points")
+#'
+#' }
+#'
 #' @seealso `vignette("Basic Simulations")` for example usage
 #'
 #' @return a ggplot object
@@ -68,7 +79,7 @@ autoplot.ff_simulation <- function(
     ggplot2::labs(
       title = glue::glue("Season Win Totals - {object$simulation_params$n_seasons} Simulated Seasons"),
       subtitle = glue::glue("{object$league_info$league_name}"),
-      caption = glue::glue("ffsimulator R pkg | FP rankings as of {object$latest_rankings$scrape_date[[1]]}")
+      caption = glue::glue("ffsimulator R pkg | Based on rankings as of {object$roster_scores$scrape_date[[1]]}")
     )
 }
 
@@ -97,7 +108,7 @@ autoplot.ff_simulation <- function(
     ggplot2::labs(
       title = glue::glue("Final Season Rank - {object$simulation_params$n_seasons} Simulated Seasons"),
       subtitle = glue::glue("{object$league_info$league_name}"),
-      caption = glue::glue("ffsimulator R pkg | FP rankings as of {object$latest_rankings$scrape_date[[1]]}"),
+      caption = glue::glue("ffsimulator R pkg | Based on rankings as of {object$roster_scores$scrape_date[[1]]}"),
       fill = "Franchise Name",
       color = "Franchise Name"
     )
@@ -132,7 +143,7 @@ autoplot.ff_simulation <- function(
                          object$simulation_params$n_seasons * object$simulation_params$n_weeks
                          } Simulated Weeks"),
       subtitle = glue::glue("{object$league_info$league_name}"),
-      caption = glue::glue("ffsimulator R pkg | FP rankings as of {object$latest_rankings$scrape_date[[1]]}")
+      caption = glue::glue("ffsimulator R pkg | Based on rankings as of {object$roster_scores$scrape_date[[1]]}")
     )
 }
 

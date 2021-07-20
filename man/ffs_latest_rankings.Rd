@@ -6,12 +6,23 @@
 \usage{
 ffs_latest_rankings()
 }
+\value{
+a dataframe with a copy of the latest FP rankings from DynastyProcess's data repository
+}
 \description{
 Fetches a copy of the latest FantasyPros redraft positional rankings data from DynastyProcess.com's data repository.
 }
 \details{
 If you have any issues with the output of this data, please open an issue in
 the DynastyProcess data repository.
+}
+\examples{
+\donttest{
+
+ffs_latest_rankings()
+
+}
+
 }
 \seealso{
 \url{https://github.com/dynastyprocess/data}

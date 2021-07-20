@@ -25,9 +25,10 @@ This function generates random head to head schedules for a given number of seas
 It starts with the \href{https://en.wikipedia.org/wiki/Round-robin_tournament#Scheduling_algorithm}{circle method for round robin scheduling}, grows or shrinks the schedule to match the required number of weeks, and then shuffles both the order that teams are assigned in and the order that weeks are generated. This doesn't "guarantee" unique schedules, but there are n_teams! x n_weeks! permutations of the schedule so it's very very likely that the schedules are unique (3x10^18 possible schedules for a 12 team league playing 13 weeks).
 }
 \examples{
-{
+\donttest{
   ffs_build_schedules(n_teams = 12, n_seasons = 1, n_weeks = 14)
 }
+
 }
 \seealso{
 \code{vignette("Custom Simulations")} for example usage

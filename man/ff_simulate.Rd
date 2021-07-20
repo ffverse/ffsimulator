@@ -12,8 +12,7 @@ ff_simulate(
   seed = NULL,
   injury_model = c("simple", "none"),
   base_seasons = 2012:2020,
-  parallel = FALSE,
-  verbose = TRUE
+  parallel = FALSE
 )
 }
 \arguments{
@@ -32,34 +31,23 @@ ff_simulate(
 \item{base_seasons}{a numeric vector that selects seasons as base data, earliest available is 2012}
 
 \item{parallel}{a logical: use parallel processing for optimizing lineups, default is FALSE}
-
-\item{verbose}{a logical: print progress messages? default TRUE}
+}
+\value{
+an \code{ff_simulation} object which can be passed to \code{plot()} and contains the output data from the simulation.
 }
 \description{
-The main function of the package.
+The main function of the package - uses bootstrap resampling to run fantasy football season simulations supported by historical rankings and nflfastR data, calculating optimal lineups, and returns aggregated results.
 }
 \examples{
-\dontrun{
 
-conn <- mfl_connect(2021, 22627)
-
-auto <- ff_simulate(conn)
-
-reprex <- ff_simulate(conn = conn, seed = 613)
-
-basic <- ff_simulate(conn = conn, n_seasons = 100, n_weeks = 14, best_ball = FALSE)
-
-custom <- ff_simulate(
-  conn = conn,
-  n_seasons = 100,
-  n_weeks = 17,
-  custom_rankings = df_rankings,
-  seed = 613,
-  best_ball = FALSE,
-  injury_model = c("bimodal", "separate", "none"),
-  owner_efficiency = list(average = 0.75, sd = 0.025),
-  verbose = FALSE
-)
+\donttest{
+  conn <- mfl_connect(2021, 22627)
+  ff_simulate(conn, n_seasons = 25)
 }
 
+}
+\seealso{
+\code{vignette("Basic Simulations")} for example usage
+
+\code{vignette("Custom Simulations")} for examples on using the subfunctions for your own processes.
 }

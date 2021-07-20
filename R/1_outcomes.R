@@ -6,10 +6,22 @@
 #' @param scoring_history a scoring history table as created by `ffscrapr::ff_scoringhistory()`
 #' @param injury_model either "simple" or "none" - simple uses the average games played per season for each position/adp combination, none assumes every game is played.
 #'
-#' @seealso `fp_rankings_history` for the included historical rankings, and `fp_injury_table` for the historical injury table
-#' @seealso `vignette("Custom Simulation")` for example usage.
-#'
 #' @return a tibble with position, rank, probability of games played, and a corresponding nested list per row of all week score outcomes.
+#'
+#' @examples
+#' \donttest{
+#'  #cached data
+#'  scoring_history <- .ffs_cache("mfl_scoring_history.rds")
+#'
+#'  ffs_adp_outcomes(scoring_history, injury_model = "simple")
+#'  ffs_adp_outcomes(scoring_history, injury_model = "none")
+#' }
+#'
+#' @seealso `fp_rankings_history` for the included historical rankings
+#' @seealso `fp_injury_table` for the historical injury table
+#' @seealso `vignette("Custom Simulation")` for usage details.
+#'
+#' @export
 ffs_adp_outcomes <- function(scoring_history, injury_model = "simple") {
   checkmate::assert_choice(injury_model, choices = c("simple", "none"))
   checkmate::assert_data_frame(scoring_history)
@@ -61,6 +73,7 @@ ffs_adp_outcomes <- function(scoring_history, injury_model = "simple") {
 #' Applies various injury models to adp outcomes
 #'
 #' @keywords internal
+#' @return same adp outcomes dataframe but with a prob_gp column
 .ff_apply_injury_model <- function(adp_outcomes, model_type) {
   if (model_type == "none") {
     adp_outcomes$prob_gp <- 1

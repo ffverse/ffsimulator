@@ -2,41 +2,20 @@
 % Please edit documentation in R/utils-ffscrapr.R
 \name{ff_connect}
 \alias{ff_connect}
-\alias{mfl_connect}
-\alias{sleeper_connect}
-\alias{fleaflicker_connect}
-\alias{espn_connect}
 \title{Connect to a league}
+\value{
+a connection object to be used with \verb{ff_*} functions
+}
 \description{
-See \code{ffscrapr::ff_connect} for details.
-
-See \code{ffscrapr::ff_connect} for details.
-
-See \code{ffscrapr::ff_connect} for details.
-
-See \code{ffscrapr::ff_connect} for details.
-
-See \code{ffscrapr::ff_connect} for details.
+See \code{ffscrapr::ff_connect()} for details.
 }
 \seealso{
 Other ffscrapr-imports: 
+\code{\link{espn_connect}()},
 \code{\link{ff_scoringhistory}()},
-\code{\link{ff_starter_positions}()}
-
-Other ffscrapr-imports: 
-\code{\link{ff_scoringhistory}()},
-\code{\link{ff_starter_positions}()}
-
-Other ffscrapr-imports: 
-\code{\link{ff_scoringhistory}()},
-\code{\link{ff_starter_positions}()}
-
-Other ffscrapr-imports: 
-\code{\link{ff_scoringhistory}()},
-\code{\link{ff_starter_positions}()}
-
-Other ffscrapr-imports: 
-\code{\link{ff_scoringhistory}()},
-\code{\link{ff_starter_positions}()}
+\code{\link{ff_starter_positions}()},
+\code{\link{fleaflicker_connect}()},
+\code{\link{mfl_connect}()},
+\code{\link{sleeper_connect}()}
 }
 \concept{ffscrapr-imports}

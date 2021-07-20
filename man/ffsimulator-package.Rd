@@ -8,21 +8,21 @@
 \description{
 \if{html}{\figure{logo.png}{options: align='right' alt='logo' width='120'}}
 
-Runs bootstrap resampling style fantasy football season
-    simulations using historical rankings and nflfastR data, calculating
-    optimal lineups, and returning aggregated results to help determine
-    team roster strengths.
+Uses bootstrap resampling to run fantasy football season
+    simulations supported by historical rankings and 'nflfastR' data,
+    calculating optimal lineups, and returning aggregated results.
 }
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://github.com/tanho63/ffsimulator}
-  \item Report bugs at \url{https://github.com/tanho63/ffsimulator/issues}
+  \item \url{https://ffsimulator.ffverse.com}
+  \item \url{https://github.com/ffverse/ffsimulator}
+  \item Report bugs at \url{https://github.com/ffverse/ffsimulator/issues}
 }
 
 }
 \author{
-\strong{Maintainer}: Tan Ho \email{tan@tanho.ca} (\href{https://orcid.org/0000-0001-8388-5155}{ORCID})
+\strong{Maintainer}: Tan Ho \email{tan@tanho.ca} (\href{https://orcid.org/0000-0001-8388-5155}{ORCID}) [copyright holder]
 
 }
 \keyword{internal}

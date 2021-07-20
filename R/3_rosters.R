@@ -8,7 +8,15 @@
 #'
 #' @return a dataframe of rosters that includes a fantasypros_id column
 #'
-#' @seealso vignette("Custom Simulations") for example usage
+#' @examples
+#' \donttest{
+#' # cached examples
+#' conn <- .ffs_cache("mfl_conn.rds")
+#'
+#' ffs_rosters(conn)
+#' }
+#'
+#' @seealso vignette("Custom Simulations") for more detailed example usage
 #'
 #' @export
 ffs_rosters <- function(conn) {
