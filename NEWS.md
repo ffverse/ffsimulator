@@ -1,7 +1,7 @@
 # ffsimulator (development version)
 
 ## New features
-- `ff_simulate()` gains a a new `verbose` argument that allows for progress tracking, and is set ON by default. This can also be controlled by `options(ffsimulator.verbose = TRUE)` (or FALSE). Resolves #9. 
+- `ff_simulate()` gains a a new `verbose` argument that allows for progress tracking, and is set ON by default. This can also be controlled by `options(ffsimulator.verbose = TRUE)` (or FALSE). Resolves #9. (v1.0.0.01)
 
 ## Minor changes
 

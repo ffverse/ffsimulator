@@ -40,6 +40,8 @@ ffs_optimize_lineups(
 
 \item{parallel}{a logical: TRUE will run the optimization in parallel, requires the furrr and future packages as well as setting \code{future::plan()} in advance/externally. Default FALSE.}
 
+\item{pos_filter}{a character vector specifying which positions are eligible - defaults to \verb{c("QB","RB","WR","TE)}}
+
 \item{verbose}{a logical: TRUE (default) will print stuff.}
 }
 \value{

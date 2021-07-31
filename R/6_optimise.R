@@ -10,6 +10,7 @@
 #' @param lineup_efficiency_sd the standard deviation of lineup efficiency, defaults to 0.05
 #' @param best_ball a logical: FALSE will apply a lineup efficiency factor and TRUE uses optimal scores as actual scores, default = FALSE
 #' @param parallel a logical: TRUE will run the optimization in parallel, requires the furrr and future packages as well as setting `future::plan()` in advance/externally. Default FALSE.
+#' @param pos_filter a character vector specifying which positions are eligible - defaults to `c("QB","RB","WR","TE)`
 #' @param verbose a logical: TRUE (default) will print stuff.
 #'
 #' @return a dataframe of what each team scored for each week

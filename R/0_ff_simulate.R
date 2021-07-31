@@ -57,7 +57,7 @@ ff_simulate <- function(
 
   start_logger <- verbose_logger(verbose, "start")
   end_logger <- verbose_logger(verbose, "end")
-  verbose_progress(verbose)
+  w_progress <- verbose_progress(verbose)
 
   #### Import Data ####
 
@@ -107,12 +107,12 @@ ff_simulate <- function(
 
   if(verbose) cli::cli_alert_info("Optimizing Lineups...")
 
-  optimal_scores <- ffs_optimise_lineups(
+  optimal_scores <- w_progress(ffs_optimise_lineups(
     roster_scores = roster_scores,
     lineup_constraints = lineup_constraints,
     best_ball = best_ball,
     parallel = parallel,
-    verbose = verbose)
+    verbose = verbose))
 
   if(verbose) cli::cli_alert_success("...done! {Sys.time()}")
 
@@ -188,12 +188,13 @@ verbose_logger <- function(verbose, type){
 
 verbose_progress <- function(verbose){
 
-  if(!verbose) return(NULL)
+  if(!verbose) return(force)
 
   if(!requireNamespace("progressr",quietly = TRUE)) {
     warning("Could not find {progressr} package, please install for progress bar updates.")
+    return(force)
   }
 
-  progressr::handlers(global = TRUE)
+  return(progressr::with_progress)
 }
 
