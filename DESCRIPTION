@@ -1,6 +1,6 @@
 Package: ffsimulator
 Title: Simulate Fantasy Football Seasons
-Version: 1.0.0.00
+Version: 1.0.0.01
 Authors@R: 
     person(given = "Tan",
            family = "Ho",
@@ -16,6 +16,7 @@ BugReports: https://github.com/ffverse/ffsimulator/issues
 Depends:
     R (>= 3.5.0)
 Imports:
+    cli (>= 3.0.0),
     checkmate (>= 2.0.0),
     dplyr (>= 1.0.0),
     ffscrapr (>= 1.4.3),
@@ -36,6 +37,7 @@ Suggests:
     ggplot2 (>= 3.0.0),
     ggridges (>= 0.5.0),
     knitr (>= 1.0),
+    progressr (>= 0.8.0),
     rmarkdown (>= 2.6),
     scales (>= 1.0.0),
     testthat (>= 3.0.0),

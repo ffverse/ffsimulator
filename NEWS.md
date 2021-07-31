@@ -1,5 +1,12 @@
 # ffsimulator (development version)
 
+## New features
+- `ff_simulate()` gains a a new `verbose` argument that allows for progress tracking, and is set ON by default. This can also be controlled by `options(ffsimulator.verbose = TRUE)` (or FALSE). Resolves #9. 
+
+## Minor changes
+
+---
+
 # ffsimulator 1.0.0
 
 The `ffsimulator` package uses bootstrap resampling to run fantasy football season simulations supported by historical rankings and nflfastR data, calculating optimal lineups, and returning aggregated results.

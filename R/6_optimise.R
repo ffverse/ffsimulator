@@ -10,6 +10,7 @@
 #' @param lineup_efficiency_sd the standard deviation of lineup efficiency, defaults to 0.05
 #' @param best_ball a logical: FALSE will apply a lineup efficiency factor and TRUE uses optimal scores as actual scores, default = FALSE
 #' @param parallel a logical: TRUE will run the optimization in parallel, requires the furrr and future packages as well as setting `future::plan()` in advance/externally. Default FALSE.
+#' @param verbose a logical: TRUE (default) will print stuff.
 #'
 #' @return a dataframe of what each team scored for each week
 #'
@@ -30,7 +31,10 @@ ffs_optimise_lineups <- function(roster_scores,
                                  lineup_efficiency_mean = 0.775,
                                  lineup_efficiency_sd = 0.05,
                                  best_ball = FALSE,
-                                 parallel = FALSE) {
+                                 parallel = FALSE,
+                                 pos_filter = c("QB","RB","WR","TE"),
+                                 verbose = TRUE
+                                 ) {
   checkmate::assert_number(lineup_efficiency_mean, lower = 0, upper = 1)
   checkmate::assert_number(lineup_efficiency_sd, lower = 0, upper = 0.25)
   checkmate::assert_flag(best_ball)
@@ -49,20 +53,24 @@ ffs_optimise_lineups <- function(roster_scores,
   checkmate::assert_data_frame(lineup_constraints, any.missing = FALSE)
   checkmate::assert_subset(c("pos", "min", "max", "offense_starters"), names(lineup_constraints))
 
-  if (!parallel) map <- purrr::map
+  if (!parallel) ffs_map <- purrr::map
 
-  if (parallel && !requireNamespace("furrr", quietly = TRUE)) stop("Package {furrr} is required to run `ffs_optimise_lineups()` in parallel.", call. = FALSE)
+  if (parallel && !requireNamespace("furrr", quietly = TRUE)) {
+    stop("Package {furrr} is required to run `ffs_optimise_lineups()` in parallel.", call. = FALSE)
+  }
 
-  if (parallel) {
-    map <- furrr::future_map
+  if (parallel && inherits(future::plan(), "sequential") ) {
+    message("Parallel processing was specified but no future::plan() was found. Continuing sequentially.")
 
-    if (inherits(future::plan(), "sequential")) {
-      message("Parallel processing was specified but no future::plan() was found. Continuing sequentially.")
-    }
+    ffs_map <- purrr::map
+  }
+
+  if (parallel && !inherits(future::plan(), "sequential")) {
+    ffs_map <- furrr::future_map
   }
 
   lineup_constraints <- lineup_constraints %>%
-    dplyr::filter(.data$pos %in% c("QB", "RB", "WR", "TE"))
+    dplyr::filter(.data$pos %in% pos_filter)
 
   nest_data <- roster_scores %>%
     dplyr::left_join(
@@ -70,9 +78,8 @@ ffs_optimise_lineups <- function(roster_scores,
       by = "pos"
     ) %>%
     dplyr::filter(.data$pos_rank <= .data$max, .data$pos %in% lineup_constraints$pos) %>%
-    dplyr::group_by(.data$league_id, .data$franchise_id, .data$franchise_name, .data$season, .data$week) %>%
-    tidyr::nest() %>%
-    dplyr::ungroup()
+    dplyr::select("league_id","franchise_id","franchise_name","season","week","player_id","pos","projected_score") %>%
+    tidyr::nest(data = c("player_id","pos","projected_score"))
 
   if (best_ball) lineup_efficiency <- 1
 
@@ -83,9 +90,17 @@ ffs_optimise_lineups <- function(roster_scores,
     )
   }
 
+  progress_function <- function() NULL
+  if(verbose && requireNamespace("progressr", quietly = TRUE)) {
+    progress_function <- progressr::progressor(steps = nrow(nest_data))
+  }
+
   optimal_scores <- nest_data %>%
     dplyr::mutate(
-      optimals = map(.data$data, .ff_optimise_one_lineup, lineup_constraints),
+      optimals = ffs_map(.data$data,
+                         .ff_optimise_one_lineup,
+                         lineup_constraints,
+                         progress_function),
       data = NULL
     ) %>%
     tidyr::unnest_wider("optimals") %>%
@@ -108,12 +123,15 @@ ffs_optimize_lineups <- ffs_optimise_lineups
 #' @return a list including the optimal_score and the optimal_lineup tibble.
 #'
 #' @keywords internal
-.ff_optimise_one_lineup <- function(franchise_scores, lineup_constraints) {
+.ff_optimise_one_lineup <- function(franchise_scores,
+                                    lineup_constraints,
+                                    progress_function
+                                    ) {
   min_req <- sum(lineup_constraints$min)
 
   player_ids <- c(franchise_scores$player_id, rep_len(NA_character_, min_req))
   player_scores <- c(franchise_scores$projected_score, rep_len(0, min_req))
-  player_scores <- tidyr::replace_na(player_scores, 0)
+  player_scores[is.na(player_scores)] <- 0
 
   # binary - position identifiers
 
@@ -154,11 +172,13 @@ ffs_optimize_lineups <- ffs_optimise_lineups
 
   optimals <- list(
     optimal_score = sum(player_scores * solve_lineup$solution),
-    optimal_lineup = data.frame(
+    optimal_lineup = list(
       player_id = player_ids[as.logical(solve_lineup$solution)],
       player_score = player_scores[as.logical(solve_lineup$solution)]
     )
   )
+
+  progress_function()
 
   return(optimals)
 }

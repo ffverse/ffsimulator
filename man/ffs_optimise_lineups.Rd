@@ -11,7 +11,9 @@ ffs_optimise_lineups(
   lineup_efficiency_mean = 0.775,
   lineup_efficiency_sd = 0.05,
   best_ball = FALSE,
-  parallel = FALSE
+  parallel = FALSE,
+  pos_filter = c("QB", "RB", "WR", "TE"),
+  verbose = TRUE
 )
 
 ffs_optimize_lineups(
@@ -20,7 +22,9 @@ ffs_optimize_lineups(
   lineup_efficiency_mean = 0.775,
   lineup_efficiency_sd = 0.05,
   best_ball = FALSE,
-  parallel = FALSE
+  parallel = FALSE,
+  pos_filter = c("QB", "RB", "WR", "TE"),
+  verbose = TRUE
 )
 }
 \arguments{
@@ -35,6 +39,8 @@ ffs_optimize_lineups(
 \item{best_ball}{a logical: FALSE will apply a lineup efficiency factor and TRUE uses optimal scores as actual scores, default = FALSE}
 
 \item{parallel}{a logical: TRUE will run the optimization in parallel, requires the furrr and future packages as well as setting \code{future::plan()} in advance/externally. Default FALSE.}
+
+\item{verbose}{a logical: TRUE (default) will print stuff.}
 }
 \value{
 a dataframe of what each team scored for each week
