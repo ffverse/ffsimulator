@@ -10,6 +10,7 @@
 #' @param injury_model select between "simple", "none"
 #' @param base_seasons a numeric vector that selects seasons as base data, earliest available is 2012
 #' @param parallel a logical: use parallel processing for optimizing lineups, default is FALSE
+#' @param verbose a logical: print status messages? default is TRUE, configure with options(ffsimulator.verbose)
 #'
 #' @examples
 #'
@@ -32,7 +33,8 @@ ff_simulate <- function(
   seed = NULL,
   injury_model = c("simple", "none"),
   base_seasons = 2012:2020,
-  parallel = FALSE
+  parallel = FALSE,
+  verbose = getOption("ffsimulator.verbose", default = TRUE)
 ) {
 
   #### Assertions ####
@@ -51,8 +53,17 @@ ff_simulate <- function(
   if (!is.null(seed)) set.seed(seed)
   checkmate::assert_flag(best_ball)
   checkmate::assert_flag(parallel)
+  checkmate::assert_flag(verbose)
+
+  start_logger <- verbose_logger(verbose, "start")
+  end_logger <- verbose_logger(verbose, "end")
+  w_progress <- verbose_progress(verbose)
 
   #### Import Data ####
+
+  if(verbose) cli::cli_rule("Starting simulation {Sys.time()}")
+
+  start_logger(msg = "Importing data")
 
   league_info <- ffscrapr::ff_league(conn)
 
@@ -64,7 +75,11 @@ ff_simulate <- function(
 
   lineup_constraints <- ffscrapr::ff_starter_positions(conn)
 
+  end_logger(msg_done = "Importing data...done! {Sys.time()}")
+
   #### Generate Projections ####
+
+  start_logger(msg = "Generating Projections")
 
   adp_outcomes <- ffs_adp_outcomes(
     scoring_history = scoring_history,
@@ -77,21 +92,32 @@ ff_simulate <- function(
     n_weeks = n_weeks,
     rosters = rosters
   )
+
+  end_logger(msg_done = "Generating Projections...done! {Sys.time()}")
+
   #### Calculate Roster Scores ####
+  start_logger(msg = "Calculating Roster Scores")
 
   roster_scores <- ffs_score_rosters(
     projected_scores = projected_scores,
     rosters = rosters
   )
 
-  optimal_scores <- ffs_optimise_lineups(
+  end_logger(msg_done = "Calculating Roster Scores...done! {Sys.time()}")
+
+  if(verbose) cli::cli_alert_info("Optimizing Lineups...")
+
+  optimal_scores <- w_progress(ffs_optimise_lineups(
     roster_scores = roster_scores,
     lineup_constraints = lineup_constraints,
     best_ball = best_ball,
-    parallel = parallel
-  )
+    parallel = parallel,
+    verbose = verbose))
+
+  if(verbose) cli::cli_alert_success("...done! {Sys.time()}")
 
   #### Generate Schedules ####
+  start_logger(msg = "Summarising Simulation Data")
 
   schedules <- ffs_build_schedules(
     n_teams = length(unique(rosters$franchise_id)),
@@ -105,6 +131,8 @@ ff_simulate <- function(
   summary_season <- ffs_summarise_season(summary_week)
   summary_simulation <- ffs_summarise_simulation(summary_season)
 
+  end_logger(msg_done = "Summarising Simulation Data...done! {Sys.time()}")
+
   #### Build and Return ####
 
   out <- structure(
@@ -115,17 +143,19 @@ ff_simulate <- function(
       roster_scores = roster_scores,
       projected_scores = projected_scores,
       league_info = league_info,
-      simulation_params = list(
+      simulation_params = tibble::tibble(
         n_seasons = n_seasons,
         n_weeks = n_weeks,
         best_ball = best_ball,
         seed = seed,
         injury_model = injury_model,
-        base_seasons = 2012:2020
+        base_seasons = list(2012:2020)
       )
     ),
     class = "ff_simulation"
   )
+
+  if(verbose) cli::cli_rule("Simulation complete! {Sys.time()}")
 
   return(out)
 }
@@ -143,3 +173,28 @@ print.ff_simulation <- function(x,...){
   str(x,max.level = 2)
   invisible(x)
 }
+
+dump_function <- function(...) NULL
+
+verbose_logger <- function(verbose, type){
+
+  if(!verbose) return(dump_function)
+
+  if(type == "start") return(cli::cli_process_start)
+
+  if(type == "end") return(cli::cli_process_done)
+
+}
+
+verbose_progress <- function(verbose){
+
+  if(!verbose) return(force)
+
+  if(!requireNamespace("progressr",quietly = TRUE)) {
+    warning("Could not find {progressr} package, please install for progress bar updates.")
+    return(force)
+  }
+
+  return(progressr::with_progress)
+}
+
