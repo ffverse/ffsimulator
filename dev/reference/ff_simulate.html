@@ -86,7 +86,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ffsimulator</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.0.0.00</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.0.0.01</span>
       </span>
     </div>
 
@@ -196,7 +196,8 @@
   seed <span class='op'>=</span> <span class='cn'>NULL</span>,
   injury_model <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"simple"</span>, <span class='st'>"none"</span><span class='op'>)</span>,
   base_seasons <span class='op'>=</span> <span class='fl'>2012</span><span class='op'>:</span><span class='fl'>2020</span>,
-  parallel <span class='op'>=</span> <span class='cn'>FALSE</span>
+  parallel <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  verbose <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"ffsimulator.verbose"</span>, default <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -234,6 +235,10 @@
       <th>parallel</th>
       <td><p>a logical: use parallel processing for optimizing lineups, default is FALSE</p></td>
     </tr>
+    <tr>
+      <th>verbose</th>
+      <td><p>a logical: print status messages? default is TRUE, configure with options(ffsimulator.verbose)</p></td>
+    </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
@@ -249,7 +254,7 @@
 <span class='co'># \donttest{</span>
   <span class='va'>conn</span> <span class='op'>&lt;-</span> <span class='fu'><a href='mfl_connect.html'>mfl_connect</a></span><span class='op'>(</span><span class='fl'>2021</span>, <span class='fl'>22627</span><span class='op'>)</span>
   <span class='fu'>ff_simulate</span><span class='op'>(</span><span class='va'>conn</span>, n_seasons <span class='op'>=</span> <span class='fl'>25</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; &lt;ff_simulation: 25 simulated seasons of Four-Eight Dynasty League&gt;
+</div><div class='output co'>#&gt; <span class='message'>── Starting simulation 2021-07-31 14:12:51 ─────────────────────────────────────</span></div><div class='output co'>#&gt; <span class='message'><span style='color: #00BBBB;'>ℹ</span> Importing data</span></div><div class='output co'>#&gt; <span class='message'><span style='color: #00BB00;'>✔</span> Importing data...done! 2021-07-31 14:13:10</span></div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'><span style='color: #00BBBB;'>ℹ</span> Generating Projections</span></div><div class='output co'>#&gt; <span class='message'><span style='color: #00BB00;'>✔</span> Generating Projections...done! 2021-07-31 14:13:11</span></div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'><span style='color: #00BBBB;'>ℹ</span> Calculating Roster Scores</span></div><div class='output co'>#&gt; <span class='message'><span style='color: #00BB00;'>✔</span> Calculating Roster Scores...done! 2021-07-31 14:13:11</span></div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'><span style='color: #00BBBB;'>ℹ</span> Optimizing Lineups...</span></div><div class='output co'>#&gt; <span class='message'><span style='color: #00BB00;'>✔</span> ...done! 2021-07-31 14:13:16</span></div><div class='output co'>#&gt; <span class='message'><span style='color: #00BBBB;'>ℹ</span> Summarising Simulation Data</span></div><div class='output co'>#&gt; <span class='message'><span style='color: #00BB00;'>✔</span> Summarising Simulation Data...done! 2021-07-31 14:13:16</span></div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'>── Simulation complete! 2021-07-31 14:13:16 ────────────────────────────────────</span></div><div class='output co'>#&gt; &lt;ff_simulation: 25 simulated seasons of Four-Eight Dynasty League&gt;
 #&gt; List of 7
 #&gt;  $ summary_simulation: tibble [12 × 11] (S3: tbl_df/tbl/data.frame)
 #&gt;  $ summary_season    : tibble [300 × 12] (S3: tbl_df/tbl/data.frame)
@@ -257,13 +262,7 @@
 #&gt;  $ roster_scores     : tibble [124,222 × 23] (S3: tbl_df/tbl/data.frame)
 #&gt;  $ projected_scores  : tibble [124,222 × 15] (S3: tbl_df/tbl/data.frame)
 #&gt;  $ league_info       : tibble [1 × 14] (S3: tbl_df/tbl/data.frame)
-#&gt;  $ simulation_params :List of 6
-#&gt;   ..$ n_seasons   : num 25
-#&gt;   ..$ n_weeks     : num 14
-#&gt;   ..$ best_ball   : logi FALSE
-#&gt;   ..$ seed        : NULL
-#&gt;   ..$ injury_model: chr "simple"
-#&gt;   ..$ base_seasons: int [1:9] 2012 2013 2014 2015 2016 2017 2018 2019 2020
+#&gt;  $ simulation_params : tibble [1 × 5] (S3: tbl_df/tbl/data.frame)
 #&gt;  - attr(*, "class")= chr "ff_simulation"</div><div class='input'><span class='co'># }</span>
 
 </div></pre>

@@ -86,7 +86,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ffsimulator</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.0.0.00</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.0.0.01</span>
       </span>
     </div>
 
@@ -188,7 +188,11 @@
     <p>Optimises lineups for one franchise week at a time. Use purrr or loops to do more franchises/weeks/seasons</p>
     </div>
 
-    <pre class="usage"><span class='fu'>.ff_optimise_one_lineup</span><span class='op'>(</span><span class='va'>franchise_scores</span>, <span class='va'>lineup_constraints</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>.ff_optimise_one_lineup</span><span class='op'>(</span>
+  <span class='va'>franchise_scores</span>,
+  <span class='va'>lineup_constraints</span>,
+  <span class='va'>progress_function</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">

@@ -86,7 +86,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ffsimulator</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.0.0.00</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.0.0.01</span>
       </span>
     </div>
 
@@ -194,7 +194,9 @@
   lineup_efficiency_mean <span class='op'>=</span> <span class='fl'>0.775</span>,
   lineup_efficiency_sd <span class='op'>=</span> <span class='fl'>0.05</span>,
   best_ball <span class='op'>=</span> <span class='cn'>FALSE</span>,
-  parallel <span class='op'>=</span> <span class='cn'>FALSE</span>
+  parallel <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  pos_filter <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"QB"</span>, <span class='st'>"RB"</span>, <span class='st'>"WR"</span>, <span class='st'>"TE"</span><span class='op'>)</span>,
+  verbose <span class='op'>=</span> <span class='cn'>TRUE</span>
 <span class='op'>)</span>
 
 <span class='fu'>ffs_optimize_lineups</span><span class='op'>(</span>
@@ -203,7 +205,9 @@
   lineup_efficiency_mean <span class='op'>=</span> <span class='fl'>0.775</span>,
   lineup_efficiency_sd <span class='op'>=</span> <span class='fl'>0.05</span>,
   best_ball <span class='op'>=</span> <span class='cn'>FALSE</span>,
-  parallel <span class='op'>=</span> <span class='cn'>FALSE</span>
+  parallel <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  pos_filter <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"QB"</span>, <span class='st'>"RB"</span>, <span class='st'>"WR"</span>, <span class='st'>"TE"</span><span class='op'>)</span>,
+  verbose <span class='op'>=</span> <span class='cn'>TRUE</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -233,6 +237,14 @@
       <th>parallel</th>
       <td><p>a logical: TRUE will run the optimization in parallel, requires the furrr and future packages as well as setting <code><a href='https://rdrr.io/pkg/future/man/plan.html'>future::plan()</a></code> in advance/externally. Default FALSE.</p></td>
     </tr>
+    <tr>
+      <th>pos_filter</th>
+      <td><p>a character vector specifying which positions are eligible - defaults to <code>c("QB","RB","WR","TE)</code></p></td>
+    </tr>
+    <tr>
+      <th>verbose</th>
+      <td><p>a logical: TRUE (default) will print stuff.</p></td>
+    </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
@@ -253,18 +265,18 @@
 
 <span class='fu'>ffs_optimise_lineups</span><span class='op'>(</span><span class='va'>roster_scores</span>, <span class='va'>lineup_constraints</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 240 × 9</span>
-#&gt;    franchise_id franchise_name                 league_id season  week optimal_score
-#&gt;    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>        <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>                          <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>      <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span>         <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
-#&gt; <span style='color: #BCBCBC;'> 1</span> 0003         Alberta Armadillos             22627          1     9          197.
-#&gt; <span style='color: #BCBCBC;'> 2</span> 0010         [Redacted]                     22627          2     8          182.
-#&gt; <span style='color: #BCBCBC;'> 3</span> 0012         Indigo Plateau Elite           22627          1    10          201.
-#&gt; <span style='color: #BCBCBC;'> 4</span> 0009         Kill Devil Hills Carpetbaggers 22627          2     2          155.
-#&gt; <span style='color: #BCBCBC;'> 5</span> 0004         Electric Woodies               22627          1     5          223.
-#&gt; <span style='color: #BCBCBC;'> 6</span> 0008         Domination Station             22627          1     8          219.
-#&gt; <span style='color: #BCBCBC;'> 7</span> 0008         Domination Station             22627          1     2          194.
-#&gt; <span style='color: #BCBCBC;'> 8</span> 0001         Mexico City Space Force        22627          2     3          181.
-#&gt; <span style='color: #BCBCBC;'> 9</span> 0009         Kill Devil Hills Carpetbaggers 22627          2     8          160.
-#&gt; <span style='color: #BCBCBC;'>10</span> 0009         Kill Devil Hills Carpetbaggers 22627          2     9          185.
+#&gt;    league_id franchise_id franchise_name                 season  week optimal_score
+#&gt;    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>        <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>                           <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span>         <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
+#&gt; <span style='color: #BCBCBC;'> 1</span> 22627     0003         Alberta Armadillos                  1     9          197.
+#&gt; <span style='color: #BCBCBC;'> 2</span> 22627     0010         [Redacted]                          2     8          182.
+#&gt; <span style='color: #BCBCBC;'> 3</span> 22627     0012         Indigo Plateau Elite                1    10          201.
+#&gt; <span style='color: #BCBCBC;'> 4</span> 22627     0009         Kill Devil Hills Carpetbaggers      2     2          155.
+#&gt; <span style='color: #BCBCBC;'> 5</span> 22627     0004         Electric Woodies                    1     5          223.
+#&gt; <span style='color: #BCBCBC;'> 6</span> 22627     0008         Domination Station                  1     8          219.
+#&gt; <span style='color: #BCBCBC;'> 7</span> 22627     0008         Domination Station                  1     2          194.
+#&gt; <span style='color: #BCBCBC;'> 8</span> 22627     0001         Mexico City Space Force             2     3          181.
+#&gt; <span style='color: #BCBCBC;'> 9</span> 22627     0009         Kill Devil Hills Carpetbaggers      2     8          160.
+#&gt; <span style='color: #BCBCBC;'>10</span> 22627     0009         Kill Devil Hills Carpetbaggers      2     9          185.
 #&gt; <span style='color: #949494;'># … with 230 more rows, and 3 more variables: optimal_lineup &lt;list&gt;,</span>
 #&gt; <span style='color: #949494;'>#   lineup_efficiency &lt;dbl&gt;, actual_score &lt;dbl&gt;</span></div><div class='input'>
 <span class='co'># }</span>
