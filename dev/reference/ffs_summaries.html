@@ -238,7 +238,7 @@
 
 <span class='va'>summary_week</span> <span class='op'>&lt;-</span> <span class='fu'>ffs_summarise_week</span><span class='op'>(</span><span class='va'>optimal_scores</span>, <span class='va'>schedules</span><span class='op'>)</span>
 <span class='va'>summary_week</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 240 x 15</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 240 × 15</span>
 #&gt;    season season_week franchise_name   optimal_score lineup_efficien… team_score
 #&gt;     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>       <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>                    <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>            <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>      <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
 #&gt; <span style='color: #BCBCBC;'> 1</span>      1           1 Mexico City Spa…          200.            0.835      167. 
@@ -256,7 +256,7 @@
 #&gt; <span style='color: #949494;'>#   allplay_pct &lt;dbl&gt;, league_id &lt;chr&gt;, franchise_id &lt;chr&gt;,</span>
 #&gt; <span style='color: #949494;'>#   optimal_lineup &lt;list&gt;</span></div><div class='input'><span class='va'>summary_season</span> <span class='op'>&lt;-</span> <span class='fu'>ffs_summarise_season</span><span class='op'>(</span><span class='va'>summary_week</span><span class='op'>)</span>
 <span class='va'>summary_season</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 24 x 12</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 24 × 12</span>
 #&gt;    season league_id franchise_id franchise_name h2h_wins h2h_winpct allplay_wins
 #&gt;     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>        <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>             <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span>      <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>        <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
 #&gt; <span style='color: #BCBCBC;'> 1</span>      1 22627     0001         Mexico City S…        8        0.8           75
@@ -273,7 +273,7 @@
 #&gt; <span style='color: #949494;'>#   allplay_winpct &lt;dbl&gt;, points_for &lt;dbl&gt;, points_against &lt;dbl&gt;,</span>
 #&gt; <span style='color: #949494;'>#   potential_points &lt;dbl&gt;</span></div><div class='input'><span class='va'>summary_simulation</span> <span class='op'>&lt;-</span> <span class='fu'>ffs_summarise_simulation</span><span class='op'>(</span><span class='va'>summary_season</span><span class='op'>)</span>
 <span class='va'>summary_simulation</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 12 x 11</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 12 × 11</span>
 #&gt;    league_id franchise_id franchise_name             seasons h2h_wins h2h_winpct
 #&gt;    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>        <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>                        <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>      <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
 #&gt; <span style='color: #BCBCBC;'> 1</span> 22627     0012         Indigo Plateau Elite             2      7.5       0.75
