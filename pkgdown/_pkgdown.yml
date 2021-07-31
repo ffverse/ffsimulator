@@ -83,6 +83,7 @@ template:
       creator: "@_TanHo"
       site: "@DynastyProcess"
       card: summary
+      image: man/figures/logo.png
 
 development:
  mode: auto
