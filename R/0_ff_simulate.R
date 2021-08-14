@@ -168,8 +168,7 @@ print.ff_simulation <- function(x,...){
       " simulated seasons of ",
       x$league_info$league_name,
       ">\n",
-      sep = ""
-      )
+      sep = "")
   str(x,max.level = 2)
   invisible(x)
 }
@@ -177,24 +176,18 @@ print.ff_simulation <- function(x,...){
 dump_function <- function(...) NULL
 
 verbose_logger <- function(verbose, type){
-
   if(!verbose) return(dump_function)
-
   if(type == "start") return(cli::cli_process_start)
-
   if(type == "end") return(cli::cli_process_done)
-
 }
 
 verbose_progress <- function(verbose){
 
   if(!verbose) return(force)
-
   if(!requireNamespace("progressr",quietly = TRUE)) {
     warning("Could not find {progressr} package, please install for progress bar updates.")
     return(force)
   }
-
   return(progressr::with_progress)
 }
 
