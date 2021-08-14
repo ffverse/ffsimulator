@@ -2,6 +2,7 @@
 
 ## New features
 - `ff_simulate()` gains a a new `verbose` argument that allows for progress tracking, and is set ON by default. This can also be controlled by `options(ffsimulator.verbose = TRUE)` (or FALSE). Resolves #9. (v1.0.0.01)
+- `ffs_copy_template()` copies a template for custom simulations to the desired filepath, making it easier to run a simulation from the component level. Resolves #12 (v1.0.0.02)
 
 ## Minor changes
 
