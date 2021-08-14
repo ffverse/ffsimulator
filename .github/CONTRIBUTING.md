@@ -7,7 +7,7 @@ Many hands make light work! Here are some ways you can contribute to this projec
 
 ### Open an issue
 
-- You can [open an issue](https://github.com/DynastyProcess/ffscrapr/issues/new/choose) if you'd like to request a specific function or report a bug/error.
+- You can [open an issue](https://github.com/DynastyProcess/ffsimulator/issues/new/choose) if you'd like to request a specific function or report a bug/error.
 
 ### Fixing typos
 
@@ -25,13 +25,11 @@ You can find the `.R` file that generates the `.Rd` by reading the comment in th
 *   Each function/method is tracked as a GitHub Issue, and linked to/closed by Pull Requests.
 *   The `main` branch contains the code for the current CRAN version of the package.
 *   The `dev` branch reflects a fully-tested, linted, and documented version of the proposed release.
-*   Staging branches (e.g. `fleaflicker`, `espn`) contain reviewed/tested code for each GitHub Project.
-*   Feature branches are built off of the staging branch, add one function/method + documentation + testing, and then is squash-merged back onto the staging branch once developed. 
-*   The staging branch is periodically merged onto the `dev` branch, and the `dev` branch is merged onto the `main` branch only when released to CRAN.
+*   Feature branches are built off of the dev branch, add function/method + documentation + testing, and then is squash-merged back onto the staging branch once developed. 
 
 ### Pull request process
 
-*   Fork the package and clone onto your computer. If you haven't done this before, we recommend using `usethis::create_from_github("dynastyprocess/ffscrapr", fork = TRUE)`.
+*   Fork the package and clone onto your computer. If you haven't done this before, we recommend using `usethis::create_from_github("dynastyprocess/ffsimulator", fork = TRUE)`.
 
 *   Install all development dependencies with `devtools::install_dev_deps()`, and then make sure the package passes R CMD check by running `devtools::check()`. 
     If R CMD check doesn't pass cleanly, it's a good idea to ask for help before continuing. 
