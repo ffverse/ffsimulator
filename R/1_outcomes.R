@@ -5,6 +5,7 @@
 #'
 #' @param scoring_history a scoring history table as created by `ffscrapr::ff_scoringhistory()`
 #' @param injury_model either "simple" or "none" - simple uses the average games played per season for each position/adp combination, none assumes every game is played.
+#' @param pos_filter a character vector: filter the positions returned to these specific positions, default: c("QB","RB","WR","TE)
 #'
 #' @return a tibble with position, rank, probability of games played, and a corresponding nested list per row of all week score outcomes.
 #'
@@ -22,8 +23,12 @@
 #' @seealso `vignette("Custom Simulation")` for usage details.
 #'
 #' @export
-ffs_adp_outcomes <- function(scoring_history, injury_model = "simple") {
+ffs_adp_outcomes <- function(scoring_history,
+                             injury_model = "simple",
+                             pos_filter = c("QB","RB","WR","TE")) {
+
   checkmate::assert_choice(injury_model, choices = c("simple", "none"))
+  checkmate::assert_character(pos_filter)
   checkmate::assert_data_frame(scoring_history)
   checkmate::assert_subset(c("gsis_id", "team", "season", "points"), names(scoring_history))
 
@@ -34,7 +39,7 @@ ffs_adp_outcomes <- function(scoring_history, injury_model = "simple") {
         dplyr::select("fantasypros_id", "gsis_id"),
       by = "fantasypros_id"
     ) %>%
-    dplyr::filter(!is.na(.data$gsis_id), .data$pos %in% c("QB", "RB", "WR", "TE")) %>%
+    dplyr::filter(!is.na(.data$gsis_id), .data$pos %in% pos_filter) %>%
     dplyr::left_join(
       scoring_history %>%
         dplyr::filter(!is.na(.data$gsis_id), .data$week <= 17) %>%

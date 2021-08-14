@@ -24,8 +24,7 @@
 #'
 #' @return a ggplot object
 #' @export
-autoplot.ff_simulation <- function(
-                                   object,
+autoplot.ff_simulation <- function(object,
                                    type = c("wins", "rank", "points"),
                                    ...) {
   type <- match.arg(type)
