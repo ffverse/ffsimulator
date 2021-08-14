@@ -188,7 +188,11 @@
     <p>The backbone of the ffsimulator resampling process is coming up with a population of weekly outcomes for every preseason positional rank. This function creates that dataframe by connecting historical FantasyPros.com rankings to nflfastR-based scoring data, as created by <code><a href='ffscrapr.ffverse.com/reference/ff_scoringhistory.html'>ffscrapr::ff_scoringhistory()</a></code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>ffs_adp_outcomes</span><span class='op'>(</span><span class='va'>scoring_history</span>, injury_model <span class='op'>=</span> <span class='st'>"simple"</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>ffs_adp_outcomes</span><span class='op'>(</span>
+  <span class='va'>scoring_history</span>,
+  injury_model <span class='op'>=</span> <span class='st'>"simple"</span>,
+  pos_filter <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"QB"</span>, <span class='st'>"RB"</span>, <span class='st'>"WR"</span>, <span class='st'>"TE"</span><span class='op'>)</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -200,6 +204,10 @@
     <tr>
       <th>injury_model</th>
       <td><p>either "simple" or "none" - simple uses the average games played per season for each position/adp combination, none assumes every game is played.</p></td>
+    </tr>
+    <tr>
+      <th>pos_filter</th>
+      <td><p>a character vector: filter the positions returned to these specific positions, default: c("QB","RB","WR","TE)</p></td>
     </tr>
     </table>
 
