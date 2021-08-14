@@ -149,7 +149,7 @@ ff_simulate <- function(
         best_ball = best_ball,
         seed = seed,
         injury_model = injury_model,
-        base_seasons = list(2012:2020)
+        base_seasons = list(base_seasons)
       )
     ),
     class = "ff_simulation"

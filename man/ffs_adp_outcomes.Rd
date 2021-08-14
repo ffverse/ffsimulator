@@ -4,12 +4,18 @@
 \alias{ffs_adp_outcomes}
 \title{Connects ff_scoringhistory to past ADP rankings}
 \usage{
-ffs_adp_outcomes(scoring_history, injury_model = "simple")
+ffs_adp_outcomes(
+  scoring_history,
+  injury_model = "simple",
+  pos_filter = c("QB", "RB", "WR", "TE")
+)
 }
 \arguments{
 \item{scoring_history}{a scoring history table as created by \code{ffscrapr::ff_scoringhistory()}}
 
 \item{injury_model}{either "simple" or "none" - simple uses the average games played per season for each position/adp combination, none assumes every game is played.}
+
+\item{pos_filter}{a character vector: filter the positions returned to these specific positions, default: c("QB","RB","WR","TE)}
 }
 \value{
 a tibble with position, rank, probability of games played, and a corresponding nested list per row of all week score outcomes.
