@@ -185,7 +185,7 @@
     </div>
 
     <div class="ref-description">
-    <p>This function lightly wraps <code><a href='ffscrapr.dynastyprocess.com/reference/ff_rosters.html'>ffscrapr::ff_rosters()</a></code> and adds fantasypros_id, which is a required column for ffsimulator.</p>
+    <p>This function lightly wraps <code><a href='ffscrapr.ffverse.com/reference/ff_rosters.html'>ffscrapr::ff_rosters()</a></code> and adds fantasypros_id, which is a required column for ffsimulator.</p>
     </div>
 
     <pre class="usage"><span class='fu'>ffs_rosters</span><span class='op'>(</span><span class='va'>conn</span><span class='op'>)</span>
@@ -207,7 +207,7 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>conn</th>
-      <td><p>a connection object as created by <code><a href='ffscrapr.dynastyprocess.com/reference/ff_connect.html'>ffscrapr::ff_connect()</a></code> and friends.</p></td>
+      <td><p>a connection object as created by <code><a href='ffscrapr.ffverse.com/reference/ff_connect.html'>ffscrapr::ff_connect()</a></code> and friends.</p></td>
     </tr>
     </table>
 
@@ -224,19 +224,19 @@
 <span class='va'>conn</span> <span class='op'>&lt;-</span> <span class='fu'>.ffs_cache</span><span class='op'>(</span><span class='st'>"mfl_conn.rds"</span><span class='op'>)</span>
 
 <span class='fu'>ffs_rosters</span><span class='op'>(</span><span class='va'>conn</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 709 x 14</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 709 × 14</span>
 #&gt;    franchise_id franchise_name    player_id player_name pos   team    age salary
 #&gt;    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>        <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>             <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>       <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
-#&gt; <span style='color: #BCBCBC;'> 1</span> 0001         Mexico City Spac… 13592     Darnold, S… QB    CAR    24.1  16.3 
-#&gt; <span style='color: #BCBCBC;'> 2</span> 0001         Mexico City Spac… 11317     Poyer, Jor… S     BUF    30.2   3.91
+#&gt; <span style='color: #BCBCBC;'> 1</span> 0001         Mexico City Spac… 13592     Darnold, S… QB    CAR    24.2  16.3 
+#&gt; <span style='color: #BCBCBC;'> 2</span> 0001         Mexico City Spac… 11317     Poyer, Jor… S     BUF    30.3   3.91
 #&gt; <span style='color: #BCBCBC;'> 3</span> 0001         Mexico City Spac… 13633     Kirk, Chri… WR    ARI    24.7   4.96
-#&gt; <span style='color: #BCBCBC;'> 4</span> 0001         Mexico City Spac… 13717     Reid, Just… S     HOU    24.4   1.81
-#&gt; <span style='color: #BCBCBC;'> 5</span> 0001         Mexico City Spac… 13672     Gesicki, M… TE    MIA    25.8   0.97
-#&gt; <span style='color: #BCBCBC;'> 6</span> 0001         Mexico City Spac… 13700     Landry, Ha… LB    TEN    25.1   0.61
-#&gt; <span style='color: #BCBCBC;'> 7</span> 0001         Mexico City Spac… 14168     White, Dev… LB    TBB    23.4   6.29
+#&gt; <span style='color: #BCBCBC;'> 4</span> 0001         Mexico City Spac… 13717     Reid, Just… S     HOU    24.5   1.81
+#&gt; <span style='color: #BCBCBC;'> 5</span> 0001         Mexico City Spac… 13672     Gesicki, M… TE    MIA    25.9   0.97
+#&gt; <span style='color: #BCBCBC;'> 6</span> 0001         Mexico City Spac… 13700     Landry, Ha… LB    TEN    25.2   0.61
+#&gt; <span style='color: #BCBCBC;'> 7</span> 0001         Mexico City Spac… 14168     White, Dev… LB    TBB    23.5   6.29
 #&gt; <span style='color: #BCBCBC;'> 8</span> 0001         Mexico City Spac… 14210     Pratt, Ger… LB    CIN    24.2   0.85
-#&gt; <span style='color: #BCBCBC;'> 9</span> 0001         Mexico City Spac… 14073     Jacobs, Jo… RB    LVR    23.4  11.5 
-#&gt; <span style='color: #BCBCBC;'>10</span> 0001         Mexico City Spac… 14079     Sanders, M… RB    PHI    24.2   7.14
+#&gt; <span style='color: #BCBCBC;'> 9</span> 0001         Mexico City Spac… 14073     Jacobs, Jo… RB    LVR    23.5  11.5 
+#&gt; <span style='color: #BCBCBC;'>10</span> 0001         Mexico City Spac… 14079     Sanders, M… RB    PHI    24.3   7.14
 #&gt; <span style='color: #949494;'># … with 699 more rows, and 6 more variables: contract_years &lt;dbl&gt;,</span>
 #&gt; <span style='color: #949494;'>#   roster_status &lt;chr&gt;, draft_year &lt;chr&gt;, draft_round &lt;chr&gt;,</span>
 #&gt; <span style='color: #949494;'>#   fantasypros_id &lt;chr&gt;, league_id &lt;chr&gt;</span></div><div class='input'><span class='co'># }</span>

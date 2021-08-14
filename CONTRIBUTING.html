@@ -195,7 +195,7 @@
 <h3 class="hasAnchor">
 <a href="#open-an-issue" class="anchor"></a>Open an issue</h3>
 <ul>
-<li>You can <a href="https://github.com/DynastyProcess/ffscrapr/issues/new/choose">open an issue</a> if you’d like to request a specific function or report a bug/error.</li>
+<li>You can <a href="https://github.com/DynastyProcess/ffsimulator/issues/new/choose">open an issue</a> if you’d like to request a specific function or report a bug/error.</li>
 </ul>
 </div>
 <div id="fixing-typos" class="section level3">
@@ -220,16 +220,14 @@
 <li>Each function/method is tracked as a GitHub Issue, and linked to/closed by Pull Requests.</li>
 <li>The <code>main</code> branch contains the code for the current CRAN version of the package.</li>
 <li>The <code>dev</code> branch reflects a fully-tested, linted, and documented version of the proposed release.</li>
-<li>Staging branches (e.g. <code>fleaflicker</code>, <code>espn</code>) contain reviewed/tested code for each GitHub Project.</li>
-<li>Feature branches are built off of the staging branch, add one function/method + documentation + testing, and then is squash-merged back onto the staging branch once developed.</li>
-<li>The staging branch is periodically merged onto the <code>dev</code> branch, and the <code>dev</code> branch is merged onto the <code>main</code> branch only when released to CRAN.</li>
+<li>Feature branches are built off of the dev branch, add function/method + documentation + testing, and then is squash-merged back onto the staging branch once developed.</li>
 </ul>
 </div>
 <div id="pull-request-process" class="section level3">
 <h3 class="hasAnchor">
 <a href="#pull-request-process" class="anchor"></a>Pull request process</h3>
 <ul>
-<li><p>Fork the package and clone onto your computer. If you haven’t done this before, we recommend using <code>usethis::create_from_github("dynastyprocess/ffscrapr", fork = TRUE)</code>.</p></li>
+<li><p>Fork the package and clone onto your computer. If you haven’t done this before, we recommend using <code>usethis::create_from_github("dynastyprocess/ffsimulator", fork = TRUE)</code>.</p></li>
 <li><p>Install all development dependencies with <code>devtools::install_dev_deps()</code>, and then make sure the package passes R CMD check by running <code>devtools::check()</code>. If R CMD check doesn’t pass cleanly, it’s a good idea to ask for help before continuing.</p></li>
 <li><p>Create a Git branch for your pull request (PR). We recommend using <code>usethis::pr_init("brief-description-of-change")</code>.</p></li>
 <li><p>Make your changes, commit to git, and then create a PR by running <code>usethis::pr_push()</code>, and following the prompts in your browser. The title of your PR should briefly describe the change. The body of your PR should contain <code>Fixes #issue-number</code>.</p></li>

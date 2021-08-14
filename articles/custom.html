@@ -139,7 +139,7 @@
       <h1 data-toc-skip>Custom Simulations</h1>
                         <h4 class="author">Tan Ho</h4>
             
-            <h4 class="date">2021-07-20</h4>
+            <h4 class="date">2021-08-14</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/ffverse/ffsimulator/blob/master/vignettes/custom.Rmd"><code>vignettes/custom.Rmd</code></a></small>
       <div class="hidden name"><code>custom.Rmd</code></div>
@@ -151,7 +151,7 @@
 <p>ffsimulator also provides the component subfunctions (prefixed with <code>ffs_</code>) in case you want to customize and run certain components individually. This vignette will discuss various options and paths you might use in your own analysis, and wrap up with an example of custom code for the <a href="https://scottfishbowl.com/2021/">2021 Scott Fish Bowl</a>.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ffsimulator.ffverse.com">ffsimulator</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ffscrapr.dynastyprocess.com">ffscrapr</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ffscrapr.ffverse.com">ffscrapr</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span></code></pre></div>
 <div id="overview-of-ff_simulate" class="section level2">
@@ -171,7 +171,7 @@
 <a href="#importing-data" class="anchor"></a>Importing Data</h3>
 <p>By default, ff_simulate imports the following data based on the ff_connect <code>conn</code> object that is passed in:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">scoring_history</span> <span class="op">&lt;-</span> <span class="fu">ffscrapr</span><span class="fu">::</span><span class="fu"><a href="ffscrapr.dynastyprocess.com/reference/ff_scoringhistory.html">ff_scoringhistory</a></span><span class="op">(</span><span class="va">conn</span>, seasons <span class="op">=</span> <span class="fl">2012</span><span class="op">:</span><span class="fl">2020</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="va">scoring_history</span> <span class="op">&lt;-</span> <span class="fu">ffscrapr</span><span class="fu">::</span><span class="fu"><a href="ffscrapr.ffverse.com/reference/ff_scoringhistory.html">ff_scoringhistory</a></span><span class="op">(</span><span class="va">conn</span>, seasons <span class="op">=</span> <span class="fl">2012</span><span class="op">:</span><span class="fl">2020</span><span class="op">)</span></code></pre></div>
 <p>This retrieves week-level fantasy scoring for the specified years, and is built from nflfastR weekly data combined with the platform specified league rules.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">latest_rankings</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ffs_latest_rankings.html">ffs_latest_rankings</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
@@ -180,10 +180,10 @@
 <code class="sourceCode R"><span class="va">rosters</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ffs_rosters.html">ffs_rosters</a></span><span class="op">(</span><span class="va">conn</span><span class="op">)</span></code></pre></div>
 <p>This retrieves rosters and attaches a fantasypros_id to them. You could run hypothetical scenarios such as trades by editing this rosters dataframe by hand and then running the simulation!</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">lineup_constraints</span> <span class="op">&lt;-</span> <span class="fu">ffscrapr</span><span class="fu">::</span><span class="fu"><a href="ffscrapr.dynastyprocess.com/reference/ff_starter_positions.html">ff_starter_positions</a></span><span class="op">(</span><span class="va">conn</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="va">lineup_constraints</span> <span class="op">&lt;-</span> <span class="fu">ffscrapr</span><span class="fu">::</span><span class="fu"><a href="ffscrapr.ffverse.com/reference/ff_starter_positions.html">ff_starter_positions</a></span><span class="op">(</span><span class="va">conn</span><span class="op">)</span></code></pre></div>
 <p>This retrieves lineup constraints from your fantasy platform. You can edit these to test out hypothetical starting lineup settings and minimum requirements!</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">league_info</span> <span class="op">&lt;-</span> <span class="fu">ffscrapr</span><span class="fu">::</span><span class="fu"><a href="ffscrapr.dynastyprocess.com/reference/ff_league.html">ff_league</a></span><span class="op">(</span><span class="va">conn</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="va">league_info</span> <span class="op">&lt;-</span> <span class="fu">ffscrapr</span><span class="fu">::</span><span class="fu"><a href="ffscrapr.ffverse.com/reference/ff_league.html">ff_league</a></span><span class="op">(</span><span class="va">conn</span><span class="op">)</span></code></pre></div>
 <p>This brings in league information that is primarily used for plot names.</p>
 </div>
 <div id="generating-projections" class="section level3">
@@ -261,10 +261,10 @@
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/options.html">options</a></span><span class="op">(</span>ffscrapr.cache <span class="op">=</span> <span class="st">"filesystem"</span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ffsimulator.ffverse.com">ffsimulator</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ffscrapr.dynastyprocess.com">ffscrapr</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ffscrapr.ffverse.com">ffscrapr</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">tidyverse</span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/DavisVaughan/furrr">furrr</a></span><span class="op">)</span> 
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/collectivemedia/tictoc">tictoc</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">tictoc</span><span class="op">)</span>
 
 <span class="fu">plan</span><span class="op">(</span><span class="va">multisession</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">613</span><span class="op">)</span></code></pre></div>
@@ -275,19 +275,19 @@
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">conn</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/mfl_connect.html">mfl_connect</a></span><span class="op">(</span><span class="fl">2021</span>, <span class="fl">47747</span><span class="op">)</span> <span class="co"># a random SFB league to grab league info from</span>
 
-<span class="va">league_info</span> <span class="op">&lt;-</span> <span class="fu">ffscrapr</span><span class="fu">::</span><span class="fu"><a href="ffscrapr.dynastyprocess.com/reference/ff_league.html">ff_league</a></span><span class="op">(</span><span class="va">conn</span><span class="op">)</span>
+<span class="va">league_info</span> <span class="op">&lt;-</span> <span class="fu">ffscrapr</span><span class="fu">::</span><span class="fu"><a href="ffscrapr.ffverse.com/reference/ff_league.html">ff_league</a></span><span class="op">(</span><span class="va">conn</span><span class="op">)</span>
 
-<span class="va">scoring_history</span> <span class="op">&lt;-</span> <span class="fu">ffscrapr</span><span class="fu">::</span><span class="fu"><a href="ffscrapr.dynastyprocess.com/reference/ff_scoringhistory.html">ff_scoringhistory</a></span><span class="op">(</span><span class="va">conn</span>, <span class="fl">2012</span><span class="op">:</span><span class="fl">2020</span><span class="op">)</span>
+<span class="va">scoring_history</span> <span class="op">&lt;-</span> <span class="fu">ffscrapr</span><span class="fu">::</span><span class="fu"><a href="ffscrapr.ffverse.com/reference/ff_scoringhistory.html">ff_scoringhistory</a></span><span class="op">(</span><span class="va">conn</span>, <span class="fl">2012</span><span class="op">:</span><span class="fl">2020</span><span class="op">)</span>
 
 <span class="va">adp_outcomes</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ffs_adp_outcomes.html">ffs_adp_outcomes</a></span><span class="op">(</span>scoring_history <span class="op">=</span> <span class="va">scoring_history</span>, injury_model <span class="op">=</span> <span class="st">"simple"</span><span class="op">)</span>
 
 <span class="va">latest_rankings</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ffs_latest_rankings.html">ffs_latest_rankings</a></span><span class="op">(</span><span class="op">)</span>
-<span class="va">lineup_constraints</span> <span class="op">&lt;-</span> <span class="fu">ffscrapr</span><span class="fu">::</span><span class="fu"><a href="ffscrapr.dynastyprocess.com/reference/ff_starter_positions.html">ff_starter_positions</a></span><span class="op">(</span><span class="va">conn</span><span class="op">)</span></code></pre></div>
+<span class="va">lineup_constraints</span> <span class="op">&lt;-</span> <span class="fu">ffscrapr</span><span class="fu">::</span><span class="fu"><a href="ffscrapr.ffverse.com/reference/ff_starter_positions.html">ff_starter_positions</a></span><span class="op">(</span><span class="va">conn</span><span class="op">)</span></code></pre></div>
 <p>We can use one league ID here to grab most of the historical scoring data and rules/lineups etc for the entire SFB contest (rather than running it once for each of the twenty league IDs).</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">conn2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/mfl_connect.html">mfl_connect</a></span><span class="op">(</span><span class="fl">2021</span><span class="op">)</span>
 
-<span class="va">leagues</span> <span class="op">&lt;-</span> <span class="fu"><a href="ffscrapr.dynastyprocess.com/reference/mfl_getendpoint.html">mfl_getendpoint</a></span><span class="op">(</span><span class="va">conn2</span>, <span class="st">"leagueSearch"</span>, SEARCH <span class="op">=</span> <span class="st">"#SFB11"</span><span class="op">)</span> <span class="op">%&gt;%</span>
+<span class="va">leagues</span> <span class="op">&lt;-</span> <span class="fu"><a href="ffscrapr.ffverse.com/reference/mfl_getendpoint.html">mfl_getendpoint</a></span><span class="op">(</span><span class="va">conn2</span>, <span class="st">"leagueSearch"</span>, SEARCH <span class="op">=</span> <span class="st">"#SFB11"</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu">pluck</span><span class="op">(</span><span class="st">"content"</span>,<span class="st">"leagues"</span>,<span class="st">"league"</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu">unnest_wider</span><span class="op">(</span><span class="fl">1</span><span class="op">)</span> <span class="op">%&gt;%</span>
@@ -300,7 +300,7 @@
 <span class="op">}</span>
 <span class="va">get_franchises</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">league_id</span><span class="op">)</span><span class="op">{</span>
   <span class="fu"><a href="../reference/mfl_connect.html">mfl_connect</a></span><span class="op">(</span><span class="fl">2021</span>, <span class="va">league_id</span><span class="op">)</span> <span class="op">%&gt;%</span>
-    <span class="fu"><a href="ffscrapr.dynastyprocess.com/reference/ff_franchises.html">ff_franchises</a></span><span class="op">(</span><span class="op">)</span>
+    <span class="fu"><a href="ffscrapr.ffverse.com/reference/ff_franchises.html">ff_franchises</a></span><span class="op">(</span><span class="op">)</span>
 <span class="op">}</span>
 
 <span class="va">rosters_raw</span> <span class="op">&lt;-</span> <span class="va">leagues</span> <span class="op">%&gt;%</span>
@@ -329,17 +329,17 @@
                                              n_weeks <span class="op">=</span> <span class="va">n_weeks</span>,
                                              rosters <span class="op">=</span> <span class="va">rosters</span><span class="op">)</span>
 
-<span class="fu">tictoc</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/tictoc/man/tic.html">tic</a></span><span class="op">(</span><span class="fu">glue</span><span class="fu">::</span><span class="fu"><a href="https://glue.tidyverse.org/reference/glue.html">glue</a></span><span class="op">(</span><span class="st">"ffs_score_rosters {Sys.time()}"</span><span class="op">)</span><span class="op">)</span>
+<span class="fu">tictoc</span><span class="fu">::</span><span class="fu">tic</span><span class="op">(</span><span class="fu">glue</span><span class="fu">::</span><span class="fu"><a href="https://glue.tidyverse.org/reference/glue.html">glue</a></span><span class="op">(</span><span class="st">"ffs_score_rosters {Sys.time()}"</span><span class="op">)</span><span class="op">)</span>
 <span class="va">roster_scores</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ffs_score_rosters.html">ffs_score_rosters</a></span><span class="op">(</span><span class="va">projected_scores</span>, <span class="va">rosters</span><span class="op">)</span>
-<span class="fu">tictoc</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/tictoc/man/tic.html">toc</a></span><span class="op">(</span><span class="op">)</span>
+<span class="fu">tictoc</span><span class="fu">::</span><span class="fu">toc</span><span class="op">(</span><span class="op">)</span>
 
-<span class="fu">tictoc</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/tictoc/man/tic.html">tic</a></span><span class="op">(</span><span class="st">"ffs_optimize_lineups {Sys.time()}"</span><span class="op">)</span>
+<span class="fu">tictoc</span><span class="fu">::</span><span class="fu">tic</span><span class="op">(</span><span class="st">"ffs_optimize_lineups {Sys.time()}"</span><span class="op">)</span>
 <span class="va">optimal_scores</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ffs_optimise_lineups.html">ffs_optimize_lineups</a></span><span class="op">(</span>
   roster_scores <span class="op">=</span> <span class="va">roster_scores</span>,
   lineup_constraints <span class="op">=</span> <span class="va">lineup_constraints</span>,
   best_ball <span class="op">=</span> <span class="cn">FALSE</span>,
   parallel <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="fu">tictoc</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/tictoc/man/tic.html">toc</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<span class="fu">tictoc</span><span class="fu">::</span><span class="fu">toc</span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p>These are pretty straight forward, I use tictoc here to time the most expensive parts of the computation so that I know how long it takes - on my machine, this takes between 20-25 minutes to compute.</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">schedules</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ffs_build_schedules.html">ffs_build_schedules</a></span><span class="op">(</span>n_teams <span class="op">=</span> 

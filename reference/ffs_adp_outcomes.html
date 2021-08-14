@@ -185,7 +185,7 @@
     </div>
 
     <div class="ref-description">
-    <p>The backbone of the ffsimulator resampling process is coming up with a population of weekly outcomes for every preseason positional rank. This function creates that dataframe by connecting historical FantasyPros.com rankings to nflfastR-based scoring data, as created by <code><a href='ffscrapr.dynastyprocess.com/reference/ff_scoringhistory.html'>ffscrapr::ff_scoringhistory()</a></code>.</p>
+    <p>The backbone of the ffsimulator resampling process is coming up with a population of weekly outcomes for every preseason positional rank. This function creates that dataframe by connecting historical FantasyPros.com rankings to nflfastR-based scoring data, as created by <code><a href='ffscrapr.ffverse.com/reference/ff_scoringhistory.html'>ffscrapr::ff_scoringhistory()</a></code>.</p>
     </div>
 
     <pre class="usage"><span class='fu'>ffs_adp_outcomes</span><span class='op'>(</span><span class='va'>scoring_history</span>, injury_model <span class='op'>=</span> <span class='st'>"simple"</span><span class='op'>)</span></pre>
@@ -195,7 +195,7 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>scoring_history</th>
-      <td><p>a scoring history table as created by <code><a href='ffscrapr.dynastyprocess.com/reference/ff_scoringhistory.html'>ffscrapr::ff_scoringhistory()</a></code></p></td>
+      <td><p>a scoring history table as created by <code><a href='ffscrapr.ffverse.com/reference/ff_scoringhistory.html'>ffscrapr::ff_scoringhistory()</a></code></p></td>
     </tr>
     <tr>
       <th>injury_model</th>
@@ -218,7 +218,7 @@
  <span class='va'>scoring_history</span> <span class='op'>&lt;-</span> <span class='fu'>.ffs_cache</span><span class='op'>(</span><span class='st'>"mfl_scoring_history.rds"</span><span class='op'>)</span>
 
  <span class='fu'>ffs_adp_outcomes</span><span class='op'>(</span><span class='va'>scoring_history</span>, injury_model <span class='op'>=</span> <span class='st'>"simple"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 646 x 6</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 646 × 6</span>
 #&gt;    pos    rank prob_gp week_outcomes player_name fantasypros_id
 #&gt;    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;list&gt;</span>        <span style='color: #949494; font-style: italic;'>&lt;list&gt;</span>      <span style='color: #949494; font-style: italic;'>&lt;list&gt;</span>        
 #&gt; <span style='color: #BCBCBC;'> 1</span> QB        1   0.919 <span style='color: #949494;'>&lt;dbl [242]&gt;</span>   <span style='color: #949494;'>&lt;chr [18]&gt;</span>  <span style='color: #949494;'>&lt;chr [18]&gt;</span>    
@@ -232,7 +232,7 @@
 #&gt; <span style='color: #BCBCBC;'> 9</span> QB        9   0.913 <span style='color: #949494;'>&lt;dbl [259]&gt;</span>   <span style='color: #949494;'>&lt;chr [18]&gt;</span>  <span style='color: #949494;'>&lt;chr [18]&gt;</span>    
 #&gt; <span style='color: #BCBCBC;'>10</span> QB       10   0.911 <span style='color: #949494;'>&lt;dbl [257]&gt;</span>   <span style='color: #949494;'>&lt;chr [18]&gt;</span>  <span style='color: #949494;'>&lt;chr [18]&gt;</span>    
 #&gt; <span style='color: #949494;'># … with 636 more rows</span></div><div class='input'> <span class='fu'>ffs_adp_outcomes</span><span class='op'>(</span><span class='va'>scoring_history</span>, injury_model <span class='op'>=</span> <span class='st'>"none"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 646 x 6</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 646 × 6</span>
 #&gt;    pos    rank prob_gp week_outcomes player_name fantasypros_id
 #&gt;    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;list&gt;</span>        <span style='color: #949494; font-style: italic;'>&lt;list&gt;</span>      <span style='color: #949494; font-style: italic;'>&lt;list&gt;</span>        
 #&gt; <span style='color: #BCBCBC;'> 1</span> QB        1       1 <span style='color: #949494;'>&lt;dbl [242]&gt;</span>   <span style='color: #949494;'>&lt;chr [18]&gt;</span>  <span style='color: #949494;'>&lt;chr [18]&gt;</span>    
