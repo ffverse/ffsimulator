@@ -18,18 +18,8 @@
 #'
 #' @export
 ffs_latest_rankings <- function() {
-  url_query <- "https://github.com/dynastyprocess/data/raw/master/files/db_fpecr_latest.rds"
 
-  response <- httr::RETRY("GET", url_query)
-
-  if (httr::http_error(response)) {
-    stop(glue::glue("GitHub request failed with error: <{httr::status_code(response)}> \n
-                    while calling <{url_query}>"), call. = FALSE)
-  }
-
-  fp_latest <- response %>%
-    httr::content(as = "raw") %>%
-    parse_raw_rds()
+  fp_latest <- nflreadr::load_ff_rankings()
 
   fp_cleaned <- fp_latest %>%
     dplyr::filter(

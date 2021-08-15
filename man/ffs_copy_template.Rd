@@ -2,14 +2,14 @@
 % Please edit documentation in R/template_copy.R
 \name{ffs_copy_template}
 \alias{ffs_copy_template}
-\title{Copy simulation template to path}
+\title{Copy simulation template to filename}
 \usage{
-ffs_copy_template(path = "ff_simulation.R", overwrite = NULL)
+ffs_copy_template(filename = "ff_simulation.R", overwrite = NULL)
 }
 \arguments{
-\item{overwrite}{a logical (or NULL) - overwrite if existing file found?}
-
 \item{filename}{New file name, defaults to putting "ff_simulation.R" into your current directory}
+
+\item{overwrite}{a logical (or NULL) - overwrite if existing file found?}
 }
 \value{
 a success message signalling success/failure.
@@ -24,5 +24,4 @@ Creates a simulation template file with all of the components of ff_simulate, re
   ffs_copy_template(tmp)
 
 }
-
 }

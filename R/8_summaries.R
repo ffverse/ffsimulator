@@ -84,7 +84,8 @@ ffs_summarise_week <- function(optimal_scores, schedules) {
       "allplay_pct",
       "league_id",
       "franchise_id",
-      "optimal_lineup"
+      "optimal_player_id",
+      "optimal_player_score"
     )
 
   return(matchups)

@@ -88,8 +88,7 @@ saveRDS(roster_scores, "inst/cache/roster_scores.rds")
 optimal_scores <- ffs_optimize_lineups(
   roster_scores = roster_scores,
   lineup_constraints = mfl_lineup_constraints,
-  best_ball = FALSE,
-  parallel = FALSE
+  best_ball = FALSE
 )
 saveRDS(optimal_scores, "inst/cache/optimal_scores.rds")
 

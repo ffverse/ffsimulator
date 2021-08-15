@@ -4,6 +4,7 @@
 - `ff_simulate()` gains a a new `verbose` argument that allows for progress tracking, and is set ON by default. This can also be controlled by `options(ffsimulator.verbose = TRUE)` (or FALSE). Resolves #9. (v1.0.0.01)
 - `ffs_copy_template()` copies a template for custom simulations to the desired filepath, making it easier to run a simulation from the component level. Resolves #12 (v1.0.0.02)
 - Column assertions cleaned up and should be much clearer on each error message, resolves #16. (v1.0.0.03)
+- Refactored `ffs_optimise_lineups()` and `ffs_score_rosters()` to use data.table, ***deprecates*** parallel options (v1.0.0.04)
 
 ## Minor changes
 

@@ -12,7 +12,6 @@ ff_simulate(
   seed = NULL,
   injury_model = c("simple", "none"),
   base_seasons = 2012:2020,
-  parallel = FALSE,
   verbose = getOption("ffsimulator.verbose", default = TRUE)
 )
 }
@@ -30,8 +29,6 @@ ff_simulate(
 \item{injury_model}{select between "simple", "none"}
 
 \item{base_seasons}{a numeric vector that selects seasons as base data, earliest available is 2012}
-
-\item{parallel}{a logical: use parallel processing for optimizing lineups, default is FALSE}
 
 \item{verbose}{a logical: print status messages? default is TRUE, configure with options(ffsimulator.verbose)}
 }

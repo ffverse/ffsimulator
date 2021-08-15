@@ -55,7 +55,7 @@ test_that("ffs_score_rosters() connects the scores to the rosters", {
     rosters = cache$mfl_rosters
   )
 
-  checkmate::expect_tibble(roster_scores, min.rows = 7000)
+  checkmate::expect_data_frame(roster_scores, min.rows = 7000)
 
   checkmate::expect_subset(
     c(
@@ -68,39 +68,34 @@ test_that("ffs_score_rosters() connects the scores to the rosters", {
 
 
 test_that("ffs_optimize_lineups() returns a tibble and specific columns", {
-  future::plan("sequential")
 
   optimal_scores <- ffs_optimize_lineups(
     roster_scores = cache$roster_scores,
     lineup_constraints = cache$mfl_lineup_constraints,
-    best_ball = FALSE,
-    parallel = FALSE
+    best_ball = FALSE
   )
 
-  expect_message({
-    optimal_scores_parallel_bestball <- ffs_optimize_lineups(
-      roster_scores = cache$roster_scores,
-      lineup_constraints = cache$mfl_lineup_constraints,
-      best_ball = TRUE,
-      parallel = TRUE
-    )
-  })
+  optimal_scores_bestball <- ffs_optimize_lineups(
+    roster_scores = cache$roster_scores,
+    lineup_constraints = cache$mfl_lineup_constraints,
+    best_ball = TRUE
+  )
 
-  checkmate::expect_tibble(optimal_scores, nrows = 240)
-  checkmate::expect_tibble(optimal_scores_parallel_bestball, nrows = 240)
+  checkmate::expect_data_frame(optimal_scores, nrows = 240)
+  checkmate::expect_data_frame(optimal_scores_bestball, nrows = 240)
 
   checkmate::expect_subset(
-    c("franchise_id", "franchise_name", "season", "week", "optimal_score", "optimal_lineup", "lineup_efficiency", "actual_score"),
+    c("franchise_id", "franchise_name", "season", "week", "optimal_score", "optimal_player_id","optimal_player_score", "lineup_efficiency", "actual_score"),
     names(optimal_scores)
   )
   checkmate::expect_subset(
-    c("franchise_id", "franchise_name", "season", "week", "optimal_score", "optimal_lineup", "lineup_efficiency", "actual_score"),
-    names(optimal_scores_parallel_bestball)
+    c("franchise_id", "franchise_name", "season", "week", "optimal_score", "optimal_player_id","optimal_player_score", "lineup_efficiency", "actual_score"),
+    names(optimal_scores_bestball)
   )
 
   expect_equal(
-    optimal_scores_parallel_bestball$optimal_score,
-    optimal_scores_parallel_bestball$actual_score
+    optimal_scores_bestball$optimal_score,
+    optimal_scores_bestball$actual_score
   )
 })
 

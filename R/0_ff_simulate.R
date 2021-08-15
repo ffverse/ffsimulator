@@ -9,7 +9,7 @@
 #' @param seed an integer to control reproducibility
 #' @param injury_model select between "simple", "none"
 #' @param base_seasons a numeric vector that selects seasons as base data, earliest available is 2012
-#' @param parallel a logical: use parallel processing for optimizing lineups, default is FALSE
+# @param parallel a logical: use parallel processing for optimizing lineups, default is FALSE
 #' @param verbose a logical: print status messages? default is TRUE, configure with options(ffsimulator.verbose)
 #'
 #' @examples
@@ -33,7 +33,7 @@ ff_simulate <- function(
   seed = NULL,
   injury_model = c("simple", "none"),
   base_seasons = 2012:2020,
-  parallel = FALSE,
+  # parallel = FALSE,
   verbose = getOption("ffsimulator.verbose", default = TRUE)
 ) {
 
@@ -52,12 +52,10 @@ ff_simulate <- function(
   checkmate::assert_int(seed, null.ok = TRUE)
   if (!is.null(seed)) set.seed(seed)
   checkmate::assert_flag(best_ball)
-  checkmate::assert_flag(parallel)
   checkmate::assert_flag(verbose)
 
   start_logger <- verbose_logger(verbose, "start")
   end_logger <- verbose_logger(verbose, "end")
-  w_progress <- verbose_progress(verbose)
 
   #### Import Data ####
 
@@ -105,16 +103,14 @@ ff_simulate <- function(
 
   end_logger(msg_done = "Calculating Roster Scores...done! {Sys.time()}")
 
-  if(verbose) cli::cli_alert_info("Optimizing Lineups...")
+  start_logger(msg = "Optimizing Lineups")
 
-  optimal_scores <- w_progress(ffs_optimise_lineups(
+  optimal_scores <- ffs_optimise_lineups(
     roster_scores = roster_scores,
     lineup_constraints = lineup_constraints,
-    best_ball = best_ball,
-    parallel = parallel,
-    verbose = verbose))
+    best_ball = best_ball)
 
-  if(verbose) cli::cli_alert_success("...done! {Sys.time()}")
+  end_logger(msg = "Optimizing Lineups...done! {Sys.time()}")
 
   #### Generate Schedules ####
   start_logger(msg = "Summarising Simulation Data")
@@ -181,13 +177,4 @@ verbose_logger <- function(verbose, type){
   if(type == "end") return(cli::cli_process_done)
 }
 
-verbose_progress <- function(verbose){
-
-  if(!verbose) return(force)
-  if(!requireNamespace("progressr",quietly = TRUE)) {
-    warning("Could not find {progressr} package, please install for progress bar updates.")
-    return(force)
-  }
-  return(progressr::with_progress)
-}
 
