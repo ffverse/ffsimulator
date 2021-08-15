@@ -26,14 +26,14 @@
 #' @export
 ffs_summarise_week <- function(optimal_scores, schedules) {
   checkmate::assert_data_frame(optimal_scores)
-  checkmate::assert_subset(
-    c("season", "week", "season", "week", "actual_score", "league_id", "franchise_id"),
-    names(optimal_scores)
+  assert_columns(
+    optimal_scores,
+    c("season", "week", "season", "week", "actual_score", "league_id", "franchise_id")
   )
   checkmate::assert_data_frame(schedules)
-  checkmate::assert_subset(
-    c("season", "week", "team", "opponent"),
-    names(schedules)
+  assert_columns(
+    schedules,
+    c("season", "week", "team", "opponent")
   )
 
   scores <- optimal_scores %>%
@@ -98,13 +98,12 @@ ffs_summarise_week <- function(optimal_scores, schedules) {
 #' @export
 ffs_summarise_season <- function(summary_week) {
   checkmate::assert_data_frame(summary_week)
-  checkmate::assert_subset(
-    c(
-      "season", "league_id", "franchise_id", "franchise_name",
+  assert_columns(
+    summary_week,
+    c("season", "league_id", "franchise_id", "franchise_name",
       "result", "allplay_wins", "allplay_games",
       "team_score", "opponent_score", "optimal_score"
-    ),
-    names(summary_week)
+    )
   )
 
   summary_season <- summary_week %>%
@@ -132,13 +131,12 @@ ffs_summarise_season <- function(summary_week) {
 #' @export
 ffs_summarise_simulation <- function(summary_season) {
   checkmate::assert_data_frame(summary_season)
-  checkmate::assert_subset(
-    c(
-      "league_id", "franchise_id", "franchise_name",
+  assert_columns(
+    summary_season,
+    c("league_id", "franchise_id", "franchise_name",
       "h2h_wins", "h2h_winpct", "allplay_wins", "allplay_winpct",
       "points_for", "points_against", "potential_points"
-    ),
-    names(summary_season)
+    )
   )
 
   summary_simulation <- summary_season %>%

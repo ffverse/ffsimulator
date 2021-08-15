@@ -4,7 +4,7 @@
 #'
 #' @param filename New file name, defaults to putting "ff_simulation.R" into your current directory
 #' @param overwrite a logical (or NULL) - overwrite if existing file found?
-#' @example \donttest{
+#' @examples \donttest{
 #'
 #'   tmp <- tempfile()
 #'   ffs_copy_template(tmp)

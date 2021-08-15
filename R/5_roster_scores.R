@@ -23,17 +23,16 @@ ffs_score_rosters <- function(projected_scores, rosters) {
   checkmate::assert_data_frame(projected_scores)
   checkmate::assert_data_frame(rosters)
 
-  checkmate::assert_subset(
-    c(
-      "fantasypros_id", "ecr", "rank", "projection",
+  assert_columns(
+    projected_scores,
+    c("fantasypros_id", "ecr", "rank", "projection",
       "injury_model", "season", "week",
-      "projected_score", "scrape_date"
-    ),
-    names(projected_scores)
+      "projected_score", "scrape_date")
   )
-  checkmate::assert_subset(
-    c("fantasypros_id", "league_id", "franchise_id", "pos"),
-    names(rosters)
+
+  assert_columns(
+    rosters,
+    c("fantasypros_id", "league_id", "franchise_id", "pos")
   )
 
   roster_scores <- rosters %>%

@@ -17,3 +17,12 @@ a success message signalling success/failure.
 \description{
 Creates a simulation template file with all of the components of ff_simulate, ready for tinkering!
 }
+\examples{
+\donttest{
+
+  tmp <- tempfile()
+  ffs_copy_template(tmp)
+
+}
+
+}

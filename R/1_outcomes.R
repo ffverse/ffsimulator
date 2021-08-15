@@ -30,7 +30,7 @@ ffs_adp_outcomes <- function(scoring_history,
   checkmate::assert_choice(injury_model, choices = c("simple", "none"))
   checkmate::assert_character(pos_filter)
   checkmate::assert_data_frame(scoring_history)
-  checkmate::assert_subset(c("gsis_id", "team", "season", "points"), names(scoring_history))
+  assert_columns(scoring_history, c("gsis_id", "team", "season", "points"))
 
   adp_outcomes <- ffsimulator::fp_rankings_history %>%
     dplyr::select(-"page_pos") %>%

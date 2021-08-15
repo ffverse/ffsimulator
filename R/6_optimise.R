@@ -42,17 +42,12 @@ ffs_optimise_lineups <- function(roster_scores,
   checkmate::assert_flag(parallel)
 
   checkmate::assert_data_frame(roster_scores)
-  checkmate::assert_subset(
-    c(
-      "pos", "pos_rank", "league_id",
-      "franchise_id", "franchise_name",
-      "season", "week", "projected_score"
-    ),
-    names(roster_scores)
-  )
+  assert_columns(roster_scores,
+                 c("pos", "pos_rank", "league_id", "franchise_id",
+                   "franchise_name", "season", "week", "projected_score"))
 
   checkmate::assert_data_frame(lineup_constraints, any.missing = FALSE)
-  checkmate::assert_subset(c("pos", "min", "max", "offense_starters"), names(lineup_constraints))
+  assert_columns(lineup_constraints, c("pos", "min", "max", "offense_starters"))
 
   if (!parallel) ffs_map <- purrr::map
 

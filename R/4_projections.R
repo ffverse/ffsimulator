@@ -26,17 +26,14 @@ ffs_generate_projections <- function(adp_outcomes, latest_rankings, n_seasons = 
   checkmate::assert_number(n_weeks, lower = 1)
 
   checkmate::assert_data_frame(adp_outcomes)
-  checkmate::assert_subset(c("pos", "rank", "prob_gp", "week_outcomes"), names(adp_outcomes))
+  assert_columns(adp_outcomes, c("pos", "rank", "prob_gp", "week_outcomes"))
 
   checkmate::assert_data_frame(latest_rankings)
-  checkmate::assert_subset(
-    c("ecr", "sd", "bye", "fantasypros_id"),
-    names(latest_rankings)
-  )
+  assert_columns(latest_rankings, c("ecr", "sd", "bye", "fantasypros_id"))
 
   if (is.null(rosters)) rosters <- latest_rankings %>% dplyr::select("fantasypros_id")
   checkmate::assert_data_frame(rosters)
-  checkmate::assert_subset("fantasypros_id", names(rosters))
+  assert_columns(rosters, "fantasypros_id")
 
   total_weeks <- n_seasons * n_weeks
 
