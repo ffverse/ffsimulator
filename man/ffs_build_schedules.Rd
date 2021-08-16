@@ -26,7 +26,7 @@ It starts with the \href{https://en.wikipedia.org/wiki/Round-robin_tournament#Sc
 }
 \examples{
 \donttest{
-  ffs_build_schedules(n_teams = 12, n_seasons = 1, n_weeks = 14)
+ffs_build_schedules(n_teams = 12, n_seasons = 1, n_weeks = 14)
 }
 
 }

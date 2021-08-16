@@ -11,11 +11,11 @@
 #'
 #' @examples
 #' \donttest{
-#'  #cached data
-#'  scoring_history <- .ffs_cache("mfl_scoring_history.rds")
+#' # cached data
+#' scoring_history <- .ffs_cache("mfl_scoring_history.rds")
 #'
-#'  ffs_adp_outcomes(scoring_history, injury_model = "simple")
-#'  ffs_adp_outcomes(scoring_history, injury_model = "none")
+#' ffs_adp_outcomes(scoring_history, injury_model = "simple")
+#' ffs_adp_outcomes(scoring_history, injury_model = "none")
 #' }
 #'
 #' @seealso `fp_rankings_history` for the included historical rankings
@@ -25,8 +25,8 @@
 #' @export
 ffs_adp_outcomes <- function(scoring_history,
                              injury_model = "simple",
-                             pos_filter = c("QB","RB","WR","TE")) {
-
+                             pos_filter = c("QB", "RB", "WR", "TE")) {
+  # ASSERTIONS #
   checkmate::assert_choice(injury_model, choices = c("simple", "none"))
   checkmate::assert_character(pos_filter)
   checkmate::assert_data_frame(scoring_history)
@@ -39,7 +39,7 @@ ffs_adp_outcomes <- function(scoring_history,
         dplyr::select("fantasypros_id", "gsis_id"),
       by = "fantasypros_id"
     ) %>%
-    dplyr::filter(!is.na(.data$gsis_id), .data$pos %in% pos_filter) %>%
+    dplyr::filter(!is.na(.data$gsis_id), .data$pos %in% c("QB", "RB", "WR", "TE")) %>%
     dplyr::left_join(
       scoring_history %>%
         dplyr::filter(!is.na(.data$gsis_id), .data$week <= 17) %>%

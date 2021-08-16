@@ -100,7 +100,7 @@ schedules <- ffs_build_schedules(
 
 saveRDS(schedules, "inst/cache/schedules.rds")
 
-foureight <- mfl_connect(2021,22627)
+foureight <- mfl_connect(2021, 22627)
 foureight_sim <- ff_simulate(foureight, n_seasons = 25)
 
 saveRDS(foureight_sim, "inst/cache/foureight_sim.rds")

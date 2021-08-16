@@ -11,14 +11,12 @@
 #' @examples \donttest{
 #'
 #' ffs_latest_rankings()
-#'
 #' }
 #'
 #' @return a dataframe with a copy of the latest FP rankings from DynastyProcess's data repository
 #'
 #' @export
 ffs_latest_rankings <- function() {
-
   fp_latest <- nflreadr::load_ff_rankings()
 
   fp_cleaned <- fp_latest %>%

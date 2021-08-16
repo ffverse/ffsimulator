@@ -65,8 +65,8 @@ parse_raw_rds <- function(raw) {
 #'
 #' @noRd
 #' @export
-.ffs_cache <- function(filename){
-  file.path("cache",filename) %>%
+.ffs_cache <- function(filename) {
+  file.path("cache", filename) %>%
     system.file(package = "ffsimulator") %>%
     readRDS()
 }
@@ -79,13 +79,14 @@ parse_raw_rds <- function(raw) {
 #' @return silent if ok or else an error if something is missing.
 #'
 #' @keywords internal
-assert_columns <- function(dataframe, required_columns){
-
+assert_columns <- function(dataframe, required_columns) {
   d <- as.character(rlang::enexpr(dataframe))
 
   n <- names(dataframe)
   r <- required_columns %in% n
-  if(all(r)) return(NULL)
+  if (all(r)) {
+    return(NULL)
+  }
 
   stop(
     glue::glue(

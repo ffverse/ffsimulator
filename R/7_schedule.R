@@ -10,7 +10,7 @@
 #' @param seed an integer to control reproducibility
 #'
 #' @examples \donttest{
-#'   ffs_build_schedules(n_teams = 12, n_seasons = 1, n_weeks = 14)
+#' ffs_build_schedules(n_teams = 12, n_seasons = 1, n_weeks = 14)
 #' }
 #'
 #' @return a dataframe of schedules
@@ -107,7 +107,7 @@ ffs_build_schedules <- function(n_teams,
     df_schedule <- df_schedule %>%
       dplyr::mutate_at(
         c("team", "opponent"),
-        ~dplyr::case_when(
+        ~ dplyr::case_when(
           .x == n_teams ~ NA_integer_,
           TRUE ~ .x
         )

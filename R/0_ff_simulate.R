@@ -13,10 +13,9 @@
 #' @param verbose a logical: print status messages? default is TRUE, configure with options(ffsimulator.verbose)
 #'
 #' @examples
-#'
 #' \donttest{
-#'   conn <- mfl_connect(2021, 22627)
-#'   ff_simulate(conn, n_seasons = 25)
+#' conn <- mfl_connect(2021, 22627)
+#' ff_simulate(conn, n_seasons = 25)
 #' }
 #'
 #' @return an `ff_simulation` object which can be passed to `plot()` and contains the output data from the simulation.
@@ -25,17 +24,15 @@
 #' @seealso `vignette("Custom Simulations")` for examples on using the subfunctions for your own processes.
 #'
 #' @export
-ff_simulate <- function(
-  conn,
-  n_seasons = 100,
-  n_weeks = 14,
-  best_ball = FALSE,
-  seed = NULL,
-  injury_model = c("simple", "none"),
-  base_seasons = 2012:2020,
-  # parallel = FALSE,
-  verbose = getOption("ffsimulator.verbose", default = TRUE)
-) {
+ff_simulate <- function(conn,
+                        n_seasons = 100,
+                        n_weeks = 14,
+                        best_ball = FALSE,
+                        seed = NULL,
+                        injury_model = c("simple", "none"),
+                        base_seasons = 2012:2020,
+                        # parallel = FALSE,
+                        verbose = getOption("ffsimulator.verbose", default = TRUE)) {
 
   #### Assertions ####
 
@@ -59,7 +56,7 @@ ff_simulate <- function(
 
   #### Import Data ####
 
-  if(verbose) cli::cli_rule("Starting simulation {Sys.time()}")
+  if (verbose) cli::cli_rule("Starting simulation {Sys.time()}")
 
   start_logger(msg = "Importing data")
 
@@ -108,7 +105,8 @@ ff_simulate <- function(
   optimal_scores <- ffs_optimise_lineups(
     roster_scores = roster_scores,
     lineup_constraints = lineup_constraints,
-    best_ball = best_ball)
+    best_ball = best_ball
+  )
 
   end_logger(msg = "Optimizing Lineups...done! {Sys.time()}")
 
@@ -142,6 +140,7 @@ ff_simulate <- function(
       simulation_params = tibble::tibble(
         n_seasons = n_seasons,
         n_weeks = n_weeks,
+        scrape_date = latest_rankings$scrape_date[[1]],
         best_ball = best_ball,
         seed = seed,
         injury_model = injury_model,
@@ -151,30 +150,35 @@ ff_simulate <- function(
     class = "ff_simulation"
   )
 
-  if(verbose) cli::cli_rule("Simulation complete! {Sys.time()}")
+  if (verbose) cli::cli_rule("Simulation complete! {Sys.time()}")
 
   return(out)
 }
 
 #' @export
 #' @noRd
-print.ff_simulation <- function(x,...){
+print.ff_simulation <- function(x, ...) {
   cat("<ff_simulation: ",
-      x$simulation_params$n_seasons,
-      " simulated seasons of ",
-      x$league_info$league_name,
-      ">\n",
-      sep = "")
-  str(x,max.level = 2)
+    x$simulation_params$n_seasons,
+    " simulated seasons of ",
+    x$league_info$league_name,
+    ">\n",
+    sep = ""
+  )
+  str(x, max.level = 2)
   invisible(x)
 }
 
 dump_function <- function(...) NULL
 
-verbose_logger <- function(verbose, type){
-  if(!verbose) return(dump_function)
-  if(type == "start") return(cli::cli_process_start)
-  if(type == "end") return(cli::cli_process_done)
+verbose_logger <- function(verbose, type) {
+  if (!verbose) {
+    return(dump_function)
+  }
+  if (type == "start") {
+    return(cli::cli_process_start)
+  }
+  if (type == "end") {
+    return(cli::cli_process_done)
+  }
 }
-
-

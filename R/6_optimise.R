@@ -21,7 +21,6 @@
 #' lineup_constraints <- .ffs_cache("mfl_lineup_constraints.rds")
 #'
 #' ffs_optimise_lineups(roster_scores, lineup_constraints)
-#'
 #' }
 #'
 #' @seealso `vignette("Custom Simulations")` for example usage
@@ -33,7 +32,7 @@ ffs_optimise_lineups <- function(roster_scores,
                                  lineup_efficiency_mean = 0.775,
                                  lineup_efficiency_sd = 0.05,
                                  best_ball = FALSE,
-                                 pos_filter = c("QB","RB","WR","TE")#,
+                                 pos_filter = c("QB", "RB", "WR", "TE") # ,
                                  # verbose = TRUE
 ) {
   checkmate::assert_number(lineup_efficiency_mean, lower = 0, upper = 1)
@@ -41,9 +40,13 @@ ffs_optimise_lineups <- function(roster_scores,
   checkmate::assert_flag(best_ball)
 
   checkmate::assert_data_frame(roster_scores)
-  assert_columns(roster_scores,
-                 c("pos", "pos_rank", "league_id", "franchise_id",
-                   "franchise_name", "season", "week", "projected_score"))
+  assert_columns(
+    roster_scores,
+    c(
+      "pos", "pos_rank", "league_id", "franchise_id",
+      "franchise_name", "season", "week", "projected_score"
+    )
+  )
   roster_scores <- data.table::as.data.table(roster_scores)
 
   checkmate::assert_data_frame(lineup_constraints, any.missing = FALSE)
@@ -52,32 +55,34 @@ ffs_optimise_lineups <- function(roster_scores,
   lineup_constraints <- data.table::as.data.table(lineup_constraints)
   lineup_constraints <- lineup_constraints[lineup_constraints$pos %in% pos_filter]
 
-  max_lineup_constraints <- lineup_constraints[,c("pos","max")]
+  max_lineup_constraints <- lineup_constraints[, c("pos", "max")]
 
   data.table::setkeyv(max_lineup_constraints, "pos")
-  data.table::setkeyv(roster_scores,"pos")
+  data.table::setkeyv(roster_scores, "pos")
 
   optimal_scores <- merge(roster_scores, max_lineup_constraints, by = "pos")
 
-  data.table::setkeyv(optimal_scores, c("league_id","franchise_id","franchise_name","season","week"))
+  data.table::setkeyv(optimal_scores, c("league_id", "franchise_id", "franchise_name", "season", "week"))
 
   optimal_scores <- optimal_scores[
     optimal_scores$pos_rank <= optimal_scores$max & optimal_scores$pos %in% lineup_constraints$pos,
-    c("league_id","franchise_id","franchise_name","season","week","player_id","pos","projected_score")]
+    c("league_id", "franchise_id", "franchise_name", "season", "week", "player_id", "pos", "projected_score")
+  ]
 
   optimal_scores <-
     optimal_scores[,
-                   .ff_optimise_one_lineup(.SD, lineup_constraints),
-                   by = c("league_id","franchise_id","franchise_name","season","week"),
-                   .SDcols = c("player_id","pos","projected_score")]
+      .ff_optimise_one_lineup(.SD, lineup_constraints),
+      by = c("league_id", "franchise_id", "franchise_name", "season", "week"),
+      .SDcols = c("player_id", "pos", "projected_score")
+    ]
 
-  if (best_ball) optimal_scores[,`:=`(lineup_efficiency = 1)]
+  if (best_ball) optimal_scores[, `:=`(lineup_efficiency = 1)]
 
   if (!best_ball) {
-    optimal_scores[,`:=`(lineup_efficiency = stats::rnorm(.N, mean = lineup_efficiency_mean, sd = lineup_efficiency_sd))]
+    optimal_scores[, `:=`(lineup_efficiency = stats::rnorm(.N, mean = lineup_efficiency_mean, sd = lineup_efficiency_sd))]
   }
 
-  optimal_scores[,`:=`(actual_score = optimal_scores$optimal_score * optimal_scores$lineup_efficiency)]
+  optimal_scores[, `:=`(actual_score = optimal_scores$optimal_score * optimal_scores$lineup_efficiency)]
 
   return(optimal_scores)
 }

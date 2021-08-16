@@ -52,7 +52,6 @@ summary_season <- ffs_summarise_season(summary_week)
 summary_season
 summary_simulation <- ffs_summarise_simulation(summary_season)
 summary_simulation
-
 }
 
 }

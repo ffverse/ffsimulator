@@ -18,15 +18,17 @@
 #' @return A dataframe of roster-level projected scores
 #'
 #' @export
-ffs_score_rosters <- function(projected_scores, rosters){
+ffs_score_rosters <- function(projected_scores, rosters) {
   checkmate::assert_data_frame(projected_scores)
   checkmate::assert_data_frame(rosters)
 
   assert_columns(
     projected_scores,
-    c("fantasypros_id", "ecr", "rank", "projection",
+    c(
+      "fantasypros_id", "ecr", "rank", "projection",
       "injury_model", "season", "week",
-      "projected_score", "scrape_date")
+      "projected_score", "scrape_date"
+    )
   )
 
   assert_columns(
@@ -35,17 +37,21 @@ ffs_score_rosters <- function(projected_scores, rosters){
   )
 
   projected_scores <- data.table::as.data.table(
-    projected_scores[,c("fantasypros_id","ecr","rank","projection","injury_model",
-                        "season","week","projected_score","scrape_date")])
+    projected_scores[, c(
+      "fantasypros_id", "ecr", "rank", "projection", "injury_model",
+      "season", "week", "projected_score", "scrape_date"
+    )]
+  )
 
   data.table::setDT(rosters)
-  data.table::setkeyv(projected_scores,"fantasypros_id")
-  data.table::setkeyv(rosters,"fantasypros_id")
+  data.table::setkeyv(projected_scores, "fantasypros_id")
+  data.table::setkeyv(rosters, "fantasypros_id")
 
   roster_scores <- merge(rosters, projected_scores, by = "fantasypros_id", all = FALSE)
 
   roster_scores[order(-roster_scores$projected_score),
-                `:=`(pos_rank = seq_len(.N)),
-                by = c("league_id", "franchise_id","pos","season","week")]
+    `:=`(pos_rank = seq_len(.N)),
+    by = c("league_id", "franchise_id", "pos", "season", "week")
+  ]
   return(roster_scores)
 }

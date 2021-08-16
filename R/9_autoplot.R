@@ -12,12 +12,11 @@
 #' @examples
 #' \donttest{
 #'
-#'   simulation <- .ffs_cache("foureight_sim.rds")
+#' simulation <- .ffs_cache("foureight_sim.rds")
 #'
-#'   ggplot2::autoplot(simulation) # default is type = "wins"
-#'   ggplot2::autoplot(simulation, type = "rank")
-#'   ggplot2::autoplot(simulation, type = "points")
-#'
+#' ggplot2::autoplot(simulation) # default is type = "wins"
+#' ggplot2::autoplot(simulation, type = "rank")
+#' ggplot2::autoplot(simulation, type = "points")
 #' }
 #'
 #' @seealso `vignette("Basic Simulations")` for example usage
@@ -78,7 +77,7 @@ autoplot.ff_simulation <- function(object,
     ggplot2::labs(
       title = glue::glue("Season Win Totals - {object$simulation_params$n_seasons} Simulated Seasons"),
       subtitle = glue::glue("{object$league_info$league_name}"),
-      caption = glue::glue("ffsimulator R pkg | Based on rankings as of {object$roster_scores$scrape_date[[1]]}")
+      caption = glue::glue("ffsimulator R pkg | Based on rankings as of {object$simulation_params$scrape_date}")
     )
 }
 
@@ -107,7 +106,7 @@ autoplot.ff_simulation <- function(object,
     ggplot2::labs(
       title = glue::glue("Final Season Rank - {object$simulation_params$n_seasons} Simulated Seasons"),
       subtitle = glue::glue("{object$league_info$league_name}"),
-      caption = glue::glue("ffsimulator R pkg | Based on rankings as of {object$roster_scores$scrape_date[[1]]}"),
+      caption = glue::glue("ffsimulator R pkg | Based on rankings as of {object$simulation_params$scrape_date}"),
       fill = "Franchise Name",
       color = "Franchise Name"
     )
@@ -142,7 +141,7 @@ autoplot.ff_simulation <- function(object,
                          object$simulation_params$n_seasons * object$simulation_params$n_weeks
                          } Simulated Weeks"),
       subtitle = glue::glue("{object$league_info$league_name}"),
-      caption = glue::glue("ffsimulator R pkg | Based on rankings as of {object$roster_scores$scrape_date[[1]]}")
+      caption = glue::glue("ffsimulator R pkg | Based on rankings as of {object$simulation_params$scrape_date}")
     )
 }
 

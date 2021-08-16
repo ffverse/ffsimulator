@@ -72,7 +72,7 @@ ffs_rosters.flea_conn <- function(conn) {
 #' @export
 ffs_rosters.espn_conn <- function(conn) {
   rosters <- ffscrapr::ff_rosters(conn) %>%
-    dplyr::mutate(player_id=as.character(.data$player_id)) %>%
+    dplyr::mutate(player_id = as.character(.data$player_id)) %>%
     dplyr::left_join(
       ffscrapr::dp_playerids() %>%
         dplyr::select("espn_id", "fantasypros_id"),

@@ -1,5 +1,5 @@
 
-cache <- tibble::tibble(file = list.files(system.file("cache",package = "ffsimulator"), full.names = TRUE)) %>%
+cache <- tibble::tibble(file = list.files(system.file("cache", package = "ffsimulator"), full.names = TRUE)) %>%
   dplyr::transmute(
     data = purrr::map(.data$file, readRDS),
     name = stringr::str_remove_all(.data$file, ".+cache/|\\.rds$")
@@ -41,7 +41,7 @@ test_that("ffs_generate_projections() returns a tibble and specific columns", {
     rosters = cache$mfl_rosters
   )
 
-  checkmate::expect_tibble(projected_scores, min.rows = 7000)
+  checkmate::expect_data_frame(projected_scores, min.rows = 7000)
 
   checkmate::expect_subset(
     c("fantasypros_id", "pos", "projected_score", "season", "week"),
@@ -68,7 +68,6 @@ test_that("ffs_score_rosters() connects the scores to the rosters", {
 
 
 test_that("ffs_optimize_lineups() returns a tibble and specific columns", {
-
   optimal_scores <- ffs_optimize_lineups(
     roster_scores = cache$roster_scores,
     lineup_constraints = cache$mfl_lineup_constraints,
@@ -85,11 +84,11 @@ test_that("ffs_optimize_lineups() returns a tibble and specific columns", {
   checkmate::expect_data_frame(optimal_scores_bestball, nrows = 240)
 
   checkmate::expect_subset(
-    c("franchise_id", "franchise_name", "season", "week", "optimal_score", "optimal_player_id","optimal_player_score", "lineup_efficiency", "actual_score"),
+    c("franchise_id", "franchise_name", "season", "week", "optimal_score", "optimal_player_id", "optimal_player_score", "lineup_efficiency", "actual_score"),
     names(optimal_scores)
   )
   checkmate::expect_subset(
-    c("franchise_id", "franchise_name", "season", "week", "optimal_score", "optimal_player_id","optimal_player_score", "lineup_efficiency", "actual_score"),
+    c("franchise_id", "franchise_name", "season", "week", "optimal_score", "optimal_player_id", "optimal_player_score", "lineup_efficiency", "actual_score"),
     names(optimal_scores_bestball)
   )
 
@@ -125,7 +124,6 @@ test_that("schedules returns a tibble and specific columns", {
     c("season", "week", "team", "opponent"),
     names(schedules_w_bye)
   )
-
 })
 
 test_that("summary functions return tibbles", {
@@ -154,7 +152,7 @@ test_that("summary functions return tibbles", {
       "season", "season_week", "franchise_name", "optimal_score",
       "lineup_efficiency", "team_score", "opponent_score", "result",
       "opponent_name", "allplay_wins", "allplay_games", "allplay_pct",
-      "franchise_id", "optimal_player_id","optimal_player_score"
+      "franchise_id", "optimal_player_id", "optimal_player_score"
     ),
     names(summary_week),
     label = "summary_week names check"

@@ -20,8 +20,7 @@ Creates a simulation template file with all of the components of ff_simulate, re
 \examples{
 \donttest{
 
-  tmp <- tempfile()
-  ffs_copy_template(tmp)
-
+tmp <- tempfile()
+ffs_copy_template(tmp)
 }
 }

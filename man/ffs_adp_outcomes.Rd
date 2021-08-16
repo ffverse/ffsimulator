@@ -25,11 +25,11 @@ The backbone of the ffsimulator resampling process is coming up with a populatio
 }
 \examples{
 \donttest{
- #cached data
- scoring_history <- .ffs_cache("mfl_scoring_history.rds")
+# cached data
+scoring_history <- .ffs_cache("mfl_scoring_history.rds")
 
- ffs_adp_outcomes(scoring_history, injury_model = "simple")
- ffs_adp_outcomes(scoring_history, injury_model = "none")
+ffs_adp_outcomes(scoring_history, injury_model = "simple")
+ffs_adp_outcomes(scoring_history, injury_model = "none")
 }
 
 }

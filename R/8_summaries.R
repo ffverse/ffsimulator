@@ -18,7 +18,6 @@
 #' summary_season
 #' summary_simulation <- ffs_summarise_simulation(summary_season)
 #' summary_simulation
-#'
 #' }
 #'
 #' @rdname ffs_summaries
@@ -101,7 +100,8 @@ ffs_summarise_season <- function(summary_week) {
   checkmate::assert_data_frame(summary_week)
   assert_columns(
     summary_week,
-    c("season", "league_id", "franchise_id", "franchise_name",
+    c(
+      "season", "league_id", "franchise_id", "franchise_name",
       "result", "allplay_wins", "allplay_games",
       "team_score", "opponent_score", "optimal_score"
     )
@@ -134,7 +134,8 @@ ffs_summarise_simulation <- function(summary_season) {
   checkmate::assert_data_frame(summary_season)
   assert_columns(
     summary_season,
-    c("league_id", "franchise_id", "franchise_name",
+    c(
+      "league_id", "franchise_id", "franchise_name",
       "h2h_wins", "h2h_winpct", "allplay_wins", "allplay_winpct",
       "points_for", "points_against", "potential_points"
     )
