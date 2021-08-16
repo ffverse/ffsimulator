@@ -154,7 +154,7 @@ test_that("summary functions return tibbles", {
       "season", "season_week", "franchise_name", "optimal_score",
       "lineup_efficiency", "team_score", "opponent_score", "result",
       "opponent_name", "allplay_wins", "allplay_games", "allplay_pct",
-      "franchise_id", "optimal_lineup"
+      "franchise_id", "optimal_player_id","optimal_player_score"
     ),
     names(summary_week),
     label = "summary_week names check"
