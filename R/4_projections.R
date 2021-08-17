@@ -72,7 +72,7 @@ ffs_generate_projections <- function(adp_outcomes, latest_rankings, n_seasons = 
   ]
 
   ps <- ps[
-    order(ps$season, ps$week, ps$pos, ps$ecr),
+    ,
     `:=`(
       projected_score = ps$projection * ps$injury_model * (ps$week != ps$bye)
     )
