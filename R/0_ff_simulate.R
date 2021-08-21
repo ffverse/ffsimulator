@@ -183,7 +183,7 @@ print.ff_simulation <- function(x, ...) {
     ">\n",
     sep = ""
   )
-  str(x, max.level = 2)
+  str(x, max.level = 1)
   invisible(x)
 }
 
