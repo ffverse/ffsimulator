@@ -4,7 +4,13 @@
 \alias{ffs_build_schedules}
 \title{Generate fantasy schedules}
 \usage{
-ffs_build_schedules(n_teams, n_seasons = 100, n_weeks = 14, seed = NULL)
+ffs_build_schedules(
+  n_teams = NULL,
+  n_seasons = 100,
+  n_weeks = 14,
+  franchises = NULL,
+  seed = NULL
+)
 }
 \arguments{
 \item{n_teams}{number of teams in simulation}
@@ -12,6 +18,8 @@ ffs_build_schedules(n_teams, n_seasons = 100, n_weeks = 14, seed = NULL)
 \item{n_seasons}{number of seasons to simulate, default = 100}
 
 \item{n_weeks}{number of weeks per season, default = 14}
+
+\item{franchises}{optional: a dataframe of franchises as created by \code{\link[=ffs_franchises]{ffs_franchises()}} - overrides the \code{n_teams} argument and will attach actual franchise IDs to the schedule output.}
 
 \item{seed}{an integer to control reproducibility}
 }

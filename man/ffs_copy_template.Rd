@@ -4,10 +4,16 @@
 \alias{ffs_copy_template}
 \title{Copy simulation template to filename}
 \usage{
-ffs_copy_template(filename = "ff_simulation.R", overwrite = NULL)
+ffs_copy_template(
+  filename = "ff_simulation.R",
+  template = c("season", "rest_of_season", "week"),
+  overwrite = NULL
+)
 }
 \arguments{
 \item{filename}{New file name, defaults to putting "ff_simulation.R" into your current directory}
+
+\item{template}{choice of template: one of "season", "rest_of_season", "week"}
 
 \item{overwrite}{a logical (or NULL) - overwrite if existing file found?}
 }

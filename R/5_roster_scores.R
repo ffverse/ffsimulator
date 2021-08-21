@@ -47,7 +47,7 @@ ffs_score_rosters <- function(projected_scores, rosters) {
   data.table::setkeyv(projected_scores, "fantasypros_id")
   data.table::setkeyv(rosters, "fantasypros_id")
 
-  roster_scores <- merge(rosters, projected_scores, by = "fantasypros_id", all = FALSE)
+  roster_scores <- merge(rosters, projected_scores, by = "fantasypros_id", all = FALSE, allow.cartesian = TRUE)
 
   roster_scores[order(-roster_scores$projected_score),
     `:=`(pos_rank = seq_len(.N)),

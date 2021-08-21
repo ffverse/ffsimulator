@@ -24,7 +24,7 @@ ffs_summarize_simulation(summary_season)
 \arguments{
 \item{optimal_scores}{a dataframe of optimized lineups as created by \code{ffs_optimize_lineups()}}
 
-\item{schedules}{a dataframe of schedules as created by \code{ffs_build_schedules()}}
+\item{schedules}{a dataframe of schedules as created by \code{ffs_build_schedules()} or \code{ffs_actual_schedules()}}
 
 \item{summary_week}{a dataframe as created by \code{ffs_summarise_week()}}
 

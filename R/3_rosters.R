@@ -33,7 +33,8 @@ ffs_rosters.mfl_conn <- function(conn) {
       by = c("player_id" = "mfl_id"),
       na_matches = "never"
     ) %>%
-    dplyr::mutate(league_id = conn$league_id)
+    dplyr::mutate(league_id = as.character(conn$league_id),
+                  franchise_id = as.character(.data$franchise_id))
 
   return(rosters)
 }
@@ -48,7 +49,8 @@ ffs_rosters.sleeper_conn <- function(conn) {
       by = c("player_id" = "sleeper_id"),
       na_matches = "never"
     ) %>%
-    dplyr::mutate(league_id = conn$league_id)
+    dplyr::mutate(league_id = as.character(conn$league_id),
+                  franchise_id = as.character(.data$franchise_id))
 
   return(rosters)
 }
@@ -63,7 +65,8 @@ ffs_rosters.flea_conn <- function(conn) {
       by = c("sportradar_id"),
       na_matches = "never"
     ) %>%
-    dplyr::mutate(league_id = conn$league_id)
+    dplyr::mutate(league_id = as.character(conn$league_id),
+                  franchise_id = as.character(.data$franchise_id))
 
   return(rosters)
 }
@@ -79,7 +82,8 @@ ffs_rosters.espn_conn <- function(conn) {
       by = c("player_id" = "espn_id"),
       na_matches = "never"
     ) %>%
-    dplyr::mutate(league_id = conn$league_id)
+    dplyr::mutate(league_id = as.character(conn$league_id),
+                  franchise_id = as.character(.data$franchise_id))
 
   return(rosters)
 }
@@ -94,3 +98,30 @@ ffs_rosters.default <- function(conn) {
   )
   # nocov end
 }
+
+#' Get Franchises
+#'
+#' This function lightly wraps `ffscrapr::ff_franchises()` and adds league_id, which is a required column for ffsimulator.
+#'
+#' @param conn a connection object as created by `ffscrapr::ff_connect()` and friends.
+#'
+#' @return a dataframe of franchises that includes the league_id column
+#'
+#' @examples
+#' \donttest{
+#' # cached examples
+#' conn <- .ffs_cache("mfl_conn.rds")
+#'
+#' ffs_franchises(conn)
+#' }
+#'
+#' @seealso vignette("Custom Simulations") for more detailed example usage
+#'
+#' @export
+ffs_franchises <- function(conn){
+  ffscrapr::ff_franchises(conn) %>%
+    dplyr::mutate(league_id = as.character(conn$league_id),
+                  franchise_id = as.character(.data$franchise_id)
+                  )
+}
+

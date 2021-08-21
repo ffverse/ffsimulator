@@ -100,9 +100,9 @@ test_that("ffs_optimize_lineups() returns a tibble and specific columns", {
 
 test_that("schedules returns a tibble and specific columns", {
   schedules <- ffs_build_schedules(
-    n_teams = 12,
     n_seasons = 2,
-    n_weeks = 10
+    n_weeks = 10,
+    franchises = cache$mfl_franchises
   )
 
   schedules_w_bye <- ffs_build_schedules(
@@ -114,14 +114,13 @@ test_that("schedules returns a tibble and specific columns", {
   checkmate::expect_tibble(schedules, nrows = 240)
 
   checkmate::expect_subset(
-    c("season", "week", "team", "opponent"),
+    c("season", "week", "franchise_id", "opponent_id"),
     names(schedules)
   )
 
-
   checkmate::expect_tibble(schedules_w_bye, nrows = 220)
   checkmate::expect_subset(
-    c("season", "week", "team", "opponent"),
+    c("season", "week", "franchise_id", "opponent_id"),
     names(schedules_w_bye)
   )
 })

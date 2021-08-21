@@ -7,6 +7,7 @@
 #' @param n_teams number of teams in simulation
 #' @param n_seasons number of seasons to simulate, default = 100
 #' @param n_weeks number of weeks per season, default = 14
+#' @param franchises optional: a dataframe of franchises as created by [`ffs_franchises()`] - overrides the `n_teams` argument and will attach actual franchise IDs to the schedule output.
 #' @param seed an integer to control reproducibility
 #'
 #' @examples \donttest{
@@ -17,10 +18,16 @@
 #'
 #' @seealso `vignette("Custom Simulations")` for example usage
 #' @export
-ffs_build_schedules <- function(n_teams,
+ffs_build_schedules <- function(n_teams = NULL,
                                 n_seasons = 100,
                                 n_weeks = 14,
+                                franchises = NULL,
                                 seed = NULL) {
+  if (!is.null(franchises)) {
+    checkmate::assert_data_frame(franchises)
+    assert_columns(franchises, c("league_id", "franchise_id"))
+    n_teams <- nrow(franchises)
+  }
   checkmate::assert_number(n_teams)
   checkmate::assert_number(n_seasons)
   checkmate::assert_number(n_weeks)
@@ -58,11 +65,36 @@ ffs_build_schedules <- function(n_teams,
   ) %>%
     tidyr::unnest("schedule")
 
+  #### Attach actual franchise IDs, if available ####
+
+  if (is.null(franchises)) {
+    schedules <- schedules %>%
+      dplyr::rename(
+        "franchise_id" = "team",
+        "opponent_id" = "opponent"
+      )
+  }
+
+  if (!is.null(franchises)) {
+    franchises <- franchises %>%
+      dplyr::distinct(.data$league_id, .data$franchise_id) %>%
+      dplyr::arrange(.data$league_id, .data$franchise_id) %>%
+      dplyr::mutate(schedule_id = dplyr::row_number())
+
+    schedules <- schedules %>%
+      dplyr::left_join(franchises, by = c("team" = "schedule_id")) %>%
+      dplyr::left_join(franchises %>%
+                         dplyr::select("opponent_id" = "franchise_id", "schedule_id"),
+                       by = c("opponent" = "schedule_id")
+      ) %>%
+      dplyr::select("season", "week", "league_id", "franchise_id", "opponent_id")
+  }
+
   return(schedules)
 }
 
 #' @keywords internal
-.ff_roundrobin_build <- function(n_teams = 14) {
+.ff_roundrobin_build <- function(n_teams) {
   bye <- FALSE
 
   if (n_teams %% 2) {
@@ -154,3 +186,49 @@ ffs_build_schedules <- function(n_teams,
 
   return(df_schedule)
 }
+
+#' Get Schedule
+#'
+#' This function lightly wraps `ffscrapr::ff_schedule()` and adds league_id, which is a required column for ffsimulator, casts IDs to character, and drops actual games played so as to only simulate unplayed games.
+#'
+#' @param conn a connection object as created by `ffscrapr::ff_connect()` and friends.
+#'
+#' @return a dataframe of schedule that includes the league_id column
+#'
+#' @examples
+#' \donttest{
+#' # cached examples
+#' conn <- .ffs_cache("mfl_conn.rds")
+#'
+#' ffs_schedule(conn)
+#' }
+#'
+#' @seealso vignette("Custom Simulations") for more detailed example usage
+#'
+#' @export
+ffs_schedule <- function(conn){
+
+  ffscrapr::ff_schedule(conn) %>%
+    dplyr::mutate(league_id = as.character(conn$league_id),
+                  franchise_id = as.character(.data$franchise_id),
+                  opponent_id = as.character(.data$opponent_id))
+}
+
+#' Repeat fantasy schedules
+#'
+#' This function repeats an actual `ffs_schedule()` by the appropriate number of seasons.
+#'
+#' @param n_teams number of teams in simulation
+#' @param n_seasons number of seasons to simulate, default = 100
+#' @param n_weeks number of weeks per season, default = 14
+#' @param franchises optional: a dataframe of franchises as created by [`ffs_franchises()`] - overrides the `n_teams` argument and will attach actual franchise IDs to the schedule output.
+#' @param seed an integer to control reproducibility
+#'
+#' @examples \donttest{
+#' ffs_build_schedules(n_teams = 12, n_seasons = 1, n_weeks = 14)
+#' }
+#'
+#' @return a dataframe of schedules
+#'
+#' @seealso `vignette("Custom Simulations")` for example usage
+#' @export

@@ -5,6 +5,9 @@
 - `ffs_copy_template()` copies a template for custom simulations to the desired filepath, making it easier to run a simulation from the component level. Resolves #12 (v1.0.0.02)
 - Column assertions cleaned up and should be much clearer on each error message, resolves #16. (v1.0.0.03)
 - Refactored `ffs_optimise_lineups()` and `ffs_score_rosters()` to use data.table, ***deprecates*** parallel options (v1.0.0.04)
+- Refactored `ffs_schedule()` column names to match syntax from `ff_schedule()`- `team` is now `franchise_id` and `opponent` is now `opponent_id`. ***BREAKING, for custom sims***
+- `ffs_build_schedules()` is now responsible for joining franchises to the schedule, not `ffs_summarise_week()`.
+- `ffs_build_schedules()` now takes a franchises dataframe as created by `ffs_franchises()` (v1.0.0.05)
 
 ## Minor changes
 

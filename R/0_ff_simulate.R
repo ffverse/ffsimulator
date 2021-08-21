@@ -9,6 +9,7 @@
 #' @param seed an integer to control reproducibility
 #' @param injury_model select between "simple", "none"
 #' @param base_seasons a numeric vector that selects seasons as base data, earliest available is 2012
+#' @param actual_schedule a logical: use actual ff_schedule? default is FALSE
 # @param parallel a logical: use parallel processing for optimizing lineups, default is FALSE
 #' @param verbose a logical: print status messages? default is TRUE, configure with options(ffsimulator.verbose)
 #'
@@ -31,6 +32,7 @@ ff_simulate <- function(conn,
                         seed = NULL,
                         injury_model = c("simple", "none"),
                         base_seasons = 2012:2020,
+                        actual_schedule = FALSE,
                         # parallel = FALSE,
                         verbose = getOption("ffsimulator.verbose", default = TRUE)) {
 
@@ -50,6 +52,7 @@ ff_simulate <- function(conn,
   if (!is.null(seed)) set.seed(seed)
   checkmate::assert_flag(best_ball)
   checkmate::assert_flag(verbose)
+  checkmate::assert_flag(actual_schedule)
 
   start_logger <- verbose_logger(verbose, "start")
   end_logger <- verbose_logger(verbose, "end")
@@ -66,11 +69,14 @@ ff_simulate <- function(conn,
 
   latest_rankings <- ffs_latest_rankings()
 
+  franchises <- ffs_franchises(conn)
   rosters <- ffs_rosters(conn)
 
   lineup_constraints <- ffscrapr::ff_starter_positions(conn)
 
   end_logger(msg_done = "Importing data...done! {Sys.time()}")
+
+  if(actual_schedule)
 
   #### Generate Projections ####
 
@@ -111,15 +117,27 @@ ff_simulate <- function(conn,
   end_logger(msg = "Optimizing Lineups...done! {Sys.time()}")
 
   #### Generate Schedules ####
-  start_logger(msg = "Summarising Simulation Data")
 
-  schedules <- ffs_build_schedules(
-    n_teams = length(unique(rosters$franchise_id)),
-    n_seasons = n_seasons,
-    n_weeks = n_weeks
-  )
+  start_logger(msg = "Building Schedules")
+
+  if(actual_schedule) {
+    schedules <- ffs_repeat_schedules(n_seasons = n_seasons,
+                                      actual_schedule = actual_schedule)
+    }
+
+  if(!actual_schedule){
+    schedules <- ffs_build_schedules(
+      n_teams = NULL,
+      n_seasons = n_seasons,
+      n_weeks = n_weeks,
+      franchises = franchises
+    )
+  }
+
+  end_logger(msg_done = "Building Schedules...done! {Sys.time()}")
 
   #### Summarise Season ####
+  start_logger(msg = "Summarising Simulation Data")
 
   summary_week <- ffs_summarise_week(optimal_scores, schedules)
   summary_season <- ffs_summarise_season(summary_week)
