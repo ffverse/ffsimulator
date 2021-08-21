@@ -208,27 +208,31 @@ ffs_build_schedules <- function(n_teams = NULL,
 #' @export
 ffs_schedule <- function(conn){
 
-  ffscrapr::ff_schedule(conn) %>%
+  schedule <- ffscrapr::ff_schedule(conn) %>%
     dplyr::mutate(league_id = as.character(conn$league_id),
                   franchise_id = as.character(.data$franchise_id),
-                  opponent_id = as.character(.data$opponent_id))
+                  opponent_id = as.character(.data$opponent_id)) %>%
+    dplyr::filter(is.na(.data$result)) %>%
+    dplyr::select("league_id","week","franchise_id","opponent_id")
+
+  return(schedule)
 }
 
 #' Repeat fantasy schedules
 #'
 #' This function repeats an actual `ffs_schedule()` by the appropriate number of seasons.
 #'
-#' @param n_teams number of teams in simulation
+#' @param actual_schedule a schedule retrieved by `ffs_schedule()`
 #' @param n_seasons number of seasons to simulate, default = 100
-#' @param n_weeks number of weeks per season, default = 14
-#' @param franchises optional: a dataframe of franchises as created by [`ffs_franchises()`] - overrides the `n_teams` argument and will attach actual franchise IDs to the schedule output.
-#' @param seed an integer to control reproducibility
 #'
 #' @examples \donttest{
-#' ffs_build_schedules(n_teams = 12, n_seasons = 1, n_weeks = 14)
+#'  # ffs_repeat_schedules(actual_schedule = x, n_seasons = 10)
 #' }
 #'
-#' @return a dataframe of schedules
+#' @return a dataframe of schedules for the simulation
 #'
 #' @seealso `vignette("Custom Simulations")` for example usage
 #' @export
+ffs_repeat_schedules <- function(actual_schedule,n_seasons){
+  tidyr::expand_grid(season = seq_len(n_seasons), actual_schedule)
+}

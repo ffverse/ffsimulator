@@ -13,7 +13,7 @@ ffs_schedule(conn)
 a dataframe of schedule that includes the league_id column
 }
 \description{
-This function lightly wraps \code{ffscrapr::ff_schedule()} and adds league_id, which is a required column for ffsimulator, casts IDs to character, and drops actual games played.
+This function lightly wraps \code{ffscrapr::ff_schedule()} and adds league_id, which is a required column for ffsimulator, casts IDs to character, and drops actual games played so as to only simulate unplayed games.
 }
 \examples{
 \donttest{

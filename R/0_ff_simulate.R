@@ -33,7 +33,6 @@ ff_simulate <- function(conn,
                         injury_model = c("simple", "none"),
                         base_seasons = 2012:2020,
                         actual_schedule = FALSE,
-                        # parallel = FALSE,
                         verbose = getOption("ffsimulator.verbose", default = TRUE)) {
 
   #### Assertions ####
@@ -76,7 +75,7 @@ ff_simulate <- function(conn,
 
   end_logger(msg_done = "Importing data...done! {Sys.time()}")
 
-  if(actual_schedule)
+  if(actual_schedule) schedule <- ffs_schedule(conn)
 
   #### Generate Projections ####
 
@@ -122,7 +121,7 @@ ff_simulate <- function(conn,
 
   if(actual_schedule) {
     schedules <- ffs_repeat_schedules(n_seasons = n_seasons,
-                                      actual_schedule = actual_schedule)
+                                      actual_schedule = schedule)
     }
 
   if(!actual_schedule){
@@ -162,6 +161,7 @@ ff_simulate <- function(conn,
         best_ball = best_ball,
         seed = seed,
         injury_model = injury_model,
+        actual_schedule = actual_schedule,
         base_seasons = list(base_seasons)
       )
     ),
