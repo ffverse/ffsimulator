@@ -6,14 +6,14 @@
 \usage{
 ffs_adp_outcomes(
   scoring_history,
-  injury_model = "simple",
+  gp_model = "simple",
   pos_filter = c("QB", "RB", "WR", "TE")
 )
 }
 \arguments{
 \item{scoring_history}{a scoring history table as created by \code{ffscrapr::ff_scoringhistory()}}
 
-\item{injury_model}{either "simple" or "none" - simple uses the average games played per season for each position/adp combination, none assumes every game is played.}
+\item{gp_model}{either "simple" or "none" - simple uses the average games played per season for each position/adp combination, none assumes every game is played.}
 
 \item{pos_filter}{a character vector: filter the positions returned to these specific positions, default: c("QB","RB","WR","TE)}
 }
@@ -28,8 +28,8 @@ The backbone of the ffsimulator resampling process is coming up with a populatio
 # cached data
 scoring_history <- .ffs_cache("mfl_scoring_history.rds")
 
-ffs_adp_outcomes(scoring_history, injury_model = "simple")
-ffs_adp_outcomes(scoring_history, injury_model = "none")
+ffs_adp_outcomes(scoring_history, gp_model = "simple")
+ffs_adp_outcomes(scoring_history, gp_model = "none")
 }
 
 }

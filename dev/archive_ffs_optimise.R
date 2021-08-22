@@ -41,7 +41,7 @@ ffs_generate_projections <- function(adp_outcomes, latest_rankings, n_seasons = 
           .data$week_outcomes,
           ~ sample(.x, size = n_weeks, replace = TRUE)
         ),
-      injury_model =
+      gp_model =
         purrr::map(
           .data$prob_gp,
           ~ stats::rbinom(n = n_weeks, size = 1, prob = .x)
@@ -50,9 +50,9 @@ ffs_generate_projections <- function(adp_outcomes, latest_rankings, n_seasons = 
       prob_gp = NULL,
       week_outcomes = NULL
     ) %>%
-    tidyr::unnest(c("projection", "injury_model", "week")) %>%
+    tidyr::unnest(c("projection", "gp_model", "week")) %>%
     dplyr::arrange(.data$season, .data$week, .data$pos, .data$ecr) %>%
-    dplyr::mutate(projected_score = .data$projection * .data$injury_model * (.data$week != .data$bye))
+    dplyr::mutate(projected_score = .data$projection * .data$gp_model * (.data$week != .data$bye))
 
   return(projected_score)
 }
@@ -65,7 +65,7 @@ ffs_score_rosters <- function(projected_scores, rosters) {
   assert_columns(
     projected_scores,
     c("fantasypros_id", "ecr", "rank", "projection",
-      "injury_model", "season", "week",
+      "gp_model", "season", "week",
       "projected_score", "scrape_date")
   )
 
@@ -78,7 +78,7 @@ ffs_score_rosters <- function(projected_scores, rosters) {
     dplyr::inner_join(
       projected_scores %>%
         dplyr::select(
-          "fantasypros_id", "ecr", "rank", "projection", "injury_model",
+          "fantasypros_id", "ecr", "rank", "projection", "gp_model",
           "season", "week", "projected_score", "scrape_date"
         ),
       by = "fantasypros_id"

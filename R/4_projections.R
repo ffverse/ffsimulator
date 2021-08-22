@@ -71,7 +71,7 @@ ffs_generate_projections <- function(adp_outcomes,
       week = weeks,
       projection = as.numeric(sample(x = .SD$week_outcomes[[1]],
                                      size = n_weeks, replace = TRUE)),
-      injury_model = stats::rbinom(n = n_weeks, size = 1, prob = .SD$prob_gp)
+      gp_model = stats::rbinom(n = n_weeks, size = 1, prob = .SD$prob_gp)
     ),
     by = c("season", "fantasypros_id", "player", "pos",
            "team", "bye", "ecr", "sd", "rank","scrape_date"),
@@ -81,7 +81,7 @@ ffs_generate_projections <- function(adp_outcomes,
   ps <- ps[
     ,
     `:=`(
-      projected_score = ps$projection * ps$injury_model * (ps$week != ps$bye)
+      projected_score = ps$projection * ps$gp_model * (ps$week != ps$bye)
     )
   ]
   return(ps)

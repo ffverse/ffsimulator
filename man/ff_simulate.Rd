@@ -10,7 +10,7 @@ ff_simulate(
   n_weeks = 14,
   best_ball = FALSE,
   seed = NULL,
-  injury_model = c("simple", "none"),
+  gp_model = c("simple", "none"),
   base_seasons = 2012:2020,
   actual_schedule = FALSE,
   verbose = getOption("ffsimulator.verbose", default = TRUE)
@@ -27,7 +27,7 @@ ff_simulate(
 
 \item{seed}{an integer to control reproducibility}
 
-\item{injury_model}{select between "simple", "none"}
+\item{gp_model}{select between "simple", "none" to apply a model for whether a player played in a given game, defaults to "simple"}
 
 \item{base_seasons}{a numeric vector that selects seasons as base data, earliest available is 2012}
 

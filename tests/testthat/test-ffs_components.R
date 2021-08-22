@@ -10,12 +10,12 @@ cache <- tibble::tibble(file = list.files(system.file("cache", package = "ffsimu
 test_that("ffs_adp_outcomes() works for both the simple and none injury models", {
   adp_outcomes <- ffs_adp_outcomes(
     scoring_history = cache$mfl_scoring_history,
-    injury_model = "simple"
+    gp_model = "simple"
   )
 
   adp_outcomes_noinjury <- ffs_adp_outcomes(
     scoring_history = cache$espn_scoring_history,
-    injury_model = "none"
+    gp_model = "none"
   )
 
   checkmate::expect_tibble(adp_outcomes, min.rows = 500)

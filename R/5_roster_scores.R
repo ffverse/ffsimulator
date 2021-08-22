@@ -26,7 +26,7 @@ ffs_score_rosters <- function(projected_scores, rosters) {
     projected_scores,
     c(
       "fantasypros_id", "ecr", "rank", "projection",
-      "injury_model", "season", "week",
+      "gp_model", "season", "week",
       "projected_score", "scrape_date"
     )
   )
@@ -38,7 +38,7 @@ ffs_score_rosters <- function(projected_scores, rosters) {
 
   projected_scores <- data.table::as.data.table(
     projected_scores[, c(
-      "fantasypros_id", "ecr", "rank", "projection", "injury_model",
+      "fantasypros_id", "ecr", "rank", "projection", "gp_model",
       "season", "week", "projected_score", "scrape_date"
     )]
   )

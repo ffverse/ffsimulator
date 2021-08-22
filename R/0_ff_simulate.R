@@ -7,7 +7,7 @@
 #' @param n_weeks number of weeks per season, default = 14
 #' @param best_ball a logical: are weekly wins based on optimal lineups?
 #' @param seed an integer to control reproducibility
-#' @param injury_model select between "simple", "none"
+#' @param gp_model select between "simple", "none" to apply a model for whether a player played in a given game, defaults to "simple"
 #' @param base_seasons a numeric vector that selects seasons as base data, earliest available is 2012
 #' @param actual_schedule a logical: use actual ff_schedule? default is FALSE
 #' @param verbose a logical: print status messages? default is TRUE, configure with options(ffsimulator.verbose)
@@ -29,7 +29,7 @@ ff_simulate <- function(conn,
                         n_weeks = 14,
                         best_ball = FALSE,
                         seed = NULL,
-                        injury_model = c("simple", "none"),
+                        gp_model = c("simple", "none"),
                         base_seasons = 2012:2020,
                         actual_schedule = FALSE,
                         verbose = getOption("ffsimulator.verbose", default = TRUE)) {
@@ -42,7 +42,7 @@ ff_simulate <- function(conn,
     )
   }
 
-  injury_model <- match.arg(injury_model)
+  gp_model <- match.arg(gp_model)
   checkmate::assert_numeric(base_seasons, lower = 2012, upper = 2020)
   checkmate::assert_int(n_seasons, lower = 1)
   checkmate::assert_int(n_weeks, lower = 1)
@@ -91,7 +91,7 @@ ff_simulate <- function(conn,
                               scrape_date = latest_rankings$scrape_date[[1]],
                               best_ball = best_ball,
                               seed = seed,
-                              injury_model = injury_model,
+                              gp_model = gp_model,
                               actual_schedule = actual_schedule,
                               base_seasons = list(base_seasons)
                             )),
@@ -114,7 +114,7 @@ ff_simulate <- function(conn,
 
   adp_outcomes <- ffs_adp_outcomes(
     scoring_history = scoring_history,
-    injury_model = injury_model
+    gp_model = gp_model
   )
 
   projected_scores <- ffs_generate_projections(
@@ -194,7 +194,7 @@ ff_simulate <- function(conn,
         scrape_date = latest_rankings$scrape_date[[1]],
         best_ball = best_ball,
         seed = seed,
-        injury_model = injury_model,
+        gp_model = gp_model,
         actual_schedule = actual_schedule,
         base_seasons = list(base_seasons)
       )

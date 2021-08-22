@@ -22,7 +22,7 @@ conn <- mfl_connect(season = 2021, league_id = 22627)
 n_seasons <-  500 # any number of seasons
 n_weeks <-  14 # any number of weeks per season
 best_ball <-  FALSE # or TRUE
-injury_model <-  "simple" # or none
+gp_model <-  "simple" # or none
 base_seasons <-  2012:2020 # any numeric vector between 2012 and 2020
 seed <- 613
 
@@ -43,7 +43,7 @@ lineup_constraints <- ffscrapr::ff_starter_positions(conn = conn)
 #### GENERATE PROJECTIONS ####
 adp_outcomes <- ffs_adp_outcomes(
   scoring_history = scoring_history,
-  injury_model = injury_model
+  gp_model = gp_model
 )
 projected_scores <- ffs_generate_projections(
   adp_outcomes = adp_outcomes,
@@ -86,7 +86,7 @@ simulation <- structure(
       n_weeks = n_weeks,
       best_ball = best_ball,
       seed = seed,
-      injury_model = injury_model,
+      gp_model = gp_model,
       base_seasons = base_seasons,
       scrape_date = latest_rankings$scrape_date[[1]]
     )

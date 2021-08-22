@@ -75,7 +75,7 @@ saveRDS(latest_rankings, "inst/cache/latest_rankings.rds")
 
 adp_outcomes <- ffs_adp_outcomes(
   scoring_history = mfl_scoring_history,
-  injury_model = "simple"
+  gp_model = "simple"
 )
 saveRDS(adp_outcomes, "inst/cache/adp_outcomes.rds")
 
