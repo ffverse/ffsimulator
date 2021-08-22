@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Connect to a league — fleaflicker_connect • ffsimulator</title>
+<title>Applies various injury models to adp outcomes — .ff_apply_gp_model • ffsimulator</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -48,8 +48,8 @@
   <link href="../extra.css" rel="stylesheet">
   
 
-<meta property="og:title" content="Connect to a league — fleaflicker_connect" />
-<meta property="og:description" content="See ffscrapr::fleaflicker_connect() for details." />
+<meta property="og:title" content="Applies various injury models to adp outcomes — .ff_apply_gp_model" />
+<meta property="og:description" content="Applies various injury models to adp outcomes" />
 <meta property="og:image" content="https://ffsimulator.ffverse.com/reference/figures/logo.png" />
 <meta property="og:image:alt" content="ffsimulator - An R Package For Simulating Fantasy Football Seasons" />
 <meta name="twitter:card" content="summary" />
@@ -179,29 +179,21 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Connect to a league</h1>
-    <small class="dont-index">Source: <a href='https://github.com/ffverse/ffsimulator/blob/master/R/utils-ffscrapr.R'><code>R/utils-ffscrapr.R</code></a></small>
-    <div class="hidden name"><code>fleaflicker_connect.Rd</code></div>
+    <h1>Applies various injury models to adp outcomes</h1>
+    <small class="dont-index">Source: <a href='https://github.com/ffverse/ffsimulator/blob/master/R/1_outcomes.R'><code>R/1_outcomes.R</code></a></small>
+    <div class="hidden name"><code>dot-ff_apply_gp_model.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>See <code><a href='ffscrapr.ffverse.com/reference/fleaflicker_connect.html'>ffscrapr::fleaflicker_connect()</a></code> for details.</p>
+    <p>Applies various injury models to adp outcomes</p>
     </div>
 
+    <pre class="usage"><span class='fu'>.ff_apply_gp_model</span><span class='op'>(</span><span class='va'>adp_outcomes</span>, <span class='va'>model_type</span><span class='op'>)</span></pre>
 
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>a connection object to be used with <code>ff_*</code> functions</p>
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <div class='dont-index'><p>Other ffscrapr-imports: 
-<code><a href='espn_connect.html'>espn_connect</a>()</code>,
-<code><a href='ff_connect.html'>ff_connect</a>()</code>,
-<code><a href='ff_scoringhistory.html'>ff_scoringhistory</a>()</code>,
-<code><a href='ff_starter_positions.html'>ff_starter_positions</a>()</code>,
-<code><a href='mfl_connect.html'>mfl_connect</a>()</code>,
-<code><a href='sleeper_connect.html'>sleeper_connect</a>()</code></p></div>
+    <p>same adp outcomes dataframe but with a prob_gp column</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

@@ -44,7 +44,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ffsimulator</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.0.0.03</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.0.0.07</span>
       </span>
     </div>
 
@@ -140,7 +140,7 @@
       <h1 data-toc-skip>Basic Simulations</h1>
                         <h4 class="author">Tan Ho</h4>
             
-            <h4 class="date">2021-08-15</h4>
+            <h4 class="date">2021-08-22</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/ffverse/ffsimulator/blob/master/vignettes/basic.Rmd"><code>vignettes/basic.Rmd</code></a></small>
       <div class="hidden name"><code>basic.Rmd</code></div>
@@ -167,17 +167,14 @@
 #&gt; List of 7
 #&gt;  $ summary_simulation: tibble [12 × 11] (S3: tbl_df/tbl/data.frame)
 #&gt;  $ summary_season    : tibble [300 × 12] (S3: tbl_df/tbl/data.frame)
-#&gt;  $ summary_week      : tibble [4,200 × 15] (S3: tbl_df/tbl/data.frame)
-#&gt;  $ roster_scores     : tibble [124,600 × 23] (S3: tbl_df/tbl/data.frame)
-#&gt;  $ projected_scores  : tibble [124,600 × 15] (S3: tbl_df/tbl/data.frame)
-#&gt;  $ league_info       : tibble [1 × 14] (S3: tbl_df/tbl/data.frame)
-#&gt;  $ simulation_params :List of 6
-#&gt;   ..$ n_seasons   : num 25
-#&gt;   ..$ n_weeks     : num 14
-#&gt;   ..$ best_ball   : logi FALSE
-#&gt;   ..$ seed        : NULL
-#&gt;   ..$ injury_model: chr "simple"
-#&gt;   ..$ base_seasons: int [1:9] 2012 2013 2014 2015 2016 2017 2018 2019 2020
+#&gt;  $ summary_week      : tibble [4,200 × 16] (S3: tbl_df/tbl/data.frame)
+#&gt;  $ roster_scores     :Classes 'data.table' and 'data.frame': 125258 obs. of  23 variables:
+#&gt;   ..- attr(*, "sorted")= chr "fantasypros_id"
+#&gt;   ..- attr(*, ".internal.selfref")=&lt;externalptr&gt; 
+#&gt;  $ projected_scores  :Classes 'data.table' and 'data.frame': 125258 obs. of  14 variables:
+#&gt;   ..- attr(*, ".internal.selfref")=&lt;externalptr&gt; 
+#&gt;  $ league_info       : tibble [1 × 17] (S3: tbl_df/tbl/data.frame)
+#&gt;  $ simulation_params : tibble [1 × 8] (S3: tbl_df/tbl/data.frame)
 #&gt;  - attr(*, "class")= chr "ff_simulation"</code></pre>
 <p>ffsimulator includes a few automatic plots that can be run on this ff_simulation object to get a quick sense of the simulation output:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
@@ -188,7 +185,7 @@
 <p><img src="basic_files/figure-html/unnamed-chunk-4-2.png" width="672"></p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="va">foureight_sim</span>, type <span class="op">=</span> <span class="st">"points"</span><span class="op">)</span>
-<span class="co">#&gt; Picking joint bandwidth of 6.5</span></code></pre></div>
+<span class="co">#&gt; Picking joint bandwidth of 6.56</span></code></pre></div>
 <p><img src="basic_files/figure-html/unnamed-chunk-4-3.png" width="672"></p>
 <p>You can also access the various component dataframes by name, for further analysis.</p>
 <p>The <code>summary_simulation</code> table is a team-level summary across all of the simulated seasons.</p>
@@ -197,16 +194,16 @@
 <span class="co">#&gt; # A tibble: 12 × 11</span>
 <span class="co">#&gt;    league_id franchise_id franchise_name             seasons h2h_wins h2h_winpct</span>
 <span class="co">#&gt;    &lt;chr&gt;     &lt;chr&gt;        &lt;chr&gt;                        &lt;int&gt;    &lt;dbl&gt;      &lt;dbl&gt;</span>
-<span class="co">#&gt;  1 22627     0012         Indigo Plateau Elite            25    11.2       0.803</span>
-<span class="co">#&gt;  2 22627     0001         Mexico City Space Force         25     9.96      0.711</span>
-<span class="co">#&gt;  3 22627     0011         TB12                            25     7.96      0.569</span>
-<span class="co">#&gt;  4 22627     0007         Paw Patrol                      25     7.8       0.557</span>
-<span class="co">#&gt;  5 22627     0008         Domination Station              25     8.32      0.594</span>
-<span class="co">#&gt;  6 22627     0005         Motor City Mutts                25     6.84      0.489</span>
-<span class="co">#&gt;  7 22627     0009         Kill Devil Hills Carpetba…      25     7.16      0.511</span>
-<span class="co">#&gt;  8 22627     0003         Alberta Armadillos              25     6.64      0.474</span>
-<span class="co">#&gt;  9 22627     0004         Electric Woodies                25     5.8       0.414</span>
-<span class="co">#&gt; 10 22627     0010         [Redacted]                      25     5.36      0.383</span>
+<span class="co">#&gt;  1 22627     0012         Indigo Plateau Elite            25    11.3       0.809</span>
+<span class="co">#&gt;  2 22627     0001         Mexico City Space Force         25     9.68      0.691</span>
+<span class="co">#&gt;  3 22627     0007         Paw Patrol                      25     8.48      0.606</span>
+<span class="co">#&gt;  4 22627     0009         Kill Devil Hills Carpetba…      25     7.32      0.523</span>
+<span class="co">#&gt;  5 22627     0011         TB12                            25     7.56      0.54 </span>
+<span class="co">#&gt;  6 22627     0005         Motor City Mutts                25     7.24      0.517</span>
+<span class="co">#&gt;  7 22627     0008         Domination Station              25     7.6       0.543</span>
+<span class="co">#&gt;  8 22627     0004         Electric Woodies                25     6.64      0.474</span>
+<span class="co">#&gt;  9 22627     0003         Alberta Armadillos              25     5.96      0.426</span>
+<span class="co">#&gt; 10 22627     0010         [Redacted]                      25     5.28      0.377</span>
 <span class="co">#&gt; 11 22627     0006         Hoth City Tauntauns             25     3.76      0.269</span>
 <span class="co">#&gt; 12 22627     0002         Dirty Dgens                     25     3.16      0.226</span>
 <span class="co">#&gt; # … with 5 more variables: allplay_wins &lt;dbl&gt;, allplay_winpct &lt;dbl&gt;,</span>
@@ -217,70 +214,101 @@
 <span class="co">#&gt; # A tibble: 300 × 12</span>
 <span class="co">#&gt;    season league_id franchise_id franchise_name h2h_wins h2h_winpct allplay_wins</span>
 <span class="co">#&gt;     &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;        &lt;chr&gt;             &lt;int&gt;      &lt;dbl&gt;        &lt;dbl&gt;</span>
-<span class="co">#&gt;  1      1 22627     0001         Mexico City S…       11      0.786          112</span>
-<span class="co">#&gt;  2      1 22627     0002         Dirty Dgens           2      0.143           28</span>
-<span class="co">#&gt;  3      1 22627     0003         Alberta Armad…        9      0.643           91</span>
-<span class="co">#&gt;  4      1 22627     0004         Electric Wood…        2      0.143           48</span>
-<span class="co">#&gt;  5      1 22627     0005         Motor City Mu…        8      0.571           86</span>
-<span class="co">#&gt;  6      1 22627     0006         Hoth City Tau…        4      0.286           38</span>
-<span class="co">#&gt;  7      1 22627     0007         Paw Patrol            9      0.643           96</span>
-<span class="co">#&gt;  8      1 22627     0008         Domination St…       10      0.714           93</span>
-<span class="co">#&gt;  9      1 22627     0009         Kill Devil Hi…        8      0.571           74</span>
-<span class="co">#&gt; 10      1 22627     0010         [Redacted]            2      0.143           44</span>
+<span class="co">#&gt;  1      1 22627     0001         Mexico City S…       10      0.714           98</span>
+<span class="co">#&gt;  2      1 22627     0002         Dirty Dgens           4      0.286           48</span>
+<span class="co">#&gt;  3      1 22627     0003         Alberta Armad…        8      0.571           87</span>
+<span class="co">#&gt;  4      1 22627     0004         Electric Wood…        6      0.429           70</span>
+<span class="co">#&gt;  5      1 22627     0005         Motor City Mu…        7      0.5             85</span>
+<span class="co">#&gt;  6      1 22627     0006         Hoth City Tau…        2      0.143           49</span>
+<span class="co">#&gt;  7      1 22627     0007         Paw Patrol            7      0.5             76</span>
+<span class="co">#&gt;  8      1 22627     0008         Domination St…        5      0.357           63</span>
+<span class="co">#&gt;  9      1 22627     0009         Kill Devil Hi…        7      0.5             68</span>
+<span class="co">#&gt; 10      1 22627     0010         [Redacted]            6      0.429           49</span>
 <span class="co">#&gt; # … with 290 more rows, and 5 more variables: allplay_games &lt;dbl&gt;,</span>
 <span class="co">#&gt; #   allplay_winpct &lt;dbl&gt;, points_for &lt;dbl&gt;, points_against &lt;dbl&gt;,</span>
 <span class="co">#&gt; #   potential_points &lt;dbl&gt;</span></code></pre></div>
 <p>The <code>summary_week</code> table is a week-level summary of each team’s performance, including the optimal lineup that could have been played by the team and the randomly-generated lineup efficiency factor:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">foureight_sim</span><span class="op">$</span><span class="va">summary_week</span>
-<span class="co">#&gt; # A tibble: 4,200 × 15</span>
+<span class="co">#&gt; # A tibble: 4,200 × 16</span>
 <span class="co">#&gt;    season season_week franchise_name   optimal_score lineup_efficien… team_score</span>
 <span class="co">#&gt;     &lt;dbl&gt;       &lt;dbl&gt; &lt;chr&gt;                    &lt;dbl&gt;            &lt;dbl&gt;      &lt;dbl&gt;</span>
-<span class="co">#&gt;  1      1           1 Mexico City Spa…          204.            0.738      151. </span>
-<span class="co">#&gt;  2      1           1 Dirty Dgens               109.            0.711       77.4</span>
-<span class="co">#&gt;  3      1           1 Alberta Armadil…          178.            0.866      154. </span>
-<span class="co">#&gt;  4      1           1 Electric Woodies          158.            0.814      129. </span>
-<span class="co">#&gt;  5      1           1 Motor City Mutts          161             0.79       127. </span>
-<span class="co">#&gt;  6      1           1 Hoth City Taunt…          122.            0.831      101. </span>
-<span class="co">#&gt;  7      1           1 Paw Patrol                131.            0.715       93.3</span>
-<span class="co">#&gt;  8      1           1 Domination Stat…          215.            0.716      154. </span>
-<span class="co">#&gt;  9      1           1 Kill Devil Hill…          152.            0.722      110. </span>
-<span class="co">#&gt; 10      1           1 [Redacted]                144.            0.656       94.2</span>
-<span class="co">#&gt; # … with 4,190 more rows, and 9 more variables: opponent_score &lt;dbl&gt;,</span>
+<span class="co">#&gt;  1      1           1 Mexico City Spa…         223.             0.748      166. </span>
+<span class="co">#&gt;  2      1           1 Dirty Dgens               88.4            0.791       70.0</span>
+<span class="co">#&gt;  3      1           1 Alberta Armadil…         187.             0.776      145. </span>
+<span class="co">#&gt;  4      1           1 Electric Woodies         117.             0.739       86.7</span>
+<span class="co">#&gt;  5      1           1 Motor City Mutts         219.             0.696      153. </span>
+<span class="co">#&gt;  6      1           1 Hoth City Taunt…          99.3            0.713       70.9</span>
+<span class="co">#&gt;  7      1           1 Paw Patrol               163.             0.713      116. </span>
+<span class="co">#&gt;  8      1           1 Domination Stat…         152.             0.761      115. </span>
+<span class="co">#&gt;  9      1           1 Kill Devil Hill…         139.             0.79       110. </span>
+<span class="co">#&gt; 10      1           1 [Redacted]               162.             0.788      127. </span>
+<span class="co">#&gt; # … with 4,190 more rows, and 10 more variables: opponent_score &lt;dbl&gt;,</span>
 <span class="co">#&gt; #   result &lt;chr&gt;, opponent_name &lt;chr&gt;, allplay_wins &lt;dbl&gt;, allplay_games &lt;dbl&gt;,</span>
 <span class="co">#&gt; #   allplay_pct &lt;dbl&gt;, league_id &lt;chr&gt;, franchise_id &lt;chr&gt;,</span>
-<span class="co">#&gt; #   optimal_lineup &lt;list&gt;</span></code></pre></div>
+<span class="co">#&gt; #   optimal_player_id &lt;list&gt;, optimal_player_score &lt;list&gt;</span></code></pre></div>
 <p>The <code>roster_scores</code> and <code>projected_scores</code> tables both provide individual player-week level scores, with the difference being that the <code>roster_scores</code> table is attached to franchise rosters (and thus duplicates rows if there are multiple copies of players within the league).</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">foureight_sim</span><span class="op">$</span><span class="va">roster_scores</span>
-<span class="co">#&gt; # A tibble: 124,600 × 23</span>
-<span class="co">#&gt;    franchise_id franchise_name    player_id player_name pos   team    age salary</span>
-<span class="co">#&gt;    &lt;chr&gt;        &lt;chr&gt;             &lt;chr&gt;     &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt;  &lt;dbl&gt;</span>
-<span class="co">#&gt;  1 0007         Paw Patrol        13128     Cook, Dalv… RB    MIN    25.9  17.6 </span>
-<span class="co">#&gt;  2 0009         Kill Devil Hills… 13132     Kamara, Al… RB    NOS    26    27.8 </span>
-<span class="co">#&gt;  3 0009         Kill Devil Hills… 13132     Kamara, Al… RB    NOS    26    27.8 </span>
-<span class="co">#&gt;  4 0001         Mexico City Spac… 14797     Swift, D'A… RB    DET    22.5   4.95</span>
-<span class="co">#&gt;  5 0008         Domination Stati… 13604     Barkley, S… RB    NYG    24.4  25   </span>
-<span class="co">#&gt;  6 0009         Kill Devil Hills… 12625     Elliott, E… RB    DAL    26    24.9 </span>
-<span class="co">#&gt;  7 0001         Mexico City Spac… 14081     Gaskin, My… RB    MIA    24.4   1.1 </span>
-<span class="co">#&gt;  8 0008         Domination Stati… 12164     Davis, Mike RB    ATL    28.4   0.55</span>
-<span class="co">#&gt;  9 0005         Motor City Mutts  12930     Anderson, … WR    CAR    28.2   5.72</span>
-<span class="co">#&gt; 10 0005         Motor City Mutts  13404     Ekeler, Au… RB    LAC    26.2  14.1 </span>
-<span class="co">#&gt; # … with 124,590 more rows, and 15 more variables: contract_years &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   roster_status &lt;chr&gt;, draft_year &lt;chr&gt;, draft_round &lt;chr&gt;,</span>
-<span class="co">#&gt; #   fantasypros_id &lt;chr&gt;, league_id &lt;chr&gt;, ecr &lt;dbl&gt;, rank &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   projection &lt;dbl&gt;, injury_model &lt;int&gt;, season &lt;int&gt;, week &lt;int&gt;,</span>
-<span class="co">#&gt; #   projected_score &lt;dbl&gt;, scrape_date &lt;date&gt;, pos_rank &lt;int&gt;</span></code></pre></div>
+<span class="co">#&gt;         fantasypros_id franchise_id franchise_name player_id   player_name pos</span>
+<span class="co">#&gt;      1:          10007         0007     Paw Patrol     10413 Taylor, Tyrod  QB</span>
+<span class="co">#&gt;      2:          10007         0007     Paw Patrol     10413 Taylor, Tyrod  QB</span>
+<span class="co">#&gt;      3:          10007         0007     Paw Patrol     10413 Taylor, Tyrod  QB</span>
+<span class="co">#&gt;      4:          10007         0007     Paw Patrol     10413 Taylor, Tyrod  QB</span>
+<span class="co">#&gt;      5:          10007         0007     Paw Patrol     10413 Taylor, Tyrod  QB</span>
+<span class="co">#&gt;     ---                                                                       </span>
+<span class="co">#&gt; 125254:           9907         0007     Paw Patrol     10313  Dalton, Andy  QB</span>
+<span class="co">#&gt; 125255:           9907         0007     Paw Patrol     10313  Dalton, Andy  QB</span>
+<span class="co">#&gt; 125256:           9907         0007     Paw Patrol     10313  Dalton, Andy  QB</span>
+<span class="co">#&gt; 125257:           9907         0007     Paw Patrol     10313  Dalton, Andy  QB</span>
+<span class="co">#&gt; 125258:           9907         0007     Paw Patrol     10313  Dalton, Andy  QB</span>
+<span class="co">#&gt;         team  age salary contract_years roster_status draft_year draft_round</span>
+<span class="co">#&gt;      1:  HOU 32.0   0.61              1        ROSTER       2011           6</span>
+<span class="co">#&gt;      2:  HOU 32.0   0.61              1        ROSTER       2011           6</span>
+<span class="co">#&gt;      3:  HOU 32.0   0.61              1        ROSTER       2011           6</span>
+<span class="co">#&gt;      4:  HOU 32.0   0.61              1        ROSTER       2011           6</span>
+<span class="co">#&gt;      5:  HOU 32.0   0.61              1        ROSTER       2011           6</span>
+<span class="co">#&gt;     ---                                                                     </span>
+<span class="co">#&gt; 125254:  CHI 33.8   2.07              4        ROSTER       2011           2</span>
+<span class="co">#&gt; 125255:  CHI 33.8   2.07              4        ROSTER       2011           2</span>
+<span class="co">#&gt; 125256:  CHI 33.8   2.07              4        ROSTER       2011           2</span>
+<span class="co">#&gt; 125257:  CHI 33.8   2.07              4        ROSTER       2011           2</span>
+<span class="co">#&gt; 125258:  CHI 33.8   2.07              4        ROSTER       2011           2</span>
+<span class="co">#&gt;         league_id   ecr rank projection gp_model season week projected_score</span>
+<span class="co">#&gt;      1:     22627 33.80   30       2.62        0      5    1            0.00</span>
+<span class="co">#&gt;      2:     22627 33.80   30      35.54        1      5    2           35.54</span>
+<span class="co">#&gt;      3:     22627 33.80   30       0.84        0      5    3            0.00</span>
+<span class="co">#&gt;      4:     22627 33.80   30      12.04        1      5    4           12.04</span>
+<span class="co">#&gt;      5:     22627 33.80   30      18.58        0      5    5            0.00</span>
+<span class="co">#&gt;     ---                                                                     </span>
+<span class="co">#&gt; 125254:     22627 36.95   40       8.89        0     19   10            0.00</span>
+<span class="co">#&gt; 125255:     22627 36.95   40       8.50        0     19   11            0.00</span>
+<span class="co">#&gt; 125256:     22627 36.95   40      17.90        0     19   12            0.00</span>
+<span class="co">#&gt; 125257:     22627 36.95   40       0.50        1     19   13            0.50</span>
+<span class="co">#&gt; 125258:     22627 36.95   40       9.95        0     19   14            0.00</span>
+<span class="co">#&gt;         scrape_date pos_rank</span>
+<span class="co">#&gt;      1:  2021-08-20        3</span>
+<span class="co">#&gt;      2:  2021-08-20        1</span>
+<span class="co">#&gt;      3:  2021-08-20        2</span>
+<span class="co">#&gt;      4:  2021-08-20        2</span>
+<span class="co">#&gt;      5:  2021-08-20        4</span>
+<span class="co">#&gt;     ---                     </span>
+<span class="co">#&gt; 125254:  2021-08-20        6</span>
+<span class="co">#&gt; 125255:  2021-08-20        5</span>
+<span class="co">#&gt; 125256:  2021-08-20        5</span>
+<span class="co">#&gt; 125257:  2021-08-20        3</span>
+<span class="co">#&gt; 125258:  2021-08-20        6</span></code></pre></div>
 <p>Finally, some basic parameters are included, including <code>league_info</code> which is generated by <code><a href="ffscrapr.ffverse.com/reference/ff_league.html">ffscrapr::ff_league()</a></code>.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">foureight_sim</span><span class="op">$</span><span class="va">league_info</span>
-<span class="co">#&gt; # A tibble: 1 × 14</span>
-<span class="co">#&gt;   league_id league_name               season franchise_count qb_type idp   scoring_flags</span>
-<span class="co">#&gt;   &lt;chr&gt;     &lt;chr&gt;                      &lt;int&gt;           &lt;dbl&gt; &lt;chr&gt;   &lt;lgl&gt; &lt;chr&gt;        </span>
-<span class="co">#&gt; 1 22627     Four-Eight Dynasty League   2021              12 2QB/SF  TRUE  0.5_ppr, TEP…</span>
-<span class="co">#&gt; # … with 7 more variables: best_ball &lt;lgl&gt;, salary_cap &lt;lgl&gt;,</span>
-<span class="co">#&gt; #   player_copies &lt;dbl&gt;, years_active &lt;chr&gt;, qb_count &lt;chr&gt;, roster_size &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   league_depth &lt;dbl&gt;</span></code></pre></div>
+<span class="co">#&gt; # A tibble: 1 × 17</span>
+<span class="co">#&gt;   league_id league_name         season league_type franchise_count qb_type idp  </span>
+<span class="co">#&gt;   &lt;chr&gt;     &lt;chr&gt;                &lt;int&gt; &lt;chr&gt;                 &lt;dbl&gt; &lt;chr&gt;   &lt;lgl&gt;</span>
+<span class="co">#&gt; 1 22627     Four-Eight Dynasty…   2021 dynasty                  12 2QB/SF  TRUE </span>
+<span class="co">#&gt; # … with 10 more variables: scoring_flags &lt;chr&gt;, best_ball &lt;lgl&gt;,</span>
+<span class="co">#&gt; #   salary_cap &lt;lgl&gt;, player_copies &lt;dbl&gt;, years_active &lt;chr&gt;, qb_count &lt;chr&gt;,</span>
+<span class="co">#&gt; #   roster_size &lt;dbl&gt;, league_depth &lt;dbl&gt;, draft_type &lt;chr&gt;,</span>
+<span class="co">#&gt; #   draft_player_pool &lt;chr&gt;</span></code></pre></div>
 </div>
   </div>
 

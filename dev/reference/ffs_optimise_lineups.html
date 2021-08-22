@@ -86,7 +86,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ffsimulator</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.0.0.03</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.0.0.07</span>
       </span>
     </div>
 
@@ -194,9 +194,7 @@
   lineup_efficiency_mean <span class='op'>=</span> <span class='fl'>0.775</span>,
   lineup_efficiency_sd <span class='op'>=</span> <span class='fl'>0.05</span>,
   best_ball <span class='op'>=</span> <span class='cn'>FALSE</span>,
-  parallel <span class='op'>=</span> <span class='cn'>FALSE</span>,
-  pos_filter <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"QB"</span>, <span class='st'>"RB"</span>, <span class='st'>"WR"</span>, <span class='st'>"TE"</span><span class='op'>)</span>,
-  verbose <span class='op'>=</span> <span class='cn'>TRUE</span>
+  pos_filter <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"QB"</span>, <span class='st'>"RB"</span>, <span class='st'>"WR"</span>, <span class='st'>"TE"</span><span class='op'>)</span>
 <span class='op'>)</span>
 
 <span class='fu'>ffs_optimize_lineups</span><span class='op'>(</span>
@@ -205,9 +203,7 @@
   lineup_efficiency_mean <span class='op'>=</span> <span class='fl'>0.775</span>,
   lineup_efficiency_sd <span class='op'>=</span> <span class='fl'>0.05</span>,
   best_ball <span class='op'>=</span> <span class='cn'>FALSE</span>,
-  parallel <span class='op'>=</span> <span class='cn'>FALSE</span>,
-  pos_filter <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"QB"</span>, <span class='st'>"RB"</span>, <span class='st'>"WR"</span>, <span class='st'>"TE"</span><span class='op'>)</span>,
-  verbose <span class='op'>=</span> <span class='cn'>TRUE</span>
+  pos_filter <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"QB"</span>, <span class='st'>"RB"</span>, <span class='st'>"WR"</span>, <span class='st'>"TE"</span><span class='op'>)</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -234,16 +230,8 @@
       <td><p>a logical: FALSE will apply a lineup efficiency factor and TRUE uses optimal scores as actual scores, default = FALSE</p></td>
     </tr>
     <tr>
-      <th>parallel</th>
-      <td><p>a logical: TRUE will run the optimization in parallel, requires the furrr and future packages as well as setting <code><a href='https://rdrr.io/pkg/future/man/plan.html'>future::plan()</a></code> in advance/externally. Default FALSE.</p></td>
-    </tr>
-    <tr>
       <th>pos_filter</th>
       <td><p>a character vector specifying which positions are eligible - defaults to <code>c("QB","RB","WR","TE)</code></p></td>
-    </tr>
-    <tr>
-      <th>verbose</th>
-      <td><p>a logical: TRUE (default) will print stuff.</p></td>
     </tr>
     </table>
 
@@ -264,22 +252,42 @@
 <span class='va'>lineup_constraints</span> <span class='op'>&lt;-</span> <span class='fu'>.ffs_cache</span><span class='op'>(</span><span class='st'>"mfl_lineup_constraints.rds"</span><span class='op'>)</span>
 
 <span class='fu'>ffs_optimise_lineups</span><span class='op'>(</span><span class='va'>roster_scores</span>, <span class='va'>lineup_constraints</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 240 × 9</span>
-#&gt;    league_id franchise_id franchise_name                 season  week optimal_score
-#&gt;    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>        <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>                           <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span>         <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
-#&gt; <span style='color: #BCBCBC;'> 1</span> 22627     0003         Alberta Armadillos                  1     9          197.
-#&gt; <span style='color: #BCBCBC;'> 2</span> 22627     0010         [Redacted]                          2     8          182.
-#&gt; <span style='color: #BCBCBC;'> 3</span> 22627     0012         Indigo Plateau Elite                1    10          201.
-#&gt; <span style='color: #BCBCBC;'> 4</span> 22627     0009         Kill Devil Hills Carpetbaggers      2     2          155.
-#&gt; <span style='color: #BCBCBC;'> 5</span> 22627     0004         Electric Woodies                    1     5          223.
-#&gt; <span style='color: #BCBCBC;'> 6</span> 22627     0008         Domination Station                  1     8          219.
-#&gt; <span style='color: #BCBCBC;'> 7</span> 22627     0008         Domination Station                  1     2          194.
-#&gt; <span style='color: #BCBCBC;'> 8</span> 22627     0001         Mexico City Space Force             2     3          181.
-#&gt; <span style='color: #BCBCBC;'> 9</span> 22627     0009         Kill Devil Hills Carpetbaggers      2     8          160.
-#&gt; <span style='color: #BCBCBC;'>10</span> 22627     0009         Kill Devil Hills Carpetbaggers      2     9          185.
-#&gt; <span style='color: #949494;'># … with 230 more rows, and 3 more variables: optimal_lineup &lt;list&gt;,</span>
-#&gt; <span style='color: #949494;'>#   lineup_efficiency &lt;dbl&gt;, actual_score &lt;dbl&gt;</span></div><div class='input'>
-<span class='co'># }</span>
+</div><div class='output co'>#&gt;      league_id franchise_id          franchise_name season week optimal_score
+#&gt;   1:     22627         0001 Mexico City Space Force      1    1        223.10
+#&gt;   2:     22627         0001 Mexico City Space Force      1    2        132.19
+#&gt;   3:     22627         0001 Mexico City Space Force      1    3        154.81
+#&gt;   4:     22627         0001 Mexico City Space Force      1    4        173.59
+#&gt;   5:     22627         0001 Mexico City Space Force      1    5        252.35
+#&gt;  ---                                                                         
+#&gt; 116:     22627         0012    Indigo Plateau Elite      2    1        197.31
+#&gt; 117:     22627         0012    Indigo Plateau Elite      2    2        224.22
+#&gt; 118:     22627         0012    Indigo Plateau Elite      2    3        158.90
+#&gt; 119:     22627         0012    Indigo Plateau Elite      2    4        162.91
+#&gt; 120:     22627         0012    Indigo Plateau Elite      2    5        196.76
+#&gt;                            optimal_player_id
+#&gt;   1: 13592,14777,14079,14797,13722,14143,...
+#&gt;   2: 13592,14777,14073,14079,14797,14137,...
+#&gt;   3: 13592,14073,14079,14797,13672,14138,...
+#&gt;   4: 13592,14777,14797,14805,14137,11674,...
+#&gt;   5: 13592,14777,14081,14797,14137,14104,...
+#&gt;  ---                                        
+#&gt; 116: 14056,14779,12626,13130,14071,14818,...
+#&gt; 117:  14056,7401,14071,14852,11244,13193,...
+#&gt; 118:  14779,8062,12626,13130,13606,14852,...
+#&gt; 119:   7401,8062,12626,14071,14818,11647,...
+#&gt; 120: 14056,14779,12626,13130,14071,15259,...
+#&gt;                         optimal_player_score lineup_efficiency actual_score
+#&gt;   1: 23.28,31.82, 7.40,25.90,24.00,15.40,...         0.7791811     173.8353
+#&gt;   2: 18.34,12.50, 8.20, 8.40, 9.50,10.60,...         0.7595618     100.4065
+#&gt;   3: 21.16,17.10,15.80,12.50,14.85, 8.70,...         0.7357581     113.9027
+#&gt;   4: 20.42,15.32,13.40,21.10, 4.15,19.60,...         0.7623559     132.3374
+#&gt;   5: 27.56,33.84,33.10,18.60,23.95,12.00,...         0.7335090     185.1010
+#&gt;  ---                                                                       
+#&gt; 116: 22.90,21.36,26.50,16.90,12.90,14.40,...         0.8201657     161.8269
+#&gt; 117: 47.30,19.72,11.30,12.70,31.15,17.35,...         0.8562495     191.9883
+#&gt; 118:       13.9,11.3,26.6,13.7,13.7,29.3,...         0.8494278     134.9741
+#&gt; 119: 14.64,24.92,31.50, 7.10,16.10, 8.65,...         0.7595578     123.7396
+#&gt; 120: 24.18,28.48,21.90,12.20,14.70,12.10,...         0.7888099     155.2062</div><div class='input'><span class='co'># }</span>
 
 </div></pre>
   </div>

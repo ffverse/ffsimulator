@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Connect to a league — fleaflicker_connect • ffsimulator</title>
+<title>Repeat fantasy schedules — ffs_repeat_schedules • ffsimulator</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -48,8 +48,8 @@
   <link href="../extra.css" rel="stylesheet">
   
 
-<meta property="og:title" content="Connect to a league — fleaflicker_connect" />
-<meta property="og:description" content="See ffscrapr::fleaflicker_connect() for details." />
+<meta property="og:title" content="Repeat fantasy schedules — ffs_repeat_schedules" />
+<meta property="og:description" content="This function repeats an actual ffs_schedule() by the appropriate number of seasons." />
 <meta property="og:image" content="https://ffsimulator.ffverse.com/reference/figures/logo.png" />
 <meta property="og:image:alt" content="ffsimulator - An R Package For Simulating Fantasy Football Seasons" />
 <meta name="twitter:card" content="summary" />
@@ -179,30 +179,43 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Connect to a league</h1>
-    <small class="dont-index">Source: <a href='https://github.com/ffverse/ffsimulator/blob/master/R/utils-ffscrapr.R'><code>R/utils-ffscrapr.R</code></a></small>
-    <div class="hidden name"><code>fleaflicker_connect.Rd</code></div>
+    <h1>Repeat fantasy schedules</h1>
+    <small class="dont-index">Source: <a href='https://github.com/ffverse/ffsimulator/blob/master/R/7_schedule.R'><code>R/7_schedule.R</code></a></small>
+    <div class="hidden name"><code>ffs_repeat_schedules.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>See <code><a href='ffscrapr.ffverse.com/reference/fleaflicker_connect.html'>ffscrapr::fleaflicker_connect()</a></code> for details.</p>
+    <p>This function repeats an actual <code><a href='ffs_schedule.html'>ffs_schedule()</a></code> by the appropriate number of seasons.</p>
     </div>
 
+    <pre class="usage"><span class='fu'>ffs_repeat_schedules</span><span class='op'>(</span><span class='va'>actual_schedule</span>, <span class='va'>n_seasons</span><span class='op'>)</span></pre>
 
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>actual_schedule</th>
+      <td><p>a schedule retrieved by <code><a href='ffs_schedule.html'>ffs_schedule()</a></code></p></td>
+    </tr>
+    <tr>
+      <th>n_seasons</th>
+      <td><p>number of seasons to simulate, default = 100</p></td>
+    </tr>
+    </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>a connection object to be used with <code>ff_*</code> functions</p>
+    <p>a dataframe of schedules for the simulation</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Other ffscrapr-imports: 
-<code><a href='espn_connect.html'>espn_connect</a>()</code>,
-<code><a href='ff_connect.html'>ff_connect</a>()</code>,
-<code><a href='ff_scoringhistory.html'>ff_scoringhistory</a>()</code>,
-<code><a href='ff_starter_positions.html'>ff_starter_positions</a>()</code>,
-<code><a href='mfl_connect.html'>mfl_connect</a>()</code>,
-<code><a href='sleeper_connect.html'>sleeper_connect</a>()</code></p></div>
+    <div class='dont-index'><p><code>vignette("Custom Simulations")</code> for example usage</p></div>
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='co'># \donttest{</span>
+ <span class='co'># ffs_repeat_schedules(actual_schedule = x, n_seasons = 10)</span>
+<span class='co'># }</span>
+
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

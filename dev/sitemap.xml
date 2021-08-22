@@ -10,7 +10,7 @@
     <loc>ffsimulator.ffverse.com/reference/autoplot.ff_simulation.html</loc>
   </url>
   <url>
-    <loc>ffsimulator.ffverse.com/reference/dot-ff_apply_injury_model.html</loc>
+    <loc>ffsimulator.ffverse.com/reference/dot-ff_apply_gp_model.html</loc>
   </url>
   <url>
     <loc>ffsimulator.ffverse.com/reference/dot-ff_optimise_one_lineup.html</loc>
@@ -40,6 +40,9 @@
     <loc>ffsimulator.ffverse.com/reference/ffs_copy_template.html</loc>
   </url>
   <url>
+    <loc>ffsimulator.ffverse.com/reference/ffs_franchises.html</loc>
+  </url>
+  <url>
     <loc>ffsimulator.ffverse.com/reference/ffs_generate_projections.html</loc>
   </url>
   <url>
@@ -49,7 +52,13 @@
     <loc>ffsimulator.ffverse.com/reference/ffs_optimise_lineups.html</loc>
   </url>
   <url>
+    <loc>ffsimulator.ffverse.com/reference/ffs_repeat_schedules.html</loc>
+  </url>
+  <url>
     <loc>ffsimulator.ffverse.com/reference/ffs_rosters.html</loc>
+  </url>
+  <url>
+    <loc>ffsimulator.ffverse.com/reference/ffs_schedule.html</loc>
   </url>
   <url>
     <loc>ffsimulator.ffverse.com/reference/ffs_score_rosters.html</loc>

@@ -44,7 +44,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ffsimulator</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.0.0.03</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.0.0.07</span>
       </span>
     </div>
 
@@ -140,7 +140,7 @@
       <h1 data-toc-skip>Custom Simulations</h1>
                         <h4 class="author">Tan Ho</h4>
             
-            <h4 class="date">2021-08-15</h4>
+            <h4 class="date">2021-08-22</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/ffverse/ffsimulator/blob/master/vignettes/custom.Rmd"><code>vignettes/custom.Rmd</code></a></small>
       <div class="hidden name"><code>custom.Rmd</code></div>
@@ -194,7 +194,7 @@
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">adp_outcomes</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ffs_adp_outcomes.html">ffs_adp_outcomes</a></span><span class="op">(</span>
     scoring_history <span class="op">=</span> <span class="va">scoring_history</span>,
-    injury_model <span class="op">=</span> <span class="st">"simple"</span> <span class="co"># or "none"</span>
+    gp_model <span class="op">=</span> <span class="st">"simple"</span> <span class="co"># or "none"</span>
   <span class="op">)</span></code></pre></div>
 <p>This builds out the population of weekly outcomes for each positional adp rank, using the above-mentioned scoring history as well as <code>fp_rankings_history</code> (2012-2020 historical positional rankings) and <code>fp_injury_table</code>(an injury model).</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
@@ -280,7 +280,7 @@
 
 <span class="va">scoring_history</span> <span class="op">&lt;-</span> <span class="fu">ffscrapr</span><span class="fu">::</span><span class="fu"><a href="ffscrapr.ffverse.com/reference/ff_scoringhistory.html">ff_scoringhistory</a></span><span class="op">(</span><span class="va">conn</span>, <span class="fl">2012</span><span class="op">:</span><span class="fl">2020</span><span class="op">)</span>
 
-<span class="va">adp_outcomes</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ffs_adp_outcomes.html">ffs_adp_outcomes</a></span><span class="op">(</span>scoring_history <span class="op">=</span> <span class="va">scoring_history</span>, injury_model <span class="op">=</span> <span class="st">"simple"</span><span class="op">)</span>
+<span class="va">adp_outcomes</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ffs_adp_outcomes.html">ffs_adp_outcomes</a></span><span class="op">(</span>scoring_history <span class="op">=</span> <span class="va">scoring_history</span>, gp_model <span class="op">=</span> <span class="st">"simple"</span><span class="op">)</span>
 
 <span class="va">latest_rankings</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ffs_latest_rankings.html">ffs_latest_rankings</a></span><span class="op">(</span><span class="op">)</span>
 <span class="va">lineup_constraints</span> <span class="op">&lt;-</span> <span class="fu">ffscrapr</span><span class="fu">::</span><span class="fu"><a href="ffscrapr.ffverse.com/reference/ff_starter_positions.html">ff_starter_positions</a></span><span class="op">(</span><span class="va">conn</span><span class="op">)</span></code></pre></div>
