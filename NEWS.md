@@ -11,6 +11,7 @@
 - `autoplot()` refactored to hide legend and axis titles via the geom/scale - this allows easier theme adjustments.
 - `ffs_repeat_schedules()` takes in a schedule as created by and expands it by `n_seasons`. This wraps up the actual_schedule feature. (v1.0.0.06)
 - `ffs_generate_projections()` now takes in a `weeks` argument (aka a numeric vector specifying which weeks to simulate) instead of taking in a `n_weeks` argument (which specified how many weeks). ***BREAKING, for custom sims*** (v1.0.0.07)
+- `injury_model` is renamed to `gp_model` in every case because the model is whether a player played in a given game. ***BREAKING, arg name changed***
 
 ## Minor changes
 
