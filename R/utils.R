@@ -1,6 +1,20 @@
 #### UTILS ###
 # External functions imported and sometimes re-exported
 
+# data.table is generally careful to minimize the scope for namespace
+# conflicts (i.e., functions with the same name as in other packages);
+# a more conservative approach using @importFrom should be careful to
+# import any needed data.table special symbols as well, e.g., if you
+# run DT[ , .N, by='grp'] in your package, you'll need to add
+# @importFrom data.table .N to prevent the NOTE from R CMD check.
+# See ?data.table::`special-symbols` for the list of such symbols
+# data.table defines; see the 'Importing data.table' vignette for more
+# advice (vignette('datatable-importing', 'data.table')).
+#
+#' @importFrom data.table .N .SD `:=`
+#' @keywords internal
+NULL
+
 #' @keywords internal
 #' @importFrom rlang .data `%||%` .env
 #' @importFrom utils str
@@ -51,8 +65,8 @@ parse_raw_rds <- function(raw) {
 #'
 #' @noRd
 #' @export
-.ffs_cache <- function(filename){
-  file.path("cache",filename) %>%
+.ffs_cache <- function(filename) {
+  file.path("cache", filename) %>%
     system.file(package = "ffsimulator") %>%
     readRDS()
 }
@@ -65,13 +79,14 @@ parse_raw_rds <- function(raw) {
 #' @return silent if ok or else an error if something is missing.
 #'
 #' @keywords internal
-assert_columns <- function(dataframe, required_columns){
-
+assert_columns <- function(dataframe, required_columns) {
   d <- as.character(rlang::enexpr(dataframe))
 
   n <- names(dataframe)
   r <- required_columns %in% n
-  if(all(r)) return(NULL)
+  if (all(r)) {
+    return(NULL)
+  }
 
   stop(
     glue::glue(

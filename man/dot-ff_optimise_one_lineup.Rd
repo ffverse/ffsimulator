@@ -4,11 +4,7 @@
 \alias{.ff_optimise_one_lineup}
 \title{Optimise single lineup}
 \usage{
-.ff_optimise_one_lineup(
-  franchise_scores,
-  lineup_constraints,
-  progress_function
-)
+.ff_optimise_one_lineup(franchise_scores, lineup_constraints)
 }
 \arguments{
 \item{franchise_scores}{a data frame of scores for one week and one franchise}

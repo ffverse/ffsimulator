@@ -1,4 +1,3 @@
-
 #' Generate Projections
 #'
 #' Runs the bootstrapped resampling of player week outcomes on the latest rankings and rosters for a given number of seasons and weeks per season.
@@ -7,74 +6,85 @@
 #' @param latest_rankings a dataframe of rankings, as created by `ffs_latest_rankings()`
 #' @param rosters a dataframe of rosters, as created by `ffs_rosters()` - optional, reduces computation to just rostered players
 #' @param n_seasons number of seasons, default is 100
-#' @param n_weeks weeks per season, default is 14
+#' @param weeks a numeric vector of weeks to simulate, defaults to 1:14
 #'
 #' @examples \donttest{
 #' # cached examples
 #' adp_outcomes <- .ffs_cache("adp_outcomes.rds")
 #' latest_rankings <- .ffs_cache("latest_rankings.rds")
 #'
-#' ffs_generate_projections(adp_outcomes,latest_rankings)
+#' ffs_generate_projections(adp_outcomes, latest_rankings)
 #' }
 #'
 #' @seealso vignette("Custom Simulations") for example usage
 #'
 #' @return a dataframe of weekly scores for each player in the simulation, approximately of length n_seasons x n_weeks x latest_rankings
 #' @export
-ffs_generate_projections <- function(adp_outcomes, latest_rankings, n_seasons = 100, n_weeks = 14, rosters = NULL) {
+ffs_generate_projections <- function(adp_outcomes,
+                                     latest_rankings,
+                                     n_seasons = 100,
+                                     weeks = 1:14,
+                                     rosters = NULL
+                                     ) {
   checkmate::assert_number(n_seasons, lower = 1)
-  checkmate::assert_number(n_weeks, lower = 1)
+
+  checkmate::assert_numeric(weeks, lower = 1, min.len=1)
+  weeks <- unique(weeks)
+  n_weeks <- length(weeks)
 
   checkmate::assert_data_frame(adp_outcomes)
   assert_columns(adp_outcomes, c("pos", "rank", "prob_gp", "week_outcomes"))
+  adp_outcomes <- data.table::as.data.table(adp_outcomes)[, c("pos", "rank", "prob_gp", "week_outcomes")]
 
   checkmate::assert_data_frame(latest_rankings)
-  assert_columns(latest_rankings, c("ecr", "sd", "bye", "fantasypros_id"))
+  assert_columns(latest_rankings, c("player", "pos", "team", "ecr", "sd", "bye", "fantasypros_id","scrape_date"))
+  latest_rankings <- data.table::as.data.table(latest_rankings)[, c("player", "pos", "team", "ecr", "sd", "bye", "fantasypros_id","scrape_date")]
 
-  if (is.null(rosters)) rosters <- latest_rankings %>% dplyr::select("fantasypros_id")
+  if (is.null(rosters)) rosters <- latest_rankings[, "fantasypros_id"]
   checkmate::assert_data_frame(rosters)
   assert_columns(rosters, "fantasypros_id")
+  rosters <- data.table::as.data.table(rosters)
 
-  total_weeks <- n_seasons * n_weeks
+  rankings <- latest_rankings[latest_rankings$fantasypros_id %in% rosters$fantasypros_id]
 
-  projected_score <- latest_rankings %>%
-    dplyr::semi_join(rosters, by = "fantasypros_id") %>%
-    dplyr::mutate(
-      rank = purrr::map2(
-        .data$ecr,
-        .data$sd,
-        ~ stats::rnorm(n = n_seasons, mean = .x, sd = .y / 2) %>%
-          round() %>%
-          .replace_zero()
-      ),
-      season = list(seq_len(n_seasons))
-    ) %>%
-    tidyr::unnest(c("rank", "season")) %>%
-    dplyr::inner_join(
-      adp_outcomes %>% dplyr::select("pos", "rank", "prob_gp", "week_outcomes"),
-      by = c("pos", "rank")
-    ) %>%
-    dplyr::filter(!is.na(.data$ecr), !is.na(.data$prob_gp)) %>%
-    dplyr::mutate(
-      projection =
-        purrr::map(
-          .data$week_outcomes,
-          ~ sample(.x, size = n_weeks, replace = TRUE)
-        ),
-      injury_model =
-        purrr::map(
-          .data$prob_gp,
-          ~ stats::rbinom(n = n_weeks, size = 1, prob = .x)
-        ),
-      week = list(seq_len(n_weeks)),
-      prob_gp = NULL,
-      week_outcomes = NULL
-    ) %>%
-    tidyr::unnest(c("projection", "injury_model", "week")) %>%
-    dplyr::arrange(.data$season, .data$week, .data$pos, .data$ecr) %>%
-    dplyr::mutate(projected_score = .data$projection * .data$injury_model * (.data$week != .data$bye))
+  rankings <- rankings[,
+    list(
+      scrape_date = rep(.SD$scrape_date),
+      player = rep(.SD$player),
+      pos = rep(.SD$pos),
+      team = rep(.SD$team),
+      bye = rep(.SD$bye),
+      ecr = rep(.SD$ecr),
+      sd = rep(.SD$sd),
+      season = seq_len(n_seasons),
+      rank = stats::rnorm(n = n_seasons, mean = .SD$ecr, sd = .SD$sd / 2) %>%
+        round() %>%
+        .replace_zero()
+    ),
+    by = "fantasypros_id"
+  ]
 
-  return(projected_score)
+  ps <- merge(rankings, adp_outcomes, by = c("pos", "rank"))
+  ps <- ps[!is.na(ps$ecr) & !is.na(ps$prob_gp)][
+    ,
+    list(
+      week = weeks,
+      projection = as.numeric(sample(x = .SD$week_outcomes[[1]],
+                                     size = n_weeks, replace = TRUE)),
+      gp_model = stats::rbinom(n = n_weeks, size = 1, prob = .SD$prob_gp)
+    ),
+    by = c("season", "fantasypros_id", "player", "pos",
+           "team", "bye", "ecr", "sd", "rank","scrape_date"),
+    .SDcols = c("week_outcomes", "prob_gp")
+  ]
+
+  ps <- ps[
+    ,
+    `:=`(
+      projected_score = ps$projection * ps$gp_model * (ps$week != ps$bye)
+    )
+  ]
+  return(ps)
 }
 
 .replace_zero <- function(x) {
