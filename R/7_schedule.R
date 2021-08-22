@@ -213,7 +213,7 @@ ffs_schedule <- function(conn){
                   franchise_id = as.character(.data$franchise_id),
                   opponent_id = as.character(.data$opponent_id)) %>%
     dplyr::filter(is.na(.data$result)) %>%
-    dplyr::select("league_id","week","franchise_id","opponent_id")
+    dplyr::select("week","league_id","franchise_id","opponent_id")
 
   return(schedule)
 }

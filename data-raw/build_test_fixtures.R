@@ -83,7 +83,7 @@ projected_scores <- ffs_generate_projections(
   adp_outcomes = adp_outcomes,
   latest_rankings = latest_rankings,
   n_seasons = 2,
-  n_weeks = 10,
+  weeks = 1:5,
   rosters = mfl_rosters
 )
 saveRDS(projected_scores, "inst/cache/projected_scores.rds")
@@ -104,7 +104,7 @@ saveRDS(optimal_scores, "inst/cache/optimal_scores.rds")
 schedules <- ffs_build_schedules(
   n_teams = NULL,
   n_seasons = 2,
-  n_weeks = 10,
+  n_weeks = 5,
   franchises = mfl_franchises
 )
 

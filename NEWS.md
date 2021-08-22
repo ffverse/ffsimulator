@@ -6,10 +6,11 @@
 - Column assertions cleaned up and should be much clearer on each error message, resolves #16. (v1.0.0.03)
 - Refactored `ffs_optimise_lineups()` and `ffs_score_rosters()` to use data.table, ***deprecates*** parallel options (v1.0.0.04)
 - Refactored `ffs_build_schedules()` column names to match syntax from `ff_schedule()`- `team` is now `franchise_id` and `opponent` is now `opponent_id`. ***BREAKING, for custom sims***
-- `ffs_build_schedules()` is now responsible for joining franchises to the schedule, not `ffs_summarise_week()`.
+- `ffs_build_schedules()` is now responsible for joining franchises to the schedule, not `ffs_summarise_week()`. ***BREAKING***
 - `ffs_build_schedules()` now takes a franchises dataframe as created by `ffs_franchises()` (v1.0.0.05)
 - `autoplot()` refactored to hide legend and axis titles via the geom/scale - this allows easier theme adjustments.
 - `ffs_repeat_schedules()` takes in a schedule as created by and expands it by `n_seasons`. This wraps up the actual_schedule feature. (v1.0.0.06)
+- `ffs_generate_projections()` now takes in a `weeks` argument (aka a numeric vector specifying which weeks to simulate) instead of taking in a `n_weeks` argument (which specified how many weeks). ***BREAKING, for custom sims*** (v1.0.0.07)
 
 ## Minor changes
 

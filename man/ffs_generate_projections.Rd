@@ -8,7 +8,7 @@ ffs_generate_projections(
   adp_outcomes,
   latest_rankings,
   n_seasons = 100,
-  n_weeks = 14,
+  weeks = 1:14,
   rosters = NULL
 )
 }
@@ -19,7 +19,7 @@ ffs_generate_projections(
 
 \item{n_seasons}{number of seasons, default is 100}
 
-\item{n_weeks}{weeks per season, default is 14}
+\item{weeks}{a numeric vector of weeks to simulate, defaults to 1:14}
 
 \item{rosters}{a dataframe of rosters, as created by \code{ffs_rosters()} - optional, reduces computation to just rostered players}
 }

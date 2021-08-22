@@ -37,11 +37,11 @@ test_that("ffs_generate_projections() returns a tibble and specific columns", {
     adp_outcomes = cache$adp_outcomes,
     latest_rankings = cache$latest_rankings,
     n_seasons = 2,
-    n_weeks = 10,
+    weeks = 1:5,
     rosters = cache$mfl_rosters
   )
 
-  checkmate::expect_data_frame(projected_scores, min.rows = 7000)
+  checkmate::expect_data_frame(projected_scores, min.rows = 3500)
 
   checkmate::expect_subset(
     c("fantasypros_id", "pos", "projected_score", "season", "week"),
@@ -55,7 +55,7 @@ test_that("ffs_score_rosters() connects the scores to the rosters", {
     rosters = cache$mfl_rosters
   )
 
-  checkmate::expect_data_frame(roster_scores, min.rows = 7000)
+  checkmate::expect_data_frame(roster_scores, min.rows = 3500)
 
   checkmate::expect_subset(
     c(
@@ -80,8 +80,8 @@ test_that("ffs_optimize_lineups() returns a tibble and specific columns", {
     best_ball = TRUE
   )
 
-  checkmate::expect_data_frame(optimal_scores, nrows = 240)
-  checkmate::expect_data_frame(optimal_scores_bestball, nrows = 240)
+  checkmate::expect_data_frame(optimal_scores, nrows = 120)
+  checkmate::expect_data_frame(optimal_scores_bestball, nrows = 120)
 
   checkmate::expect_subset(
     c("franchise_id", "franchise_name", "season", "week", "optimal_score", "optimal_player_id", "optimal_player_score", "lineup_efficiency", "actual_score"),
@@ -101,7 +101,7 @@ test_that("ffs_optimize_lineups() returns a tibble and specific columns", {
 test_that("schedules returns a tibble and specific columns", {
   schedules <- ffs_build_schedules(
     n_seasons = 2,
-    n_weeks = 10,
+    n_weeks = 5,
     franchises = cache$mfl_franchises
   )
 
@@ -111,7 +111,7 @@ test_that("schedules returns a tibble and specific columns", {
     n_weeks = 10
   )
 
-  checkmate::expect_tibble(schedules, nrows = 240)
+  checkmate::expect_tibble(schedules, nrows = 120)
 
   checkmate::expect_subset(
     c("season", "week", "franchise_id", "opponent_id"),
@@ -133,7 +133,7 @@ test_that("summary functions return tibbles", {
   summary_season <- ffs_summarise_season(summary_week = summary_week)
   summary_simulation <- ffs_summarise_simulation(summary_season = summary_season)
 
-  checkmate::expect_tibble(summary_week, nrows = 240)
+  checkmate::expect_tibble(summary_week, nrows = 120)
   checkmate::expect_tibble(summary_season, nrows = 24)
   checkmate::expect_tibble(summary_simulation, nrows = 12)
 
