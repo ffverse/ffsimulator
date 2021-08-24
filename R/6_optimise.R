@@ -118,22 +118,25 @@ ffs_optimize_lineups <- ffs_optimise_lineups
     c(
       pos_ids, # pos minimums
       pos_ids, # pos maximums
-      as.integer(franchise_scores$pos %in% c("QB", "RB", "WR", "TE")), rep.int(1L, min_req)
-    ), # total offensive starters
-    nrow = nrow(lineup_constraints) * 2 + 1,
+      as.integer(franchise_scores$pos %in% c("QB", "RB", "WR", "TE")), rep.int(1L, min_req), # total offensive starters
+      rep.int(1L,length(player_scores))
+      ),
+    nrow = nrow(lineup_constraints) * 2 + 2,
     byrow = TRUE
   )
 
   constraints_dir <- c(
     rep_len(">=", nrow(lineup_constraints)),
     rep_len("<=", nrow(lineup_constraints)),
+    "<=",
     "<="
   )
 
   constraints_rhs <- c(
     lineup_constraints$min,
     lineup_constraints$max,
-    lineup_constraints$offense_starters[[1]]
+    lineup_constraints$offense_starters[[1]],
+    lineup_constraints$total_starters[[1]]
   )
 
   solve_lineup <- Rglpk::Rglpk_solve_LP(

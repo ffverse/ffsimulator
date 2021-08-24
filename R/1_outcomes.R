@@ -39,7 +39,7 @@ ffs_adp_outcomes <- function(scoring_history,
         dplyr::select("fantasypros_id", "gsis_id"),
       by = "fantasypros_id"
     ) %>%
-    dplyr::filter(!is.na(.data$gsis_id), .data$pos %in% c("QB", "RB", "WR", "TE")) %>%
+    dplyr::filter(!is.na(.data$gsis_id), .data$pos %in% pos_filter) %>%
     dplyr::left_join(
       scoring_history %>%
         dplyr::filter(!is.na(.data$gsis_id), .data$week <= 17) %>%

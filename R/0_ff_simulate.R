@@ -71,7 +71,8 @@ ff_simulate <- function(conn,
   franchises <- ffs_franchises(conn)
   rosters <- ffs_rosters(conn)
 
-  lineup_constraints <- ffscrapr::ff_starter_positions(conn)
+  lineup_constraints <- ffscrapr::ff_starter_positions(conn) %>%
+    dplyr::mutate(pos = replace(.data$pos,.data$pos == "PK","K"))
 
   weeks <- seq_len(n_weeks)
 
@@ -114,7 +115,8 @@ ff_simulate <- function(conn,
 
   adp_outcomes <- ffs_adp_outcomes(
     scoring_history = scoring_history,
-    gp_model = gp_model
+    gp_model = gp_model,
+    pos_filter = c("QB", "RB", "WR", "TE", "K")
   )
 
   projected_scores <- ffs_generate_projections(
@@ -145,7 +147,8 @@ ff_simulate <- function(conn,
   optimal_scores <- ffs_optimise_lineups(
     roster_scores = roster_scores,
     lineup_constraints = lineup_constraints,
-    best_ball = best_ball
+    best_ball = best_ball,
+    pos_filter = c("QB","RB","WR","TE","K")
   )
 
   vcli_end(msg = "Optimizing Lineups...done! {Sys.time()}")
