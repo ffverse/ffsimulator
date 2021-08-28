@@ -41,5 +41,5 @@ ggplot2::autoplot(simulation, type = "points")
 
 }
 \seealso{
-\code{vignette("Basic Simulations")} for example usage
+\code{vignette("basic")} for example usage
 }

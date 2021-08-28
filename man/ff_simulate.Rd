@@ -49,7 +49,7 @@ ff_simulate(conn, n_seasons = 25)
 
 }
 \seealso{
-\code{vignette("Basic Simulations")} for example usage
+\code{vignette("basic")} for example usage
 
-\code{vignette("Custom Simulations")} for examples on using the subfunctions for your own processes.
+\code{vignette("custom")} for examples on using the subfunctions for your own processes.
 }

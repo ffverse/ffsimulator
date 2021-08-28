@@ -38,5 +38,5 @@ ffs_adp_outcomes(scoring_history, gp_model = "none")
 
 \code{fp_injury_table} for the historical injury table
 
-\code{vignette("Custom Simulation")} for usage details.
+\code{vignette("custom")} for usage details.
 }

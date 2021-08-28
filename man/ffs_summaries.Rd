@@ -56,5 +56,5 @@ summary_simulation
 
 }
 \seealso{
-\code{vignette("Custom Simulations")} for example usage
+\code{vignette("custom")} for example usage
 }

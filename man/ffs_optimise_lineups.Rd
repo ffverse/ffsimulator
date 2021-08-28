@@ -56,5 +56,5 @@ ffs_optimise_lineups(roster_scores, lineup_constraints)
 
 }
 \seealso{
-\code{vignette("Custom Simulations")} for example usage
+\code{vignette("custom")} for example usage
 }
