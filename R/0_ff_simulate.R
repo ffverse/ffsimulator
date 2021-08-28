@@ -20,8 +20,8 @@
 #'
 #' @return an `ff_simulation` object which can be passed to `plot()` and contains the output data from the simulation.
 #'
-#' @seealso `vignette("Basic Simulations")` for example usage
-#' @seealso `vignette("Custom Simulations")` for examples on using the subfunctions for your own processes.
+#' @seealso `vignette("basic")` for example usage
+#' @seealso `vignette("custom")` for examples on using the subfunctions for your own processes.
 #'
 #' @export
 ff_simulate <- function(conn,

@@ -19,7 +19,7 @@
 #' ggplot2::autoplot(simulation, type = "points")
 #' }
 #'
-#' @seealso `vignette("Basic Simulations")` for example usage
+#' @seealso `vignette("basic")` for example usage
 #'
 #' @return a ggplot object
 #' @export

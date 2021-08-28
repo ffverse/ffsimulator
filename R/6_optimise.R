@@ -23,7 +23,7 @@
 #' ffs_optimise_lineups(roster_scores, lineup_constraints)
 #' }
 #'
-#' @seealso `vignette("Custom Simulations")` for example usage
+#' @seealso `vignette("custom")` for example usage
 #'
 #' @export
 
