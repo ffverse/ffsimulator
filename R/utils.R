@@ -88,12 +88,11 @@ assert_columns <- function(dataframe, required_columns) {
     return(NULL)
   }
 
-  stop(
+  rlang::abort(
     glue::glue(
       "Assertion on `{d}` failed: requires columns ",
       "({paste(required_columns, collapse = ', ')})",
       " and is missing ({paste(required_columns[!r],collapse = ';')})"
-    ),
-    call. = FALSE
+    )
   )
 }

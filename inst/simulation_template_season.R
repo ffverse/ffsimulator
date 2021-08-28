@@ -1,25 +1,22 @@
-# Custom Simulation Template
+# CUSTOM SEASON SIMULATION TEMPLATE
 
 #### PACKAGE LOAD ####
 options(ffscrapr.cache = "filesystem")
 
-pkgload::load_all()
-# library(ffsimulator)
+# pkgload::load_all()
+library(ffsimulator)
 library(ffscrapr)
 library(dplyr)
 library(tidyr)
 library(purrr)
 library(ggplot2)
-
-library(cli)
-library(progressr)
-
+library(ggridges)
 
 #### PARAMETERS ####
 
 conn <- mfl_connect(season = 2021, league_id = 22627)
 
-n_seasons <-  500 # any number of seasons
+n_seasons <-  200 # any number of seasons
 n_weeks <-  14 # any number of weeks per season
 best_ball <-  FALSE # or TRUE
 gp_model <-  "simple" # or none
@@ -30,29 +27,53 @@ set.seed(seed)
 
 #### IMPORT DATA ####
 
-league_info <- ffscrapr::ff_league(conn = conn)
+league_info <- ffscrapr::ff_league(conn)
 
-scoring_history <- ffscrapr::ff_scoringhistory(conn = conn, season = base_seasons)
+scoring_history <- ffscrapr::ff_scoringhistory(conn, base_seasons)
 
 latest_rankings <- ffs_latest_rankings()
 
-rosters <- ffs_rosters(conn = conn)
+franchises <- ffs_franchises(conn)
+rosters <- ffs_rosters(conn)
 
-lineup_constraints <- ffscrapr::ff_starter_positions(conn = conn)
+lineup_constraints <- ffscrapr::ff_starter_positions(conn) %>%
+  dplyr::mutate(pos = replace(.data$pos,.data$pos == "PK","K"))
+
+#### SCHEDULES ####
+
+#### Uncomment this section to use actual season schedule (and simulate only unplayed weeks) ####
+# schedules <- ffs_repeat_schedules(actual_schedule = ffs_schedule(conn),
+#                                   n_seasons = n_seasons)
+#
+# weeks <- unique(schedule$week)
+
+#### Comment out this section if the above section is used - this generates "fake" schedules ####
+weeks <- seq_len(n_weeks)
+
+schedules <- ffs_build_schedules(
+  n_seasons = n_seasons,
+  n_weeks = n_weeks,
+  franchises = franchises
+)
 
 #### GENERATE PROJECTIONS ####
+
 adp_outcomes <- ffs_adp_outcomes(
   scoring_history = scoring_history,
-  gp_model = gp_model
+  gp_model = gp_model,
+  pos_filter = c("QB", "RB", "WR", "TE", "K")
 )
+
 projected_scores <- ffs_generate_projections(
   adp_outcomes = adp_outcomes,
   latest_rankings = latest_rankings,
   n_seasons = n_seasons,
-  n_weeks = n_weeks,
+  weeks = weeks,
   rosters = rosters
 )
+
 #### CALCULATE ROSTER SCORES AND OPTIMAL LINEUPS ####
+
 roster_scores <- ffs_score_rosters(
   projected_scores = projected_scores,
   rosters = rosters
@@ -62,14 +83,10 @@ optimal_scores <-
     roster_scores = roster_scores,
     lineup_constraints = lineup_constraints,
     best_ball = best_ball,
-    pos_filter = c("QB","RB","WR","TE")
+    pos_filter = c("QB","RB","WR","TE","K")
   )
+
 #### SUMMARISE SIMULATION DATA ####
-schedules <- ffs_build_schedules(
-  n_teams = length(unique(rosters$franchise_id)),
-  n_seasons = n_seasons,
-  n_weeks = n_weeks
-)
 
 summary_week <- ffs_summarise_week(optimal_scores, schedules)
 summary_season <- ffs_summarise_season(summary_week)
@@ -80,15 +97,18 @@ simulation <- structure(
     summary_simulation = summary_simulation,
     summary_season = summary_season,
     summary_week = summary_week,
+    roster_scores = roster_scores,
+    projected_scores = projected_scores,
     league_info = league_info,
     simulation_params = tibble::tibble(
       n_seasons = n_seasons,
       n_weeks = n_weeks,
+      scrape_date = latest_rankings$scrape_date[[1]],
       best_ball = best_ball,
       seed = seed,
       gp_model = gp_model,
-      base_seasons = base_seasons,
-      scrape_date = latest_rankings$scrape_date[[1]]
+      actual_schedule = actual_schedule,
+      base_seasons = list(base_seasons)
     )
   ),
   class = "ff_simulation"

@@ -17,9 +17,9 @@ library(progressr)
 
 #### PARAMETERS ####
 
-conn <- mfl_connect(season = 2021, league_id = 22627)
+conn <- mfl_connect(season = 2021, league_id = 47747)
 
-n_seasons <-  500 # any number of seasons
+n_seasons <-  50 # any number of seasons
 n_weeks <-  14 # any number of weeks per season
 best_ball <-  FALSE # or TRUE
 gp_model <-  "simple" # or none
@@ -43,7 +43,8 @@ lineup_constraints <- ffscrapr::ff_starter_positions(conn = conn)
 #### GENERATE PROJECTIONS ####
 adp_outcomes <- ffs_adp_outcomes(
   scoring_history = scoring_history,
-  gp_model = gp_model
+  gp_model = gp_model,
+  pos_filter = c("QB","RB","WR","TE","K")
 )
 projected_scores <- ffs_generate_projections(
   adp_outcomes = adp_outcomes,
@@ -62,7 +63,7 @@ optimal_scores <-
     roster_scores = roster_scores,
     lineup_constraints = lineup_constraints,
     best_ball = best_ball,
-    pos_filter = c("QB","RB","WR","TE")
+    pos_filter = c("QB","RB","WR","TE","K")
   )
 #### SUMMARISE SIMULATION DATA ####
 schedules <- ffs_build_schedules(

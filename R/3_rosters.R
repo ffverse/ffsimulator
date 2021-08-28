@@ -34,7 +34,8 @@ ffs_rosters.mfl_conn <- function(conn) {
       na_matches = "never"
     ) %>%
     dplyr::mutate(league_id = as.character(conn$league_id),
-                  franchise_id = as.character(.data$franchise_id))
+                  franchise_id = as.character(.data$franchise_id),
+                  pos = replace(.data$pos,.data$pos == "PK", "K"))
 
   return(rosters)
 }
