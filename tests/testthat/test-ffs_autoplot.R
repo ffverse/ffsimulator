@@ -2,7 +2,7 @@
 test_that("autoplot works", {
   foureight_sim <- readRDS(system.file("cache/foureight_sim.rds", package = "ffsimulator"))
 
-  wins <- plot(foureight_sim, type = "win")
+  wins <- plot(foureight_sim, type = "wins")
   rank <- plot(foureight_sim, type = "rank")
   points <- plot(foureight_sim, type = "points")
 
