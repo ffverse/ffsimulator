@@ -18,37 +18,40 @@
 #' @return A dataframe of roster-level projected scores
 #'
 #' @export
-
 ffs_score_rosters <- function(projected_scores, rosters) {
   checkmate::assert_data_frame(projected_scores)
   checkmate::assert_data_frame(rosters)
 
-  checkmate::assert_subset(
+  assert_columns(
+    projected_scores,
     c(
       "fantasypros_id", "ecr", "rank", "projection",
-      "injury_model", "season", "week",
+      "gp_model", "season", "week",
       "projected_score", "scrape_date"
-    ),
-    names(projected_scores)
-  )
-  checkmate::assert_subset(
-    c("fantasypros_id", "league_id", "franchise_id", "pos"),
-    names(rosters)
+    )
   )
 
-  roster_scores <- rosters %>%
-    dplyr::inner_join(
-      projected_scores %>%
-        dplyr::select(
-          "fantasypros_id", "ecr", "rank", "projection", "injury_model",
-          "season", "week", "projected_score", "scrape_date"
-        ),
-      by = "fantasypros_id"
-    ) %>%
-    dplyr::arrange(-.data$projected_score) %>%
-    dplyr::group_by(.data$league_id, .data$franchise_id, .data$pos, .data$season, .data$week) %>%
-    dplyr::mutate(pos_rank = dplyr::row_number()) %>%
-    dplyr::ungroup()
+  assert_columns(
+    rosters,
+    c("fantasypros_id", "league_id", "franchise_id", "pos")
+  )
 
+  projected_scores <- data.table::as.data.table(
+    projected_scores[, c(
+      "fantasypros_id", "ecr", "rank", "projection", "gp_model",
+      "season", "week", "projected_score", "scrape_date"
+    )]
+  )
+
+  data.table::setDT(rosters)
+  data.table::setkeyv(projected_scores, "fantasypros_id")
+  data.table::setkeyv(rosters, "fantasypros_id")
+
+  roster_scores <- merge(rosters, projected_scores, by = "fantasypros_id", all = FALSE, allow.cartesian = TRUE)
+
+  roster_scores[order(-roster_scores$projected_score),
+    `:=`(pos_rank = seq_len(.N)),
+    by = c("league_id", "franchise_id", "pos", "season", "week")
+  ]
   return(roster_scores)
 }

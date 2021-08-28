@@ -12,20 +12,18 @@
 #' @examples
 #' \donttest{
 #'
-#'   simulation <- .ffs_cache("foureight_sim.rds")
+#' simulation <- .ffs_cache("foureight_sim.rds")
 #'
-#'   ggplot2::autoplot(simulation) # default is type = "wins"
-#'   ggplot2::autoplot(simulation, type = "rank")
-#'   ggplot2::autoplot(simulation, type = "points")
-#'
+#' ggplot2::autoplot(simulation) # default is type = "wins"
+#' ggplot2::autoplot(simulation, type = "rank")
+#' ggplot2::autoplot(simulation, type = "points")
 #' }
 #'
 #' @seealso `vignette("basic")` for example usage
 #'
 #' @return a ggplot object
 #' @export
-autoplot.ff_simulation <- function(
-                                   object,
+autoplot.ff_simulation <- function(object,
                                    type = c("wins", "rank", "points"),
                                    ...) {
   type <- match.arg(type)
@@ -62,7 +60,8 @@ autoplot.ff_simulation <- function(
       color = "white",
       binwidth = 1,
       scale = 1.3,
-      alpha = 0.8
+      alpha = 0.8,
+      show.legend = FALSE
     ) +
     ggplot2::scale_x_continuous(
       breaks = seq.int(0, max(object$summary_season$h2h_wins) + 1, by = 2)
@@ -71,7 +70,7 @@ autoplot.ff_simulation <- function(
     ggplot2::ylab(NULL) +
     ggplot2::theme_minimal() +
     ggplot2::theme(
-      legend.position = "none",
+      # legend.position = "none",
       panel.grid.major.y = ggplot2::element_blank(),
       panel.grid.minor.x = ggplot2::element_blank(),
       plot.title.position = "plot"
@@ -79,7 +78,7 @@ autoplot.ff_simulation <- function(
     ggplot2::labs(
       title = glue::glue("Season Win Totals - {object$simulation_params$n_seasons} Simulated Seasons"),
       subtitle = glue::glue("{object$league_info$league_name}"),
-      caption = glue::glue("ffsimulator R pkg | Based on rankings as of {object$roster_scores$scrape_date[[1]]}")
+      caption = glue::glue("ffsimulator R pkg | Based on rankings as of {object$simulation_params$scrape_date}")
     )
 }
 
@@ -95,12 +94,12 @@ autoplot.ff_simulation <- function(
     ) %>%
     ggplot2::ggplot(ggplot2::aes(x = .data$franchise_name, color = .data$franchise_name, fill = .data$franchise_name)) +
     ggplot2::geom_bar() +
+    ggplot2::scale_x_discrete(guide = ggplot2::guide_axis(position = "none"))+
     ggplot2::facet_wrap(~ .data$rank_label) +
     ggplot2::xlab(NULL) +
     ggplot2::ylab("Number of Seasons") +
     ggplot2::theme_minimal() +
     ggplot2::theme(
-      axis.text.x = ggplot2::element_blank(),
       panel.grid.major.x = ggplot2::element_blank(),
       plot.title.position = "plot",
       plot.caption.position = "plot"
@@ -108,7 +107,7 @@ autoplot.ff_simulation <- function(
     ggplot2::labs(
       title = glue::glue("Final Season Rank - {object$simulation_params$n_seasons} Simulated Seasons"),
       subtitle = glue::glue("{object$league_info$league_name}"),
-      caption = glue::glue("ffsimulator R pkg | Based on rankings as of {object$roster_scores$scrape_date[[1]]}"),
+      caption = glue::glue("ffsimulator R pkg | Based on rankings as of {object$simulation_params$scrape_date}"),
       fill = "Franchise Name",
       color = "Franchise Name"
     )
@@ -127,14 +126,14 @@ autoplot.ff_simulation <- function(
       color = "white",
       quantile_lines = TRUE,
       scale = 1.3,
-      alpha = 0.8
+      alpha = 0.8,
+      show.legend = FALSE
     ) +
     ggplot2::scale_x_continuous(n.breaks = 8) +
     ggplot2::xlab("Weekly Score") +
     ggplot2::ylab(NULL) +
     ggplot2::theme_minimal() +
     ggplot2::theme(
-      legend.position = "none",
       panel.grid.major.y = ggplot2::element_blank(),
       plot.title.position = "plot"
     ) +
@@ -143,7 +142,7 @@ autoplot.ff_simulation <- function(
                          object$simulation_params$n_seasons * object$simulation_params$n_weeks
                          } Simulated Weeks"),
       subtitle = glue::glue("{object$league_info$league_name}"),
-      caption = glue::glue("ffsimulator R pkg | Based on rankings as of {object$roster_scores$scrape_date[[1]]}")
+      caption = glue::glue("ffsimulator R pkg | Based on rankings as of {object$simulation_params$scrape_date}")
     )
 }
 

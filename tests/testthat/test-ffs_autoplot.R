@@ -1,6 +1,5 @@
 
 test_that("autoplot works", {
-
   foureight_sim <- readRDS(system.file("cache/foureight_sim.rds", package = "ffsimulator"))
 
   wins <- plot(foureight_sim, type = "win")

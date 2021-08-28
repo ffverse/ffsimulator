@@ -65,8 +65,16 @@ A season simulation can be run as follows:
 
 ```{r eval = FALSE}
 library(ffsimulator)
+library(ggplot2)
+library(ggridges)
 
-foureight_conn <- mfl_connect(2021, 22627)
+foureight_conn <- mfl_connect(season = 2021, league_id = 22627)
+
+## OTHER PLATFORM CONNECTIONS MAY BE USED, AS PER BELOW: ##
+
+# dlp_conn <- sleeper_connect(season = 2021,  league_id = "652582284720971776") 
+# flea_conn <- fleaflicker_connect(season = 2021, league_id = 312861) 
+# espn_conn <- espn_connect(season = 2021, league_id = 899513)
 
 foureight_sim <- ff_simulate(conn = foureight_conn, n_seasons = 25, n_weeks = 14)
 
