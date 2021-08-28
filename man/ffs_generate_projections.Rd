@@ -40,5 +40,5 @@ ffs_generate_projections(adp_outcomes, latest_rankings)
 
 }
 \seealso{
-vignette("Custom Simulations") for example usage
+vignette("custom") for example usage
 }

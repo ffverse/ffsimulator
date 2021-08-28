@@ -16,7 +16,7 @@
 #'
 #' @return a dataframe of schedules
 #'
-#' @seealso `vignette("Custom Simulations")` for example usage
+#' @seealso `vignette("custom")` for example usage
 #' @export
 ffs_build_schedules <- function(n_teams = NULL,
                                 n_seasons = 100,

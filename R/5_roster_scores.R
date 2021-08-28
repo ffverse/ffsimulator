@@ -13,7 +13,7 @@
 #' ffs_score_rosters(projected_scores, rosters)
 #' }
 #'
-#' @seealso vignette("Custom Simulations") for example usage
+#' @seealso vignette("custom") for example usage
 #'
 #' @return A dataframe of roster-level projected scores
 #'

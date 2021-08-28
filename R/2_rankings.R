@@ -6,7 +6,7 @@
 #' the DynastyProcess data repository.
 #'
 #' @seealso <https://github.com/dynastyprocess/data>
-#' @seealso `vignette("Custom Simulation")` for example usage
+#' @seealso `vignette("custom")` for example usage
 #'
 #' @examples \donttest{
 #'

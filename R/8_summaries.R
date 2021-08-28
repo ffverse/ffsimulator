@@ -5,7 +5,7 @@
 #' @param optimal_scores a dataframe of optimized lineups as created by `ffs_optimize_lineups()`
 #' @param schedules a dataframe of schedules as created by `ffs_build_schedules()` or `ffs_actual_schedules()`
 #'
-#' @seealso `vignette("Custom Simulations")` for example usage
+#' @seealso `vignette("custom")` for example usage
 #'
 #' @examples \donttest{
 #' # cached examples

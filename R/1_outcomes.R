@@ -20,7 +20,7 @@
 #'
 #' @seealso `fp_rankings_history` for the included historical rankings
 #' @seealso `fp_injury_table` for the historical injury table
-#' @seealso `vignette("Custom Simulation")` for usage details.
+#' @seealso `vignette("custom")` for usage details.
 #'
 #' @export
 ffs_adp_outcomes <- function(scoring_history,

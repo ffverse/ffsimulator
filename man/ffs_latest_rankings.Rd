@@ -26,5 +26,5 @@ ffs_latest_rankings()
 \seealso{
 \url{https://github.com/dynastyprocess/data}
 
-\code{vignette("Custom Simulation")} for example usage
+\code{vignette("custom")} for example usage
 }

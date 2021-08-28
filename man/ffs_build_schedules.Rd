@@ -39,5 +39,5 @@ ffs_build_schedules(n_teams = 12, n_seasons = 1, n_weeks = 14)
 
 }
 \seealso{
-\code{vignette("Custom Simulations")} for example usage
+\code{vignette("custom")} for example usage
 }
