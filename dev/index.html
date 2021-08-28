@@ -175,6 +175,8 @@
 <p>A season simulation can be run as follows:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ffsimulator.ffverse.com">ffsimulator</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://wilkelab.org/ggridges/">ggridges</a></span><span class="op">)</span>
 
 <span class="va">foureight_conn</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/mfl_connect.html">mfl_connect</a></span><span class="op">(</span>season <span class="op">=</span> <span class="fl">2021</span>, league_id <span class="op">=</span> <span class="fl">22627</span><span class="op">)</span>
 
@@ -186,7 +188,7 @@
 
 <span class="va">foureight_sim</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/ff_simulate.html">ff_simulate</a></span><span class="op">(</span>conn <span class="op">=</span> <span class="va">foureight_conn</span>, n_seasons <span class="op">=</span> <span class="fl">25</span>, n_weeks <span class="op">=</span> <span class="fl">14</span><span class="op">)</span>
 
-<span class="fu">autoplot</span><span class="op">(</span><span class="va">foureight_sim</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="va">foureight_sim</span><span class="op">)</span></code></pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-5-1.png" width="100%"> Please also see the</p>
 <ul>
 <li>
