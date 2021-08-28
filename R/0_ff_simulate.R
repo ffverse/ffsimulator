@@ -42,7 +42,7 @@ ff_simulate <- function(conn,
     )
   }
 
-  gp_model <- match.arg(gp_model)
+  gp_model <- rlang::arg_match(gp_model)
   checkmate::assert_numeric(base_seasons, lower = 2012, upper = 2020)
   checkmate::assert_int(n_seasons, lower = 1)
   checkmate::assert_int(n_weeks, lower = 1)

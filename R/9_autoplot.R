@@ -26,7 +26,7 @@
 autoplot.ff_simulation <- function(object,
                                    type = c("wins", "rank", "points"),
                                    ...) {
-  type <- match.arg(type)
+  type <- rlang::arg_match(type)
 
   if (!requireNamespace("ggplot2", quietly = TRUE) && !requireNamespace("forcats", quietly = TRUE)) {
     stop("`ggplot2` and `forcats` must be installed to use `autoplot`.", call. = FALSE)
@@ -155,7 +155,7 @@ plot.ff_simulation <- function(x, ..., type = c("wins", "rank", "points"), y) {
     stop("`ggplot2` and `forcats` must be installed to use `autoplot`.", call. = FALSE)
   }
 
-  type <- match.arg(type)
+  type <- rlang::arg_match(type)
 
   ggplot2::autoplot(x, type = type, ...)
 }

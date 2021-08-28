@@ -17,7 +17,7 @@ ffs_copy_template <- function(
   filename = "ff_simulation.R",
   template = c("season","rest_of_season","week"),
   overwrite = NULL) {
-  template <- match.arg(template)
+  template <- rlang::arg_match(template)
   checkmate::assert_flag(overwrite, null.ok = TRUE)
 
   template_file <- switch(
