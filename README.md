@@ -67,6 +67,8 @@ A season simulation can be run as follows:
 
 ``` r
 library(ffsimulator)
+library(ggplot2)
+library(ggridges)
 
 foureight_conn <- mfl_connect(2021, 22627)
 
