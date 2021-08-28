@@ -77,7 +77,7 @@ template:
      # index_name: dynastyprocess
   opengraph:
     image:
-      src: man/figures/logo.png
+      src: "https://ffsimulator.ffverse.com/reference/figures/logo.png"
       alt: "ffsimulator - An R Package For Simulating Fantasy Football Seasons"
     twitter:
       creator: "@_TanHo"

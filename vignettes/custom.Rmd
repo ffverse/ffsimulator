@@ -82,7 +82,7 @@ This brings in league information that is primarily used for plot names.
 ```{r eval = FALSE}
 adp_outcomes <- ffs_adp_outcomes(
     scoring_history = scoring_history,
-    injury_model = "simple" # or "none"
+    gp_model = "simple" # or "none"
   )
 ```
 
@@ -186,7 +186,7 @@ league_info <- ffscrapr::ff_league(conn)
 
 scoring_history <- ffscrapr::ff_scoringhistory(conn, 2012:2020)
 
-adp_outcomes <- ffs_adp_outcomes(scoring_history = scoring_history, injury_model = "simple")
+adp_outcomes <- ffs_adp_outcomes(scoring_history = scoring_history, gp_model = "simple")
 
 latest_rankings <- ffs_latest_rankings()
 lineup_constraints <- ffscrapr::ff_starter_positions(conn)

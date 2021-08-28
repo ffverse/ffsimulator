@@ -3,7 +3,7 @@
 #' These functions are used to summarise the simulation outputs, typically by joining the optimal scores with a matching schedule.
 #'
 #' @param optimal_scores a dataframe of optimized lineups as created by `ffs_optimize_lineups()`
-#' @param schedules a dataframe of schedules as created by `ffs_build_schedules()`
+#' @param schedules a dataframe of schedules as created by `ffs_build_schedules()` or `ffs_actual_schedules()`
 #'
 #' @seealso `vignette("Custom Simulations")` for example usage
 #'
@@ -18,7 +18,6 @@
 #' summary_season
 #' summary_simulation <- ffs_summarise_simulation(summary_season)
 #' summary_simulation
-#'
 #' }
 #'
 #' @rdname ffs_summaries
@@ -26,14 +25,14 @@
 #' @export
 ffs_summarise_week <- function(optimal_scores, schedules) {
   checkmate::assert_data_frame(optimal_scores)
-  checkmate::assert_subset(
-    c("season", "week", "season", "week", "actual_score", "league_id", "franchise_id"),
-    names(optimal_scores)
+  assert_columns(
+    optimal_scores,
+    c("season", "week", "season", "week", "actual_score", "league_id", "franchise_id")
   )
   checkmate::assert_data_frame(schedules)
-  checkmate::assert_subset(
-    c("season", "week", "team", "opponent"),
-    names(schedules)
+  assert_columns(
+    schedules,
+    c("league_id","franchise_id","opponent_id","season", "week")
   )
 
   scores <- optimal_scores %>%
@@ -49,16 +48,18 @@ ffs_summarise_week <- function(optimal_scores, schedules) {
   matchups <- schedules %>%
     dplyr::left_join(scores %>%
       dplyr::rename("team_score" = "actual_score"),
-    by = c("team" = "schedule_id", "season", "week")
+      by = c("league_id","franchise_id", "season", "week")
     ) %>%
     dplyr::left_join(scores %>%
       dplyr::select(
         "opponent_score" = "actual_score",
-        "schedule_id",
+        "opponent_id" = "franchise_id",
         "opponent_name" = "franchise_name",
-        "season", "week"
+        "league_id",
+        "season",
+        "week"
       ),
-    by = c("opponent" = "schedule_id", "season", "week")
+      by = c("league_id","opponent_id", "season", "week")
     ) %>%
     dplyr::mutate(
       result = dplyr::case_when(
@@ -84,7 +85,8 @@ ffs_summarise_week <- function(optimal_scores, schedules) {
       "allplay_pct",
       "league_id",
       "franchise_id",
-      "optimal_lineup"
+      "optimal_player_id",
+      "optimal_player_score"
     )
 
   return(matchups)
@@ -98,13 +100,13 @@ ffs_summarise_week <- function(optimal_scores, schedules) {
 #' @export
 ffs_summarise_season <- function(summary_week) {
   checkmate::assert_data_frame(summary_week)
-  checkmate::assert_subset(
+  assert_columns(
+    summary_week,
     c(
       "season", "league_id", "franchise_id", "franchise_name",
       "result", "allplay_wins", "allplay_games",
       "team_score", "opponent_score", "optimal_score"
-    ),
-    names(summary_week)
+    )
   )
 
   summary_season <- summary_week %>%
@@ -132,13 +134,13 @@ ffs_summarise_season <- function(summary_week) {
 #' @export
 ffs_summarise_simulation <- function(summary_season) {
   checkmate::assert_data_frame(summary_season)
-  checkmate::assert_subset(
+  assert_columns(
+    summary_season,
     c(
       "league_id", "franchise_id", "franchise_name",
       "h2h_wins", "h2h_winpct", "allplay_wins", "allplay_winpct",
       "points_for", "points_against", "potential_points"
-    ),
-    names(summary_season)
+    )
   )
 
   summary_simulation <- summary_season %>%

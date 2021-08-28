@@ -4,17 +4,18 @@
 #'
 #'
 #' @param scoring_history a scoring history table as created by `ffscrapr::ff_scoringhistory()`
-#' @param injury_model either "simple" or "none" - simple uses the average games played per season for each position/adp combination, none assumes every game is played.
+#' @param gp_model either "simple" or "none" - simple uses the average games played per season for each position/adp combination, none assumes every game is played.
+#' @param pos_filter a character vector: filter the positions returned to these specific positions, default: c("QB","RB","WR","TE)
 #'
 #' @return a tibble with position, rank, probability of games played, and a corresponding nested list per row of all week score outcomes.
 #'
 #' @examples
 #' \donttest{
-#'  #cached data
-#'  scoring_history <- .ffs_cache("mfl_scoring_history.rds")
+#' # cached data
+#' scoring_history <- .ffs_cache("mfl_scoring_history.rds")
 #'
-#'  ffs_adp_outcomes(scoring_history, injury_model = "simple")
-#'  ffs_adp_outcomes(scoring_history, injury_model = "none")
+#' ffs_adp_outcomes(scoring_history, gp_model = "simple")
+#' ffs_adp_outcomes(scoring_history, gp_model = "none")
 #' }
 #'
 #' @seealso `fp_rankings_history` for the included historical rankings
@@ -22,10 +23,14 @@
 #' @seealso `vignette("Custom Simulation")` for usage details.
 #'
 #' @export
-ffs_adp_outcomes <- function(scoring_history, injury_model = "simple") {
-  checkmate::assert_choice(injury_model, choices = c("simple", "none"))
+ffs_adp_outcomes <- function(scoring_history,
+                             gp_model = "simple",
+                             pos_filter = c("QB", "RB", "WR", "TE")) {
+  # ASSERTIONS #
+  checkmate::assert_choice(gp_model, choices = c("simple", "none"))
+  checkmate::assert_character(pos_filter)
   checkmate::assert_data_frame(scoring_history)
-  checkmate::assert_subset(c("gsis_id", "team", "season", "points"), names(scoring_history))
+  assert_columns(scoring_history, c("gsis_id", "team", "season", "points"))
 
   adp_outcomes <- ffsimulator::fp_rankings_history %>%
     dplyr::select(-"page_pos") %>%
@@ -58,7 +63,7 @@ ffs_adp_outcomes <- function(scoring_history, injury_model = "simple") {
     dplyr::mutate(rank = purrr::map(.data$rank, ~ c(ifelse(.x - 1 == 0, .x, .x - 1), .x, .x + 1) %>% tidyr::replace_na(.x))) %>%
     dplyr::ungroup() %>%
     tidyr::unnest(rank) %>%
-    .ff_apply_injury_model(injury_model) %>%
+    .ff_apply_gp_model(gp_model) %>%
     dplyr::group_by(.data$pos, .data$rank, .data$prob_gp) %>%
     dplyr::summarise(
       week_outcomes = list(c(unlist(.data$week_outcomes))),
@@ -74,7 +79,7 @@ ffs_adp_outcomes <- function(scoring_history, injury_model = "simple") {
 #'
 #' @keywords internal
 #' @return same adp outcomes dataframe but with a prob_gp column
-.ff_apply_injury_model <- function(adp_outcomes, model_type) {
+.ff_apply_gp_model <- function(adp_outcomes, model_type) {
   if (model_type == "none") {
     adp_outcomes$prob_gp <- 1
   }

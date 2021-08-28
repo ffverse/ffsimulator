@@ -20,7 +20,6 @@ the DynastyProcess data repository.
 \donttest{
 
 ffs_latest_rankings()
-
 }
 
 }

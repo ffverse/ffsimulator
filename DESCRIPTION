@@ -1,27 +1,30 @@
 Package: ffsimulator
 Title: Simulate Fantasy Football Seasons
-Version: 1.0.0
+Version: 1.0.0.07
 Authors@R: 
     person(given = "Tan",
            family = "Ho",
-           role = c("aut", "cre","cph"),
+           role = c("aut", "cre", "cph"),
            email = "tan@tanho.ca",
            comment = c(ORCID = "0000-0001-8388-5155"))
 Description: Uses bootstrap resampling to run fantasy football season
     simulations supported by historical rankings and 'nflfastR' data,
     calculating optimal lineups, and returning aggregated results.
 License: MIT + file LICENSE
-URL: https://ffsimulator.ffverse.com, https://github.com/ffverse/ffsimulator
+URL: https://ffsimulator.ffverse.com,
+    https://github.com/ffverse/ffsimulator
 BugReports: https://github.com/ffverse/ffsimulator/issues
 Depends:
     R (>= 3.5.0)
 Imports:
     checkmate (>= 2.0.0),
+    cli (>= 3.0.0),
+    data.table (>= 1.14.0),
     dplyr (>= 1.0.0),
-    ffscrapr (>= 1.4.3),
+    ffscrapr (>= 1.4.5),
     glue (>= 1.3.0),
-    httr (>= 1.4.0),
     magrittr (>= 1.0.0),
+    nflreadr (>= 1.0.0),
     purrr (>= 0.3.0),
     Rglpk (>= 0.6.0),
     rlang (>= 0.4.0),
@@ -31,19 +34,18 @@ Imports:
 Suggests:
     covr (>= 3.0.0),
     forcats (>= 0.5.0),
-    furrr (>= 0.2.0),
-    future (>= 1.0.0),
     ggplot2 (>= 3.0.0),
     ggridges (>= 0.5.0),
     knitr (>= 1.0),
+    progressr (>= 0.8.0),
     rmarkdown (>= 2.6),
     scales (>= 1.0.0),
     testthat (>= 3.0.0),
     vdiffr (>= 1.0.2)
 VignetteBuilder: 
     knitr
+Config/testthat/edition: 3
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
-Config/testthat/edition: 3
