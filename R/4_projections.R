@@ -17,7 +17,7 @@
 #' ffs_generate_projections(adp_outcomes,latest_rankings)
 #' }
 #'
-#' @seealso vignette("Custom Simulations") for example usage
+#' @seealso vignette("custom") for example usage
 #'
 #' @return a dataframe of weekly scores for each player in the simulation, approximately of length n_seasons x n_weeks x latest_rankings
 #' @export

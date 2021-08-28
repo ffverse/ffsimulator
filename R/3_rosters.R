@@ -16,7 +16,7 @@
 #' ffs_rosters(conn)
 #' }
 #'
-#' @seealso vignette("Custom Simulations") for more detailed example usage
+#' @seealso vignette("custom") for more detailed example usage
 #'
 #' @export
 ffs_rosters <- function(conn) {

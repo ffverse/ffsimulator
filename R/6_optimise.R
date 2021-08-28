@@ -22,7 +22,7 @@
 #'
 #' }
 #'
-#' @seealso `vignette("Custom Simulations")` for example usage
+#' @seealso `vignette("custom")` for example usage
 #'
 #' @export
 ffs_optimise_lineups <- function(roster_scores,
