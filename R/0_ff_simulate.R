@@ -10,6 +10,7 @@
 #' @param gp_model select between "simple", "none" to apply a model for whether a player played in a given game, defaults to "simple"
 #' @param base_seasons a numeric vector that selects seasons as base data, earliest available is 2012
 #' @param actual_schedule a logical: use actual ff_schedule? default is FALSE
+#' @param pos_filter a character vector of positions to filter/run, default is c("QB","RB","WR","TE","K")
 #' @param verbose a logical: print status messages? default is TRUE, configure with options(ffsimulator.verbose)
 #'
 #' @examples
@@ -32,6 +33,7 @@ ff_simulate <- function(conn,
                         gp_model = c("simple", "none"),
                         base_seasons = 2012:2020,
                         actual_schedule = FALSE,
+                        pos_filter = c("QB","RB","WR","TE","K"),
                         verbose = getOption("ffsimulator.verbose", default = TRUE)) {
 
   #### Assertions ####
@@ -43,6 +45,7 @@ ff_simulate <- function(conn,
   }
 
   gp_model <- rlang::arg_match(gp_model)
+  checkmate::assert_subset(pos_filter, c("QB","RB","WR","TE","K"))
   checkmate::assert_numeric(base_seasons, lower = 2012, upper = 2020)
   checkmate::assert_int(n_seasons, lower = 1)
   checkmate::assert_int(n_weeks, lower = 1)
@@ -116,7 +119,7 @@ ff_simulate <- function(conn,
   adp_outcomes <- ffs_adp_outcomes(
     scoring_history = scoring_history,
     gp_model = gp_model,
-    pos_filter = c("QB", "RB", "WR", "TE", "K")
+    pos_filter = pos_filter
   )
 
   projected_scores <- ffs_generate_projections(
@@ -148,7 +151,7 @@ ff_simulate <- function(conn,
     roster_scores = roster_scores,
     lineup_constraints = lineup_constraints,
     best_ball = best_ball,
-    pos_filter = c("QB","RB","WR","TE","K")
+    pos_filter = pos_filter
   )
 
   vcli_end(msg = "Optimizing Lineups...done! {Sys.time()}")
@@ -199,7 +202,8 @@ ff_simulate <- function(conn,
         seed = seed,
         gp_model = gp_model,
         actual_schedule = actual_schedule,
-        base_seasons = list(base_seasons)
+        base_seasons = list(base_seasons),
+        pos_filter = list(pos_filter)
       )
     ),
     class = "ff_simulation"
