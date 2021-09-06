@@ -28,9 +28,8 @@ autoplot.ff_simulation_week <- function(object,
   type <- rlang::arg_match(type)
 
   if (!requireNamespace("ggplot2", quietly = TRUE) &&
-      !requireNamespace("forcats", quietly = TRUE) &&
       !requireNamespace("ggridges", quietly = TRUE)) {
-    stop("`ggplot2`, `ggridges`, and `forcats` must be installed to use `autoplot`.", call. = FALSE)
+    stop("`ggplot2` and `ggridges` must be installed to use `autoplot`.", call. = FALSE)
   }
 
   switch(type,
@@ -42,26 +41,31 @@ autoplot.ff_simulation_week <- function(object,
 
 .ffs_plot_week_luck <- function(object, ...) {
 
-  if(!object$simulation_params$actual_schedule) stop("Schedule Luck plot not available if `actual_schedule` is FALSE")
+  if(!object$simulation_params$actual_schedule) stop("Schedule luck plot not available if `actual_schedule` is FALSE")
 
-  luck <- object$summary_simulation %>%
-    dplyr::mutate(franchise_name = forcats::fct_reorder(.f = .data$franchise_name,
-                                                        .x = .data$h2h_winpct),
-                  luck_pct = .data$h2h_winpct - .data$allplay_winpct,
-                  luck_label = scales::percent(.data$luck_pct, accuracy = 0.1),
-                  ap_hjust = ifelse(.data$luck_pct > 0, 1.1, -0.1),
-                  h2h_hjust = ifelse(.data$luck_pct > 0, -0.1, 1.1)
+  luck <- object$summary_simulation
+  data.table::setDT(luck)
+  h2h_winpct <- NULL
+  allplay_winpct <- NULL
+  luck_pct <- NULL
+
+  luck <- luck[,`:=`(luck_pct = h2h_winpct - allplay_winpct)
+  ][,`:=`(
+    luck_label = scales::percent(luck_pct, accuracy = 0.1),
+    ap_hjust = ifelse(luck_pct > 0, 1.1, -0.1),
+    h2h_hjust = ifelse(luck_pct > 0, -0.1, 1.1)
     )
+  ][order(h2h_winpct)]
 
-  # dplyr::select("franchise_name", "h2h"="h2h_winpct", "ap"="allplay_winpct") %>%
-  luck %>%
-    ggplot2::ggplot(
-      ggplot2::aes(
-        y = .data$franchise_name,
-        color = .data$franchise_name
-      )
-    ) +
-    # ggplot2::geom_point(ggplot2::aes(x=.data$h2h_winpct), size = 2, shape = 8) +
+  luck$franchise_name <- factor(luck$franchise_name, levels = luck$franchise_name)
+
+  ggplot2::ggplot(
+    luck,
+    ggplot2::aes(
+      y = .data$franchise_name,
+      color = .data$franchise_name
+    )
+  ) +
     ggplot2::geom_point(ggplot2::aes(x=.data$allplay_winpct), alpha = 0.8, size = 2) +
     ggplot2::geom_segment(
       ggplot2::aes(
@@ -75,13 +79,11 @@ autoplot.ff_simulation_week <- function(object,
       alpha = 0.75,
       lineend = "round",
       linejoin = "mitre",
-      arrow = ggplot2::arrow(angle = 30,length = ggplot2::unit(4,"points"),type = "closed")) +
+      arrow = ggplot2::arrow(angle = 30,length = ggplot2::unit(6, "points"),type = "closed")) +
     ggplot2::geom_text(
       ggplot2::aes(
         x = (.data$allplay_winpct + .data$h2h_winpct)/2,
-        # y = .data$franchise_name,
         label = .data$luck_label),
-      # inherit.aes = FALSE,
       hjust = 0.5,
       vjust = -0.75
     ) +
@@ -93,7 +95,7 @@ autoplot.ff_simulation_week <- function(object,
       ),
       label = "H2H Win %",
       hjust = -0.1,
-      data = luck %>% dplyr::filter(.data$h2h_winpct == max(.data$h2h_winpct))
+      data = luck[h2h_winpct == max(h2h_winpct)]
     ) +
     ggplot2::geom_text(
       ggplot2::aes(
@@ -102,7 +104,7 @@ autoplot.ff_simulation_week <- function(object,
         hjust = .data$ap_hjust
       ),
       label = "AllPlay Win %",
-      data = luck %>% dplyr::filter(.data$h2h_winpct == max(.data$h2h_winpct))
+      data = luck[h2h_winpct == max(h2h_winpct)]
     ) +
     ggplot2::scale_x_continuous(labels = scales::percent_format(),limits = c(0, 1))+
     ggplot2::scale_color_discrete(guide = "none")+
@@ -110,7 +112,6 @@ autoplot.ff_simulation_week <- function(object,
     ggplot2::ylab(NULL) +
     ggplot2::theme_minimal() +
     ggplot2::theme(
-      # legend.position = "bottom",
       panel.grid.major.y = ggplot2::element_blank(),
       panel.grid.minor.x = ggplot2::element_blank(),
       plot.title.position = "plot"
@@ -124,9 +125,16 @@ autoplot.ff_simulation_week <- function(object,
 
 #' @keywords internal
 .ffs_plot_week_points <- function(object, ...) {
-  object$summary_week %>%
-    dplyr::mutate(franchise_name = forcats::fct_reorder(.f = .data$franchise_name, .x = .data$team_score)) %>%
-    ggplot2::ggplot(ggplot2::aes(
+
+  sw <- object$summary_week
+  data.table::setDT(sw)
+  team_score <- NULL
+  sw_levels <- sw[,.(team_score = stats::median(team_score, na.rm = TRUE)),by = c("franchise_name")][order(team_score)]
+  sw$franchise_name <- factor(sw$franchise_name, levels = sw_levels$franchise_name)
+
+  ggplot2::ggplot(
+    sw,
+    ggplot2::aes(
       x = .data$team_score,
       y = .data$franchise_name,
       fill = .data$franchise_name
@@ -159,9 +167,8 @@ autoplot.ff_simulation_week <- function(object,
 #' @export
 plot.ff_simulation_week <- function(x, ..., type = c("luck", "points"), y) {
   if (!requireNamespace("ggplot2", quietly = TRUE) &&
-      !requireNamespace("forcats", quietly = TRUE) &&
       !requireNamespace("ggridges", quietly = TRUE)) {
-    stop("`ggplot2`, `ggridges`, and `forcats` must be installed to use `plot`.", call. = FALSE)
+    stop("`ggplot2` and `ggridges` must be installed to use `plot`.", call. = FALSE)
   }
 
   type <- rlang::arg_match(type)

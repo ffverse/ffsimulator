@@ -60,7 +60,7 @@ ffs_adp_outcomes <- function(scoring_history,
     ) %>%
     dplyr::ungroup() %>%
     dplyr::group_by(.data$season, .data$pos) %>%
-    dplyr::mutate(rank = purrr::map(.data$rank, ~ c(ifelse(.x - 1 == 0, .x, .x - 1), .x, .x + 1) %>% tidyr::replace_na(.x))) %>%
+    dplyr::mutate(rank = purrr::map(.data$rank, ~ c(ifelse(.x - 1 == 0, .x, .x - 1), .x, .x + 1))) %>%
     dplyr::ungroup() %>%
     tidyr::unnest(rank) %>%
     .ff_apply_gp_model(gp_model) %>%

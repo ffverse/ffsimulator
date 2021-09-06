@@ -29,30 +29,39 @@ autoplot.ff_simulation <- function(object,
   type <- rlang::arg_match(type)
 
   if (!requireNamespace("ggplot2", quietly = TRUE) &&
-      !requireNamespace("forcats", quietly = TRUE) &&
       !requireNamespace("ggridges", quietly = TRUE)) {
-    stop("`ggplot2`, `ggridges`, and `forcats` must be installed to use `autoplot`.", call. = FALSE)
+    stop("`ggplot2` and `ggridges` must be installed to use `autoplot`.", call. = FALSE)
   }
 
   switch(type,
-    "wins" = p <- .ffs_plot_wins(object, ...),
-    "rank" = p <- .ffs_plot_rank(object, ...),
-    "points" = p <- .ffs_plot_points(object, ...)
+         "wins" = p <- .ffs_plot_wins(object, ...),
+         "rank" = p <- .ffs_plot_rank(object, ...),
+         "points" = p <- .ffs_plot_points(object, ...)
   )
   p
 }
 
 #' @keywords internal
 .ffs_plot_wins <- function(object, ...) {
-  object$summary_season %>%
-    dplyr::mutate(franchise_name = forcats::fct_reorder(.f = .data$franchise_name, .x = .data$h2h_wins)) %>%
-    ggplot2::ggplot(
-      ggplot2::aes(
-        x = .data$h2h_wins,
-        y = .data$franchise_name,
-        fill = .data$franchise_name
-      )
-    ) +
+
+  ss <- object$summary_season
+  data.table::setDT(ss)
+  h2h_wins <- NULL
+  franchise_name <- NULL
+
+  ss_levels <- ss[,.(franchise_name,h2h_wins = stats::median(h2h_wins, na.rm = TRUE)),by = "franchise_name"
+  ][order(h2h_wins)]
+
+  ss$franchise_name <- factor(ss$franchise_name, levels = ss_levels$franchise_name)
+
+  ggplot2::ggplot(
+    ss,
+    ggplot2::aes(
+      x = .data$h2h_wins,
+      y = .data$franchise_name,
+      fill = .data$franchise_name
+    )
+  ) +
     ggridges::geom_density_ridges(
       stat = "binline",
       color = "white",
@@ -82,15 +91,25 @@ autoplot.ff_simulation <- function(object,
 
 #' @keywords internal
 .ffs_plot_rank <- function(object, ...) {
-  object$summary_season %>%
-    dplyr::group_by(.data$season) %>%
-    dplyr::mutate(season_rank = rank(-.data$h2h_wins, ties.method = "min")) %>%
-    dplyr::ungroup() %>%
-    dplyr::mutate(
-      franchise_name = forcats::fct_reorder(.f = .data$franchise_name, .x = .data$season_rank),
-      rank_label = scales::ordinal(.data$season_rank) %>% forcats::fct_reorder(.data$season_rank),
-    ) %>%
-    ggplot2::ggplot(ggplot2::aes(x = .data$franchise_name, color = .data$franchise_name, fill = .data$franchise_name)) +
+
+  ss <- object$summary_season
+  data.table::setDT(ss)
+  h2h_wins <- NULL
+  franchise_name <- NULL
+  season_rank <- NULL
+
+  ss[,`:=`(season_rank = rank(-h2h_wins, ties.method = "min")), by = "season"]
+  ss_levels <- ss[
+    ,.(franchise_name,season_rank = mean(season_rank, ties.method = "min")),
+    by = "franchise_name"
+  ][order(season_rank)]
+
+  ss$franchise_name <- factor(ss$franchise_name, levels = ss_levels$franchise_name)
+  ss$rank_label <- factor(scales::ordinal(ss$season_rank), scales::ordinal(sort(unique(ss$season_rank))))
+
+  ggplot2::ggplot(
+    ss,
+    ggplot2::aes(x = .data$franchise_name, color = .data$franchise_name, fill = .data$franchise_name)) +
     ggplot2::geom_bar() +
     ggplot2::scale_x_discrete(guide = ggplot2::guide_axis(position = "none"))+
     ggplot2::facet_wrap(~ .data$rank_label) +
@@ -113,9 +132,16 @@ autoplot.ff_simulation <- function(object,
 
 #' @keywords internal
 .ffs_plot_points <- function(object, ...) {
-  object$summary_week %>%
-    dplyr::mutate(franchise_name = forcats::fct_reorder(.f = .data$franchise_name, .x = .data$team_score)) %>%
-    ggplot2::ggplot(ggplot2::aes(
+
+  sw <- object$summary_week
+  data.table::setDT(sw)
+  team_score <- NULL
+  sw_levels <- sw[,.(team_score = stats::median(team_score, na.rm = TRUE)),by = c("franchise_name")][order(team_score)]
+  sw$franchise_name <- factor(sw$franchise_name, levels = sw_levels$franchise_name)
+
+  ggplot2::ggplot(
+    sw,
+    ggplot2::aes(
       x = .data$team_score,
       y = .data$franchise_name,
       fill = .data$franchise_name
@@ -150,9 +176,8 @@ autoplot.ff_simulation <- function(object,
 #' @export
 plot.ff_simulation <- function(x, ..., type = c("wins", "rank", "points"), y) {
   if (!requireNamespace("ggplot2", quietly = TRUE) &&
-      !requireNamespace("forcats", quietly = TRUE) &&
       !requireNamespace("ggridges", quietly = TRUE)) {
-    stop("`ggplot2`, `ggridges`, and `forcats` must be installed to use `plot`.", call. = FALSE)
+    stop("`ggplot2` and `ggridges` must be installed to use `plot`.", call. = FALSE)
   }
 
   type <- rlang::arg_match(type)

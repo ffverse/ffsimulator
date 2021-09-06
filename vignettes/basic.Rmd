@@ -35,7 +35,7 @@ ffsimulator connects directly to your league (via the [ffscrapr package](https:/
 ```{r eval = FALSE}
 foureight_conn <- mfl_connect(2021, 22627)
 
-foureight_sim <- ff_simulate(conn = foureight_conn, n_seasons = 25, n_weeks = 14)
+foureight_sim <- ff_simulate(conn = foureight_conn, n_seasons = 10, n_weeks = 14)
 foureight_sim
 ```
 ```{r echo = FALSE, message = FALSE}
@@ -45,9 +45,9 @@ foureight_sim
 ffsimulator includes a few automatic plots that can be run on this ff_simulation object to get a quick sense of the simulation output:
 
 ```{r}
-autoplot(foureight_sim) # defaults to type = "wins"
-autoplot(foureight_sim, type = "rank")
-autoplot(foureight_sim, type = "points")
+plot(foureight_sim) # defaults to type = "wins"
+plot(foureight_sim, type = "rank")
+plot(foureight_sim, type = "points")
 ```
 
 You can also access the various component dataframes by name, for further analysis.

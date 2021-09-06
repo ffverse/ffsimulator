@@ -42,8 +42,7 @@ ffs_adp_outcomes_week <- function(scoring_history,
       by = c("season", "week", "gsis_id")
     ) %>%
     dplyr::mutate(
-      rank = purrr::map(.data$rank, ~ c(ifelse(.x - 1 == 0, .x, .x - 1), .x, .x + 1) %>%
-                          tidyr::replace_na(.x))
+      rank = purrr::map(.data$rank, ~ c(ifelse(.x - 1 == 0, .x, .x - 1), .x, .x + 1))
     ) %>%
     tidyr::unnest(rank) %>%
     dplyr::group_by(.data$pos, .data$rank) %>%
