@@ -38,7 +38,7 @@ ffs_rosters.mfl_conn <- function(conn) {
   r$league_id <- as.character(conn$league_id)
   r$franchise_id <- as.character(r$franchise_id)
 
-  return(rosters)
+  return(r)
 }
 
 #' @rdname ffs_rosters
@@ -92,7 +92,7 @@ ffs_rosters.espn_conn <- function(conn) {
   r$league_id <- as.character(conn$league_id)
   r$franchise_id <- as.character(r$franchise_id)
 
-  return(rosters)
+  return(r)
 }
 
 
