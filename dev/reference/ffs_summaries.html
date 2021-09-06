@@ -86,7 +86,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ffsimulator</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.0.0.11</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.0.0.12</span>
       </span>
     </div>
 
@@ -194,6 +194,8 @@
 
 <span class='fu'>ffs_summarise_simulation</span><span class='op'>(</span><span class='va'>summary_season</span><span class='op'>)</span>
 
+<span class='fu'>ffs_summarise_inseason</span><span class='op'>(</span><span class='va'>summary_week</span>, <span class='va'>n</span><span class='op'>)</span>
+
 <span class='fu'>ffs_summarize_week</span><span class='op'>(</span><span class='va'>optimal_scores</span>, <span class='va'>schedules</span><span class='op'>)</span>
 
 <span class='fu'>ffs_summarize_season</span><span class='op'>(</span><span class='va'>summary_week</span><span class='op'>)</span>
@@ -219,6 +221,10 @@
       <th>summary_season</th>
       <td><p>a dataframe as created by <code>ffs_summarise_season()</code></p></td>
     </tr>
+    <tr>
+      <th>n</th>
+      <td><p>number of weeks</p></td>
+    </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
@@ -226,6 +232,7 @@
     <p>ffs_summarise_week: a dataframe summarising team results by simulation week</p>
 <p>ffs_summarise_season: a dataframe summarising franchise results across each simulation season</p>
 <p>ffs_summarise_simulation: a dataframe summarising franchise results across the simulation</p>
+<p>ffs_summarise_inseason: a dataframe summarising franchise results for the inseason simulation</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='../articles/custom.html'>vignette("custom")</a></code> for example usage</p></div>
