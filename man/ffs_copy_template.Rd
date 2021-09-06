@@ -13,7 +13,7 @@ ffs_copy_template(
 \arguments{
 \item{filename}{New file name, defaults to putting "ff_simulation.R" into your current directory}
 
-\item{template}{choice of template: one of "season", "rest_of_season", "week"}
+\item{template}{choice of template: one of "season", "week"}
 
 \item{overwrite}{a logical (or NULL) - overwrite if existing file found?}
 }
