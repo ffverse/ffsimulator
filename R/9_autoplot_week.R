@@ -27,59 +27,20 @@ autoplot.ff_simulation_week <- function(object,
                                         ...) {
   type <- rlang::arg_match(type)
 
-  if (!requireNamespace("ggplot2", quietly = TRUE) && !requireNamespace("forcats", quietly = TRUE)) {
-    stop("`ggplot2` and `forcats` must be installed to use `autoplot`.", call. = FALSE)
-  }
-
-  if (type %in% c("wins", "points") && !requireNamespace("ggridges", quietly = TRUE)) {
-    stop("`ggridges` must be installed to use `type=\"points\"` option.", call. = FALSE)
+  if (!requireNamespace("ggplot2", quietly = TRUE) &&
+      !requireNamespace("forcats", quietly = TRUE) &&
+      !requireNamespace("ggridges", quietly = TRUE)) {
+    stop("`ggplot2`, `ggridges`, and `forcats` must be installed to use `autoplot`.", call. = FALSE)
   }
 
   switch(type,
-         "luck" = p <- .ffs_plot_week_scheduleluck(object, ...),
+         "luck" = p <- .ffs_plot_week_luck(object, ...),
          "points" = p <- .ffs_plot_week_points(object, ...)
   )
   p
 }
 
-.ffs_plot_week_wins <- function(object, ...) {
-  object$summary_week %>%
-    dplyr::mutate(franchise_name = forcats::fct_reorder(.f = .data$franchise_name, .x = .data$allplay_wins)) %>%
-    ggplot2::ggplot(
-      ggplot2::aes(
-        x = .data$allplay_wins,
-        y = .data$franchise_name,
-        fill = .data$franchise_name
-      )
-    ) +
-    ggridges::geom_density_ridges(
-      stat = "binline",
-      color = "white",
-      binwidth = 1,
-      scale = 1.3,
-      alpha = 0.8,
-      show.legend = FALSE
-    ) +
-    ggplot2::scale_x_continuous(
-      breaks = seq.int(0, max(object$summary_season$allplay_wins) + 1, by = 2)
-    ) +
-    ggplot2::xlab("All-Play Wins") +
-    ggplot2::ylab(NULL) +
-    ggplot2::theme_minimal() +
-    ggplot2::theme(
-      # legend.position = "none",
-      panel.grid.major.y = ggplot2::element_blank(),
-      panel.grid.minor.x = ggplot2::element_blank(),
-      plot.title.position = "plot"
-    ) +
-    ggplot2::labs(
-      title = glue::glue("All-Play Win Totals - {object$simulation_params$n} Simulated Weeks"),
-      subtitle = glue::glue("{object$league_info$league_name}"),
-      caption = glue::glue("ffsimulator R pkg | Based on rankings as of {object$simulation_params$scrape_date}")
-    )
-}
-
-.ffs_plot_week_scheduleluck <- function(object, ...) {
+.ffs_plot_week_luck <- function(object, ...) {
 
   if(!object$simulation_params$actual_schedule) stop("Schedule Luck plot not available if `actual_schedule` is FALSE")
 
@@ -161,7 +122,6 @@ autoplot.ff_simulation_week <- function(object,
     )
 }
 
-
 #' @keywords internal
 .ffs_plot_week_points <- function(object, ...) {
   object$summary_week %>%
@@ -187,7 +147,7 @@ autoplot.ff_simulation_week <- function(object,
       plot.title.position = "plot"
     ) +
     ggplot2::labs(
-      title = glue::glue("Weekly Scores - {object$simulation_params$n} Simulated Weeks"),
+      title = glue::glue("Week Scores - {object$simulation_params$n} Simulated Weeks"),
       subtitle = glue::glue("{object$league_info$league_name}"),
       caption = glue::glue("ffsimulator R pkg | Based on rankings as of {object$simulation_params$scrape_date}")
     )
@@ -198,8 +158,10 @@ autoplot.ff_simulation_week <- function(object,
 #' @param y Ignored, required for compatibility with the `plot()` generic.
 #' @export
 plot.ff_simulation_week <- function(x, ..., type = c("luck", "points"), y) {
-  if (!requireNamespace("ggplot2", quietly = TRUE) && !requireNamespace("forcats", quietly = TRUE)) {
-    stop("`ggplot2` and `forcats` must be installed to use `autoplot`.", call. = FALSE)
+  if (!requireNamespace("ggplot2", quietly = TRUE) &&
+      !requireNamespace("forcats", quietly = TRUE) &&
+      !requireNamespace("ggridges", quietly = TRUE)) {
+    stop("`ggplot2`, `ggridges`, and `forcats` must be installed to use `plot`.", call. = FALSE)
   }
 
   type <- rlang::arg_match(type)

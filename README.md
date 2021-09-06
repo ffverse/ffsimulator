@@ -70,17 +70,17 @@ library(ffsimulator)
 library(ggplot2)
 library(ggridges)
 
-foureight_conn <- mfl_connect(season = 2021, league_id = 22627)
+mfl_conn <- mfl_connect(season = 2021, league_id = 22627)
 
 ## OTHER PLATFORM CONNECTIONS MAY BE USED, AS PER BELOW: ##
 
-# dlp_conn <- sleeper_connect(season = 2021,  league_id = "652582284720971776") 
+# sleeper_conn <- sleeper_connect(season = 2021,  league_id = "652582284720971776") 
 # flea_conn <- fleaflicker_connect(season = 2021, league_id = 312861) 
 # espn_conn <- espn_connect(season = 2021, league_id = 899513)
 
-foureight_sim <- ff_simulate(conn = foureight_conn, n_seasons = 25, n_weeks = 14)
+mfl_sim <- ff_simulate(conn = mfl_conn, n_seasons = 25, n_weeks = 14)
 
-autoplot(foureight_sim)
+plot(foureight_sim)
 ```
 
 <img src="man/figures/README-unnamed-chunk-5-1.png" width="100%" />

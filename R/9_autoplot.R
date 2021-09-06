@@ -28,12 +28,10 @@ autoplot.ff_simulation <- function(object,
                                    ...) {
   type <- rlang::arg_match(type)
 
-  if (!requireNamespace("ggplot2", quietly = TRUE) && !requireNamespace("forcats", quietly = TRUE)) {
-    stop("`ggplot2` and `forcats` must be installed to use `autoplot`.", call. = FALSE)
-  }
-
-  if (type %in% c("wins", "points") && !requireNamespace("ggridges", quietly = TRUE)) {
-    stop("`ggridges` must be installed to use `type = \"wins\"` option.", call. = FALSE)
+  if (!requireNamespace("ggplot2", quietly = TRUE) &&
+      !requireNamespace("forcats", quietly = TRUE) &&
+      !requireNamespace("ggridges", quietly = TRUE)) {
+    stop("`ggplot2`, `ggridges`, and `forcats` must be installed to use `autoplot`.", call. = FALSE)
   }
 
   switch(type,
@@ -151,8 +149,10 @@ autoplot.ff_simulation <- function(object,
 #' @param y Ignored, required for compatibility with the `plot()` generic.
 #' @export
 plot.ff_simulation <- function(x, ..., type = c("wins", "rank", "points"), y) {
-  if (!requireNamespace("ggplot2", quietly = TRUE) && !requireNamespace("forcats", quietly = TRUE)) {
-    stop("`ggplot2` and `forcats` must be installed to use `autoplot`.", call. = FALSE)
+  if (!requireNamespace("ggplot2", quietly = TRUE) &&
+      !requireNamespace("forcats", quietly = TRUE) &&
+      !requireNamespace("ggridges", quietly = TRUE)) {
+    stop("`ggplot2`, `ggridges`, and `forcats` must be installed to use `plot`.", call. = FALSE)
   }
 
   type <- rlang::arg_match(type)
