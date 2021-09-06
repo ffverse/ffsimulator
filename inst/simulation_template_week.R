@@ -16,10 +16,8 @@ library(ggridges)
 
 conn <- mfl_connect(season = 2021, league_id = 22627)
 
-n_seasons <-  200 # any number of seasons
-n_weeks <-  14 # any number of weeks per season
+n <-  1000 # any number of seasons
 best_ball <-  FALSE # or TRUE
-gp_model <-  "simple" # or none
 base_seasons <-  2012:2020 # any numeric vector between 2012 and 2020
 seed <- 613
 pos_filter <-  c("QB","RB","WR","TE","K")
@@ -32,7 +30,7 @@ league_info <- ffscrapr::ff_league(conn)
 
 scoring_history <- ffscrapr::ff_scoringhistory(conn, base_seasons)
 
-latest_rankings <- ffs_latest_rankings(type = "draft")
+latest_rankings <- ffs_latest_rankings(type = "week")
 
 franchises <- ffs_franchises(conn)
 rosters <- ffs_rosters(conn)
@@ -42,34 +40,37 @@ lineup_constraints <- ffscrapr::ff_starter_positions(conn) %>%
 
 #### SCHEDULES ####
 
-#### Uncomment this section to use actual season schedule (and simulate only unplayed weeks) ####
-# schedules <- ffs_repeat_schedules(actual_schedule = ffs_schedule(conn),
-#                                   n_seasons = n_seasons)
+
+#### Uncomment out this section to use "fake" schedules instead of the real upcoming matchup ####
 #
-# weeks <- unique(schedule$week)
+# schedules <- ffs_build_schedules(
+#   n_seasons = n,
+#   n_weeks = 1,
+#   franchises = franchises
+# ) %>%
+#   dplyr::mutate(week = season,
+#                 season = 1
+#   )
 
-#### Comment out this section if the above section is used - this generates "fake" schedules ####
-weeks <- seq_len(n_weeks)
+#### Use real upcoming matchup, comment out this section if the above section is used ####
 
-schedules <- ffs_build_schedules(
-  n_seasons = n_seasons,
-  n_weeks = n_weeks,
-  franchises = franchises
-)
+schedules <- ffs_schedule(conn) %>%
+  dplyr::filter(week == min(week)) %>%
+  ffs_repeat_schedules(n_seasons = n) %>%
+  dplyr::mutate(week = season,
+                season = 1)
 
 #### GENERATE PROJECTIONS ####
 
-adp_outcomes <- ffs_adp_outcomes(
+adp_outcomes <- ffs_adp_outcomes_week(
   scoring_history = scoring_history,
-  gp_model = gp_model,
   pos_filter = pos_filter
 )
 
-projected_scores <- ffs_generate_projections(
+projected_scores <- ffs_generate_projections_week(
   adp_outcomes = adp_outcomes,
   latest_rankings = latest_rankings,
-  n_seasons = n_seasons,
-  weeks = weeks,
+  n = n,
   rosters = rosters
 )
 
@@ -102,19 +103,16 @@ simulation <- structure(
     projected_scores = projected_scores,
     league_info = league_info,
     simulation_params = list(
-      n_seasons = n_seasons,
-      n_weeks = n_weeks,
+      n = n,
       scrape_date = latest_rankings$scrape_date[[1]],
       best_ball = best_ball,
       seed = seed,
-      gp_model = gp_model,
-      actual_schedule = actual_schedule,
+      actual_schedule = TRUE, # or FALSE depending on what you changed above
       base_seasons = list(base_seasons)
     )
   ),
-  class = "ff_simulation"
+  class = "ff_simulation_week"
 )
 
-plot(simulation, type = "wins")
+plot(simulation, type = "luck")
 plot(simulation, type = "points")
-plot(simulation, type = "rank")
