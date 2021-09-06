@@ -72,8 +72,8 @@ ff_simulate_week <- function(conn,
   lineup_constraints <- ffs_starter_positions(conn)
 
   if(actual_schedule) {
-    schedule <- ffs_schedule(conn) %>%
-      dplyr::filter(.data$week==min(.data$week))
+    schedule <- ffs_schedule(conn)
+    schedule <- schedule[schedule$week == min(schedule$week),] # simulate first unplayed week
 
     if(nrow(schedule)==0) {
       cli::cli_alert_danger("No unplayed weeks to simulate!")

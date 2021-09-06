@@ -35,8 +35,7 @@ latest_rankings <- ffs_latest_rankings(type = "week")
 franchises <- ffs_franchises(conn)
 rosters <- ffs_rosters(conn)
 
-lineup_constraints <- ffscrapr::ff_starter_positions(conn) %>%
-  dplyr::mutate(pos = replace(.data$pos,.data$pos == "PK","K"))
+lineup_constraints <- ffs_starter_positions(conn)
 
 #### SCHEDULES ####
 
@@ -91,12 +90,10 @@ optimal_scores <-
 #### SUMMARISE SIMULATION DATA ####
 
 summary_week <- ffs_summarise_week(optimal_scores, schedules)
-summary_season <- ffs_summarise_season(summary_week)
-summary_simulation <- ffs_summarise_simulation(summary_season)
+summary_season <- ffs_summarise_inseason(summary_week, n)
 
 simulation <- structure(
   list(
-    summary_simulation = summary_simulation,
     summary_season = summary_season,
     summary_week = summary_week,
     roster_scores = roster_scores,
