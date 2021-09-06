@@ -23,9 +23,9 @@ test_that("ffs_adp_outcomes() works for both the simple and none injury models",
     pos_filter = c("QB","RB","WR","TE")
   )
 
-  checkmate::expect_tibble(adp_outcomes, min.rows = 500)
-  checkmate::expect_tibble(adp_outcomes_noinjury, min.rows = 500)
-  checkmate::expect_tibble(adp_outcomes_week, min.rows = 500)
+  checkmate::expect_data_frame(adp_outcomes, min.rows = 500)
+  checkmate::expect_data_frame(adp_outcomes_noinjury, min.rows = 500)
+  checkmate::expect_data_frame(adp_outcomes_week, min.rows = 500)
 
   checkmate::expect_subset(
     names(adp_outcomes),
@@ -156,29 +156,31 @@ test_that("summary functions return tibbles", {
   summary_season <- ffs_summarise_season(summary_week = summary_week)
   summary_simulation <- ffs_summarise_simulation(summary_season = summary_season)
 
-  checkmate::expect_tibble(summary_week, nrows = 72)
-  checkmate::expect_tibble(summary_season, nrows = 24)
-  checkmate::expect_tibble(summary_simulation, nrows = 12)
+  checkmate::expect_data_frame(summary_week, nrows = 72)
+  checkmate::expect_data_frame(summary_season, nrows = 24)
+  checkmate::expect_data_frame(summary_simulation, nrows = 12)
 
   checkmate::expect_subset(
     c(
-      "season", "franchise_id", "franchise_name", "h2h_wins", "h2h_winpct",
+      "season", "week", "franchise_name", "optimal_score",
+      "lineup_efficiency", "team_score", "opponent_score", "result",
+      "opponent_name", "allplay_wins", "allplay_games", "allplay_pct",
+      "franchise_id", "optimal_player_id", "optimal_player_score","league_id"
+    ),
+    names(summary_week),
+    label = "summary_week names check"
+  )
+
+  checkmate::expect_subset(
+    c(
+      "season","league_id", "franchise_id", "franchise_name", "h2h_wins", "h2h_winpct",
       "allplay_wins", "allplay_games", "allplay_winpct", "points_for",
       "points_against", "potential_points"
     ),
     names(summary_season),
     label = "summary_season names check"
   )
-  checkmate::expect_subset(
-    c(
-      "season", "season_week", "franchise_name", "optimal_score",
-      "lineup_efficiency", "team_score", "opponent_score", "result",
-      "opponent_name", "allplay_wins", "allplay_games", "allplay_pct",
-      "franchise_id", "optimal_player_id", "optimal_player_score"
-    ),
-    names(summary_week),
-    label = "summary_week names check"
-  )
+
   checkmate::expect_subset(
     c(
       "franchise_id", "franchise_name", "seasons", "h2h_wins", "h2h_winpct",
