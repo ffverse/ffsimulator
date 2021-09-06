@@ -7,14 +7,18 @@ reference:
   desc: These are the primary functions of `ffsimulator`.
   contents:
   - "ff_simulate"
-  - "autoplot.ff_simulation"
+  - "plot.ff_simulation"
+  - "ff_simulate_week"
+  - "plot.ff_simulation_week"
 - title: Customized Simulations
   desc: Subfunctions used by ff_simulate
   contents:
   - "ffs_adp_outcomes"
+  - "ffs_adp_outcomes_week"
   - "ffs_latest_rankings"
   - "ffs_rosters"
   - "ffs_generate_projections"
+  - "ffs_generate_projections_week"
   - "ffs_score_rosters"
   - "ffs_optimise_lineups"
   - "ffs_build_schedules"
@@ -29,6 +33,7 @@ reference:
   - "`%>%`"
   - "fp_rankings_history"
   - "fp_injury_table"
+  - "fp_rankings_history_week"
 
 authors:
   Tan Ho:

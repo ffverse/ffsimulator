@@ -1,22 +1,20 @@
-#' Simulate Fantasy Seasons
+#' Simulate Fantasy Week
 #'
-#' The main function of the package - uses bootstrap resampling to run fantasy football season simulations supported by historical rankings and nflfastR data, calculating optimal lineups, and returns aggregated results.
+#' This function simulates a single upcoming week using the same methodology as in the season-long simulation, `ff_simulate()`.
 #'
 #' @param conn an connection to a league made with `ff_connect()` and friends (required)
-#' @param n_seasons number of seasons to simulate, default = 100
-#' @param n_weeks number of weeks per season, default = 14
+#' @param n number of times to simulate the upcoming week, default is 1000
 #' @param best_ball a logical: are weekly wins based on optimal lineups?
 #' @param seed an integer to control reproducibility
-#' @param gp_model select between "simple", "none" to apply a model for whether a player played in a given game, defaults to "simple"
 #' @param base_seasons a numeric vector that selects seasons as base data, earliest available is 2012
-#' @param actual_schedule a logical: use actual ff_schedule? default is FALSE
+#' @param actual_schedule a logical: use actual ff_schedule? default is TRUE
 #' @param pos_filter a character vector of positions to filter/run, default is c("QB","RB","WR","TE","K")
 #' @param verbose a logical: print status messages? default is TRUE, configure with options(ffsimulator.verbose)
 #'
 #' @examples
 #' \donttest{
 #' conn <- mfl_connect(2021, 22627)
-#' ff_simulate(conn, n_seasons = 25)
+#' ff_simulate_week(conn, n = 1000, actual_schedule = TRUE)
 #' }
 #'
 #' @return an `ff_simulation` object which can be passed to `plot()` and contains the output data from the simulation.
@@ -25,16 +23,14 @@
 #' @seealso `vignette("custom")` for examples on using the subfunctions for your own processes.
 #'
 #' @export
-ff_simulate <- function(conn,
-                        n_seasons = 100,
-                        n_weeks = 14,
-                        best_ball = FALSE,
-                        seed = NULL,
-                        gp_model = c("simple", "none"),
-                        base_seasons = 2012:2020,
-                        actual_schedule = FALSE,
-                        pos_filter = c("QB","RB","WR","TE","K"),
-                        verbose = getOption("ffsimulator.verbose", default = TRUE)) {
+ff_simulate_week <- function(conn,
+                             n = 1000,
+                             best_ball = FALSE,
+                             seed = NULL,
+                             base_seasons = 2012:2020,
+                             actual_schedule = TRUE,
+                             pos_filter = c("QB","RB","WR","TE","K"),
+                             verbose = getOption("ffsimulator.verbose", default = TRUE)) {
 
   #### Assertions ####
 
@@ -44,11 +40,10 @@ ff_simulate <- function(conn,
     )
   }
 
-  gp_model <- rlang::arg_match(gp_model)
+  # gp_model <- rlang::arg_match(gp_model)
   checkmate::assert_subset(pos_filter, c("QB","RB","WR","TE","K"))
   checkmate::assert_numeric(base_seasons, lower = 2012, upper = 2020)
-  checkmate::assert_int(n_seasons, lower = 1)
-  checkmate::assert_int(n_weeks, lower = 1)
+  checkmate::assert_int(n, lower = 1)
   checkmate::assert_int(seed, null.ok = TRUE)
   if (!is.null(seed)) set.seed(seed)
   checkmate::assert_flag(best_ball)
@@ -69,7 +64,7 @@ ff_simulate <- function(conn,
 
   scoring_history <- ffscrapr::ff_scoringhistory(conn, base_seasons)
 
-  latest_rankings <- ffs_latest_rankings(type = "draft")
+  latest_rankings <- ffs_latest_rankings(type = "week")
 
   franchises <- ffs_franchises(conn)
   rosters <- ffs_rosters(conn)
@@ -77,37 +72,26 @@ ff_simulate <- function(conn,
   lineup_constraints <- ffscrapr::ff_starter_positions(conn) %>%
     dplyr::mutate(pos = replace(.data$pos,.data$pos == "PK","K"))
 
-  weeks <- seq_len(n_weeks)
-
   if(actual_schedule) {
-    schedule <- ffs_schedule(conn)
+    schedule <- ffs_schedule(conn) %>%
+      dplyr::filter(.data$week==min(.data$week))
 
-    weeks <- unique(schedule$week)
-
-    if(length(weeks)==0) {
-
+    if(nrow(schedule)==0) {
       cli::cli_alert_danger("No unplayed weeks to simulate!")
       out <- structure(list(schedule = ffscrapr::ff_schedule(conn),
                             league_info = league_info,
                             simulation_params = tibble::tibble(
-                              n_seasons = n_seasons,
-                              n_weeks = n_weeks,
+                              n = n,
                               scrape_date = latest_rankings$scrape_date[[1]],
                               best_ball = best_ball,
                               seed = seed,
-                              gp_model = gp_model,
+                              # gp_model = gp_model,
                               actual_schedule = actual_schedule,
                               base_seasons = list(base_seasons)
                             )),
                        class = "ff_simulation")
-
       return(out)
-
     }
-
-    cli::cli_alert_info("Simulating only unplayed weeks: {
-                        min(weeks,na.rm = TRUE)}-{
-                        max(weeks, na.rm = TRUE)}")
   }
 
   vcli_end(msg_done = "Importing data...done! {Sys.time()}")
@@ -116,22 +100,17 @@ ff_simulate <- function(conn,
 
   vcli_start(msg = "Generating Projections")
 
-  adp_outcomes <- ffs_adp_outcomes(
+  adp_outcomes <- ffs_adp_outcomes_week(
     scoring_history = scoring_history,
-    gp_model = gp_model,
     pos_filter = pos_filter
   )
 
-  projected_scores <- ffs_generate_projections(
+  projected_scores <- ffs_generate_projections_week(
     adp_outcomes = adp_outcomes,
     latest_rankings = latest_rankings,
-    n_seasons = n_seasons,
-    weeks = weeks,
+    n = n,
     rosters = rosters
   )
-
-  # filter out played game weeks
-
 
   vcli_end(msg_done = "Generating Projections...done! {Sys.time()}")
 
@@ -161,16 +140,22 @@ ff_simulate <- function(conn,
   vcli_start(msg = "Building Schedules")
 
   if(actual_schedule) {
-    schedules <- ffs_repeat_schedules(n_seasons = n_seasons,
-                                      actual_schedule = schedule)
+    schedules <- ffs_repeat_schedules(n_seasons = n,
+                                      actual_schedule = schedule) %>%
+      dplyr::mutate(week = .data$season,
+                    season = 1)
   }
 
   if(!actual_schedule){
     schedules <- ffs_build_schedules(
-      n_seasons = n_seasons,
-      n_weeks = n_weeks,
+      n_seasons = 1000,
+      n_weeks = 1,
       franchises = franchises
-    )
+    ) %>%
+      dplyr::mutate(
+        week = .data$season,
+        season = 1
+      )
   }
 
   vcli_end(msg_done = "Building Schedules...done! {Sys.time()}")
@@ -179,7 +164,9 @@ ff_simulate <- function(conn,
   vcli_start(msg = "Summarising Simulation Data")
 
   summary_week <- ffs_summarise_week(optimal_scores, schedules)
-  summary_season <- ffs_summarise_season(summary_week)
+  summary_season <- ffs_summarise_season(summary_week) %>%
+    dplyr::mutate_at(c("points_for","points_against","potential_points"), ~round(.x/n,2))
+
   summary_simulation <- ffs_summarise_simulation(summary_season)
 
   vcli_end(msg_done = "Summarising Simulation Data...done! {Sys.time()}")
@@ -194,19 +181,17 @@ ff_simulate <- function(conn,
       roster_scores = roster_scores,
       projected_scores = projected_scores,
       league_info = league_info,
-      simulation_params = tibble::tibble(
-        n_seasons = n_seasons,
-        n_weeks = n_weeks,
+      simulation_params = list(
+        n = n,
         scrape_date = latest_rankings$scrape_date[[1]],
         best_ball = best_ball,
         seed = seed,
-        gp_model = gp_model,
         actual_schedule = actual_schedule,
         base_seasons = list(base_seasons),
         pos_filter = list(pos_filter)
       )
     ),
-    class = "ff_simulation"
+    class = "ff_simulation_week"
   )
 
   vcli_rule("Simulation complete! {Sys.time()}")
@@ -216,9 +201,9 @@ ff_simulate <- function(conn,
 
 #' @export
 #' @noRd
-print.ff_simulation <- function(x, ...) {
+print.ff_simulation_week <- function(x, ...) {
   cat("<ff_simulation: ",
-      x$simulation_params$n_seasons,
+      x$simulation_params$n,
       " simulated seasons of ",
       x$league_info$league_name,
       ">\n",

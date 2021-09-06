@@ -1,7 +1,7 @@
 test_that("MFL simulation works", {
   skip_on_cran()
 
-  foureight <- mfl_connect(2021, 22627)
+  foureight <- mfl_connect(2021, 22627, user_agent = "asdf23409lkjsafd")
   foureight_sim <- ff_simulate(foureight, n_seasons = 2)
 
   checkmate::expect_list(foureight_sim, len = 7)
@@ -48,7 +48,7 @@ test_that("ESPN simulation works", {
 
 test_that("Actual Schedule - completed_season = no sim", {
   skip_on_cran()
-  ssb <- mfl_connect(2020, 54040)
+  ssb <- mfl_connect(2020, 54040, user_agent = "asdfafd")
   testthat::expect_message(ssb_sim <- ff_simulate(ssb, n_seasons = 2, actual_schedule = TRUE),
                            regexp = "No unplayed weeks")
 

@@ -13,7 +13,8 @@
 - `ffs_generate_projections()` now takes in a `weeks` argument (aka a numeric vector specifying which weeks to simulate) instead of taking in a `n_weeks` argument (which specified how many weeks). ***BREAKING, for custom sims*** (v1.0.0.07)
 - `injury_model` is renamed to `gp_model` in every case because the model is whether a player played in a given game. ***BREAKING, arg name changed***
 - Add kicker support (sigh, SFB) (v1.0.0.08)
-
+- Add `pos_filter arg` to ff_simulate().
+- Add `ff_simulate_week()` functions. (v1.0.0.09)
 
 ## Minor changes
 
