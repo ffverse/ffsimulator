@@ -86,7 +86,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ffsimulator</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.0.0.10</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.0.0.11</span>
       </span>
     </div>
 
@@ -238,58 +238,495 @@
 
 <span class='va'>summary_week</span> <span class='op'>&lt;-</span> <span class='fu'>ffs_summarise_week</span><span class='op'>(</span><span class='va'>optimal_scores</span>, <span class='va'>schedules</span><span class='op'>)</span>
 <span class='va'>summary_week</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 72 × 16</span>
-#&gt;    season season_week franchise_name   optimal_score lineup_efficien… team_score
-#&gt;     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>       <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>                    <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>            <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>      <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
-#&gt; <span style='color: #BCBCBC;'> 1</span>      1           1 Mexico City Spa…          189.            0.84       159. 
-#&gt; <span style='color: #BCBCBC;'> 2</span>      1           1 Dirty Dgens               127.            0.81       103. 
-#&gt; <span style='color: #BCBCBC;'> 3</span>      1           1 Alberta Armadil…          187.            0.758      142. 
-#&gt; <span style='color: #BCBCBC;'> 4</span>      1           1 Electric Woodies          158.            0.83       131. 
-#&gt; <span style='color: #BCBCBC;'> 5</span>      1           1 Motor City Mutts          132.            0.757       99.6
-#&gt; <span style='color: #BCBCBC;'> 6</span>      1           1 Hoth City Taunt…          122.            0.808       98.6
-#&gt; <span style='color: #BCBCBC;'> 7</span>      1           1 Paw Patrol                175.            0.764      134. 
-#&gt; <span style='color: #BCBCBC;'> 8</span>      1           1 Domination Stat…          191.            0.818      157. 
-#&gt; <span style='color: #BCBCBC;'> 9</span>      1           1 Kill Devil Hill…          220.            0.755      166. 
-#&gt; <span style='color: #BCBCBC;'>10</span>      1           1 [Redacted]                165.            0.754      125. 
-#&gt; <span style='color: #949494;'># … with 62 more rows, and 10 more variables: opponent_score &lt;dbl&gt;,</span>
-#&gt; <span style='color: #949494;'>#   result &lt;chr&gt;, opponent_name &lt;chr&gt;, allplay_wins &lt;dbl&gt;, allplay_games &lt;dbl&gt;,</span>
-#&gt; <span style='color: #949494;'>#   allplay_pct &lt;dbl&gt;, league_id &lt;chr&gt;, franchise_id &lt;chr&gt;,</span>
-#&gt; <span style='color: #949494;'>#   optimal_player_id &lt;list&gt;, optimal_player_score &lt;list&gt;</span></div><div class='input'><span class='va'>summary_season</span> <span class='op'>&lt;-</span> <span class='fu'>ffs_summarise_season</span><span class='op'>(</span><span class='va'>summary_week</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;     season week                 franchise_name optimal_score lineup_efficiency
+#&gt;  1:      1    1        Mexico City Space Force        189.38             0.840
+#&gt;  2:      1    1                    Dirty Dgens        127.19             0.810
+#&gt;  3:      1    1             Alberta Armadillos        187.08             0.758
+#&gt;  4:      1    1               Electric Woodies        158.05             0.830
+#&gt;  5:      1    1               Motor City Mutts        131.59             0.757
+#&gt;  6:      1    1            Hoth City Tauntauns        121.98             0.808
+#&gt;  7:      1    1                     Paw Patrol        175.41             0.764
+#&gt;  8:      1    1             Domination Station        191.49             0.818
+#&gt;  9:      1    1 Kill Devil Hills Carpetbaggers        219.67             0.755
+#&gt; 10:      1    1                     [Redacted]        165.27             0.754
+#&gt; 11:      1    1                           TB12        149.53             0.820
+#&gt; 12:      1    1           Indigo Plateau Elite        205.11             0.803
+#&gt; 13:      1    2        Mexico City Space Force        180.82             0.679
+#&gt; 14:      1    2                    Dirty Dgens         69.30             0.804
+#&gt; 15:      1    2             Alberta Armadillos        135.32             0.825
+#&gt; 16:      1    2               Electric Woodies        163.90             0.815
+#&gt; 17:      1    2               Motor City Mutts        174.86             0.858
+#&gt; 18:      1    2            Hoth City Tauntauns        146.23             0.872
+#&gt; 19:      1    2                     Paw Patrol        106.17             0.769
+#&gt; 20:      1    2             Domination Station        173.30             0.707
+#&gt; 21:      1    2 Kill Devil Hills Carpetbaggers        163.46             0.822
+#&gt; 22:      1    2                     [Redacted]        104.77             0.832
+#&gt; 23:      1    2                           TB12        164.16             0.732
+#&gt; 24:      1    2           Indigo Plateau Elite        173.42             0.812
+#&gt; 25:      1    3        Mexico City Space Force        198.14             0.820
+#&gt; 26:      1    3                    Dirty Dgens         97.60             0.825
+#&gt; 27:      1    3             Alberta Armadillos        128.70             0.830
+#&gt; 28:      1    3               Electric Woodies        168.57             0.851
+#&gt; 29:      1    3               Motor City Mutts        144.93             0.817
+#&gt; 30:      1    3            Hoth City Tauntauns        198.28             0.762
+#&gt; 31:      1    3                     Paw Patrol        150.44             0.729
+#&gt; 32:      1    3             Domination Station        188.13             0.765
+#&gt; 33:      1    3 Kill Devil Hills Carpetbaggers        189.04             0.764
+#&gt; 34:      1    3                     [Redacted]        123.63             0.736
+#&gt; 35:      1    3                           TB12        220.86             0.726
+#&gt; 36:      1    3           Indigo Plateau Elite        190.83             0.738
+#&gt; 37:      2    1        Mexico City Space Force        185.69             0.860
+#&gt; 38:      2    1                    Dirty Dgens        106.80             0.696
+#&gt; 39:      2    1             Alberta Armadillos        124.05             0.806
+#&gt; 40:      2    1               Electric Woodies        150.16             0.796
+#&gt; 41:      2    1               Motor City Mutts        151.70             0.778
+#&gt; 42:      2    1            Hoth City Tauntauns        104.60             0.794
+#&gt; 43:      2    1                     Paw Patrol        158.65             0.703
+#&gt; 44:      2    1             Domination Station        158.34             0.798
+#&gt; 45:      2    1 Kill Devil Hills Carpetbaggers        120.53             0.727
+#&gt; 46:      2    1                     [Redacted]        166.64             0.739
+#&gt; 47:      2    1                           TB12        236.82             0.863
+#&gt; 48:      2    1           Indigo Plateau Elite        195.58             0.812
+#&gt; 49:      2    2        Mexico City Space Force        220.84             0.832
+#&gt; 50:      2    2                    Dirty Dgens        134.42             0.780
+#&gt; 51:      2    2             Alberta Armadillos        165.20             0.741
+#&gt; 52:      2    2               Electric Woodies        159.49             0.847
+#&gt; 53:      2    2               Motor City Mutts        172.44             0.838
+#&gt; 54:      2    2            Hoth City Tauntauns        168.38             0.832
+#&gt; 55:      2    2                     Paw Patrol        175.36             0.706
+#&gt; 56:      2    2             Domination Station        153.40             0.677
+#&gt; 57:      2    2 Kill Devil Hills Carpetbaggers        176.83             0.710
+#&gt; 58:      2    2                     [Redacted]        105.14             0.735
+#&gt; 59:      2    2                           TB12        174.02             0.756
+#&gt; 60:      2    2           Indigo Plateau Elite        172.41             0.776
+#&gt; 61:      2    3        Mexico City Space Force        260.17             0.779
+#&gt; 62:      2    3                    Dirty Dgens        128.42             0.800
+#&gt; 63:      2    3             Alberta Armadillos        154.36             0.697
+#&gt; 64:      2    3               Electric Woodies        149.82             0.790
+#&gt; 65:      2    3               Motor City Mutts        169.84             0.805
+#&gt; 66:      2    3            Hoth City Tauntauns         88.82             0.787
+#&gt; 67:      2    3                     Paw Patrol        163.74             0.816
+#&gt; 68:      2    3             Domination Station        199.54             0.727
+#&gt; 69:      2    3 Kill Devil Hills Carpetbaggers        181.67             0.839
+#&gt; 70:      2    3                     [Redacted]        173.88             0.811
+#&gt; 71:      2    3                           TB12        152.97             0.843
+#&gt; 72:      2    3           Indigo Plateau Elite        162.65             0.799
+#&gt;     season week                 franchise_name optimal_score lineup_efficiency
+#&gt;     team_score opponent_score result                  opponent_name
+#&gt;  1:     158.99         122.62      W                           TB12
+#&gt;  2:     103.04         131.13      L               Electric Woodies
+#&gt;  3:     141.82         134.04      W                     Paw Patrol
+#&gt;  4:     131.13         103.04      W                    Dirty Dgens
+#&gt;  5:      99.61          98.56      W            Hoth City Tauntauns
+#&gt;  6:      98.56          99.61      L               Motor City Mutts
+#&gt;  7:     134.04         141.82      L             Alberta Armadillos
+#&gt;  8:     156.63         124.65      W                     [Redacted]
+#&gt;  9:     165.75         164.65      W           Indigo Plateau Elite
+#&gt; 10:     124.65         156.63      L             Domination Station
+#&gt; 11:     122.62         158.99      L        Mexico City Space Force
+#&gt; 12:     164.65         165.75      L Kill Devil Hills Carpetbaggers
+#&gt; 13:     122.71         122.45      W             Domination Station
+#&gt; 14:      55.74          87.21      L                     [Redacted]
+#&gt; 15:     111.64         150.05      L               Motor City Mutts
+#&gt; 16:     133.63         127.57      W            Hoth City Tauntauns
+#&gt; 17:     150.05         111.64      W             Alberta Armadillos
+#&gt; 18:     127.57         133.63      L               Electric Woodies
+#&gt; 19:      81.64         134.30      L Kill Devil Hills Carpetbaggers
+#&gt; 20:     122.45         122.71      L        Mexico City Space Force
+#&gt; 21:     134.30          81.64      W                     Paw Patrol
+#&gt; 22:      87.21          55.74      W                    Dirty Dgens
+#&gt; 23:     120.17         140.73      L           Indigo Plateau Elite
+#&gt; 24:     140.73         120.17      W                           TB12
+#&gt; 25:     162.41         109.68      W                     Paw Patrol
+#&gt; 26:      80.48         151.01      L            Hoth City Tauntauns
+#&gt; 27:     106.85         143.99      L             Domination Station
+#&gt; 28:     143.43         140.74      W           Indigo Plateau Elite
+#&gt; 29:     118.47          91.02      W                     [Redacted]
+#&gt; 30:     151.01          80.48      W                    Dirty Dgens
+#&gt; 31:     109.68         162.41      L        Mexico City Space Force
+#&gt; 32:     143.99         106.85      W             Alberta Armadillos
+#&gt; 33:     144.42         160.27      L                           TB12
+#&gt; 34:      91.02         118.47      L               Motor City Mutts
+#&gt; 35:     160.27         144.42      W Kill Devil Hills Carpetbaggers
+#&gt; 36:     140.74         143.43      L               Electric Woodies
+#&gt; 37:     159.64          83.05      W            Hoth City Tauntauns
+#&gt; 38:      74.33         117.96      L               Motor City Mutts
+#&gt; 39:      99.96         111.51      L                     Paw Patrol
+#&gt; 40:     119.57         126.38      L             Domination Station
+#&gt; 41:     117.96          74.33      W                    Dirty Dgens
+#&gt; 42:      83.05         159.64      L        Mexico City Space Force
+#&gt; 43:     111.51          99.96      W             Alberta Armadillos
+#&gt; 44:     126.38         119.57      W               Electric Woodies
+#&gt; 45:      87.62         204.32      L                           TB12
+#&gt; 46:     123.10         158.76      L           Indigo Plateau Elite
+#&gt; 47:     204.32          87.62      W Kill Devil Hills Carpetbaggers
+#&gt; 48:     158.76         123.10      W                     [Redacted]
+#&gt; 49:     183.64         104.85      W                    Dirty Dgens
+#&gt; 50:     104.85         183.64      L        Mexico City Space Force
+#&gt; 51:     122.42         125.62      L Kill Devil Hills Carpetbaggers
+#&gt; 52:     135.11          77.28      W                     [Redacted]
+#&gt; 53:     144.59         123.81      W                     Paw Patrol
+#&gt; 54:     140.16         133.82      W           Indigo Plateau Elite
+#&gt; 55:     123.81         144.59      L               Motor City Mutts
+#&gt; 56:     103.79         131.54      L                           TB12
+#&gt; 57:     125.62         122.42      W             Alberta Armadillos
+#&gt; 58:      77.28         135.11      L               Electric Woodies
+#&gt; 59:     131.54         103.79      W             Domination Station
+#&gt; 60:     133.82         140.16      L            Hoth City Tauntauns
+#&gt; 61:     202.71         129.93      W           Indigo Plateau Elite
+#&gt; 62:     102.70         141.01      L                     [Redacted]
+#&gt; 63:     107.59         129.01      L                           TB12
+#&gt; 64:     118.31         136.67      L               Motor City Mutts
+#&gt; 65:     136.67         118.31      W               Electric Woodies
+#&gt; 66:      69.90         152.46      L Kill Devil Hills Carpetbaggers
+#&gt; 67:     133.68         145.10      L             Domination Station
+#&gt; 68:     145.10         133.68      W                     Paw Patrol
+#&gt; 69:     152.46          69.90      W            Hoth City Tauntauns
+#&gt; 70:     141.01         102.70      W                    Dirty Dgens
+#&gt; 71:     129.01         107.59      W             Alberta Armadillos
+#&gt; 72:     129.93         202.71      L        Mexico City Space Force
+#&gt;     team_score opponent_score result                  opponent_name
+#&gt;     allplay_wins allplay_games allplay_pct league_id franchise_id
+#&gt;  1:            9            11       0.818     22627         0001
+#&gt;  2:            2            11       0.182     22627         0002
+#&gt;  3:            7            11       0.636     22627         0003
+#&gt;  4:            5            11       0.455     22627         0004
+#&gt;  5:            1            11       0.091     22627         0005
+#&gt;  6:            0            11       0.000     22627         0006
+#&gt;  7:            6            11       0.545     22627         0007
+#&gt;  8:            8            11       0.727     22627         0008
+#&gt;  9:           11            11       1.000     22627         0009
+#&gt; 10:            4            11       0.364     22627         0010
+#&gt; 11:            3            11       0.273     22627         0011
+#&gt; 12:           10            11       0.909     22627         0012
+#&gt; 13:            6            11       0.545     22627         0001
+#&gt; 14:            0            11       0.000     22627         0002
+#&gt; 15:            3            11       0.273     22627         0003
+#&gt; 16:            8            11       0.727     22627         0004
+#&gt; 17:           11            11       1.000     22627         0005
+#&gt; 18:            7            11       0.636     22627         0006
+#&gt; 19:            1            11       0.091     22627         0007
+#&gt; 20:            5            11       0.455     22627         0008
+#&gt; 21:            9            11       0.818     22627         0009
+#&gt; 22:            2            11       0.182     22627         0010
+#&gt; 23:            4            11       0.364     22627         0011
+#&gt; 24:           10            11       0.909     22627         0012
+#&gt; 25:           11            11       1.000     22627         0001
+#&gt; 26:            0            11       0.000     22627         0002
+#&gt; 27:            2            11       0.182     22627         0003
+#&gt; 28:            6            11       0.545     22627         0004
+#&gt; 29:            4            11       0.364     22627         0005
+#&gt; 30:            9            11       0.818     22627         0006
+#&gt; 31:            3            11       0.273     22627         0007
+#&gt; 32:            7            11       0.636     22627         0008
+#&gt; 33:            8            11       0.727     22627         0009
+#&gt; 34:            1            11       0.091     22627         0010
+#&gt; 35:           10            11       0.909     22627         0011
+#&gt; 36:            5            11       0.455     22627         0012
+#&gt; 37:           10            11       0.909     22627         0001
+#&gt; 38:            0            11       0.000     22627         0002
+#&gt; 39:            3            11       0.273     22627         0003
+#&gt; 40:            6            11       0.545     22627         0004
+#&gt; 41:            5            11       0.455     22627         0005
+#&gt; 42:            1            11       0.091     22627         0006
+#&gt; 43:            4            11       0.364     22627         0007
+#&gt; 44:            8            11       0.727     22627         0008
+#&gt; 45:            2            11       0.182     22627         0009
+#&gt; 46:            7            11       0.636     22627         0010
+#&gt; 47:           11            11       1.000     22627         0011
+#&gt; 48:            9            11       0.818     22627         0012
+#&gt; 49:           11            11       1.000     22627         0001
+#&gt; 50:            2            11       0.182     22627         0002
+#&gt; 51:            3            11       0.273     22627         0003
+#&gt; 52:            8            11       0.727     22627         0004
+#&gt; 53:           10            11       0.909     22627         0005
+#&gt; 54:            9            11       0.818     22627         0006
+#&gt; 55:            4            11       0.364     22627         0007
+#&gt; 56:            1            11       0.091     22627         0008
+#&gt; 57:            5            11       0.455     22627         0009
+#&gt; 58:            0            11       0.000     22627         0010
+#&gt; 59:            6            11       0.545     22627         0011
+#&gt; 60:            7            11       0.636     22627         0012
+#&gt; 61:           11            11       1.000     22627         0001
+#&gt; 62:            1            11       0.091     22627         0002
+#&gt; 63:            2            11       0.182     22627         0003
+#&gt; 64:            3            11       0.273     22627         0004
+#&gt; 65:            7            11       0.636     22627         0005
+#&gt; 66:            0            11       0.000     22627         0006
+#&gt; 67:            6            11       0.545     22627         0007
+#&gt; 68:            9            11       0.818     22627         0008
+#&gt; 69:           10            11       0.909     22627         0009
+#&gt; 70:            8            11       0.727     22627         0010
+#&gt; 71:            4            11       0.364     22627         0011
+#&gt; 72:            5            11       0.455     22627         0012
+#&gt;     allplay_wins allplay_games allplay_pct league_id franchise_id
+#&gt;                           optimal_player_id
+#&gt;  1: 14777,15241,12447,14079,13722,14137,...
+#&gt;  2: 12610,15238,11747,14803,12212,12263,...
+#&gt;  3: 10700,11644,13610,14085,14802,14806,...
+#&gt;  4: 10703,14778,13319,13364,13880,10973,...
+#&gt;  5:   13593,9431,12171,13234,12677,9474,...
+#&gt;  6:  13590,15237,14804,14808,14870,9925,...
+#&gt;  7: 12611,12620,13128,15257,14807,13679,...
+#&gt;  8:  15240,9099,13290,13604,13607,13299,...
+#&gt;  9:  10697,7836,11657,13132,13427,12187,...
+#&gt; 10: 12140,13116,13622,14827,12676,11671,...
+#&gt; 11:  14782,5848,13131,13850,15329,10729,...
+#&gt; 12:  14056,7401,11193,12626,13130,14071,...
+#&gt; 13: 13592,14777,14079,15260,13672,14138,...
+#&gt; 14: 15238,11747,13138,14803,12212,15330,...
+#&gt; 15: 11644,13424,13610,14075,14087,14802,...
+#&gt; 16: 10703,13589,13139,13378,14813,13236,...
+#&gt; 17:  13593,9431,13404,14080,12677,14867,...
+#&gt; 18: 13590,15237,11886,15414,11247,12656,...
+#&gt; 19: 12620,11761,15255,13679,13153,13164,...
+#&gt; 20:  15240,9099,12164,13290,13604,14798,...
+#&gt; 21:  14059,7836,11657,12625,13132,13133,...
+#&gt; 22: 12140,13116,13136,14223,13680,11671,...
+#&gt; 23:  15239,5848,13131,13614,13850,14828,...
+#&gt; 24:  14056,8062,11193,13130,14071,14852,...
+#&gt; 25: 13592,14777,12447,14797,13722,12175,...
+#&gt; 26: 15238,11390,11747,14815,15268,12212,...
+#&gt; 27: 11644,13113,13610,14087,14085,11695,...
+#&gt; 28: 10703,14778,13139,13319,13364,13880,...
+#&gt; 29:  13593,9431,13135,13620,13919,14867,...
+#&gt; 30: 11640,15237,11886,13726,11247,14875,...
+#&gt; 31: 12611,12620,12152,13128,15255,13679,...
+#&gt; 32: 11760,12164,13604,13607,14798,13299,...
+#&gt; 33:  10697,7836,11657,13132,12678,13427,...
+#&gt; 34: 12140,13116,14223,15254,12676,13680,...
+#&gt; 35: 14783,12630,13131,13850,15262,13192,...
+#&gt; 36: 14056,14779,12626,13130,13606,14071,...
+#&gt; 37: 13592,14777,14081,14073,14079,14797,...
+#&gt; 38: 12141,15238,13138,14803,15268,12263,...
+#&gt; 39: 10700,11644,12386,13610,14087,14802,...
+#&gt; 40: 10703,13115,13319,13378,14801,13236,...
+#&gt; 41:  13593,13135,13404,15258,12677,9474,...
+#&gt; 42:  13590,15237,13726,14804,9925,12176,...
+#&gt; 43: 10413,12620,11761,13128,15257,10276,...
+#&gt; 44:  14067,9099,12164,12629,13604,13188,...
+#&gt; 45: 10697,14059,12625,13108,13753,11222,...
+#&gt; 46: 13116,14223,15254,12676,11671,13163,...
+#&gt; 47:  15239,5848,13131,13614,14017,13192,...
+#&gt; 48:  14056,7401,12626,13130,14852,11244,...
+#&gt; 49: 13592,15241,14073,15260,14143,11674,...
+#&gt; 50: 12610,15238,11747,13138,12212,12263,...
+#&gt; 51: 10700,11644,13610,14075,14085,14802,...
+#&gt; 52: 13589,14778,13139,13146,13319,14813,...
+#&gt; 53:  13593,9431,13234,14095,14072,13919,...
+#&gt; 54: 13590,14057,13789,14808,15414,14870,...
+#&gt; 55: 12620,15252,12152,13128,14811,15255,...
+#&gt; 56:  15246,9099,12164,13604,14798,13188,...
+#&gt; 57:  13846,7836,11657,12625,13108,13132,...
+#&gt; 58: 12140,13116,13622,15254,12676,11671,...
+#&gt; 59:  14783,5848,13131,13850,13192,13674,...
+#&gt; 60: 14056,14779,11193,12626,14071,11647,...
+#&gt; 61: 13592,14777,12447,14073,14797,14805,...
+#&gt; 62: 12610,14780,11747,14803,14815,12263,...
+#&gt; 63: 10700,13424,12386,13610,14802,15256,...
+#&gt; 64: 13589,14778,13319,13364,13236,13880,...
+#&gt; 65:  13593,9431,13135,13404,15258,12677,...
+#&gt; 66: 11640,13590,13789,14808,15337,12176,...
+#&gt; 67: 12611,12620,12151,13128,15257,11516,...
+#&gt; 68:  15240,9099,13604,13608,14798,15272,...
+#&gt; 69:  14059,7836,12625,13108,13132,12678,...
+#&gt; 70: 12623,13116,13136,14223,12676,11671,...
+#&gt; 71: 14783,15239,12630,13129,15262,13674,...
+#&gt; 72:   7401,8062,12626,13130,13606,11244,...
+#&gt;                           optimal_player_id
+#&gt;                        optimal_player_score
+#&gt;  1: 13.88,14.30,23.70, 6.40, 8.55, 6.05,...
+#&gt;  2: 10.94,15.15,13.90,22.50, 6.40, 9.40,...
+#&gt;  3: 27.54,26.74,11.80,12.20,28.10,15.10,...
+#&gt;  4: 29.90,17.30, 8.20,18.50, 7.15, 6.70,...
+#&gt;  5: 19.50,23.88,13.00, 6.70, 9.50,10.45,...
+#&gt;  6:  4.32,17.36,31.70, 3.20, 9.50, 6.90,...
+#&gt;  7: 33.74,20.82,28.90, 5.50, 8.70, 9.75,...
+#&gt;  8: 24.38,22.06, 7.30,13.60, 7.10,16.10,...
+#&gt;  9: 21.28,36.14, 8.30, 8.00,17.55,37.20,...
+#&gt; 10: 10.40,19.22, 4.30, 0.80, 8.95,31.30,...
+#&gt; 11: 25.04,24.44, 4.40,14.70,10.05, 6.50,...
+#&gt; 12: 39.61,17.60, 9.70,20.20,22.80,25.30,...
+#&gt; 13: 17.76,28.76,10.10, 8.30,12.85,13.95,...
+#&gt; 14:  9.35, 4.50, 8.40,14.90, 2.45, 3.30,...
+#&gt; 15: 30.20,17.22,17.50, 6.70, 6.50, 8.40,...
+#&gt; 16: 23.12,28.48,27.10, 5.50,11.90, 7.60,...
+#&gt; 17: 17.52,33.84, 7.90,21.10, 9.50, 8.30,...
+#&gt; 18: 26.34,15.74,15.20,11.20, 6.75, 8.80,...
+#&gt; 19: 14.12,14.40,12.00, 1.65,10.30, 6.40,...
+#&gt; 20: 32.66,25.04, 7.70, 9.80,41.10,11.70,...
+#&gt; 21: 30.88,14.58, 9.00,11.60,18.30, 7.80,...
+#&gt; 22: 21.42,42.00, 0.00,10.20, 1.65, 3.40,...
+#&gt; 23: 22.44,22.62,11.80, 8.60,13.40, 9.00,...
+#&gt; 24: 29.86,27.51,12.20,19.00, 8.20, 8.40,...
+#&gt; 25: 12.14,15.00,15.90,27.80,16.70,22.10,...
+#&gt; 26: 21.70, 2.80,16.70, 2.70, 7.00, 1.85,...
+#&gt; 27: 23.40, 8.70,10.40,11.30, 6.60, 6.35,...
+#&gt; 28: 27.80,18.42,27.10, 6.80,21.10, 6.25,...
+#&gt; 29: 21.46, 7.62, 4.60, 4.40,17.55, 6.90,...
+#&gt; 30: 21.42,26.56, 4.70,13.10,10.35, 7.15,...
+#&gt; 31: 33.74,22.90,11.80, 7.80,12.30, 5.00,...
+#&gt; 32: 18.03,14.10,22.90,28.00,12.40, 9.20,...
+#&gt; 33: 25.42,18.32, 0.00,32.60,11.75,22.25,...
+#&gt; 34: 10.40,28.08, 4.20,12.20, 7.15, 7.70,...
+#&gt; 35: 38.86, 6.70,13.60,26.30, 7.20, 9.20,...
+#&gt; 36: 19.22,27.96,14.80,23.00,11.70,15.50,...
+#&gt; 37:  9.58,20.46,11.30,26.80,24.70, 9.50,...
+#&gt; 38:  6.84,16.36, 3.20,13.80,12.70,12.75,...
+#&gt; 39: 16.34,19.16,13.30, 9.50,12.30,14.90,...
+#&gt; 40: 39.00,29.96,22.70,13.20, 4.60, 9.30,...
+#&gt; 41:       19.9,11.6,13.3, 9.7,15.8, 9.3,...
+#&gt; 42: 11.32,13.58, 2.00, 0.90,19.00, 4.40,...
+#&gt; 43: 16.88,23.12,19.20,13.60, 8.60,15.70,...
+#&gt; 44: 12.30,19.44,17.50, 9.00,11.80, 9.50,...
+#&gt; 45: 27.96,13.12,14.80, 0.60, 6.85,10.90,...
+#&gt; 46: 39.64, 9.70,32.40, 0.00,12.60,12.00,...
+#&gt; 47: 25.60,21.12,12.70,17.70,26.40,15.45,...
+#&gt; 48: 12.94,27.51,17.80,26.80,19.10,18.75,...
+#&gt; 49: 29.60,24.02,21.10,15.10,22.50,23.60,...
+#&gt; 50: 21.42,13.00,14.90,15.90, 5.55, 6.05,...
+#&gt; 51: 14.58,17.02,29.60,17.50, 4.70,13.10,...
+#&gt; 52: 31.92,29.32, 7.00, 7.70,13.40,28.20,...
+#&gt; 53: 12.94,22.20,18.20, 7.50,12.90,22.30,...
+#&gt; 54: 19.26,10.52,18.50,15.30,31.40, 9.50,...
+#&gt; 55: 13.32,29.54,18.40,11.40,19.20,18.20,...
+#&gt; 56: 23.46,16.34, 8.40,15.10,15.70, 8.65,...
+#&gt; 57: 23.83,37.50, 5.90,42.40,12.90,10.50,...
+#&gt; 58: 10.98, 3.96, 4.30,15.10, 6.90,12.50,...
+#&gt; 59: 32.88,24.44,20.90, 8.40,12.45,12.35,...
+#&gt; 60: 17.96,39.00,13.30,15.90,11.90,12.75,...
+#&gt; 61: 21.42,19.80,14.70,24.10,27.30,17.00,...
+#&gt; 62: 13.32,17.50, 5.00,17.10, 8.20, 5.30,...
+#&gt; 63: 16.60,18.01,13.30,13.70,22.50,11.30,...
+#&gt; 64: 18.32,30.00, 8.80,25.30, 7.85,10.75,...
+#&gt; 65: 18.79,25.40,15.10,16.20, 8.60,11.00,...
+#&gt; 66: 10.94,22.38, 1.90, 3.20, 6.00, 3.30,...
+#&gt; 67: 22.50,21.44, 9.40,22.30, 7.90, 5.80,...
+#&gt; 68: 19.37,31.35,39.80,15.00,12.20, 9.40,...
+#&gt; 69: 23.44,15.68,24.50,15.90,13.50,11.90,...
+#&gt; 70: 14.88,42.00, 3.40,10.30, 0.00,23.20,...
+#&gt; 71: 31.92,21.60, 7.60, 7.70, 7.90,14.45,...
+#&gt; 72: 14.56,21.64,10.40,19.20,20.50,14.20,...
+#&gt;                        optimal_player_score</div><div class='input'><span class='va'>summary_season</span> <span class='op'>&lt;-</span> <span class='fu'>ffs_summarise_season</span><span class='op'>(</span><span class='va'>summary_week</span><span class='op'>)</span>
 <span class='va'>summary_season</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 24 × 12</span>
-#&gt;    season league_id franchise_id franchise_name h2h_wins h2h_winpct allplay_wins
-#&gt;     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>        <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>             <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span>      <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>        <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
-#&gt; <span style='color: #BCBCBC;'> 1</span>      1 22627     0001         Mexico City S…        3      1               26
-#&gt; <span style='color: #BCBCBC;'> 2</span>      1 22627     0002         Dirty Dgens           0      0                2
-#&gt; <span style='color: #BCBCBC;'> 3</span>      1 22627     0003         Alberta Armad…        1      0.333           12
-#&gt; <span style='color: #BCBCBC;'> 4</span>      1 22627     0004         Electric Wood…        3      1               19
-#&gt; <span style='color: #BCBCBC;'> 5</span>      1 22627     0005         Motor City Mu…        3      1               16
-#&gt; <span style='color: #BCBCBC;'> 6</span>      1 22627     0006         Hoth City Tau…        1      0.333           16
-#&gt; <span style='color: #BCBCBC;'> 7</span>      1 22627     0007         Paw Patrol            0      0               10
-#&gt; <span style='color: #BCBCBC;'> 8</span>      1 22627     0008         Domination St…        2      0.667           20
-#&gt; <span style='color: #BCBCBC;'> 9</span>      1 22627     0009         Kill Devil Hi…        2      0.667           28
-#&gt; <span style='color: #BCBCBC;'>10</span>      1 22627     0010         [Redacted]            1      0.333            7
-#&gt; <span style='color: #949494;'># … with 14 more rows, and 5 more variables: allplay_games &lt;dbl&gt;,</span>
-#&gt; <span style='color: #949494;'>#   allplay_winpct &lt;dbl&gt;, points_for &lt;dbl&gt;, points_against &lt;dbl&gt;,</span>
-#&gt; <span style='color: #949494;'>#   potential_points &lt;dbl&gt;</span></div><div class='input'><span class='va'>summary_simulation</span> <span class='op'>&lt;-</span> <span class='fu'>ffs_summarise_simulation</span><span class='op'>(</span><span class='va'>summary_season</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;     season league_id franchise_id                 franchise_name h2h_wins
+#&gt;  1:      1     22627         0001        Mexico City Space Force        3
+#&gt;  2:      1     22627         0002                    Dirty Dgens        0
+#&gt;  3:      1     22627         0003             Alberta Armadillos        1
+#&gt;  4:      1     22627         0004               Electric Woodies        3
+#&gt;  5:      1     22627         0005               Motor City Mutts        3
+#&gt;  6:      1     22627         0006            Hoth City Tauntauns        1
+#&gt;  7:      1     22627         0007                     Paw Patrol        0
+#&gt;  8:      1     22627         0008             Domination Station        2
+#&gt;  9:      1     22627         0009 Kill Devil Hills Carpetbaggers        2
+#&gt; 10:      1     22627         0010                     [Redacted]        1
+#&gt; 11:      1     22627         0011                           TB12        1
+#&gt; 12:      1     22627         0012           Indigo Plateau Elite        1
+#&gt; 13:      2     22627         0001        Mexico City Space Force        3
+#&gt; 14:      2     22627         0002                    Dirty Dgens        0
+#&gt; 15:      2     22627         0003             Alberta Armadillos        0
+#&gt; 16:      2     22627         0004               Electric Woodies        1
+#&gt; 17:      2     22627         0005               Motor City Mutts        3
+#&gt; 18:      2     22627         0006            Hoth City Tauntauns        1
+#&gt; 19:      2     22627         0007                     Paw Patrol        1
+#&gt; 20:      2     22627         0008             Domination Station        2
+#&gt; 21:      2     22627         0009 Kill Devil Hills Carpetbaggers        2
+#&gt; 22:      2     22627         0010                     [Redacted]        1
+#&gt; 23:      2     22627         0011                           TB12        3
+#&gt; 24:      2     22627         0012           Indigo Plateau Elite        1
+#&gt;     season league_id franchise_id                 franchise_name h2h_wins
+#&gt;     h2h_winpct allplay_wins allplay_games allplay_winpct points_for
+#&gt;  1:      1.000           26            33          0.788     444.11
+#&gt;  2:      0.000            2            33          0.061     239.26
+#&gt;  3:      0.333           12            33          0.364     360.31
+#&gt;  4:      1.000           19            33          0.576     408.19
+#&gt;  5:      1.000           16            33          0.485     368.13
+#&gt;  6:      0.333           16            33          0.485     377.14
+#&gt;  7:      0.000           10            33          0.303     325.36
+#&gt;  8:      0.667           20            33          0.606     423.07
+#&gt;  9:      0.667           28            33          0.848     444.47
+#&gt; 10:      0.333            7            33          0.212     302.88
+#&gt; 11:      0.333           17            33          0.515     403.06
+#&gt; 12:      0.333           25            33          0.758     446.12
+#&gt; 13:      1.000           32            33          0.970     545.99
+#&gt; 14:      0.000            3            33          0.091     281.88
+#&gt; 15:      0.000            8            33          0.242     329.97
+#&gt; 16:      0.333           17            33          0.515     372.99
+#&gt; 17:      1.000           22            33          0.667     399.22
+#&gt; 18:      0.333           10            33          0.303     293.11
+#&gt; 19:      0.333           14            33          0.424     369.00
+#&gt; 20:      0.667           18            33          0.545     375.27
+#&gt; 21:      0.667           17            33          0.515     365.70
+#&gt; 22:      0.333           15            33          0.455     341.39
+#&gt; 23:      1.000           21            33          0.636     464.87
+#&gt; 24:      0.333           21            33          0.636     422.51
+#&gt;     h2h_winpct allplay_wins allplay_games allplay_winpct points_for
+#&gt;     points_against potential_points
+#&gt;  1:         354.75           568.34
+#&gt;  2:         369.35           294.09
+#&gt;  3:         428.08           451.10
+#&gt;  4:         371.35           490.52
+#&gt;  5:         301.22           451.38
+#&gt;  6:         313.72           466.49
+#&gt;  7:         438.53           432.02
+#&gt;  8:         354.21           552.92
+#&gt;  9:         406.56           572.17
+#&gt; 10:         330.84           393.67
+#&gt; 11:         444.14           534.55
+#&gt; 12:         429.35           569.36
+#&gt; 13:         317.83           666.70
+#&gt; 14:         442.61           369.64
+#&gt; 15:         366.14           443.61
+#&gt; 16:         340.33           459.47
+#&gt; 17:         316.45           493.98
+#&gt; 18:         445.92           361.80
+#&gt; 19:         389.65           497.75
+#&gt; 20:         384.79           511.28
+#&gt; 21:         396.64           479.03
+#&gt; 22:         396.57           445.66
+#&gt; 23:         299.00           563.81
+#&gt; 24:         465.97           530.64
+#&gt;     points_against potential_points</div><div class='input'><span class='va'>summary_simulation</span> <span class='op'>&lt;-</span> <span class='fu'>ffs_summarise_simulation</span><span class='op'>(</span><span class='va'>summary_season</span><span class='op'>)</span>
 <span class='va'>summary_simulation</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 12 × 11</span>
-#&gt;    league_id franchise_id franchise_name             seasons h2h_wins h2h_winpct
-#&gt;    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>        <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>                        <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>      <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
-#&gt; <span style='color: #BCBCBC;'> 1</span> 22627     0001         Mexico City Space Force          2      3        1    
-#&gt; <span style='color: #BCBCBC;'> 2</span> 22627     0012         Indigo Plateau Elite             2      1        0.333
-#&gt; <span style='color: #BCBCBC;'> 3</span> 22627     0009         Kill Devil Hills Carpetba…       2      2        0.667
-#&gt; <span style='color: #BCBCBC;'> 4</span> 22627     0005         Motor City Mutts                 2      3        1    
-#&gt; <span style='color: #BCBCBC;'> 5</span> 22627     0008         Domination Station               2      2        0.667
-#&gt; <span style='color: #BCBCBC;'> 6</span> 22627     0011         TB12                             2      2        0.666
-#&gt; <span style='color: #BCBCBC;'> 7</span> 22627     0004         Electric Woodies                 2      2        0.666
-#&gt; <span style='color: #BCBCBC;'> 8</span> 22627     0006         Hoth City Tauntauns              2      1        0.333
-#&gt; <span style='color: #BCBCBC;'> 9</span> 22627     0007         Paw Patrol                       2      0.5      0.166
-#&gt; <span style='color: #BCBCBC;'>10</span> 22627     0010         [Redacted]                       2      1        0.333
-#&gt; <span style='color: #BCBCBC;'>11</span> 22627     0003         Alberta Armadillos               2      0.5      0.166
-#&gt; <span style='color: #BCBCBC;'>12</span> 22627     0002         Dirty Dgens                      2      0        0    
-#&gt; <span style='color: #949494;'># … with 5 more variables: allplay_wins &lt;dbl&gt;, allplay_winpct &lt;dbl&gt;,</span>
-#&gt; <span style='color: #949494;'>#   points_for &lt;dbl&gt;, points_against &lt;dbl&gt;, potential_points &lt;dbl&gt;</span></div><div class='input'><span class='co'># }</span>
+</div><div class='output co'>#&gt;     league_id franchise_id                 franchise_name seasons h2h_wins
+#&gt;  1:     22627         0001        Mexico City Space Force       2      3.0
+#&gt;  2:     22627         0012           Indigo Plateau Elite       2      1.0
+#&gt;  3:     22627         0009 Kill Devil Hills Carpetbaggers       2      2.0
+#&gt;  4:     22627         0005               Motor City Mutts       2      3.0
+#&gt;  5:     22627         0008             Domination Station       2      2.0
+#&gt;  6:     22627         0011                           TB12       2      2.0
+#&gt;  7:     22627         0004               Electric Woodies       2      2.0
+#&gt;  8:     22627         0006            Hoth City Tauntauns       2      1.0
+#&gt;  9:     22627         0007                     Paw Patrol       2      0.5
+#&gt; 10:     22627         0010                     [Redacted]       2      1.0
+#&gt; 11:     22627         0003             Alberta Armadillos       2      0.5
+#&gt; 12:     22627         0002                    Dirty Dgens       2      0.0
+#&gt;     h2h_winpct allplay_wins allplay_winpct points_for points_against
+#&gt;  1:      1.000         29.0          0.879    495.050        336.290
+#&gt;  2:      0.333         23.0          0.697    434.315        447.660
+#&gt;  3:      0.667         22.5          0.681    405.085        401.600
+#&gt;  4:      1.000         19.0          0.576    383.675        308.835
+#&gt;  5:      0.667         19.0          0.576    399.170        369.500
+#&gt;  6:      0.666         19.0          0.576    433.965        371.570
+#&gt;  7:      0.666         18.0          0.545    390.590        355.840
+#&gt;  8:      0.333         13.0          0.394    335.125        379.820
+#&gt;  9:      0.166         12.0          0.364    347.180        414.090
+#&gt; 10:      0.333         11.0          0.334    322.135        363.705
+#&gt; 11:      0.166         10.0          0.303    345.140        397.110
+#&gt; 12:      0.000          2.5          0.076    260.570        405.980
+#&gt;     potential_points
+#&gt;  1:          617.520
+#&gt;  2:          550.000
+#&gt;  3:          525.600
+#&gt;  4:          472.680
+#&gt;  5:          532.100
+#&gt;  6:          549.180
+#&gt;  7:          474.995
+#&gt;  8:          414.145
+#&gt;  9:          464.885
+#&gt; 10:          419.665
+#&gt; 11:          447.355
+#&gt; 12:          331.865</div><div class='input'><span class='co'># }</span>
 
 </div></pre>
   </div>
