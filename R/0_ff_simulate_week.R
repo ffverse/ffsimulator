@@ -148,7 +148,7 @@ ff_simulate_week <- function(conn,
 
   if(!actual_schedule){
     schedules <- ffs_build_schedules(
-      n_seasons = 1000,
+      n_seasons = n,
       n_weeks = 1,
       franchises = franchises
     ) %>%
