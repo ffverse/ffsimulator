@@ -14,6 +14,7 @@
 #' @importFrom data.table .N .SD `:=`
 #' @keywords internal
 NULL
+. <- NULL
 
 #' @keywords internal
 #' @importFrom rlang .data `%||%` .env

@@ -26,16 +26,17 @@ ffs_rosters <- function(conn) {
 #' @rdname ffs_rosters
 #' @export
 ffs_rosters.mfl_conn <- function(conn) {
-  rosters <- ffscrapr::ff_rosters(conn) %>%
-    dplyr::left_join(
-      ffscrapr::dp_playerids() %>%
-        dplyr::select("mfl_id", "fantasypros_id"),
-      by = c("player_id" = "mfl_id"),
-      na_matches = "never"
-    ) %>%
-    dplyr::mutate(league_id = as.character(conn$league_id),
-                  franchise_id = as.character(.data$franchise_id),
-                  pos = replace(.data$pos,.data$pos == "PK", "K"))
+  r <- ffscrapr::ff_rosters(conn)
+
+  r$player_id <- as.character(r$player_id)
+
+  r <- merge(r,
+             ffscrapr::dp_playerids()[,c("mfl_id","fantasypros_id")],
+             by.x = "player_id",
+             by.y = "mfl_id",
+             all.x = TRUE)
+  r$league_id <- as.character(conn$league_id)
+  r$franchise_id <- as.character(r$franchise_id)
 
   return(rosters)
 }
@@ -43,48 +44,53 @@ ffs_rosters.mfl_conn <- function(conn) {
 #' @rdname ffs_rosters
 #' @export
 ffs_rosters.sleeper_conn <- function(conn) {
-  rosters <- ffscrapr::ff_rosters(conn) %>%
-    dplyr::left_join(
-      ffscrapr::dp_playerids() %>%
-        dplyr::select("sleeper_id", "fantasypros_id"),
-      by = c("player_id" = "sleeper_id"),
-      na_matches = "never"
-    ) %>%
-    dplyr::mutate(league_id = as.character(conn$league_id),
-                  franchise_id = as.character(.data$franchise_id))
+  r <- ffscrapr::ff_rosters(conn)
 
-  return(rosters)
+  r$player_id <- as.character(r$player_id)
+
+  r <- merge(r,
+             ffscrapr::dp_playerids()[,c("sleeper_id","fantasypros_id")],
+             by.x = "player_id",
+             by.y = "sleeper_id",
+             all.x = TRUE)
+  r$league_id <- as.character(conn$league_id)
+  r$franchise_id <- as.character(r$franchise_id)
+
+  return(r)
 }
 
 #' @rdname ffs_rosters
 #' @export
 ffs_rosters.flea_conn <- function(conn) {
-  rosters <- ffscrapr::ff_rosters(conn) %>%
-    dplyr::left_join(
-      ffscrapr::dp_playerids() %>%
-        dplyr::select("sportradar_id", "fantasypros_id"),
-      by = c("sportradar_id"),
-      na_matches = "never"
-    ) %>%
-    dplyr::mutate(league_id = as.character(conn$league_id),
-                  franchise_id = as.character(.data$franchise_id))
+  r <- ffscrapr::ff_rosters(conn)
 
-  return(rosters)
+  r$player_id <- as.character(r$player_id)
+
+  r <- merge(r,
+             ffscrapr::dp_playerids()[,c("sportradar_id","fantasypros_id")],
+             by.x = "player_id",
+             by.y = "sportradar_id",
+             all.x = TRUE)
+  r$league_id <- as.character(conn$league_id)
+  r$franchise_id <- as.character(r$franchise_id)
+
+  return(r)
 }
 
 #' @rdname ffs_rosters
 #' @export
 ffs_rosters.espn_conn <- function(conn) {
-  rosters <- ffscrapr::ff_rosters(conn) %>%
-    dplyr::mutate(player_id = as.character(.data$player_id)) %>%
-    dplyr::left_join(
-      ffscrapr::dp_playerids() %>%
-        dplyr::select("espn_id", "fantasypros_id"),
-      by = c("player_id" = "espn_id"),
-      na_matches = "never"
-    ) %>%
-    dplyr::mutate(league_id = as.character(conn$league_id),
-                  franchise_id = as.character(.data$franchise_id))
+  r <- ffscrapr::ff_rosters(conn)
+
+  r$player_id <- as.character(r$player_id)
+
+  r <- merge(r,
+             ffscrapr::dp_playerids()[,c("espn_id","fantasypros_id")],
+             by.x = "player_id",
+             by.y = "espn_id",
+             all.x = TRUE)
+  r$league_id <- as.character(conn$league_id)
+  r$franchise_id <- as.character(r$franchise_id)
 
   return(rosters)
 }
@@ -95,7 +101,7 @@ ffs_rosters.espn_conn <- function(conn) {
 ffs_rosters.default <- function(conn) {
   # nocov start
   stop(glue::glue("Could not find a method of <ff_rosters> for class {class(conn)} - was this created by ff_connect()?"),
-    call. = FALSE
+       call. = FALSE
   )
   # nocov end
 }
@@ -120,9 +126,10 @@ ffs_rosters.default <- function(conn) {
 #'
 #' @export
 ffs_franchises <- function(conn){
-  ffscrapr::ff_franchises(conn) %>%
-    dplyr::mutate(league_id = as.character(conn$league_id),
-                  franchise_id = as.character(.data$franchise_id)
-                  )
+  f <- ffscrapr::ff_franchises(conn)
+  f$league_id <- as.character(conn$league_id)
+  f$franchise_id <- as.character(f$franchise_id)
+
+  return(f)
 }
 

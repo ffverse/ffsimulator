@@ -26,6 +26,8 @@ ffs_build_schedules <- function(n_teams = NULL,
   if (!is.null(franchises)) {
     checkmate::assert_data_frame(franchises)
     assert_columns(franchises, c("league_id", "franchise_id"))
+    f <- as.data.table(franchises)
+    f <- franchises[,c("league_id","franchise_id")]
     n_teams <- nrow(franchises)
   }
   checkmate::assert_number(n_teams)
@@ -36,58 +38,47 @@ ffs_build_schedules <- function(n_teams = NULL,
 
   #### GENERATE ROUND ROBIN SCHEDULE TEMPLATE ####
 
-  schedule_template <- .ff_roundrobin_build(n_teams) %>%
-    .ff_roundrobin_size(n_weeks)
+  schedule_template <- .ff_roundrobin_size(.ff_roundrobin_build(n_teams), n_weeks)
 
   #### Randomize team order for length n_seasons ####
 
-  team_orders <- purrr::map(
-    seq_len(n_seasons),
-    ~ sample(seq_len(n_teams), n_teams)
-  )
+  team_orders <- lapply(seq_len(n_seasons), function(...) sample(seq_len(n_teams), n_teams))
 
   #### Randomize week order for length n_seasons ####
 
-  week_orders <- purrr::map(
-    seq_len(n_seasons),
-    ~ sample(seq_len(n_weeks), n_weeks)
-  )
+  week_orders <- lapply(seq_len(n_seasons), function(...) sample(seq_len(n_weeks), n_weeks))
 
   #### Join Template onto Team and Week ####
 
-  schedules <- tibble::tibble(
+  schedules <- data.table::data.table(
     season = seq_len(n_seasons),
-    schedule = purrr::map2(
-      team_orders, week_orders,
-      .ff_roundrobin_applytemplate,
-      schedule_template
-    )
+    schedule = mapply(.ff_roundrobin_applytemplate,
+                      team_order = team_orders,
+                      week_order = week_orders,
+                      MoreArgs = list(schedule_template = schedule_template),
+                      SIMPLIFY = FALSE
+                      )
   ) %>%
-    tidyr::unnest("schedule")
+    tidytable::unnest.("schedule")
 
   #### Attach actual franchise IDs, if available ####
 
   if (is.null(franchises)) {
-    schedules <- schedules %>%
-      dplyr::rename(
-        "franchise_id" = "team",
-        "opponent_id" = "opponent"
-      )
+    names(schedules)[c(3,4)] <- c("franchise_id","opponent_id")
   }
 
   if (!is.null(franchises)) {
-    franchises <- franchises %>%
-      dplyr::distinct(.data$league_id, .data$franchise_id) %>%
-      dplyr::arrange(.data$league_id, .data$franchise_id) %>%
-      dplyr::mutate(schedule_id = dplyr::row_number())
+    schedule_id <- NULL
+    franchise_id <- NULL
+    data.table::setorderv(f,c("league_id","franchise_id"))
+    f[,`:=`(schedule_id = seq_len(.N))]
+    o <- f[,.(schedule_id,opponent_id=franchise_id)]
 
-    schedules <- schedules %>%
-      dplyr::left_join(franchises, by = c("team" = "schedule_id")) %>%
-      dplyr::left_join(franchises %>%
-                         dplyr::select("opponent_id" = "franchise_id", "schedule_id"),
-                       by = c("opponent" = "schedule_id")
-      ) %>%
-      dplyr::select("season", "week", "league_id", "franchise_id", "opponent_id")
+    schedules <- schedules[f, on = c("team"="schedule_id")
+    ][o, on = c("opponent"="schedule_id")
+    ][,c("season", "week", "league_id", "franchise_id", "opponent_id")
+    ]
+    data.table::setorderv(schedules,c("season","week","franchise_id"))
   }
 
   return(schedules)
@@ -208,12 +199,11 @@ ffs_build_schedules <- function(n_teams = NULL,
 #' @export
 ffs_schedule <- function(conn){
 
-  schedule <- ffscrapr::ff_schedule(conn) %>%
-    dplyr::mutate(league_id = as.character(conn$league_id),
-                  franchise_id = as.character(.data$franchise_id),
-                  opponent_id = as.character(.data$opponent_id)) %>%
-    dplyr::filter(is.na(.data$result)) %>%
-    dplyr::select("week","league_id","franchise_id","opponent_id")
+  schedule <- ffscrapr::ff_schedule(conn)
+  schedule <- schedule[is.na(schedule$result),c("week","franchise_id","opponent_id")]
+  schedule$league_id <- as.character(conn$league_id)
+  schedule$franchise_id <- as.character(schedule$franchise_id)
+  schedule$opponent_id <-  as.character(schedule$opponent_id)
 
   return(schedule)
 }
@@ -236,3 +226,4 @@ ffs_schedule <- function(conn){
 ffs_repeat_schedules <- function(actual_schedule,n_seasons){
   tidyr::expand_grid(season = seq_len(n_seasons), actual_schedule)
 }
+
