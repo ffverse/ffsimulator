@@ -78,12 +78,13 @@ mfl_conn <- mfl_connect(season = 2021, league_id = 22627)
 # flea_conn <- fleaflicker_connect(season = 2021, league_id = 312861) 
 # espn_conn <- espn_connect(season = 2021, league_id = 899513)
 
-mfl_sim <- ff_simulate(conn = mfl_conn, n_seasons = 25, n_weeks = 14)
+mfl_sim <- ff_simulate(conn = mfl_conn, n_seasons = 100)
 
-plot(foureight_sim)
+plot(mfl_sim)
 ```
 
-<img src="man/figures/README-unnamed-chunk-5-1.png" width="100%" />
+<img src="man/figures/ffsimulator_plot.png" width="100%" />
+
 Please also see the
 
 -   [basic usage](https://ffsimulator.ffverse.com/articles/basic.html)

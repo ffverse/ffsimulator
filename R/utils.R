@@ -15,6 +15,7 @@
 #' @keywords internal
 NULL
 . <- NULL
+.datatable.aware <- TRUE
 
 #' @keywords internal
 #' @importFrom rlang .data `%||%` .env

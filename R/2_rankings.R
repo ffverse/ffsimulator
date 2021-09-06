@@ -26,7 +26,7 @@ ffs_latest_rankings <- function(type = c("draft","week")) {
     fp_latest <- nflreadr::load_ff_rankings()
 
     fp_cleaned <- fp_latest[
-      fp_latest$ecr_type == "rp" & grepl(paste0(tolower(.data$pos), "$"),fp_latest$page_type),
+      fp_latest$ecr_type == "rp" & stringi::stri_detect(str = fp_latest$page_type, regex = paste0(tolower(fp_latest$pos), "$")),
       c("player",
         "fantasypros_id" = "id",
         "pos",
