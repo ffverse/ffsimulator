@@ -1,22 +1,27 @@
 # ffsimulator (development version)
 
-## New features
-- `ff_simulate()` gains a a new `verbose` argument that allows for progress tracking, and is set ON by default. This can also be controlled by `options(ffsimulator.verbose = TRUE)` (or FALSE). Resolves #9. (v1.0.0.01)
-- `ffs_copy_template()` copies a template for custom simulations to the desired filepath, making it easier to run a simulation from the component level. Resolves #12 (v1.0.0.02)
-- Column assertions cleaned up and should be much clearer on each error message, resolves #16. (v1.0.0.03)
-- Refactored `ffs_optimise_lineups()` and `ffs_score_rosters()` to use data.table, ***deprecates*** parallel options (v1.0.0.04)
-- Refactored `ffs_build_schedules()` column names to match syntax from `ff_schedule()`- `team` is now `franchise_id` and `opponent` is now `opponent_id`. ***BREAKING, for custom sims***
-- `ffs_build_schedules()` is now responsible for joining franchises to the schedule, not `ffs_summarise_week()`. ***BREAKING***
-- `ffs_build_schedules()` now takes a franchises dataframe as created by `ffs_franchises()` (v1.0.0.05)
-- `autoplot()` refactored to hide legend and axis titles via the geom/scale - this allows easier theme adjustments.
-- `ffs_repeat_schedules()` takes in a schedule as created by and expands it by `n_seasons`. This wraps up the actual_schedule feature. (v1.0.0.06)
-- `ffs_generate_projections()` now takes in a `weeks` argument (aka a numeric vector specifying which weeks to simulate) instead of taking in a `n_weeks` argument (which specified how many weeks). ***BREAKING, for custom sims*** (v1.0.0.07)
-- `injury_model` is renamed to `gp_model` in every case because the model is whether a player played in a given game. ***BREAKING, arg name changed***
-- Add kicker support (sigh, SFB) (v1.0.0.08)
-- Add `pos_filter arg` to ff_simulate().
-- Add `ff_simulate_week()` functions. (v1.0.0.10)
+This release of ffsimulator adds new features and refactors a lot of the backend for improved calculation efficiency.
 
-## Minor changes
+## New features
+
+- `ff_simulate_week()` is a new function (and supporting internal function family) that simulates upcoming inseason weeks.
+- `ff_simulate()` gains an `actual_schedule` argument to simulate actual schedule + unplayed games.
+- `ff_simulate()` and `ff_simulate_week()` gain a `verbose` argument that is set ON by default and can also be turned off with `options(ffsimulator.verbose = FALSE)`
+- `ffs_copy_template()` helps build custom simulations by copying a template of starter code to a desired filepath.
+- Simulations now support kickers (you can thank SFB for that!) and gain a `pos_filter` argument.
+
+## Backend changes
+
+Many backend changes - some are breaking (*grimaces and points at the experimental badge*).
+
+- Parallel options deprecated in favour of data.table options. 
+- Column assertions should be clearer on each error message.
+- Many functions, including `ffs_optimise_lineups()`, `ffs_score_rosters()`, and more are now written in data.table - this helps improve speed for all sizes of simulations. 
+- `injury_model` argument is now renamed to `gp_model`. ***BREAKING***
+- `autoplot()` refactored to hide legend and axis titles via geom/scale and not via theme - this allows for much easier theming (since you can apply a whole new theme via `+`).
+- `ffs_build_schedules()` now matches syntax from `ffscrapr::ff_schedule()` - `team` is now `franchise_id` and `opponent` is now `opponent_id` - ***BREAKING*** for custom sims.
+- `ffs_build_schedules()` is now responsible for joining franchises to the schedule, and not `ffs_summarise_week()`, and now takes a franchises dataframe as created by `ffs_franchises()` ***BREAKING***
+- `ffs_repeat_schedules()` supports the actual_schedule feature by repeating it by `n_seasons`.
 
 ---
 
