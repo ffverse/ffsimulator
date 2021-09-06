@@ -43,7 +43,7 @@ autoplot.ff_simulation_week <- function(object,
 
   if(!object$simulation_params$actual_schedule) stop("Schedule luck plot not available if `actual_schedule` is FALSE")
 
-  luck <- object$summary_simulation
+  luck <- object$summary_season
   data.table::setDT(luck)
   h2h_winpct <- NULL
   allplay_winpct <- NULL

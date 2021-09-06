@@ -44,7 +44,7 @@ ff_simulate <- function(conn,
     )
   }
 
-  gp_model <- rlang::arg_match(gp_model)
+  gp_model <- rlang::arg_match0(gp_model,c("simple","none"))
   checkmate::assert_subset(pos_filter, c("QB","RB","WR","TE","K"))
   checkmate::assert_numeric(base_seasons, lower = 2012, upper = 2020)
   checkmate::assert_int(n_seasons, lower = 1)
@@ -88,7 +88,7 @@ ff_simulate <- function(conn,
       cli::cli_alert_danger("No unplayed weeks to simulate!")
       out <- structure(list(schedule = ffscrapr::ff_schedule(conn),
                             league_info = league_info,
-                            simulation_params = tibble::tibble(
+                            simulation_params = list(
                               n_seasons = n_seasons,
                               n_weeks = n_weeks,
                               scrape_date = latest_rankings$scrape_date[[1]],
@@ -193,7 +193,7 @@ ff_simulate <- function(conn,
       roster_scores = roster_scores,
       projected_scores = projected_scores,
       league_info = league_info,
-      simulation_params = tibble::tibble(
+      simulation_params = list(
         n_seasons = n_seasons,
         n_weeks = n_weeks,
         scrape_date = latest_rankings$scrape_date[[1]],

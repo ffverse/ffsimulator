@@ -25,7 +25,7 @@ test_that("ffs_adp_outcomes() works for both the simple and none injury models",
 
   checkmate::expect_data_frame(adp_outcomes, min.rows = 500)
   checkmate::expect_data_frame(adp_outcomes_noinjury, min.rows = 500)
-  checkmate::expect_data_frame(adp_outcomes_week, min.rows = 500)
+  checkmate::expect_data_frame(adp_outcomes_week, min.rows = 400)
 
   checkmate::expect_subset(
     names(adp_outcomes),

@@ -79,12 +79,11 @@ ff_simulate_week <- function(conn,
       cli::cli_alert_danger("No unplayed weeks to simulate!")
       out <- structure(list(schedule = ffscrapr::ff_schedule(conn),
                             league_info = league_info,
-                            simulation_params = tibble::tibble(
+                            simulation_params = list(
                               n = n,
                               scrape_date = latest_rankings$scrape_date[[1]],
                               best_ball = best_ball,
                               seed = seed,
-                              # gp_model = gp_model,
                               actual_schedule = actual_schedule,
                               base_seasons = list(base_seasons)
                             )),
@@ -163,10 +162,7 @@ ff_simulate_week <- function(conn,
   vcli_start(msg = "Summarising Simulation Data")
 
   summary_week <- ffs_summarise_week(optimal_scores, schedules)
-  summary_season <- ffs_summarise_season(summary_week) %>%
-    dplyr::mutate_at(c("points_for","points_against","potential_points"), ~round(.x/n,2))
-
-  summary_simulation <- ffs_summarise_simulation(summary_season)
+  summary_season <- ffs_summarise_inseason(summary_week,n)
 
   vcli_end(msg_done = "Summarising Simulation Data...done! {Sys.time()}")
 
@@ -174,7 +170,6 @@ ff_simulate_week <- function(conn,
 
   out <- structure(
     list(
-      summary_simulation = summary_simulation,
       summary_season = summary_season,
       summary_week = summary_week,
       roster_scores = roster_scores,

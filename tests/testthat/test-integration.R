@@ -6,7 +6,7 @@ test_that("MFL simulation works", {
   week_sim <- ff_simulate_week(foureight,n = 10, verbose = FALSE, actual_schedule = FALSE)
 
   checkmate::expect_list(foureight_sim, len = 7)
-  checkmate::expect_list(week_sim,len = 7)
+  checkmate::expect_list(week_sim,len = 6)
   checkmate::expect_data_frame(week_sim$summary_week, nrows = 120, any.missing = FALSE)
   checkmate::expect_data_frame(foureight_sim$summary_simulation, nrows = 12, any.missing = FALSE)
   checkmate::expect_data_frame(foureight_sim$summary_season, nrows = 24, any.missing = FALSE)
