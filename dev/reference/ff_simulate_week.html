@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Get Rosters — ffs_rosters • ffsimulator</title>
+<title>Simulate Fantasy Week — ff_simulate_week • ffsimulator</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -48,8 +48,8 @@
   <link href="../extra.css" rel="stylesheet">
   
 
-<meta property="og:title" content="Get Rosters — ffs_rosters" />
-<meta property="og:description" content="This function lightly wraps ffscrapr::ff_rosters() and adds fantasypros_id, which is a required column for ffsimulator." />
+<meta property="og:title" content="Simulate Fantasy Week — ff_simulate_week" />
+<meta property="og:description" content="This function simulates a single upcoming week using the same methodology as in the season-long simulation, ff_simulate()." />
 <meta property="og:image" content="https://ffsimulator.ffverse.com/reference/figures/logo.png" />
 <meta property="og:image:alt" content="ffsimulator - An R Package For Simulating Fantasy Football Seasons" />
 <meta name="twitter:card" content="summary" />
@@ -179,67 +179,88 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Get Rosters</h1>
-    <small class="dont-index">Source: <a href='https://github.com/ffverse/ffsimulator/blob/master/R/3_rosters.R'><code>R/3_rosters.R</code></a></small>
-    <div class="hidden name"><code>ffs_rosters.Rd</code></div>
+    <h1>Simulate Fantasy Week</h1>
+    <small class="dont-index">Source: <a href='https://github.com/ffverse/ffsimulator/blob/master/R/0_ff_simulate_week.R'><code>R/0_ff_simulate_week.R</code></a></small>
+    <div class="hidden name"><code>ff_simulate_week.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This function lightly wraps <code><a href='ffscrapr.ffverse.com/reference/ff_rosters.html'>ffscrapr::ff_rosters()</a></code> and adds fantasypros_id, which is a required column for ffsimulator.</p>
+    <p>This function simulates a single upcoming week using the same methodology as in the season-long simulation, <code><a href='ff_simulate.html'>ff_simulate()</a></code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>ffs_rosters</span><span class='op'>(</span><span class='va'>conn</span><span class='op'>)</span>
-
-<span class='co'># S3 method for mfl_conn</span>
-<span class='fu'>ffs_rosters</span><span class='op'>(</span><span class='va'>conn</span><span class='op'>)</span>
-
-<span class='co'># S3 method for sleeper_conn</span>
-<span class='fu'>ffs_rosters</span><span class='op'>(</span><span class='va'>conn</span><span class='op'>)</span>
-
-<span class='co'># S3 method for flea_conn</span>
-<span class='fu'>ffs_rosters</span><span class='op'>(</span><span class='va'>conn</span><span class='op'>)</span>
-
-<span class='co'># S3 method for espn_conn</span>
-<span class='fu'>ffs_rosters</span><span class='op'>(</span><span class='va'>conn</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>ff_simulate_week</span><span class='op'>(</span>
+  <span class='va'>conn</span>,
+  n <span class='op'>=</span> <span class='fl'>1000</span>,
+  best_ball <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  seed <span class='op'>=</span> <span class='cn'>NULL</span>,
+  base_seasons <span class='op'>=</span> <span class='fl'>2012</span><span class='op'>:</span><span class='fl'>2020</span>,
+  actual_schedule <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  pos_filter <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"QB"</span>, <span class='st'>"RB"</span>, <span class='st'>"WR"</span>, <span class='st'>"TE"</span>, <span class='st'>"K"</span><span class='op'>)</span>,
+  verbose <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"ffsimulator.verbose"</span>, default <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>conn</th>
-      <td><p>a connection object as created by <code><a href='ffscrapr.ffverse.com/reference/ff_connect.html'>ffscrapr::ff_connect()</a></code> and friends.</p></td>
+      <td><p>an connection to a league made with <code><a href='ff_connect.html'>ff_connect()</a></code> and friends (required)</p></td>
+    </tr>
+    <tr>
+      <th>n</th>
+      <td><p>number of times to simulate the upcoming week, default is 1000</p></td>
+    </tr>
+    <tr>
+      <th>best_ball</th>
+      <td><p>a logical: are weekly wins based on optimal lineups?</p></td>
+    </tr>
+    <tr>
+      <th>seed</th>
+      <td><p>an integer to control reproducibility</p></td>
+    </tr>
+    <tr>
+      <th>base_seasons</th>
+      <td><p>a numeric vector that selects seasons as base data, earliest available is 2012</p></td>
+    </tr>
+    <tr>
+      <th>actual_schedule</th>
+      <td><p>a logical: use actual ff_schedule? default is TRUE</p></td>
+    </tr>
+    <tr>
+      <th>pos_filter</th>
+      <td><p>a character vector of positions to filter/run, default is c("QB","RB","WR","TE","K")</p></td>
+    </tr>
+    <tr>
+      <th>verbose</th>
+      <td><p>a logical: print status messages? default is TRUE, configure with options(ffsimulator.verbose)</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>a dataframe of rosters that includes a fantasypros_id column</p>
+    <p>an <code>ff_simulation</code> object which can be passed to <code><a href='https://rdrr.io/r/graphics/plot.default.html'>plot()</a></code> and contains the output data from the simulation.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>vignette("custom") for more detailed example usage</p></div>
+    <div class='dont-index'><p><code><a href='../articles/basic.html'>vignette("basic")</a></code> for example usage</p>
+<p><code><a href='../articles/custom.html'>vignette("custom")</a></code> for examples on using the subfunctions for your own processes.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># \donttest{</span>
-<span class='co'># cached examples</span>
-<span class='va'>conn</span> <span class='op'>&lt;-</span> <span class='fu'>.ffs_cache</span><span class='op'>(</span><span class='st'>"mfl_conn.rds"</span><span class='op'>)</span>
-
-<span class='fu'>ffs_rosters</span><span class='op'>(</span><span class='va'>conn</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 725 × 14</span>
-#&gt;    franchise_id franchise_name    player_id player_name pos   team    age salary
-#&gt;    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>        <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>             <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>       <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
-#&gt; <span style='color: #BCBCBC;'> 1</span> 0001         Mexico City Spac… 13592     Darnold, S… QB    CAR    24.3  16.3 
-#&gt; <span style='color: #BCBCBC;'> 2</span> 0001         Mexico City Spac… 11317     Poyer, Jor… S     BUF    30.4   3.91
-#&gt; <span style='color: #BCBCBC;'> 3</span> 0001         Mexico City Spac… 13633     Kirk, Chri… WR    ARI    24.8   4.96
-#&gt; <span style='color: #BCBCBC;'> 4</span> 0001         Mexico City Spac… 13717     Reid, Just… S     HOU    24.6   1.81
-#&gt; <span style='color: #BCBCBC;'> 5</span> 0001         Mexico City Spac… 13672     Gesicki, M… TE    MIA    25.9   0.97
-#&gt; <span style='color: #BCBCBC;'> 6</span> 0001         Mexico City Spac… 13700     Landry, Ha… LB    TEN    25.3   0.61
-#&gt; <span style='color: #BCBCBC;'> 7</span> 0001         Mexico City Spac… 14168     White, Dev… LB    TBB    23.6   6.29
-#&gt; <span style='color: #BCBCBC;'> 8</span> 0001         Mexico City Spac… 14210     Pratt, Ger… LB    CIN    24.3   0.85
-#&gt; <span style='color: #BCBCBC;'> 9</span> 0001         Mexico City Spac… 14073     Jacobs, Jo… RB    LVR    23.6  11.5 
-#&gt; <span style='color: #BCBCBC;'>10</span> 0001         Mexico City Spac… 14079     Sanders, M… RB    PHI    24.4   7.14
-#&gt; <span style='color: #949494;'># … with 715 more rows, and 6 more variables: contract_years &lt;dbl&gt;,</span>
-#&gt; <span style='color: #949494;'>#   roster_status &lt;chr&gt;, draft_year &lt;chr&gt;, draft_round &lt;chr&gt;,</span>
-#&gt; <span style='color: #949494;'>#   fantasypros_id &lt;chr&gt;, league_id &lt;chr&gt;</span></div><div class='input'><span class='co'># }</span>
+<span class='va'>conn</span> <span class='op'>&lt;-</span> <span class='fu'><a href='mfl_connect.html'>mfl_connect</a></span><span class='op'>(</span><span class='fl'>2021</span>, <span class='fl'>22627</span><span class='op'>)</span>
+<span class='fu'>ff_simulate_week</span><span class='op'>(</span><span class='va'>conn</span>, n <span class='op'>=</span> <span class='fl'>1000</span>, actual_schedule <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>── Starting simulation 2021-09-06 02:13:40 ─────────────────────────────────────</span></div><div class='output co'>#&gt; <span class='message'><span style='color: #00BBBB;'>ℹ</span> Importing data</span></div><div class='output co'>#&gt; <span class='message'><span style='color: #00BB00;'>✔</span> Importing data...done! 2021-09-06 02:13:49</span></div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'><span style='color: #00BBBB;'>ℹ</span> Generating Projections</span></div><div class='output co'>#&gt; <span class='message'><span style='color: #00BB00;'>✔</span> Generating Projections...done! 2021-09-06 02:13:56</span></div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'><span style='color: #00BBBB;'>ℹ</span> Calculating Roster Scores</span></div><div class='output co'>#&gt; <span class='message'><span style='color: #00BB00;'>✔</span> Calculating Roster Scores...done! 2021-09-06 02:13:56</span></div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'><span style='color: #00BBBB;'>ℹ</span> Optimizing Lineups</span></div><div class='output co'>#&gt; <span class='message'><span style='color: #00BB00;'>✔</span> Optimizing Lineups...done! 2021-09-06 02:14:06</span></div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'><span style='color: #00BBBB;'>ℹ</span> Building Schedules</span></div><div class='output co'>#&gt; <span class='message'><span style='color: #00BB00;'>✔</span> Building Schedules...done! 2021-09-06 02:14:06</span></div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'><span style='color: #00BBBB;'>ℹ</span> Summarising Simulation Data</span></div><div class='output co'>#&gt; <span class='message'><span style='color: #00BB00;'>✔</span> Summarising Simulation Data...done! 2021-09-06 02:14:06</span></div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'>── Simulation complete! 2021-09-06 02:14:06 ────────────────────────────────────</span></div><div class='output co'>#&gt; &lt;ff_simulation: 1000 simulated seasons of Four-Eight Dynasty League&gt;
+#&gt; List of 7
+#&gt;  $ summary_simulation: tibble [12 × 11] (S3: tbl_df/tbl/data.frame)
+#&gt;  $ summary_season    : tibble [12 × 12] (S3: tbl_df/tbl/data.frame)
+#&gt;  $ summary_week      : tibble [12,000 × 16] (S3: tbl_df/tbl/data.frame)
+#&gt;  $ roster_scores     :Classes ‘data.table’ and 'data.frame':	304000 obs. of  23 variables:
+#&gt;   ..- attr(*, "sorted")= chr "fantasypros_id"
+#&gt;   ..- attr(*, ".internal.selfref")=&lt;externalptr&gt; 
+#&gt;  $ projected_scores  :Classes ‘data.table’ and 'data.frame':	304000 obs. of  13 variables:
+#&gt;   ..- attr(*, ".internal.selfref")=&lt;externalptr&gt; 
+#&gt;  $ league_info       : tibble [1 × 17] (S3: tbl_df/tbl/data.frame)
+#&gt;  $ simulation_params :List of 7
+#&gt;  - attr(*, "class")= chr "ff_simulation_week"</div><div class='input'><span class='co'># }</span>
 
 </div></pre>
   </div>

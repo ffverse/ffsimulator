@@ -86,7 +86,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ffsimulator</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.0.0.08</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.0.0.10</span>
       </span>
     </div>
 
@@ -238,20 +238,20 @@
 
 <span class='va'>summary_week</span> <span class='op'>&lt;-</span> <span class='fu'>ffs_summarise_week</span><span class='op'>(</span><span class='va'>optimal_scores</span>, <span class='va'>schedules</span><span class='op'>)</span>
 <span class='va'>summary_week</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 120 × 16</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 72 × 16</span>
 #&gt;    season season_week franchise_name   optimal_score lineup_efficien… team_score
 #&gt;     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>       <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>                    <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>            <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>      <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
-#&gt; <span style='color: #BCBCBC;'> 1</span>      1           1 Mexico City Spa…          223.            0.788      176. 
-#&gt; <span style='color: #BCBCBC;'> 2</span>      1           1 Dirty Dgens               145.            0.819      119. 
-#&gt; <span style='color: #BCBCBC;'> 3</span>      1           1 Alberta Armadil…          159.            0.689      110. 
-#&gt; <span style='color: #BCBCBC;'> 4</span>      1           1 Electric Woodies          144.            0.778      112. 
-#&gt; <span style='color: #BCBCBC;'> 5</span>      1           1 Motor City Mutts          125.            0.784       98.1
-#&gt; <span style='color: #BCBCBC;'> 6</span>      1           1 Hoth City Taunt…          135.            0.824      112. 
-#&gt; <span style='color: #BCBCBC;'> 7</span>      1           1 Paw Patrol                142.            0.837      119. 
-#&gt; <span style='color: #BCBCBC;'> 8</span>      1           1 Domination Stat…          201.            0.696      140. 
-#&gt; <span style='color: #BCBCBC;'> 9</span>      1           1 Kill Devil Hill…          136.            0.741      101. 
-#&gt; <span style='color: #BCBCBC;'>10</span>      1           1 [Redacted]                172.            0.69       119. 
-#&gt; <span style='color: #949494;'># … with 110 more rows, and 10 more variables: opponent_score &lt;dbl&gt;,</span>
+#&gt; <span style='color: #BCBCBC;'> 1</span>      1           1 Mexico City Spa…          189.            0.84       159. 
+#&gt; <span style='color: #BCBCBC;'> 2</span>      1           1 Dirty Dgens               127.            0.81       103. 
+#&gt; <span style='color: #BCBCBC;'> 3</span>      1           1 Alberta Armadil…          187.            0.758      142. 
+#&gt; <span style='color: #BCBCBC;'> 4</span>      1           1 Electric Woodies          158.            0.83       131. 
+#&gt; <span style='color: #BCBCBC;'> 5</span>      1           1 Motor City Mutts          132.            0.757       99.6
+#&gt; <span style='color: #BCBCBC;'> 6</span>      1           1 Hoth City Taunt…          122.            0.808       98.6
+#&gt; <span style='color: #BCBCBC;'> 7</span>      1           1 Paw Patrol                175.            0.764      134. 
+#&gt; <span style='color: #BCBCBC;'> 8</span>      1           1 Domination Stat…          191.            0.818      157. 
+#&gt; <span style='color: #BCBCBC;'> 9</span>      1           1 Kill Devil Hill…          220.            0.755      166. 
+#&gt; <span style='color: #BCBCBC;'>10</span>      1           1 [Redacted]                165.            0.754      125. 
+#&gt; <span style='color: #949494;'># … with 62 more rows, and 10 more variables: opponent_score &lt;dbl&gt;,</span>
 #&gt; <span style='color: #949494;'>#   result &lt;chr&gt;, opponent_name &lt;chr&gt;, allplay_wins &lt;dbl&gt;, allplay_games &lt;dbl&gt;,</span>
 #&gt; <span style='color: #949494;'>#   allplay_pct &lt;dbl&gt;, league_id &lt;chr&gt;, franchise_id &lt;chr&gt;,</span>
 #&gt; <span style='color: #949494;'>#   optimal_player_id &lt;list&gt;, optimal_player_score &lt;list&gt;</span></div><div class='input'><span class='va'>summary_season</span> <span class='op'>&lt;-</span> <span class='fu'>ffs_summarise_season</span><span class='op'>(</span><span class='va'>summary_week</span><span class='op'>)</span>
@@ -259,16 +259,16 @@
 </div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 24 × 12</span>
 #&gt;    season league_id franchise_id franchise_name h2h_wins h2h_winpct allplay_wins
 #&gt;     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>        <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>             <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span>      <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>        <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
-#&gt; <span style='color: #BCBCBC;'> 1</span>      1 22627     0001         Mexico City S…        5        1             40
-#&gt; <span style='color: #BCBCBC;'> 2</span>      1 22627     0002         Dirty Dgens           1        0.2            9
-#&gt; <span style='color: #BCBCBC;'> 3</span>      1 22627     0003         Alberta Armad…        1        0.2           20
-#&gt; <span style='color: #BCBCBC;'> 4</span>      1 22627     0004         Electric Wood…        1        0.2           19
-#&gt; <span style='color: #BCBCBC;'> 5</span>      1 22627     0005         Motor City Mu…        3        0.6           27
-#&gt; <span style='color: #BCBCBC;'> 6</span>      1 22627     0006         Hoth City Tau…        0        0             12
-#&gt; <span style='color: #BCBCBC;'> 7</span>      1 22627     0007         Paw Patrol            4        0.8           29
-#&gt; <span style='color: #BCBCBC;'> 8</span>      1 22627     0008         Domination St…        4        0.8           32
-#&gt; <span style='color: #BCBCBC;'> 9</span>      1 22627     0009         Kill Devil Hi…        2        0.4           31
-#&gt; <span style='color: #BCBCBC;'>10</span>      1 22627     0010         [Redacted]            3        0.6           29
+#&gt; <span style='color: #BCBCBC;'> 1</span>      1 22627     0001         Mexico City S…        3      1               26
+#&gt; <span style='color: #BCBCBC;'> 2</span>      1 22627     0002         Dirty Dgens           0      0                2
+#&gt; <span style='color: #BCBCBC;'> 3</span>      1 22627     0003         Alberta Armad…        1      0.333           12
+#&gt; <span style='color: #BCBCBC;'> 4</span>      1 22627     0004         Electric Wood…        3      1               19
+#&gt; <span style='color: #BCBCBC;'> 5</span>      1 22627     0005         Motor City Mu…        3      1               16
+#&gt; <span style='color: #BCBCBC;'> 6</span>      1 22627     0006         Hoth City Tau…        1      0.333           16
+#&gt; <span style='color: #BCBCBC;'> 7</span>      1 22627     0007         Paw Patrol            0      0               10
+#&gt; <span style='color: #BCBCBC;'> 8</span>      1 22627     0008         Domination St…        2      0.667           20
+#&gt; <span style='color: #BCBCBC;'> 9</span>      1 22627     0009         Kill Devil Hi…        2      0.667           28
+#&gt; <span style='color: #BCBCBC;'>10</span>      1 22627     0010         [Redacted]            1      0.333            7
 #&gt; <span style='color: #949494;'># … with 14 more rows, and 5 more variables: allplay_games &lt;dbl&gt;,</span>
 #&gt; <span style='color: #949494;'>#   allplay_winpct &lt;dbl&gt;, points_for &lt;dbl&gt;, points_against &lt;dbl&gt;,</span>
 #&gt; <span style='color: #949494;'>#   potential_points &lt;dbl&gt;</span></div><div class='input'><span class='va'>summary_simulation</span> <span class='op'>&lt;-</span> <span class='fu'>ffs_summarise_simulation</span><span class='op'>(</span><span class='va'>summary_season</span><span class='op'>)</span>
@@ -276,18 +276,18 @@
 </div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 12 × 11</span>
 #&gt;    league_id franchise_id franchise_name             seasons h2h_wins h2h_winpct
 #&gt;    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>        <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>                        <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>      <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
-#&gt; <span style='color: #BCBCBC;'> 1</span> 22627     0001         Mexico City Space Force          2      4.5        0.9
-#&gt; <span style='color: #BCBCBC;'> 2</span> 22627     0012         Indigo Plateau Elite             2      4.5        0.9
-#&gt; <span style='color: #BCBCBC;'> 3</span> 22627     0011         TB12                             2      2.5        0.5
-#&gt; <span style='color: #BCBCBC;'> 4</span> 22627     0008         Domination Station               2      3.5        0.7
-#&gt; <span style='color: #BCBCBC;'> 5</span> 22627     0009         Kill Devil Hills Carpetba…       2      2          0.4
-#&gt; <span style='color: #BCBCBC;'> 6</span> 22627     0010         [Redacted]                       2      2.5        0.5
-#&gt; <span style='color: #BCBCBC;'> 7</span> 22627     0005         Motor City Mutts                 2      2.5        0.5
-#&gt; <span style='color: #BCBCBC;'> 8</span> 22627     0007         Paw Patrol                       2      3.5        0.7
-#&gt; <span style='color: #BCBCBC;'> 9</span> 22627     0004         Electric Woodies                 2      1.5        0.3
-#&gt; <span style='color: #BCBCBC;'>10</span> 22627     0003         Alberta Armadillos               2      1          0.2
-#&gt; <span style='color: #BCBCBC;'>11</span> 22627     0006         Hoth City Tauntauns              2      0.5        0.1
-#&gt; <span style='color: #BCBCBC;'>12</span> 22627     0002         Dirty Dgens                      2      1.5        0.3
+#&gt; <span style='color: #BCBCBC;'> 1</span> 22627     0001         Mexico City Space Force          2      3        1    
+#&gt; <span style='color: #BCBCBC;'> 2</span> 22627     0012         Indigo Plateau Elite             2      1        0.333
+#&gt; <span style='color: #BCBCBC;'> 3</span> 22627     0009         Kill Devil Hills Carpetba…       2      2        0.667
+#&gt; <span style='color: #BCBCBC;'> 4</span> 22627     0005         Motor City Mutts                 2      3        1    
+#&gt; <span style='color: #BCBCBC;'> 5</span> 22627     0008         Domination Station               2      2        0.667
+#&gt; <span style='color: #BCBCBC;'> 6</span> 22627     0011         TB12                             2      2        0.666
+#&gt; <span style='color: #BCBCBC;'> 7</span> 22627     0004         Electric Woodies                 2      2        0.666
+#&gt; <span style='color: #BCBCBC;'> 8</span> 22627     0006         Hoth City Tauntauns              2      1        0.333
+#&gt; <span style='color: #BCBCBC;'> 9</span> 22627     0007         Paw Patrol                       2      0.5      0.166
+#&gt; <span style='color: #BCBCBC;'>10</span> 22627     0010         [Redacted]                       2      1        0.333
+#&gt; <span style='color: #BCBCBC;'>11</span> 22627     0003         Alberta Armadillos               2      0.5      0.166
+#&gt; <span style='color: #BCBCBC;'>12</span> 22627     0002         Dirty Dgens                      2      0        0    
 #&gt; <span style='color: #949494;'># … with 5 more variables: allplay_wins &lt;dbl&gt;, allplay_winpct &lt;dbl&gt;,</span>
 #&gt; <span style='color: #949494;'>#   points_for &lt;dbl&gt;, points_against &lt;dbl&gt;, potential_points &lt;dbl&gt;</span></div><div class='input'><span class='co'># }</span>
 
