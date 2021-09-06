@@ -138,10 +138,9 @@ ff_simulate_week <- function(conn,
   vcli_start(msg = "Building Schedules")
 
   if(actual_schedule) {
-    schedules <- ffs_repeat_schedules(n_seasons = n,
-                                      actual_schedule = schedule) %>%
-      dplyr::mutate(week = .data$season,
-                    season = 1)
+    schedules <- ffs_repeat_schedules(n_seasons = n, actual_schedule = schedule)
+    schedules$week <- schedules$season
+    schedules$season <- 1
   }
 
   if(!actual_schedule){
@@ -149,11 +148,9 @@ ff_simulate_week <- function(conn,
       n_seasons = n,
       n_weeks = 1,
       franchises = franchises
-    ) %>%
-      dplyr::mutate(
-        week = .data$season,
-        season = 1
-      )
+    )
+    schedules$week <- schedules$season
+    schedules$season <- 1
   }
 
   vcli_end(msg_done = "Building Schedules...done! {Sys.time()}")

@@ -42,19 +42,19 @@ ffs_build_schedules <- function(n_teams = NULL,
 
   #### Randomize team order for length n_seasons ####
 
-  team_orders <- lapply(seq_len(n_seasons), function(...) sample(seq_len(n_teams), n_teams))
+  team_order <- lapply(seq_len(n_seasons), function(...) sample(seq_len(n_teams), n_teams))
 
   #### Randomize week order for length n_seasons ####
 
-  week_orders <- lapply(seq_len(n_seasons), function(...) sample(seq_len(n_weeks), n_weeks))
+  week_order <- lapply(seq_len(n_seasons), function(...) sample(seq_len(n_weeks), n_weeks))
 
   #### Join Template onto Team and Week ####
 
   schedules <- data.table::data.table(
     season = seq_len(n_seasons),
     schedule = mapply(.ff_roundrobin_applytemplate,
-                      team_order = team_orders,
-                      week_order = week_orders,
+                      team_order = team_order,
+                      week_order = week_order,
                       MoreArgs = list(schedule_template = schedule_template),
                       SIMPLIFY = FALSE
                       )
@@ -114,31 +114,32 @@ ffs_build_schedules <- function(n_teams = NULL,
       stats::setNames((c(half_two, half_one)))
   }
 
-  df_schedule <- schedule %>%
-    purrr::map(tibble::enframe, name = "team", value = "opponent") %>%
-    tibble::tibble() %>%
-    dplyr::mutate(week = seq_len(n_teams - 1)) %>%
-    tidyr::unnest(1) %>%
-    dplyr::transmute(
-      .data$week,
-      team = as.integer(.data$team),
-      .data$opponent
-    ) %>%
-    dplyr::arrange(.data$week, .data$team)
+  x <- NULL
+  week <- NULL
+  team <- NULL
+  opponent <- NULL
+  df_schedule <- data.table::data.table(week = seq_len(n_teams-1),
+                              x = lapply(schedule,.ff_enframe))
+
+  df_schedule <- tidytable::unnest.(df_schedule,x)[
+    ,list(week,team = as.integer(team),opponent)
+  ][order(week,team)]
 
   if (bye) {
-    df_schedule <- df_schedule %>%
-      dplyr::mutate_at(
-        c("team", "opponent"),
-        ~ dplyr::case_when(
-          .x == n_teams ~ NA_integer_,
-          TRUE ~ .x
-        )
-      ) %>%
-      dplyr::filter(!is.na(.data$team))
+    df_schedule <- df_schedule[team == n_teams,team := NA_integer_]
+    df_schedule <- df_schedule[opponent == n_teams, opponent := NA_integer_]
+    df_schedule <- df_schedule[!is.na(team)]
   }
 
   return(df_schedule)
+}
+
+#' @keywords internal
+.ff_enframe <- function(vec){
+  data.table::data.table(
+    team = names(vec),
+    opponent = vec
+  )
 }
 
 #' @keywords internal
@@ -149,17 +150,15 @@ ffs_build_schedules <- function(n_teams = NULL,
     return(df_schedule)
   }
 
-  if (schedule_max < n_weeks) {
-    x <- df_schedule %>%
-      dplyr::filter(.data$week <= (n_weeks - schedule_max)) %>%
-      dplyr::mutate(week = .data$week + schedule_max)
+  week <- NULL
 
-    df_schedule <- dplyr::bind_rows(df_schedule, x)
+  if (schedule_max < n_weeks) {
+    x <- df_schedule[week <=(n_weeks-schedule_max)][,`:=`(week = week + schedule_max)]
+    df_schedule <- data.table::rbindlist(list(df_schedule,x))
   }
 
   if (schedule_max > n_weeks) {
-    df_schedule <- df_schedule %>%
-      dplyr::filter(.data$week <= n_weeks)
+    df_schedule <- df_schedule[week <= n_weeks]
   }
 
   return(df_schedule)
@@ -167,15 +166,15 @@ ffs_build_schedules <- function(n_teams = NULL,
 
 #' @keywords internal
 .ff_roundrobin_applytemplate <- function(team_order, week_order, schedule_template) {
-  df_schedule <- schedule_template %>%
-    dplyr::mutate(
-      team = team_order[.data$team],
-      opponent = team_order[.data$opponent],
-      week = week_order[.data$week]
-    ) %>%
-    dplyr::arrange(.data$week, .data$team)
+  team <- NULL
+  opponent <- NULL
+  week <- NULL
 
-  return(df_schedule)
+  x <- schedule_template[,`:=`(team = team_order[team],
+                                         opponent = team_order[opponent],
+                                         week = week_order[week])]
+
+  return(x)
 }
 
 #' Get Schedule
@@ -227,7 +226,14 @@ ffs_schedule <- function(conn){
 #'
 #' @seealso `vignette("Custom Simulations")` for example usage
 #' @export
-ffs_repeat_schedules <- function(actual_schedule,n_seasons){
-  tidyr::expand_grid(season = seq_len(n_seasons), actual_schedule)
+ffs_repeat_schedules <- function(actual_schedule, n_seasons){
+
+  data.table::setDT(actual_schedule)
+
+  merge(
+    data.table::data.table(seasons = seq_len(n_seasons),
+                           k = 1),
+    actual_schedule[,c(k = 1,.SD)],
+    allow.cartesian = TRUE)[,`:=`(k = NULL)][]
 }
 

@@ -98,7 +98,7 @@ ffs_optimize_lineups <- ffs_optimise_lineups
 #' @param franchise_scores a data frame of scores for one week and one franchise
 #' @param lineup_constraints a data frame as created by `ffscrapr::ff_starter_positions()`
 #'
-#' @return a list including the optimal_score and the optimal_lineup tibble.
+#' @return a list including the optimal_score and the optimal_lineup.
 #'
 #' @keywords internal
 .ff_optimise_one_lineup <- function(franchise_scores, lineup_constraints) {
