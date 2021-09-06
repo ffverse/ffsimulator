@@ -69,8 +69,7 @@ ff_simulate_week <- function(conn,
   franchises <- ffs_franchises(conn)
   rosters <- ffs_rosters(conn)
 
-  lineup_constraints <- ffscrapr::ff_starter_positions(conn) %>%
-    dplyr::mutate(pos = replace(.data$pos,.data$pos == "PK","K"))
+  lineup_constraints <- ffs_starter_positions(conn)
 
   if(actual_schedule) {
     schedule <- ffs_schedule(conn) %>%
