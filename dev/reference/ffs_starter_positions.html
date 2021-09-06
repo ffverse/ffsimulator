@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Copy simulation template to filename — ffs_copy_template • ffsimulator</title>
+<title>Get league starter positions — ffs_starter_positions • ffsimulator</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -48,8 +48,8 @@
   <link href="../extra.css" rel="stylesheet">
   
 
-<meta property="og:title" content="Copy simulation template to filename — ffs_copy_template" />
-<meta property="og:description" content="Creates a simulation template file with all of the components of ff_simulate, ready for tinkering!" />
+<meta property="og:title" content="Get league starter positions — ffs_starter_positions" />
+<meta property="og:description" content="This function lightly wraps ffscrapr::ff_starter_positions() and cleans up some abbreviations (PK -&amp;gt; K)" />
 <meta property="og:image" content="https://ffsimulator.ffverse.com/reference/figures/logo.png" />
 <meta property="og:image:alt" content="ffsimulator - An R Package For Simulating Fantasy Football Seasons" />
 <meta name="twitter:card" content="summary" />
@@ -179,48 +179,50 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Copy simulation template to filename</h1>
-    <small class="dont-index">Source: <a href='https://github.com/ffverse/ffsimulator/blob/master/R/template_copy.R'><code>R/template_copy.R</code></a></small>
-    <div class="hidden name"><code>ffs_copy_template.Rd</code></div>
+    <h1>Get league starter positions</h1>
+    <small class="dont-index">Source: <a href='https://github.com/ffverse/ffsimulator/blob/master/R/utils-ffscrapr.R'><code>R/utils-ffscrapr.R</code></a></small>
+    <div class="hidden name"><code>ffs_starter_positions.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Creates a simulation template file with all of the components of ff_simulate, ready for tinkering!</p>
+    <p>This function lightly wraps <code><a href='ffscrapr.ffverse.com/reference/ff_starter_positions.html'>ffscrapr::ff_starter_positions()</a></code> and cleans up some abbreviations (PK -&gt; K)</p>
     </div>
 
-    <pre class="usage"><span class='fu'>ffs_copy_template</span><span class='op'>(</span>
-  filename <span class='op'>=</span> <span class='st'>"ff_simulation.R"</span>,
-  template <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"season"</span>, <span class='st'>"rest_of_season"</span>, <span class='st'>"week"</span><span class='op'>)</span>,
-  overwrite <span class='op'>=</span> <span class='cn'>NULL</span>
-<span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>ffs_starter_positions</span><span class='op'>(</span><span class='va'>conn</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>filename</th>
-      <td><p>New file name, defaults to putting "ff_simulation.R" into your current directory</p></td>
-    </tr>
-    <tr>
-      <th>template</th>
-      <td><p>choice of template: one of "season", "week"</p></td>
-    </tr>
-    <tr>
-      <th>overwrite</th>
-      <td><p>a logical (or NULL) - overwrite if existing file found?</p></td>
+      <th>conn</th>
+      <td><p>a connection object as created by <code><a href='ffscrapr.ffverse.com/reference/ff_connect.html'>ffscrapr::ff_connect()</a></code> and friends.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>a success message signalling success/failure.</p>
+    <p>A tidy dataframe of positional lineup rules, one row per position with minimum and maximum starters as well as total starter calculations.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># \donttest{</span>
+<span class='co'># cached examples</span>
+<span class='va'>conn</span> <span class='op'>&lt;-</span> <span class='fu'>.ffs_cache</span><span class='op'>(</span><span class='st'>"mfl_conn.rds"</span><span class='op'>)</span>
 
-<span class='va'>tmp</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span><span class='op'>(</span><span class='op'>)</span>
-<span class='fu'>ffs_copy_template</span><span class='op'>(</span><span class='va'>tmp</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'><span style='color: #00BB00;'>✔</span> Successfully copied template to /tmp/Rtmpuq1JAW/file2686f76a89d!</span></div><div class='input'><span class='co'># }</span>
+<span class='fu'>ffs_starter_positions</span><span class='op'>(</span><span class='va'>conn</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 9 × 7</span>
+#&gt;   pos     min   max offense_starters defense_starters kdst_starters
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span>            <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>            <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>         <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span>
+#&gt; <span style='color: #BCBCBC;'>1</span> QB        1     2               11               11             0
+#&gt; <span style='color: #BCBCBC;'>2</span> RB        2     6               11               11             0
+#&gt; <span style='color: #BCBCBC;'>3</span> WR        3     7               11               11             0
+#&gt; <span style='color: #BCBCBC;'>4</span> TE        1     5               11               11             0
+#&gt; <span style='color: #BCBCBC;'>5</span> DT        1     2               11               11             0
+#&gt; <span style='color: #BCBCBC;'>6</span> DE        2     3               11               11             0
+#&gt; <span style='color: #BCBCBC;'>7</span> LB        3     4               11               11             0
+#&gt; <span style='color: #BCBCBC;'>8</span> CB        2     3               11               11             0
+#&gt; <span style='color: #BCBCBC;'>9</span> S         2     3               11               11             0
+#&gt; <span style='color: #949494;'># … with 1 more variable: total_starters &lt;int&gt;</span></div><div class='input'><span class='co'># }</span>
+
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

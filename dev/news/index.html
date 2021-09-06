@@ -186,40 +186,44 @@
 <h1 class="page-header" data-toc-text="development version">
 <a href="#ffsimulator-development-version" class="anchor"></a>ffsimulator (development version)<small> Unreleased </small>
 </h1>
+<p>This release of ffsimulator adds new features and refactors a lot of the backend for improved calculation efficiency.</p>
 <div id="new-features" class="section level2">
 <h2 class="hasAnchor">
 <a href="#new-features" class="anchor"></a>New features</h2>
 <ul>
 <li>
-<code><a href="../reference/ff_simulate.html">ff_simulate()</a></code> gains a a new <code>verbose</code> argument that allows for progress tracking, and is set ON by default. This can also be controlled by <code><a href="https://rdrr.io/r/base/options.html">options(ffsimulator.verbose = TRUE)</a></code> (or FALSE). Resolves <a href='https://github.com/ffverse/ffsimulator/issues/9'>#9</a>. (v1.0.0.01)</li>
+<code><a href="../reference/ff_simulate_week.html">ff_simulate_week()</a></code> is a new function (and supporting internal function family) that simulates upcoming inseason weeks.</li>
 <li>
-<code><a href="../reference/ffs_copy_template.html">ffs_copy_template()</a></code> copies a template for custom simulations to the desired filepath, making it easier to run a simulation from the component level. Resolves <a href='https://github.com/ffverse/ffsimulator/issues/12'>#12</a> (v1.0.0.02)</li>
-<li>Column assertions cleaned up and should be much clearer on each error message, resolves <a href='https://github.com/ffverse/ffsimulator/issues/16'>#16</a>. (v1.0.0.03)</li>
-<li>Refactored <code><a href="../reference/ffs_optimise_lineups.html">ffs_optimise_lineups()</a></code> and <code><a href="../reference/ffs_score_rosters.html">ffs_score_rosters()</a></code> to use data.table, <strong><em>deprecates</em></strong> parallel options (v1.0.0.04)</li>
-<li>Refactored <code><a href="../reference/ffs_build_schedules.html">ffs_build_schedules()</a></code> column names to match syntax from <code><a href="ffscrapr.ffverse.com/reference/ff_schedule.html">ff_schedule()</a></code>- <code>team</code> is now <code>franchise_id</code> and <code>opponent</code> is now <code>opponent_id</code>. <strong><em>BREAKING, for custom sims</em></strong>
+<code><a href="../reference/ff_simulate.html">ff_simulate()</a></code> gains an <code>actual_schedule</code> argument to simulate actual schedule + unplayed games.</li>
+<li>
+<code><a href="../reference/ff_simulate.html">ff_simulate()</a></code> and <code><a href="../reference/ff_simulate_week.html">ff_simulate_week()</a></code> gain a <code>verbose</code> argument that is set ON by default and can also be turned off with <code><a href="https://rdrr.io/r/base/options.html">options(ffsimulator.verbose = FALSE)</a></code>
 </li>
 <li>
-<code><a href="../reference/ffs_build_schedules.html">ffs_build_schedules()</a></code> is now responsible for joining franchises to the schedule, not <code><a href="../reference/ffs_summarise_week.html">ffs_summarise_week()</a></code>. <strong><em>BREAKING</em></strong>
-</li>
-<li>
-<code><a href="../reference/ffs_build_schedules.html">ffs_build_schedules()</a></code> now takes a franchises dataframe as created by <code><a href="../reference/ffs_franchises.html">ffs_franchises()</a></code> (v1.0.0.05)</li>
-<li>
-<code><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot()</a></code> refactored to hide legend and axis titles via the geom/scale - this allows easier theme adjustments.</li>
-<li>
-<code><a href="../reference/ffs_repeat_schedules.html">ffs_repeat_schedules()</a></code> takes in a schedule as created by and expands it by <code>n_seasons</code>. This wraps up the actual_schedule feature. (v1.0.0.06)</li>
-<li>
-<code><a href="../reference/ffs_generate_projections.html">ffs_generate_projections()</a></code> now takes in a <code>weeks</code> argument (aka a numeric vector specifying which weeks to simulate) instead of taking in a <code>n_weeks</code> argument (which specified how many weeks). <strong><em>BREAKING, for custom sims</em></strong> (v1.0.0.07)</li>
-<li>
-<code>injury_model</code> is renamed to <code>gp_model</code> in every case because the model is whether a player played in a given game. <strong><em>BREAKING, arg name changed</em></strong>
-</li>
-<li>Add kicker support (sigh, SFB) (v1.0.0.08)</li>
-<li>Add <code>pos_filter arg</code> to ff_simulate().</li>
-<li>Add <code><a href="../reference/ff_simulate_week.html">ff_simulate_week()</a></code> functions. (v1.0.0.10)</li>
+<code><a href="../reference/ffs_copy_template.html">ffs_copy_template()</a></code> helps build custom simulations by copying a template of starter code to a desired filepath.</li>
+<li>Simulations now support kickers (you can thank SFB for that!) and gain a <code>pos_filter</code> argument.</li>
 </ul>
 </div>
-<div id="minor-changes" class="section level2">
+<div id="backend-changes" class="section level2">
 <h2 class="hasAnchor">
-<a href="#minor-changes" class="anchor"></a>Minor changes</h2>
+<a href="#backend-changes" class="anchor"></a>Backend changes</h2>
+<p>Many backend changes - some are breaking (<em>grimaces and points at the experimental badge</em>).</p>
+<ul>
+<li>Parallel options deprecated in favour of data.table options.</li>
+<li>Column assertions should be clearer on each error message.</li>
+<li>Many functions, including <code><a href="../reference/ffs_optimise_lineups.html">ffs_optimise_lineups()</a></code>, <code><a href="../reference/ffs_score_rosters.html">ffs_score_rosters()</a></code>, and more are now written in data.table - this helps improve speed for all sizes of simulations.</li>
+<li>
+<code>injury_model</code> argument is now renamed to <code>gp_model</code>. <strong><em>BREAKING</em></strong>
+</li>
+<li>
+<code><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot()</a></code> refactored to hide legend and axis titles via geom/scale and not via theme - this allows for much easier theming (since you can apply a whole new theme via <code><a href="https://rdrr.io/r/base/Arithmetic.html">+</a></code>).</li>
+<li>
+<code><a href="../reference/ffs_build_schedules.html">ffs_build_schedules()</a></code> now matches syntax from <code><a href="ffscrapr.ffverse.com/reference/ff_schedule.html">ffscrapr::ff_schedule()</a></code> - <code>team</code> is now <code>franchise_id</code> and <code>opponent</code> is now <code>opponent_id</code> - <strong><em>BREAKING</em></strong> for custom sims.</li>
+<li>
+<code><a href="../reference/ffs_build_schedules.html">ffs_build_schedules()</a></code> is now responsible for joining franchises to the schedule, and not <code><a href="../reference/ffs_summarise_week.html">ffs_summarise_week()</a></code>, and now takes a franchises dataframe as created by <code><a href="../reference/ffs_franchises.html">ffs_franchises()</a></code> <strong><em>BREAKING</em></strong>
+</li>
+<li>
+<code><a href="../reference/ffs_repeat_schedules.html">ffs_repeat_schedules()</a></code> supports the actual_schedule feature by repeating it by <code>n_seasons</code>.</li>
+</ul>
 <hr>
 </div>
 </div>
