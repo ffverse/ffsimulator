@@ -18,7 +18,7 @@ ffs_adp_outcomes(
 \item{pos_filter}{a character vector: filter the positions returned to these specific positions, default: c("QB","RB","WR","TE)}
 }
 \value{
-a tibble with position, rank, probability of games played, and a corresponding nested list per row of all week score outcomes.
+a dataframe with position, rank, probability of games played, and a corresponding nested list per row of all week score outcomes.
 }
 \description{
 The backbone of the ffsimulator resampling process is coming up with a population of weekly outcomes for every preseason positional rank. This function creates that dataframe by connecting historical FantasyPros.com rankings to nflfastR-based scoring data, as created by \code{ffscrapr::ff_scoringhistory()}.

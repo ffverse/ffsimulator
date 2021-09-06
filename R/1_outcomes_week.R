@@ -6,7 +6,7 @@
 # @param gp_model either "simple" or "none" - simple uses the average games played per season for each position/adp combination, none assumes every game is played.
 #' @param pos_filter a character vector: filter the positions returned to these specific positions, default: c("QB","RB","WR","TE)
 #'
-#' @return a tibble with position, rank, probability of games played, and a corresponding nested list per row of all week score outcomes.
+#' @return a dataframe with position, rank, probability of games played, and a corresponding nested list per row of all week score outcomes.
 #'
 #' @examples
 #' \donttest{
@@ -25,50 +25,44 @@ ffs_adp_outcomes_week <- function(scoring_history,
   # checkmate::assert_choice(gp_model, choices = c("simple", "none"))
   checkmate::assert_character(pos_filter)
   checkmate::assert_data_frame(scoring_history)
-  assert_columns(scoring_history, c("gsis_id", "team", "season", "points"))
+  assert_columns(scoring_history, c("gsis_id", "week", "season", "points"))
 
-  adp_outcomes <- ffsimulator::fp_rankings_history_week %>%
-    dplyr::select(-"page_pos") %>%
-    dplyr::left_join(
-      ffscrapr::dp_playerids() %>%
-        dplyr::select("fantasypros_id", "gsis_id"),
-      by = "fantasypros_id"
-    ) %>%
-    dplyr::filter(!is.na(.data$gsis_id), .data$pos %in% pos_filter) %>%
-    dplyr::left_join(
-      scoring_history %>%
-        dplyr::filter(!is.na(.data$gsis_id)) %>%
-        dplyr::select("season", "week", "gsis_id", "team", "points"),
-      by = c("season", "week", "gsis_id")
-    ) %>%
-    dplyr::mutate(
-      rank = purrr::map(.data$rank, ~ c(ifelse(.x - 1 == 0, .x, .x - 1), .x, .x + 1))
-    ) %>%
-    tidyr::unnest(rank) %>%
-    dplyr::group_by(.data$pos, .data$rank) %>%
-    dplyr::summarise(
-      week_outcomes = list(.data$points),
-      player_name = list(.data$player_name),
-      fantasypros_id = list(.data$fantasypros_id)
-    ) %>%
-    dplyr::ungroup()
+  gsis_id <- NULL
+  fantasypros_id <- NULL
+  pos <- NULL
+  rank <- NULL
+  points <- NULL
+  week_outcomes <- NULL
+  player_name <- NULL
+  fantasypros_id <- NULL
 
-  return(adp_outcomes)
+  sh <- data.table::as.data.table(scoring_history)[!is.na(gsis_id) & week <= 16,c("gsis_id","week", "season", "points")]
+  fp_rh <- data.table::as.data.table(ffsimulator::fp_rankings_history_week)[,-"page_pos"]
+  dp_id <- data.table::as.data.table(ffscrapr::dp_playerids())[!is.na(gsis_id) & !is.na(fantasypros_id),c("fantasypros_id","gsis_id")]
+
+  ao <- fp_rh[dp_id,on = "fantasypros_id", nomatch = 0
+  ][!is.na(gsis_id) & pos %in% pos_filter
+  ][sh, on = c("season","week","gsis_id"),nomatch = 0
+  ][,list(week_outcomes = list(points), games_played = .N),
+    by = c("season","pos","rank","fantasypros_id","player_name")
+  ][,rank := lapply(rank, .ff_triplicate)]
+
+  ao <- tidytable::unnest.(ao,"rank", .drop = FALSE)
+
+  ao <- ao[
+    ,list(week_outcomes = list(c(unlist(week_outcomes))),
+          player_name = list(player_name),
+          fantasypros_id = list(fantasypros_id)
+    ),
+    by = c("pos","rank")
+  ][,len := sapply(week_outcomes,length)
+  ][,len := max(len)-len
+  ][,`:=`(week_outcomes = mapply(.ff_rep_na,week_outcomes,len, SIMPLIFY = FALSE),len = NULL)
+  ][order(pos,rank)]
+
+  return(ao)
 }
 
-#' Applies various injury models to adp outcomes
-#'
-#' @keywords internal
-#' @return same adp outcomes dataframe but with a prob_gp column
-.ff_apply_gp_model <- function(adp_outcomes, model_type) {
-  if (model_type == "none") {
-    adp_outcomes$prob_gp <- 1
-  }
-
-  if (model_type == "simple") {
-    adp_outcomes <- adp_outcomes %>%
-      dplyr::left_join(ffsimulator::fp_injury_table, by = c("pos", "rank"))
-  }
-
-  adp_outcomes
+.ff_rep_na <- function(week_outcomes,len){
+  c(unlist(week_outcomes),rep(NA,times = len))
 }
