@@ -4,7 +4,10 @@
 \alias{ffs_latest_rankings}
 \title{Download latest rankings from DynastyProcess GitHub}
 \usage{
-ffs_latest_rankings()
+ffs_latest_rankings(type = c("draft", "week"))
+}
+\arguments{
+\item{type}{one of "draft" or "week" - controls whether to pull preseason or inseason rankings.}
 }
 \value{
 a dataframe with a copy of the latest FP rankings from DynastyProcess's data repository

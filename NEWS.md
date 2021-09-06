@@ -14,6 +14,7 @@
 - `injury_model` is renamed to `gp_model` in every case because the model is whether a player played in a given game. ***BREAKING, arg name changed***
 - Add kicker support (sigh, SFB) (v1.0.0.08)
 - Add `pos_filter arg` to ff_simulate().
+- Add `ff_simulate_week()` functions. (v1.0.0.10)
 
 ## Minor changes
 

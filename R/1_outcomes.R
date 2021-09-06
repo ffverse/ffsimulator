@@ -91,3 +91,4 @@ ffs_adp_outcomes <- function(scoring_history,
 
   adp_outcomes
 }
+
