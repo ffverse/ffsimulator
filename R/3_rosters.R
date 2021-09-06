@@ -68,7 +68,7 @@ ffs_rosters.flea_conn <- function(conn) {
 
   r <- merge(r,
              ffscrapr::dp_playerids()[,c("sportradar_id","fantasypros_id")],
-             by.x = "player_id",
+             by.x = "sportradar_id",
              by.y = "sportradar_id",
              all.x = TRUE)
   r$league_id <- as.character(conn$league_id)

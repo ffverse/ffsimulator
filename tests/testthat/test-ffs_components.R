@@ -134,14 +134,14 @@ test_that("schedules returns a tibble and specific columns", {
     n_weeks = 10
   )
 
-  checkmate::expect_tibble(schedules, nrows = 120)
+  checkmate::expect_data_frame(schedules, nrows = 120)
 
   checkmate::expect_subset(
     c("season", "week", "franchise_id", "opponent_id"),
     names(schedules)
   )
 
-  checkmate::expect_tibble(schedules_w_bye, nrows = 220)
+  checkmate::expect_data_frame(schedules_w_bye, nrows = 220)
   checkmate::expect_subset(
     c("season", "week", "franchise_id", "opponent_id"),
     names(schedules_w_bye)

@@ -201,9 +201,9 @@ ff_simulate_week <- function(conn,
 #' @export
 #' @noRd
 print.ff_simulation_week <- function(x, ...) {
-  cat("<ff_simulation: ",
+  cat("<ff_simulation_week: ",
       x$simulation_params$n,
-      " simulated seasons of ",
+      " simulated weeks of ",
       x$league_info$league_name,
       ">\n",
       sep = ""
