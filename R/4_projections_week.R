@@ -9,10 +9,10 @@
 #'
 #' @examples \donttest{
 #' # cached examples
-#' adp_outcomes <- .ffs_cache("adp_outcomes.rds")
-#' latest_rankings <- .ffs_cache("latest_rankings.rds")
+#' adp_outcomes_week <- .ffs_cache("adp_outcomes_week.rds")
+#' latest_rankings_week <- .ffs_cache("latest_rankings_week.rds")
 #'
-#' ffs_generate_projections_week(adp_outcomes, latest_rankings)
+#' ffs_generate_projections_week(adp_outcomes_week, latest_rankings_week)
 #' }
 #'
 #' @seealso vignette("custom") for example usage
@@ -70,8 +70,9 @@ ffs_generate_projections_week <- function(adp_outcomes,
     by = c("week", "fantasypros_id", "player", "pos",
            "team", "ecr", "sd", "rank","scrape_date"),
     .SDcols = c("week_outcomes")
-  ][,`:=`(
-    projection = projected_score,
+  ]
+  ps <- ps[,`:=`(
+    projection = ps$projected_score,
     gp_model = 1,
     season = 1
   )]

@@ -18,8 +18,14 @@ test_that("ffs_adp_outcomes() works for both the simple and none injury models",
     gp_model = "none"
   )
 
+  adp_outcomes_week <- ffs_adp_outcomes_week(
+    scoring_history = cache$mfl_scoring_history,
+    pos_filter = c("QB","RB","WR","TE")
+  )
+
   checkmate::expect_tibble(adp_outcomes, min.rows = 500)
   checkmate::expect_tibble(adp_outcomes_noinjury, min.rows = 500)
+  checkmate::expect_tibble(adp_outcomes_week, min.rows = 500)
 
   checkmate::expect_subset(
     names(adp_outcomes),
@@ -28,6 +34,10 @@ test_that("ffs_adp_outcomes() works for both the simple and none injury models",
   checkmate::expect_subset(
     names(adp_outcomes_noinjury),
     c("pos", "rank", "prob_gp", "week_outcomes", "player_name", "fantasypros_id")
+  )
+  checkmate::expect_subset(
+    names(adp_outcomes_week),
+    c("pos", "rank", "week_outcomes", "player_name", "fantasypros_id")
   )
 })
 
@@ -41,11 +51,24 @@ test_that("ffs_generate_projections() returns a tibble and specific columns", {
     rosters = cache$mfl_rosters
   )
 
+  projected_scores_week <- ffs_generate_projections_week(
+    adp_outcomes = cache$adp_outcomes_week,
+    latest_rankings = cache$latest_rankings_week,
+    n = 5,
+    rosters = cache$mfl_rosters
+    )
+
   checkmate::expect_data_frame(projected_scores, min.rows = 3500)
+  checkmate::expect_data_frame(projected_scores_week, min.rows = 1200)
 
   checkmate::expect_subset(
     c("fantasypros_id", "pos", "projected_score", "season", "week"),
     names(projected_scores)
+  )
+
+  checkmate::expect_subset(
+    c("fantasypros_id", "pos", "projected_score", "season", "week"),
+    names(projected_scores_week)
   )
 })
 
@@ -55,7 +78,7 @@ test_that("ffs_score_rosters() connects the scores to the rosters", {
     rosters = cache$mfl_rosters
   )
 
-  checkmate::expect_data_frame(roster_scores, min.rows = 3500)
+  checkmate::expect_data_frame(roster_scores, min.rows = 2000)
 
   checkmate::expect_subset(
     c(
@@ -80,8 +103,8 @@ test_that("ffs_optimize_lineups() returns a tibble and specific columns", {
     best_ball = TRUE
   )
 
-  checkmate::expect_data_frame(optimal_scores, nrows = 120)
-  checkmate::expect_data_frame(optimal_scores_bestball, nrows = 120)
+  checkmate::expect_data_frame(optimal_scores, nrows = 72)
+  checkmate::expect_data_frame(optimal_scores_bestball, nrows = 72)
 
   checkmate::expect_subset(
     c("franchise_id", "franchise_name", "season", "week", "optimal_score", "optimal_player_id", "optimal_player_score", "lineup_efficiency", "actual_score"),
@@ -133,7 +156,7 @@ test_that("summary functions return tibbles", {
   summary_season <- ffs_summarise_season(summary_week = summary_week)
   summary_simulation <- ffs_summarise_simulation(summary_season = summary_season)
 
-  checkmate::expect_tibble(summary_week, nrows = 120)
+  checkmate::expect_tibble(summary_week, nrows = 72)
   checkmate::expect_tibble(summary_season, nrows = 24)
   checkmate::expect_tibble(summary_simulation, nrows = 12)
 

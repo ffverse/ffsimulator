@@ -7,12 +7,12 @@
 \usage{
 autoplot.ff_simulation_week(object, type = c("luck", "points"), ...)
 
-\method{plot}{ff_simulation_week}(x, ..., type = c("wins", "rank", "points"), y)
+\method{plot}{ff_simulation_week}(x, ..., type = c("luck", "points"), y)
 }
 \arguments{
 \item{object}{a \code{ff_simulation} object as created by \code{ff_simulate()}}
 
-\item{type}{one of "wins", "rank", "points"}
+\item{type}{one of "luck" or "points"}
 
 \item{...}{unused, required by autoplot generic}
 
@@ -32,9 +32,7 @@ Usage of this function/method requires the ggplot2 package and (for wins and poi
 \examples{
 \donttest{
 
-simulation <- .ffs_cache("foureight_sim.rds")
-
-simulation <- ff_simulate_week(mfl_connect(2021,54040), actual_schedule = TRUE)
+simulation <- .ffs_cache("foureight_sim_week.rds")
 
 ggplot2::autoplot(simulation) # default is type = "luck"
 ggplot2::autoplot(simulation, type = "points")
