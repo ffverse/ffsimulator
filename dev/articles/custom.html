@@ -140,7 +140,7 @@
       <h1 data-toc-skip>Custom Simulations</h1>
                         <h4 class="author">Tan Ho</h4>
             
-            <h4 class="date">2021-09-06</h4>
+            <h4 class="date">2021-09-07</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/ffverse/ffsimulator/blob/master/vignettes/custom.Rmd"><code>vignettes/custom.Rmd</code></a></small>
       <div class="hidden name"><code>custom.Rmd</code></div>
@@ -149,7 +149,8 @@
 
     
     
-<p>ffsimulator also provides the component subfunctions (prefixed with <code>ffs_</code>) in case you want to customize and run certain components individually. This vignette will discuss various options and paths you might use in your own analysis, and wrap up with an example of custom code for the <a href="https://scottfishbowl.com/2021/">2021 Scott Fish Bowl</a>.</p>
+<p>ffsimulator also provides the component subfunctions (prefixed with <code>ffs_</code>) in case you want to customize and run certain components individually. This vignette will discuss various options and paths you might use in your own analysis, and discuss various customizations for simulating the <a href="https://scottfishbowl.com/2021/">2021 Scott Fish Bowl</a>.</p>
+<p>You can also use the <code>ffs_template_copy()</code> function to quickly get started with your own custom simulation!</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ffsimulator.ffverse.com">ffsimulator</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ffscrapr.ffverse.com">ffscrapr</a></span><span class="op">)</span>
@@ -175,13 +176,13 @@
 <code class="sourceCode R"><span class="va">scoring_history</span> <span class="op">&lt;-</span> <span class="fu">ffscrapr</span><span class="fu">::</span><span class="fu"><a href="ffscrapr.ffverse.com/reference/ff_scoringhistory.html">ff_scoringhistory</a></span><span class="op">(</span><span class="va">conn</span>, seasons <span class="op">=</span> <span class="fl">2012</span><span class="op">:</span><span class="fl">2020</span><span class="op">)</span></code></pre></div>
 <p>This retrieves week-level fantasy scoring for the specified years, and is built from nflfastR weekly data combined with the platform specified league rules.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">latest_rankings</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ffs_latest_rankings.html">ffs_latest_rankings</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="va">latest_rankings</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ffs_latest_rankings.html">ffs_latest_rankings</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"draft"</span><span class="op">)</span> <span class="co"># also "week", for inseason sims</span></code></pre></div>
 <p>This retrieves the latest FantasyPros positional rankings available from the <a href="https://github.com/dynastyprocess/data">DynastyProcess data repository</a>. If you want to customize the rankings used in your simulation, you can construct and replace this latest_rankings dataframe with one of a similar structure and column naming - the important ones are (positional) “ecr”, “sd”, “bye”, and “fantasypros_id”.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">rosters</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ffs_rosters.html">ffs_rosters</a></span><span class="op">(</span><span class="va">conn</span><span class="op">)</span></code></pre></div>
-<p>This retrieves rosters and attaches a fantasypros_id to them. You could run hypothetical scenarios such as trades by editing this rosters dataframe by hand and then running the simulation!</p>
+<p>This retrieves rosters and attaches a <code>fantasypros_id</code> to them. You could run hypothetical scenarios such as trades by editing this rosters dataframe by hand and then running the simulation!</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">lineup_constraints</span> <span class="op">&lt;-</span> <span class="fu">ffscrapr</span><span class="fu">::</span><span class="fu"><a href="ffscrapr.ffverse.com/reference/ff_starter_positions.html">ff_starter_positions</a></span><span class="op">(</span><span class="va">conn</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="va">lineup_constraints</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ffs_starter_positions.html">ffs_starter_positions</a></span><span class="op">(</span><span class="va">conn</span><span class="op">)</span></code></pre></div>
 <p>This retrieves lineup constraints from your fantasy platform. You can edit these to test out hypothetical starting lineup settings and minimum requirements!</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">league_info</span> <span class="op">&lt;-</span> <span class="fu">ffscrapr</span><span class="fu">::</span><span class="fu"><a href="ffscrapr.ffverse.com/reference/ff_league.html">ff_league</a></span><span class="op">(</span><span class="va">conn</span><span class="op">)</span></code></pre></div>
@@ -194,7 +195,8 @@
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">adp_outcomes</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ffs_adp_outcomes.html">ffs_adp_outcomes</a></span><span class="op">(</span>
     scoring_history <span class="op">=</span> <span class="va">scoring_history</span>,
-    gp_model <span class="op">=</span> <span class="st">"simple"</span> <span class="co"># or "none"</span>
+    gp_model <span class="op">=</span> <span class="st">"simple"</span>, <span class="co"># or "none"</span>
+    pos_filter <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"QB"</span>,<span class="st">"RB"</span>,<span class="st">"WR"</span>,<span class="st">"TE"</span>,<span class="st">"K"</span><span class="op">)</span>
   <span class="op">)</span></code></pre></div>
 <p>This builds out the population of weekly outcomes for each positional adp rank, using the above-mentioned scoring history as well as <code>fp_rankings_history</code> (2012-2020 historical positional rankings) and <code>fp_injury_table</code>(an injury model).</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
@@ -202,10 +204,10 @@
     adp_outcomes <span class="op">=</span> <span class="va">adp_outcomes</span>,
     latest_rankings <span class="op">=</span> <span class="va">latest_rankings</span>,
     n_seasons <span class="op">=</span> <span class="fl">100</span>, <span class="co"># number of seasons</span>
-    n_weeks <span class="op">=</span> <span class="fl">14</span>, <span class="co"># weeks per season</span>
+    weeks <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">14</span>, <span class="co"># specifies which weeks to generate projections for</span>
     rosters <span class="op">=</span> <span class="va">rosters</span> <span class="co"># optional, reduces the sample to just rostered players</span>
   <span class="op">)</span></code></pre></div>
-<p>This uses the adp_outcomes table, latest rankings, some parameters (number of seasons, number of weeks per season), and rosters, generating a dataframe of length n_seasons x n_weeks x nrow(latest_rankings) and automatically blanking out NFL bye weeks.</p>
+<p>This uses the adp_outcomes table, latest rankings, some parameters (number of seasons, specific weeks), and rosters, generating a dataframe of length n_seasons x n_weeks x nrow(latest_rankings) and automatically blanking out NFL bye weeks.</p>
 </div>
 <div id="calculating-roster-scores" class="section level3">
 <h3 class="hasAnchor">
@@ -224,7 +226,7 @@
     lineup_efficiency_mean <span class="op">=</span> <span class="fl">0.775</span>,
     lineup_efficiency_sd <span class="op">=</span> <span class="fl">0.05</span>,
     best_ball <span class="op">=</span> <span class="cn">FALSE</span>, <span class="co"># or TRUE</span>
-    parallel <span class="op">=</span> <span class="cn">FALSE</span> <span class="co"># or TRUE </span>
+    pos_filter <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"QB"</span>,<span class="st">"RB"</span>,<span class="st">"WR"</span>,<span class="st">"TE"</span>,<span class="st">"K"</span><span class="op">)</span>
   <span class="op">)</span></code></pre></div>
 <p>This function runs the lineup optimisation and applies a small lineup efficiency model.</p>
 <p>Lineup efficiency refers to the ratio of “actual lineup score” to “optimal lineup score”. Lineup efficiency is generated as a random number that is normally distributed around 0.775 (77.5%) and has a standard deviation of 0.05. This gives the usual lineup efficiency range to be somewhere between 0.67 and 0.87, which is (in my experience) the typical range of lineup efficiency. You can adjust the lineup efficiency model for yourself, or perhaps apply your own modelling afterwards. <code>best_ball</code> forces lineup efficiency to be 100% of the optimal score.</p>
@@ -236,10 +238,10 @@
 <p>In order to calculate head to head wins, you need a schedule! Enter <code><a href="../reference/ffs_build_schedules.html">ffs_build_schedules()</a></code>:</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R">  <span class="va">schedules</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ffs_build_schedules.html">ffs_build_schedules</a></span><span class="op">(</span>
-    n_teams <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="va">rosters</span><span class="op">$</span><span class="va">franchise_id</span><span class="op">)</span><span class="op">)</span>, 
     n_seasons <span class="op">=</span> <span class="va">n_seasons</span>,
     n_weeks <span class="op">=</span> <span class="va">n_weeks</span>,
-    seed <span class="op">=</span> <span class="cn">NULL</span>
+    seed <span class="op">=</span> <span class="cn">NULL</span>,
+    franchises <span class="op">=</span> <span class="fu"><a href="ffscrapr.ffverse.com/reference/ff_franchises.html">ff_franchises</a></span><span class="op">(</span><span class="va">conn</span><span class="op">)</span>
   <span class="op">)</span></code></pre></div>
 <p>This efficiently builds a randomized head to head schedule for a given number of seasons, teams, and weeks.</p>
 <p>It starts with the <a href="https://en.wikipedia.org/wiki/Round-robin_tournament#Scheduling_algorithm">circle method for round robin scheduling</a>, grows or shrinks the schedule to match the required number of weeks, and then shuffles both the order that teams are assigned in and the order that weeks are generated. This doesn’t “guarantee” unique schedules, but there are <code>n_teams! x n_weeks!</code> permutations of the schedule so it’s very very likely that the schedules are unique (3x10^18 possible schedules for a 12 team league playing 13 weeks).</p>
@@ -264,12 +266,10 @@
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ffsimulator.ffverse.com">ffsimulator</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ffscrapr.ffverse.com">ffscrapr</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">tidyverse</span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/DavisVaughan/furrr">furrr</a></span><span class="op">)</span> 
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">tictoc</span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">tictoc</span><span class="op">)</span> <span class="co"># for timing!</span>
 
-<span class="fu">plan</span><span class="op">(</span><span class="va">multisession</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">613</span><span class="op">)</span></code></pre></div>
-<p>Package listing. I add furrr and set plan(multisession) so that the optimizer can be run in parallel, set ffscrapr to cache to my hard drive, and set a seed for reproducibility.</p>
+<p>Package listing. I set ffscrapr to cache to my hard drive, and set a seed for reproducibility.</p>
 <div id="import-data" class="section level3">
 <h3 class="hasAnchor">
 <a href="#import-data" class="anchor"></a>Import Data</h3>
@@ -280,10 +280,10 @@
 
 <span class="va">scoring_history</span> <span class="op">&lt;-</span> <span class="fu">ffscrapr</span><span class="fu">::</span><span class="fu"><a href="ffscrapr.ffverse.com/reference/ff_scoringhistory.html">ff_scoringhistory</a></span><span class="op">(</span><span class="va">conn</span>, <span class="fl">2012</span><span class="op">:</span><span class="fl">2020</span><span class="op">)</span>
 
-<span class="va">adp_outcomes</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ffs_adp_outcomes.html">ffs_adp_outcomes</a></span><span class="op">(</span>scoring_history <span class="op">=</span> <span class="va">scoring_history</span>, gp_model <span class="op">=</span> <span class="st">"simple"</span><span class="op">)</span>
+<span class="va">adp_outcomes</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ffs_adp_outcomes.html">ffs_adp_outcomes</a></span><span class="op">(</span>scoring_history <span class="op">=</span> <span class="va">scoring_history</span>, gp_model <span class="op">=</span> <span class="st">"simple"</span>,pos_filter <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"QB"</span>,<span class="st">"RB"</span>,<span class="st">"WR"</span>,<span class="st">"TE"</span>,<span class="st">"K"</span><span class="op">)</span><span class="op">)</span>
 
 <span class="va">latest_rankings</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ffs_latest_rankings.html">ffs_latest_rankings</a></span><span class="op">(</span><span class="op">)</span>
-<span class="va">lineup_constraints</span> <span class="op">&lt;-</span> <span class="fu">ffscrapr</span><span class="fu">::</span><span class="fu"><a href="ffscrapr.ffverse.com/reference/ff_starter_positions.html">ff_starter_positions</a></span><span class="op">(</span><span class="va">conn</span><span class="op">)</span></code></pre></div>
+<span class="va">lineup_constraints</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ffs_starter_positions.html">ffs_starter_positions</a></span><span class="op">(</span><span class="va">conn</span><span class="op">)</span></code></pre></div>
 <p>We can use one league ID here to grab most of the historical scoring data and rules/lineups etc for the entire SFB contest (rather than running it once for each of the twenty league IDs).</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">conn2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/mfl_connect.html">mfl_connect</a></span><span class="op">(</span><span class="fl">2021</span><span class="op">)</span>
@@ -307,8 +307,8 @@
 <span class="va">rosters_raw</span> <span class="op">&lt;-</span> <span class="va">leagues</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">homeURL</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>
-    rosters <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/furrr/man/future_map.html">future_map</a></span><span class="op">(</span><span class="va">id</span>, <span class="va">get_rosters</span><span class="op">)</span>,
-    franchises <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/furrr/man/future_map.html">future_map</a></span><span class="op">(</span><span class="va">id</span>, <span class="va">get_franchises</span><span class="op">)</span>
+    rosters <span class="op">=</span> <span class="fu">map</span><span class="op">(</span><span class="va">id</span>, <span class="va">get_rosters</span><span class="op">)</span>,
+    franchises <span class="op">=</span> <span class="fu">map</span><span class="op">(</span><span class="va">id</span>, <span class="va">get_franchises</span><span class="op">)</span>
   <span class="op">)</span>
 
 <span class="va">franchises</span> <span class="op">&lt;-</span> <span class="va">rosters_raw</span> <span class="op">%&gt;%</span>
@@ -327,7 +327,7 @@
 <span class="va">projected_scores</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ffs_generate_projections.html">ffs_generate_projections</a></span><span class="op">(</span>adp_outcomes <span class="op">=</span> <span class="va">adp_outcomes</span>,
                                              latest_rankings <span class="op">=</span> <span class="va">latest_rankings</span>,
                                              n_seasons <span class="op">=</span> <span class="va">n_seasons</span>,
-                                             n_weeks <span class="op">=</span> <span class="va">n_weeks</span>,
+                                             weeks <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">14</span>,
                                              rosters <span class="op">=</span> <span class="va">rosters</span><span class="op">)</span>
 
 <span class="fu">tictoc</span><span class="fu">::</span><span class="fu">tic</span><span class="op">(</span><span class="fu">glue</span><span class="fu">::</span><span class="fu"><a href="https://glue.tidyverse.org/reference/glue.html">glue</a></span><span class="op">(</span><span class="st">"ffs_score_rosters {Sys.time()}"</span><span class="op">)</span><span class="op">)</span>
@@ -338,17 +338,12 @@
 <span class="va">optimal_scores</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ffs_optimise_lineups.html">ffs_optimize_lineups</a></span><span class="op">(</span>
   roster_scores <span class="op">=</span> <span class="va">roster_scores</span>,
   lineup_constraints <span class="op">=</span> <span class="va">lineup_constraints</span>,
-  best_ball <span class="op">=</span> <span class="cn">FALSE</span>,
-  parallel <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+  pos_filter <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"QB"</span>,<span class="st">"RB"</span>,<span class="st">"WR"</span>,<span class="st">"TE"</span>,<span class="st">"K"</span><span class="op">)</span>,
+  best_ball <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
 <span class="fu">tictoc</span><span class="fu">::</span><span class="fu">toc</span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p>These are pretty straight forward, I use tictoc here to time the most expensive parts of the computation so that I know how long it takes - on my machine, this takes between 20-25 minutes to compute.</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">schedules</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ffs_build_schedules.html">ffs_build_schedules</a></span><span class="op">(</span>n_teams <span class="op">=</span> 
-                                   <span class="va">rosters</span> <span class="op">%&gt;%</span>
-                                    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/distinct.html">distinct</a></span><span class="op">(</span>
-                                      <span class="va">.data</span><span class="op">$</span><span class="va">league_id</span>,
-                                      <span class="va">.data</span><span class="op">$</span><span class="va">franchise_id</span><span class="op">)</span> <span class="op">%&gt;%</span>
-                                    <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="op">)</span>,
+<code class="sourceCode R"><span class="va">schedules</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ffs_build_schedules.html">ffs_build_schedules</a></span><span class="op">(</span>franchises <span class="op">=</span> <span class="va">franchises</span>,
                                  n_seasons <span class="op">=</span> <span class="va">n_seasons</span>,
                                  n_weeks <span class="op">=</span> <span class="va">n_weeks</span><span class="op">)</span>
 
