@@ -1,11 +1,8 @@
 
-cache <- tibble::tibble(file = list.files(system.file("cache", package = "ffsimulator"), full.names = TRUE)) %>%
-  dplyr::transmute(
-    data = purrr::map(.data$file, readRDS),
-    name = stringi::stri_replace_all(str = .data$file, regex =  ".+cache/|\\.rds$", replacement = "")
-  ) %>%
-  dplyr::select("name", "data") %>%
-  tibble::deframe()
+cache_names <- list.files(system.file("cache", package = "ffsimulator"), full.names = TRUE)
+cache <- lapply(cache_names, readRDS)
+cache_names <- gsub(pattern = ".+cache/|\\.rds$", replacement = "", x = cache_names)
+names(cache) <- cache_names
 
 test_that("ffs_adp_outcomes() works for both the simple and none injury models", {
   adp_outcomes <- ffs_adp_outcomes(

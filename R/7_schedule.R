@@ -200,7 +200,7 @@ ffs_schedule <- function(conn){
 
   schedule <- ffscrapr::ff_schedule(conn)
   if("spread" %in% names(schedule)){
-    schedule$result[(!is.na(schedule$spread)|schedule$spread==0) && schedule$result == "T"] <- NA
+    schedule$result[(!is.na(schedule$spread)|schedule$spread==0) & schedule$result == "T"] <- NA
   }
   schedule <- schedule[is.na(schedule$result),c("week","franchise_id","opponent_id")]
   schedule$league_id <- as.character(conn$league_id)
