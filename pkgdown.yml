@@ -4,8 +4,8 @@ pkgdown_sha: ~
 articles:
   basic: basic.html
   custom: custom.html
-last_built: 2021-08-14T16:23Z
+last_built: 2021-09-08T15:27Z
 urls:
-  reference: ffsimulator.ffverse.com/reference
-  article: ffsimulator.ffverse.com/articles
+  reference: https://ffsimulator.ffverse.com/reference
+  article: https://ffsimulator.ffverse.com/articles
 
