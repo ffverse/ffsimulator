@@ -24,6 +24,8 @@ Many backend changes - some are breaking (***grimaces and points at the experime
 - `ffs_repeat_schedules()` supports the actual_schedule feature by repeating it by `n_seasons`.
 - Print methods cleaned up.
 
+Immensely grateful to everyone who used and shared the first release of this package - it's been very motivating! Special thanks to [@JoeSydlowski](https://github.com/joesydlowski), [@topfunky](https://github.com/topfunky), [@mrcaseb](https://github.com/mrcaseb) for their contributions and feedback. 
+
 ---
 
 # ffsimulator 1.0.0
