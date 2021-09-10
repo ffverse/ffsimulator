@@ -131,5 +131,5 @@ foureight_sim <- ff_simulate(foureight, n_seasons = 10)
 
 saveRDS(foureight_sim, "inst/cache/foureight_sim.rds")
 
-foureight_sim_week <- ff_simulate_week(foureight,n = 10)
+foureight_sim_week <- ff_simulate_week(foureight,n = 25)
 saveRDS(foureight_sim_week, "inst/cache/foureight_sim_week.rds")

@@ -159,7 +159,7 @@ ff_simulate_week <- function(conn,
   vcli_start(msg = "Summarising Simulation Data")
 
   summary_week <- ffs_summarise_week(optimal_scores, schedules)
-  summary_season <- ffs_summarise_inseason(summary_week,n)
+  summary_simulation <- ffs_summarise_inseason(summary_week,n)
 
   vcli_end(msg_done = "Summarising Simulation Data...done! {Sys.time()}")
 
@@ -167,7 +167,7 @@ ff_simulate_week <- function(conn,
 
   out <- structure(
     list(
-      summary_season = summary_season,
+      summary_simulation = summary_simulation,
       summary_week = summary_week,
       roster_scores = roster_scores,
       projected_scores = projected_scores,

@@ -43,7 +43,7 @@ autoplot.ff_simulation_week <- function(object,
 
   if(!object$simulation_params$actual_schedule) stop("Schedule luck plot not available if `actual_schedule` is FALSE")
 
-  luck <- object$summary_season
+  luck <- object$summary_simulation
   data.table::setDT(luck)
   h2h_winpct <- NULL
   allplay_winpct <- NULL
@@ -95,7 +95,7 @@ autoplot.ff_simulation_week <- function(object,
       ),
       label = "H2H Win %",
       hjust = -0.1,
-      data = luck[h2h_winpct == max(h2h_winpct)]
+      data = luck[.N]
     ) +
     ggplot2::geom_text(
       ggplot2::aes(
@@ -104,7 +104,7 @@ autoplot.ff_simulation_week <- function(object,
         hjust = .data$ap_hjust
       ),
       label = "AllPlay Win %",
-      data = luck[h2h_winpct == max(h2h_winpct)]
+      data = luck[.N]
     ) +
     ggplot2::scale_x_continuous(labels = scales::percent_format(),limits = c(0, 1))+
     ggplot2::scale_color_discrete(guide = "none")+
