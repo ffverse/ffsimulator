@@ -26,7 +26,7 @@ The `{ffsimulator}` package uses bootstrap resampling to run fantasy
 football season simulations supported by historical rankings and
 nflfastR data, calculating optimal lineups, and returning aggregated
 results. This can quickly run your league through hundreds of seasons
-and may help you study:
+and can help you study:
 
 -   expected season finishes and range of outcomes
 -   player contributions to season wins
@@ -55,7 +55,7 @@ r-universe](https://dynastyprocess.r-universe.dev) or remotes + GitHub:
 install.packages("ffsimulator", repos = "https://dynastyprocess.r-universe.dev")
 
 # or via GitHub c/o remotes/devtools: # install.packages('remotes')
-remotes::install_github("ffverse/ffsimulator")
+remotes::install_github("ffverse/ffsimulator", ref = "dev")
 ```
 
 The development version has a [separate documentation site
