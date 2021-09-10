@@ -72,8 +72,7 @@ library(ggridges)
 
 mfl_conn <- mfl_connect(season = 2021, league_id = 22627)
 
-## OTHER PLATFORM CONNECTIONS MAY BE USED, AS PER BELOW: ##
-
+## OTHER PLATFORM CONNECTIONS MAY BE USED, FOR EXAMPLE:
 # sleeper_conn <- sleeper_connect(season = 2021,  league_id = "652582284720971776") 
 # flea_conn <- fleaflicker_connect(season = 2021, league_id = 312861) 
 # espn_conn <- espn_connect(season = 2021, league_id = 899513)
@@ -111,10 +110,8 @@ this project:
 -   You can [open an
     issue](https://github.com/ffverse/ffsimulator/issues/new/choose) if
     you’d like to request specific data or report a bug/error.
-
 -   You can [sponsor this project with
     donations](https://github.com/sponsors/tanho63)!
-
 -   If you’d like to contribute code, please check out [the contribution
     guidelines](https://ffsimulator.ffverse.com/CONTRIBUTING.html).
 
