@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Pipe operator — %&gt;% • ffsimulator</title>
+<title>Generate Projections — ffs_generate_projections_week • ffsimulator</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -48,8 +48,8 @@
   <link href="../extra.css" rel="stylesheet">
   
 
-<meta property="og:title" content="Pipe operator — %&gt;%" />
-<meta property="og:description" content="See magrittr::%&amp;gt;% for details." />
+<meta property="og:title" content="Generate Projections — ffs_generate_projections_week" />
+<meta property="og:description" content="Runs the bootstrapped resampling of player week outcomes on the latest rankings and rosters for a given number of seasons and weeks per season." />
 <meta property="og:image" content="https://ffsimulator.ffverse.com/reference/figures/logo.png" />
 <meta property="og:image:alt" content="ffsimulator - An R Package For Simulating Fantasy Football Seasons" />
 <meta name="twitter:card" content="summary" />
@@ -179,34 +179,83 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Pipe operator</h1>
-    <small class="dont-index">Source: <a href='https://github.com/ffverse/ffsimulator/blob/master/R/utils.R'><code>R/utils.R</code></a></small>
-    <div class="hidden name"><code>pipe.Rd</code></div>
+    <h1>Generate Projections</h1>
+    <small class="dont-index">Source: <a href='https://github.com/ffverse/ffsimulator/blob/master/R/4_projections_week.R'><code>R/4_projections_week.R</code></a></small>
+    <div class="hidden name"><code>ffs_generate_projections_week.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>See <code>magrittr::%&gt;%</code> for details.</p>
+    <p>Runs the bootstrapped resampling of player week outcomes on the latest rankings and rosters for a given number of seasons and weeks per season.</p>
     </div>
 
-    <pre class="usage"><span class='va'>lhs</span> <span class='op'>%&gt;%</span> <span class='va'>rhs</span></pre>
+    <pre class="usage"><span class='fu'>ffs_generate_projections_week</span><span class='op'>(</span>
+  <span class='va'>adp_outcomes</span>,
+  <span class='va'>latest_rankings</span>,
+  n <span class='op'>=</span> <span class='fl'>1000</span>,
+  rosters <span class='op'>=</span> <span class='cn'>NULL</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>lhs</th>
-      <td><p>A value or the magrittr placeholder.</p></td>
+      <th>adp_outcomes</th>
+      <td><p>a dataframe of adp-based weekly outcomes, as created by <code><a href='ffs_adp_outcomes.html'>ffs_adp_outcomes()</a></code></p></td>
     </tr>
     <tr>
-      <th>rhs</th>
-      <td><p>A function call using the magrittr semantics.</p></td>
+      <th>latest_rankings</th>
+      <td><p>a dataframe of rankings, as created by <code><a href='ffs_latest_rankings.html'>ffs_latest_rankings()</a></code></p></td>
+    </tr>
+    <tr>
+      <th>n</th>
+      <td><p>number of weeks to simulate</p></td>
+    </tr>
+    <tr>
+      <th>rosters</th>
+      <td><p>a dataframe of rosters, as created by <code><a href='ffs_rosters.html'>ffs_rosters()</a></code> - optional, reduces computation to just rostered players</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>The result of calling <code>rhs(lhs)</code>.</p>
+    <p>a dataframe of weekly scores for each player in the simulation, approximately of length n_seasons x n_weeks x latest_rankings</p>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
+    <div class='dont-index'><p>vignette("custom") for example usage</p></div>
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='co'># \donttest{</span>
+<span class='co'># cached examples</span>
+<span class='va'>adp_outcomes_week</span> <span class='op'>&lt;-</span> <span class='fu'>.ffs_cache</span><span class='op'>(</span><span class='st'>"adp_outcomes_week.rds"</span><span class='op'>)</span>
+<span class='va'>latest_rankings_week</span> <span class='op'>&lt;-</span> <span class='fu'>.ffs_cache</span><span class='op'>(</span><span class='st'>"latest_rankings_week.rds"</span><span class='op'>)</span>
+
+<span class='fu'>ffs_generate_projections_week</span><span class='op'>(</span><span class='va'>adp_outcomes_week</span>, <span class='va'>latest_rankings_week</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;         week fantasypros_id         player pos team    ecr    sd rank
+#&gt;      1:    2          17233  Lamar Jackson  QB  BAL   1.79  0.67    1
+#&gt;      2:    6          17233  Lamar Jackson  QB  BAL   1.79  0.67    1
+#&gt;      3:    8          17233  Lamar Jackson  QB  BAL   1.79  0.67    1
+#&gt;      4:   12          17233  Lamar Jackson  QB  BAL   1.79  0.67    1
+#&gt;      5:   31          17233  Lamar Jackson  QB  BAL   1.79  0.67    1
+#&gt;     ---                                                              
+#&gt; 276996:  125          19270 Devin Duvernay  WR  BAL 121.00 15.00  141
+#&gt; 276997:  936          19270 Devin Duvernay  WR  BAL 121.00 15.00  141
+#&gt; 276998:  411          18941   Jalen Guyton  WR  LAC 109.67 17.99  142
+#&gt; 276999:  888          19270 Devin Duvernay  WR  BAL 121.00 15.00  142
+#&gt; 277000:  779          19270 Devin Duvernay  WR  BAL 121.00 15.00  144
+#&gt;         scrape_date projected_score projection gp_model season
+#&gt;      1:  2021-09-06              NA         NA        1      1
+#&gt;      2:  2021-09-06            22.9       22.9        1      1
+#&gt;      3:  2021-09-06              NA         NA        1      1
+#&gt;      4:  2021-09-06              NA         NA        1      1
+#&gt;      5:  2021-09-06              NA         NA        1      1
+#&gt;     ---                                                       
+#&gt; 276996:  2021-09-06             0.0        0.0        1      1
+#&gt; 276997:  2021-09-06              NA         NA        1      1
+#&gt; 276998:  2021-09-06            27.2       27.2        1      1
+#&gt; 276999:  2021-09-06              NA         NA        1      1
+#&gt; 277000:  2021-09-06              NA         NA        1      1</div><div class='input'><span class='co'># }</span>
+
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

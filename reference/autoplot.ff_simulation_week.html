@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Pipe operator — %&gt;% • ffsimulator</title>
+<title>Automatically Plot ff_simulation Object — autoplot.ff_simulation_week • ffsimulator</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -48,8 +48,8 @@
   <link href="../extra.css" rel="stylesheet">
   
 
-<meta property="og:title" content="Pipe operator — %&gt;%" />
-<meta property="og:description" content="See magrittr::%&amp;gt;% for details." />
+<meta property="og:title" content="Automatically Plot ff_simulation Object — autoplot.ff_simulation_week" />
+<meta property="og:description" content="Creates automatic plots for wins, ranks, or points for an ff_simulation object as created by ff_simulate()." />
 <meta property="og:image" content="https://ffsimulator.ffverse.com/reference/figures/logo.png" />
 <meta property="og:image:alt" content="ffsimulator - An R Package For Simulating Fantasy Football Seasons" />
 <meta name="twitter:card" content="summary" />
@@ -179,34 +179,65 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Pipe operator</h1>
-    <small class="dont-index">Source: <a href='https://github.com/ffverse/ffsimulator/blob/master/R/utils.R'><code>R/utils.R</code></a></small>
-    <div class="hidden name"><code>pipe.Rd</code></div>
+    <h1>Automatically Plot ff_simulation Object</h1>
+    <small class="dont-index">Source: <a href='https://github.com/ffverse/ffsimulator/blob/master/R/9_autoplot_week.R'><code>R/9_autoplot_week.R</code></a></small>
+    <div class="hidden name"><code>autoplot.ff_simulation_week.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>See <code>magrittr::%&gt;%</code> for details.</p>
+    <p>Creates automatic plots for wins, ranks, or points for an <code>ff_simulation</code> object as created by <code><a href='ff_simulate.html'>ff_simulate()</a></code>.</p>
     </div>
 
-    <pre class="usage"><span class='va'>lhs</span> <span class='op'>%&gt;%</span> <span class='va'>rhs</span></pre>
+    <pre class="usage"><span class='fu'>autoplot.ff_simulation_week</span><span class='op'>(</span><span class='va'>object</span>, type <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"luck"</span>, <span class='st'>"points"</span><span class='op'>)</span>, <span class='va'>...</span><span class='op'>)</span>
+
+<span class='co'># S3 method for ff_simulation_week</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span>, type <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"luck"</span>, <span class='st'>"points"</span><span class='op'>)</span>, <span class='va'>y</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>lhs</th>
-      <td><p>A value or the magrittr placeholder.</p></td>
+      <th>object</th>
+      <td><p>a <code>ff_simulation</code> object as created by <code><a href='ff_simulate.html'>ff_simulate()</a></code></p></td>
     </tr>
     <tr>
-      <th>rhs</th>
-      <td><p>A function call using the magrittr semantics.</p></td>
+      <th>type</th>
+      <td><p>one of "luck" or "points"</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>unused, required by autoplot generic</p></td>
+    </tr>
+    <tr>
+      <th>x</th>
+      <td><p>A <code>ff_simulation_week</code> object.</p></td>
+    </tr>
+    <tr>
+      <th>y</th>
+      <td><p>Ignored, required for compatibility with the <code><a href='https://rdrr.io/r/graphics/plot.default.html'>plot()</a></code> generic.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>The result of calling <code>rhs(lhs)</code>.</p>
+    <p>a ggplot object</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
+    <p>Usage of this function/method requires the ggplot2 package and (for wins and points plots) the ggridges package.</p>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p><code><a href='../articles/basic.html'>vignette("basic")</a></code> for example usage</p></div>
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='co'># \donttest{</span>
+
+<span class='va'>simulation</span> <span class='op'>&lt;-</span> <span class='fu'>.ffs_cache</span><span class='op'>(</span><span class='st'>"foureight_sim_week.rds"</span><span class='op'>)</span>
+
+<span class='fu'>ggplot2</span><span class='fu'>::</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/autoplot.html'>autoplot</a></span><span class='op'>(</span><span class='va'>simulation</span><span class='op'>)</span> <span class='co'># default is type = "luck"</span>
+</div><div class='img'><img src='autoplot.ff_simulation_week-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>ggplot2</span><span class='fu'>::</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/autoplot.html'>autoplot</a></span><span class='op'>(</span><span class='va'>simulation</span>, type <span class='op'>=</span> <span class='st'>"points"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>Picking joint bandwidth of 9.54</span></div><div class='img'><img src='autoplot.ff_simulation_week-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
+
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

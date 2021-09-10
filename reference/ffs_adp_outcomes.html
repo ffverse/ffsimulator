@@ -86,7 +86,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ffsimulator</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0</span>
       </span>
     </div>
 
@@ -185,67 +185,75 @@
     </div>
 
     <div class="ref-description">
-    <p>The backbone of the ffsimulator resampling process is coming up with a population of weekly outcomes for every preseason positional rank. This function creates that dataframe by connecting historical FantasyPros.com rankings to nflfastR-based scoring data, as created by <code><a href='ffscrapr.ffverse.com/reference/ff_scoringhistory.html'>ffscrapr::ff_scoringhistory()</a></code>.</p>
+    <p>The backbone of the ffsimulator resampling process is coming up with a population of weekly outcomes for every preseason positional rank. This function creates that dataframe by connecting historical FantasyPros.com rankings to nflfastR-based scoring data, as created by <code><a href='https://ffscrapr.ffverse.com/reference/ff_scoringhistory.html'>ffscrapr::ff_scoringhistory()</a></code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>ffs_adp_outcomes</span><span class='op'>(</span><span class='va'>scoring_history</span>, injury_model <span class='op'>=</span> <span class='st'>"simple"</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>ffs_adp_outcomes</span><span class='op'>(</span>
+  <span class='va'>scoring_history</span>,
+  gp_model <span class='op'>=</span> <span class='st'>"simple"</span>,
+  pos_filter <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"QB"</span>, <span class='st'>"RB"</span>, <span class='st'>"WR"</span>, <span class='st'>"TE"</span><span class='op'>)</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>scoring_history</th>
-      <td><p>a scoring history table as created by <code><a href='ffscrapr.ffverse.com/reference/ff_scoringhistory.html'>ffscrapr::ff_scoringhistory()</a></code></p></td>
+      <td><p>a scoring history table as created by <code><a href='https://ffscrapr.ffverse.com/reference/ff_scoringhistory.html'>ffscrapr::ff_scoringhistory()</a></code></p></td>
     </tr>
     <tr>
-      <th>injury_model</th>
+      <th>gp_model</th>
       <td><p>either "simple" or "none" - simple uses the average games played per season for each position/adp combination, none assumes every game is played.</p></td>
+    </tr>
+    <tr>
+      <th>pos_filter</th>
+      <td><p>a character vector: filter the positions returned to these specific positions, default: c("QB","RB","WR","TE)</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>a tibble with position, rank, probability of games played, and a corresponding nested list per row of all week score outcomes.</p>
+    <p>a dataframe with position, rank, probability of games played, and a corresponding nested list per row of all week score outcomes.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code>fp_rankings_history</code> for the included historical rankings</p>
 <p><code>fp_injury_table</code> for the historical injury table</p>
-<p><code>vignette("Custom Simulation")</code> for usage details.</p></div>
+<p><code><a href='../articles/custom.html'>vignette("custom")</a></code> for usage details.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># \donttest{</span>
- <span class='co'>#cached data</span>
- <span class='va'>scoring_history</span> <span class='op'>&lt;-</span> <span class='fu'>.ffs_cache</span><span class='op'>(</span><span class='st'>"mfl_scoring_history.rds"</span><span class='op'>)</span>
+<span class='co'># cached data</span>
+<span class='va'>scoring_history</span> <span class='op'>&lt;-</span> <span class='fu'>.ffs_cache</span><span class='op'>(</span><span class='st'>"mfl_scoring_history.rds"</span><span class='op'>)</span>
 
- <span class='fu'>ffs_adp_outcomes</span><span class='op'>(</span><span class='va'>scoring_history</span>, injury_model <span class='op'>=</span> <span class='st'>"simple"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 646 × 6</span>
+<span class='fu'>ffs_adp_outcomes</span><span class='op'>(</span><span class='va'>scoring_history</span>, gp_model <span class='op'>=</span> <span class='st'>"simple"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tidytable: 640 × 6</span>
 #&gt;    pos    rank prob_gp week_outcomes player_name fantasypros_id
 #&gt;    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;list&gt;</span>        <span style='color: #949494; font-style: italic;'>&lt;list&gt;</span>      <span style='color: #949494; font-style: italic;'>&lt;list&gt;</span>        
-#&gt; <span style='color: #BCBCBC;'> 1</span> QB        1   0.919 <span style='color: #949494;'>&lt;dbl [242]&gt;</span>   <span style='color: #949494;'>&lt;chr [18]&gt;</span>  <span style='color: #949494;'>&lt;chr [18]&gt;</span>    
-#&gt; <span style='color: #BCBCBC;'> 2</span> QB        2   0.919 <span style='color: #949494;'>&lt;dbl [253]&gt;</span>   <span style='color: #949494;'>&lt;chr [18]&gt;</span>  <span style='color: #949494;'>&lt;chr [18]&gt;</span>    
-#&gt; <span style='color: #BCBCBC;'> 3</span> QB        3   0.919 <span style='color: #949494;'>&lt;dbl [266]&gt;</span>   <span style='color: #949494;'>&lt;chr [18]&gt;</span>  <span style='color: #949494;'>&lt;chr [18]&gt;</span>    
-#&gt; <span style='color: #BCBCBC;'> 4</span> QB        4   0.919 <span style='color: #949494;'>&lt;dbl [266]&gt;</span>   <span style='color: #949494;'>&lt;chr [18]&gt;</span>  <span style='color: #949494;'>&lt;chr [18]&gt;</span>    
-#&gt; <span style='color: #BCBCBC;'> 5</span> QB        5   0.919 <span style='color: #949494;'>&lt;dbl [269]&gt;</span>   <span style='color: #949494;'>&lt;chr [18]&gt;</span>  <span style='color: #949494;'>&lt;chr [18]&gt;</span>    
-#&gt; <span style='color: #BCBCBC;'> 6</span> QB        6   0.918 <span style='color: #949494;'>&lt;dbl [263]&gt;</span>   <span style='color: #949494;'>&lt;chr [18]&gt;</span>  <span style='color: #949494;'>&lt;chr [18]&gt;</span>    
-#&gt; <span style='color: #BCBCBC;'> 7</span> QB        7   0.917 <span style='color: #949494;'>&lt;dbl [262]&gt;</span>   <span style='color: #949494;'>&lt;chr [18]&gt;</span>  <span style='color: #949494;'>&lt;chr [18]&gt;</span>    
-#&gt; <span style='color: #BCBCBC;'> 8</span> QB        8   0.915 <span style='color: #949494;'>&lt;dbl [254]&gt;</span>   <span style='color: #949494;'>&lt;chr [18]&gt;</span>  <span style='color: #949494;'>&lt;chr [18]&gt;</span>    
-#&gt; <span style='color: #BCBCBC;'> 9</span> QB        9   0.913 <span style='color: #949494;'>&lt;dbl [259]&gt;</span>   <span style='color: #949494;'>&lt;chr [18]&gt;</span>  <span style='color: #949494;'>&lt;chr [18]&gt;</span>    
-#&gt; <span style='color: #BCBCBC;'>10</span> QB       10   0.911 <span style='color: #949494;'>&lt;dbl [257]&gt;</span>   <span style='color: #949494;'>&lt;chr [18]&gt;</span>  <span style='color: #949494;'>&lt;chr [18]&gt;</span>    
-#&gt; <span style='color: #949494;'># … with 636 more rows</span></div><div class='input'> <span class='fu'>ffs_adp_outcomes</span><span class='op'>(</span><span class='va'>scoring_history</span>, injury_model <span class='op'>=</span> <span class='st'>"none"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 646 × 6</span>
+#&gt; <span style='color: #BCBCBC;'> 1</span> QB        1   0.919 <span style='color: #949494;'>&lt;dbl [88]&gt;</span>    <span style='color: #949494;'>&lt;chr [6]&gt;</span>   <span style='color: #949494;'>&lt;chr [6]&gt;</span>     
+#&gt; <span style='color: #BCBCBC;'> 2</span> QB        2   0.919 <span style='color: #949494;'>&lt;dbl [80]&gt;</span>    <span style='color: #949494;'>&lt;chr [6]&gt;</span>   <span style='color: #949494;'>&lt;chr [6]&gt;</span>     
+#&gt; <span style='color: #BCBCBC;'> 3</span> QB        3   0.919 <span style='color: #949494;'>&lt;dbl [83]&gt;</span>    <span style='color: #949494;'>&lt;chr [6]&gt;</span>   <span style='color: #949494;'>&lt;chr [6]&gt;</span>     
+#&gt; <span style='color: #BCBCBC;'> 4</span> QB        4   0.919 <span style='color: #949494;'>&lt;dbl [84]&gt;</span>    <span style='color: #949494;'>&lt;chr [6]&gt;</span>   <span style='color: #949494;'>&lt;chr [6]&gt;</span>     
+#&gt; <span style='color: #BCBCBC;'> 5</span> QB        5   0.919 <span style='color: #949494;'>&lt;dbl [95]&gt;</span>    <span style='color: #949494;'>&lt;chr [6]&gt;</span>   <span style='color: #949494;'>&lt;chr [6]&gt;</span>     
+#&gt; <span style='color: #BCBCBC;'> 6</span> QB        6   0.918 <span style='color: #949494;'>&lt;dbl [81]&gt;</span>    <span style='color: #949494;'>&lt;chr [6]&gt;</span>   <span style='color: #949494;'>&lt;chr [6]&gt;</span>     
+#&gt; <span style='color: #BCBCBC;'> 7</span> QB        7   0.917 <span style='color: #949494;'>&lt;dbl [82]&gt;</span>    <span style='color: #949494;'>&lt;chr [6]&gt;</span>   <span style='color: #949494;'>&lt;chr [6]&gt;</span>     
+#&gt; <span style='color: #BCBCBC;'> 8</span> QB        8   0.915 <span style='color: #949494;'>&lt;dbl [78]&gt;</span>    <span style='color: #949494;'>&lt;chr [6]&gt;</span>   <span style='color: #949494;'>&lt;chr [6]&gt;</span>     
+#&gt; <span style='color: #BCBCBC;'> 9</span> QB        9   0.913 <span style='color: #949494;'>&lt;dbl [83]&gt;</span>    <span style='color: #949494;'>&lt;chr [6]&gt;</span>   <span style='color: #949494;'>&lt;chr [6]&gt;</span>     
+#&gt; <span style='color: #BCBCBC;'>10</span> QB       10   0.911 <span style='color: #949494;'>&lt;dbl [83]&gt;</span>    <span style='color: #949494;'>&lt;chr [6]&gt;</span>   <span style='color: #949494;'>&lt;chr [6]&gt;</span>     
+#&gt; <span style='color: #949494;'># … with 630 more rows</span></div><div class='input'><span class='fu'>ffs_adp_outcomes</span><span class='op'>(</span><span class='va'>scoring_history</span>, gp_model <span class='op'>=</span> <span class='st'>"none"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tidytable: 644 × 6</span>
 #&gt;    pos    rank prob_gp week_outcomes player_name fantasypros_id
 #&gt;    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;list&gt;</span>        <span style='color: #949494; font-style: italic;'>&lt;list&gt;</span>      <span style='color: #949494; font-style: italic;'>&lt;list&gt;</span>        
-#&gt; <span style='color: #BCBCBC;'> 1</span> QB        1       1 <span style='color: #949494;'>&lt;dbl [242]&gt;</span>   <span style='color: #949494;'>&lt;chr [18]&gt;</span>  <span style='color: #949494;'>&lt;chr [18]&gt;</span>    
-#&gt; <span style='color: #BCBCBC;'> 2</span> QB        2       1 <span style='color: #949494;'>&lt;dbl [253]&gt;</span>   <span style='color: #949494;'>&lt;chr [18]&gt;</span>  <span style='color: #949494;'>&lt;chr [18]&gt;</span>    
-#&gt; <span style='color: #BCBCBC;'> 3</span> QB        3       1 <span style='color: #949494;'>&lt;dbl [266]&gt;</span>   <span style='color: #949494;'>&lt;chr [18]&gt;</span>  <span style='color: #949494;'>&lt;chr [18]&gt;</span>    
-#&gt; <span style='color: #BCBCBC;'> 4</span> QB        4       1 <span style='color: #949494;'>&lt;dbl [266]&gt;</span>   <span style='color: #949494;'>&lt;chr [18]&gt;</span>  <span style='color: #949494;'>&lt;chr [18]&gt;</span>    
-#&gt; <span style='color: #BCBCBC;'> 5</span> QB        5       1 <span style='color: #949494;'>&lt;dbl [269]&gt;</span>   <span style='color: #949494;'>&lt;chr [18]&gt;</span>  <span style='color: #949494;'>&lt;chr [18]&gt;</span>    
-#&gt; <span style='color: #BCBCBC;'> 6</span> QB        6       1 <span style='color: #949494;'>&lt;dbl [263]&gt;</span>   <span style='color: #949494;'>&lt;chr [18]&gt;</span>  <span style='color: #949494;'>&lt;chr [18]&gt;</span>    
-#&gt; <span style='color: #BCBCBC;'> 7</span> QB        7       1 <span style='color: #949494;'>&lt;dbl [262]&gt;</span>   <span style='color: #949494;'>&lt;chr [18]&gt;</span>  <span style='color: #949494;'>&lt;chr [18]&gt;</span>    
-#&gt; <span style='color: #BCBCBC;'> 8</span> QB        8       1 <span style='color: #949494;'>&lt;dbl [254]&gt;</span>   <span style='color: #949494;'>&lt;chr [18]&gt;</span>  <span style='color: #949494;'>&lt;chr [18]&gt;</span>    
-#&gt; <span style='color: #BCBCBC;'> 9</span> QB        9       1 <span style='color: #949494;'>&lt;dbl [259]&gt;</span>   <span style='color: #949494;'>&lt;chr [18]&gt;</span>  <span style='color: #949494;'>&lt;chr [18]&gt;</span>    
-#&gt; <span style='color: #BCBCBC;'>10</span> QB       10       1 <span style='color: #949494;'>&lt;dbl [257]&gt;</span>   <span style='color: #949494;'>&lt;chr [18]&gt;</span>  <span style='color: #949494;'>&lt;chr [18]&gt;</span>    
-#&gt; <span style='color: #949494;'># … with 636 more rows</span></div><div class='input'><span class='co'># }</span>
+#&gt; <span style='color: #BCBCBC;'> 1</span> QB        1       1 <span style='color: #949494;'>&lt;dbl [88]&gt;</span>    <span style='color: #949494;'>&lt;chr [6]&gt;</span>   <span style='color: #949494;'>&lt;chr [6]&gt;</span>     
+#&gt; <span style='color: #BCBCBC;'> 2</span> QB        2       1 <span style='color: #949494;'>&lt;dbl [80]&gt;</span>    <span style='color: #949494;'>&lt;chr [6]&gt;</span>   <span style='color: #949494;'>&lt;chr [6]&gt;</span>     
+#&gt; <span style='color: #BCBCBC;'> 3</span> QB        3       1 <span style='color: #949494;'>&lt;dbl [83]&gt;</span>    <span style='color: #949494;'>&lt;chr [6]&gt;</span>   <span style='color: #949494;'>&lt;chr [6]&gt;</span>     
+#&gt; <span style='color: #BCBCBC;'> 4</span> QB        4       1 <span style='color: #949494;'>&lt;dbl [84]&gt;</span>    <span style='color: #949494;'>&lt;chr [6]&gt;</span>   <span style='color: #949494;'>&lt;chr [6]&gt;</span>     
+#&gt; <span style='color: #BCBCBC;'> 5</span> QB        5       1 <span style='color: #949494;'>&lt;dbl [95]&gt;</span>    <span style='color: #949494;'>&lt;chr [6]&gt;</span>   <span style='color: #949494;'>&lt;chr [6]&gt;</span>     
+#&gt; <span style='color: #BCBCBC;'> 6</span> QB        6       1 <span style='color: #949494;'>&lt;dbl [81]&gt;</span>    <span style='color: #949494;'>&lt;chr [6]&gt;</span>   <span style='color: #949494;'>&lt;chr [6]&gt;</span>     
+#&gt; <span style='color: #BCBCBC;'> 7</span> QB        7       1 <span style='color: #949494;'>&lt;dbl [82]&gt;</span>    <span style='color: #949494;'>&lt;chr [6]&gt;</span>   <span style='color: #949494;'>&lt;chr [6]&gt;</span>     
+#&gt; <span style='color: #BCBCBC;'> 8</span> QB        8       1 <span style='color: #949494;'>&lt;dbl [78]&gt;</span>    <span style='color: #949494;'>&lt;chr [6]&gt;</span>   <span style='color: #949494;'>&lt;chr [6]&gt;</span>     
+#&gt; <span style='color: #BCBCBC;'> 9</span> QB        9       1 <span style='color: #949494;'>&lt;dbl [83]&gt;</span>    <span style='color: #949494;'>&lt;chr [6]&gt;</span>   <span style='color: #949494;'>&lt;chr [6]&gt;</span>     
+#&gt; <span style='color: #BCBCBC;'>10</span> QB       10       1 <span style='color: #949494;'>&lt;dbl [83]&gt;</span>    <span style='color: #949494;'>&lt;chr [6]&gt;</span>   <span style='color: #949494;'>&lt;chr [6]&gt;</span>     
+#&gt; <span style='color: #949494;'># … with 634 more rows</span></div><div class='input'><span class='co'># }</span>
 
 </div></pre>
   </div>

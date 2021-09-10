@@ -86,7 +86,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ffsimulator</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0</span>
       </span>
     </div>
 
@@ -192,7 +192,7 @@
   <span class='va'>adp_outcomes</span>,
   <span class='va'>latest_rankings</span>,
   n_seasons <span class='op'>=</span> <span class='fl'>100</span>,
-  n_weeks <span class='op'>=</span> <span class='fl'>14</span>,
+  weeks <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>14</span>,
   rosters <span class='op'>=</span> <span class='cn'>NULL</span>
 <span class='op'>)</span></pre>
 
@@ -212,8 +212,8 @@
       <td><p>number of seasons, default is 100</p></td>
     </tr>
     <tr>
-      <th>n_weeks</th>
-      <td><p>weeks per season, default is 14</p></td>
+      <th>weeks</th>
+      <td><p>a numeric vector of weeks to simulate, defaults to 1:14</p></td>
     </tr>
     <tr>
       <th>rosters</th>
@@ -226,7 +226,7 @@
     <p>a dataframe of weekly scores for each player in the simulation, approximately of length n_seasons x n_weeks x latest_rankings</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>vignette("Custom Simulations") for example usage</p></div>
+    <div class='dont-index'><p>vignette("custom") for example usage</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># \donttest{</span>
@@ -234,22 +234,31 @@
 <span class='va'>adp_outcomes</span> <span class='op'>&lt;-</span> <span class='fu'>.ffs_cache</span><span class='op'>(</span><span class='st'>"adp_outcomes.rds"</span><span class='op'>)</span>
 <span class='va'>latest_rankings</span> <span class='op'>&lt;-</span> <span class='fu'>.ffs_cache</span><span class='op'>(</span><span class='st'>"latest_rankings.rds"</span><span class='op'>)</span>
 
-<span class='fu'>ffs_generate_projections</span><span class='op'>(</span><span class='va'>adp_outcomes</span>,<span class='va'>latest_rankings</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 892,570 × 15</span>
-#&gt;    player fantasypros_id pos   team    bye   ecr    sd sportradar_id scrape_date
-#&gt;    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>          <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>         <span style='color: #949494; font-style: italic;'>&lt;date&gt;</span>     
-#&gt; <span style='color: #BCBCBC;'> 1</span> Patri… 16413          QB    KCC      12  1.28  0.65 11cad59d-90d… 2021-07-16 
-#&gt; <span style='color: #BCBCBC;'> 2</span> Josh … 17298          QB    BUF       7  2.42  0.85 3069db07-aa4… 2021-07-16 
-#&gt; <span style='color: #BCBCBC;'> 3</span> Kyler… 18600          QB    ARI      12  3.7   0.99 dd5a6b6e-ffa… 2021-07-16 
-#&gt; <span style='color: #BCBCBC;'> 4</span> Lamar… 17233          QB    BAL       8  3.87  1.38 e06a9c07-453… 2021-07-16 
-#&gt; <span style='color: #BCBCBC;'> 5</span> Dak P… 15600          QB    DAL       7  4.27  1.39 86197778-8d4… 2021-07-16 
-#&gt; <span style='color: #BCBCBC;'> 6</span> Russe… 11180          QB    SEA       9  6.51  1.2  409d4cac-ee9… 2021-07-16 
-#&gt; <span style='color: #BCBCBC;'> 7</span> Justi… 18635          QB    LAC       7  7.53  1.62 f0a8f8e3-b9e… 2021-07-16 
-#&gt; <span style='color: #BCBCBC;'> 8</span> Aaron… 9001           QB    GBP      13  8.58  1.88 0ce48193-e2f… 2021-07-16 
-#&gt; <span style='color: #BCBCBC;'> 9</span> Jalen… 19275          QB    PHI      14  9.74  2.81 64bd0f02-6a5… 2021-07-16 
-#&gt; <span style='color: #BCBCBC;'>10</span> Ryan … 11174          QB    TEN      13 10.2   1.79 5812204c-6da… 2021-07-16 
-#&gt; <span style='color: #949494;'># … with 892,560 more rows, and 6 more variables: rank &lt;dbl&gt;, season &lt;int&gt;,</span>
-#&gt; <span style='color: #949494;'>#   projection &lt;dbl&gt;, injury_model &lt;int&gt;, week &lt;int&gt;, projected_score &lt;dbl&gt;</span></div><div class='input'><span class='co'># }</span>
+<span class='fu'>ffs_generate_projections</span><span class='op'>(</span><span class='va'>adp_outcomes</span>, <span class='va'>latest_rankings</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;         season fantasypros_id             player pos team bye    ecr    sd rank
+#&gt;      1:      1          16413 Patrick Mahomes II  QB  KCC  12   1.32  0.69    1
+#&gt;      2:      1          16413 Patrick Mahomes II  QB  KCC  12   1.32  0.69    1
+#&gt;      3:      1          16413 Patrick Mahomes II  QB  KCC  12   1.32  0.69    1
+#&gt;      4:      1          16413 Patrick Mahomes II  QB  KCC  12   1.32  0.69    1
+#&gt;      5:      1          16413 Patrick Mahomes II  QB  KCC  12   1.32  0.69    1
+#&gt;     ---                                                                        
+#&gt; 994024:     61          19534        Tarik Black  WR  IND  14 239.50 20.50  243
+#&gt; 994025:     61          19534        Tarik Black  WR  IND  14 239.50 20.50  243
+#&gt; 994026:     61          19534        Tarik Black  WR  IND  14 239.50 20.50  243
+#&gt; 994027:     61          19534        Tarik Black  WR  IND  14 239.50 20.50  243
+#&gt; 994028:     61          19534        Tarik Black  WR  IND  14 239.50 20.50  243
+#&gt;         scrape_date week projection gp_model projected_score
+#&gt;      1:  2021-09-03    1      12.00        1           12.00
+#&gt;      2:  2021-09-03    2      29.86        1           29.86
+#&gt;      3:  2021-09-03    3      19.50        1           19.50
+#&gt;      4:  2021-09-03    4      13.92        1           13.92
+#&gt;      5:  2021-09-03    5      19.50        1           19.50
+#&gt;     ---                                                     
+#&gt; 994024:  2021-09-03   10       2.10        0            0.00
+#&gt; 994025:  2021-09-03   11       0.00        0            0.00
+#&gt; 994026:  2021-09-03   12       2.10        0            0.00
+#&gt; 994027:  2021-09-03   13       2.10        0            0.00
+#&gt; 994028:  2021-09-03   14       4.40        0            0.00</div><div class='input'><span class='co'># }</span>
 
 </div></pre>
   </div>

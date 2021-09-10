@@ -4,10 +4,16 @@
     <loc>https://ffsimulator.ffverse.com/index.html</loc>
   </url>
   <url>
+    <loc>https://ffsimulator.ffverse.com/reference/assert_columns.html</loc>
+  </url>
+  <url>
     <loc>https://ffsimulator.ffverse.com/reference/autoplot.ff_simulation.html</loc>
   </url>
   <url>
-    <loc>https://ffsimulator.ffverse.com/reference/dot-ff_apply_injury_model.html</loc>
+    <loc>https://ffsimulator.ffverse.com/reference/autoplot.ff_simulation_week.html</loc>
+  </url>
+  <url>
+    <loc>https://ffsimulator.ffverse.com/reference/dot-ff_apply_gp_model.html</loc>
   </url>
   <url>
     <loc>https://ffsimulator.ffverse.com/reference/dot-ff_optimise_one_lineup.html</loc>
@@ -25,16 +31,31 @@
     <loc>https://ffsimulator.ffverse.com/reference/ff_simulate.html</loc>
   </url>
   <url>
+    <loc>https://ffsimulator.ffverse.com/reference/ff_simulate_week.html</loc>
+  </url>
+  <url>
     <loc>https://ffsimulator.ffverse.com/reference/ff_starter_positions.html</loc>
   </url>
   <url>
     <loc>https://ffsimulator.ffverse.com/reference/ffs_adp_outcomes.html</loc>
   </url>
   <url>
+    <loc>https://ffsimulator.ffverse.com/reference/ffs_adp_outcomes_week.html</loc>
+  </url>
+  <url>
     <loc>https://ffsimulator.ffverse.com/reference/ffs_build_schedules.html</loc>
   </url>
   <url>
+    <loc>https://ffsimulator.ffverse.com/reference/ffs_copy_template.html</loc>
+  </url>
+  <url>
+    <loc>https://ffsimulator.ffverse.com/reference/ffs_franchises.html</loc>
+  </url>
+  <url>
     <loc>https://ffsimulator.ffverse.com/reference/ffs_generate_projections.html</loc>
+  </url>
+  <url>
+    <loc>https://ffsimulator.ffverse.com/reference/ffs_generate_projections_week.html</loc>
   </url>
   <url>
     <loc>https://ffsimulator.ffverse.com/reference/ffs_latest_rankings.html</loc>
@@ -43,10 +64,19 @@
     <loc>https://ffsimulator.ffverse.com/reference/ffs_optimise_lineups.html</loc>
   </url>
   <url>
+    <loc>https://ffsimulator.ffverse.com/reference/ffs_repeat_schedules.html</loc>
+  </url>
+  <url>
     <loc>https://ffsimulator.ffverse.com/reference/ffs_rosters.html</loc>
   </url>
   <url>
+    <loc>https://ffsimulator.ffverse.com/reference/ffs_schedule.html</loc>
+  </url>
+  <url>
     <loc>https://ffsimulator.ffverse.com/reference/ffs_score_rosters.html</loc>
+  </url>
+  <url>
+    <loc>https://ffsimulator.ffverse.com/reference/ffs_starter_positions.html</loc>
   </url>
   <url>
     <loc>https://ffsimulator.ffverse.com/reference/ffs_summaries.html</loc>
@@ -64,10 +94,10 @@
     <loc>https://ffsimulator.ffverse.com/reference/fp_rankings_history.html</loc>
   </url>
   <url>
-    <loc>https://ffsimulator.ffverse.com/reference/mfl_connect.html</loc>
+    <loc>https://ffsimulator.ffverse.com/reference/fp_rankings_history_week.html</loc>
   </url>
   <url>
-    <loc>https://ffsimulator.ffverse.com/reference/parse_raw_rds.html</loc>
+    <loc>https://ffsimulator.ffverse.com/reference/mfl_connect.html</loc>
   </url>
   <url>
     <loc>https://ffsimulator.ffverse.com/reference/pipe.html</loc>

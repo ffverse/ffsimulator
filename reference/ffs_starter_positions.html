@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Pipe operator — %&gt;% • ffsimulator</title>
+<title>Get league starter positions — ffs_starter_positions • ffsimulator</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -48,8 +48,8 @@
   <link href="../extra.css" rel="stylesheet">
   
 
-<meta property="og:title" content="Pipe operator — %&gt;%" />
-<meta property="og:description" content="See magrittr::%&amp;gt;% for details." />
+<meta property="og:title" content="Get league starter positions — ffs_starter_positions" />
+<meta property="og:description" content="This function lightly wraps ffscrapr::ff_starter_positions() and cleans up some abbreviations (PK -&amp;gt; K)" />
 <meta property="og:image" content="https://ffsimulator.ffverse.com/reference/figures/logo.png" />
 <meta property="og:image:alt" content="ffsimulator - An R Package For Simulating Fantasy Football Seasons" />
 <meta name="twitter:card" content="summary" />
@@ -179,34 +179,51 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Pipe operator</h1>
-    <small class="dont-index">Source: <a href='https://github.com/ffverse/ffsimulator/blob/master/R/utils.R'><code>R/utils.R</code></a></small>
-    <div class="hidden name"><code>pipe.Rd</code></div>
+    <h1>Get league starter positions</h1>
+    <small class="dont-index">Source: <a href='https://github.com/ffverse/ffsimulator/blob/master/R/utils-ffscrapr.R'><code>R/utils-ffscrapr.R</code></a></small>
+    <div class="hidden name"><code>ffs_starter_positions.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>See <code>magrittr::%&gt;%</code> for details.</p>
+    <p>This function lightly wraps <code><a href='https://ffscrapr.ffverse.com/reference/ff_starter_positions.html'>ffscrapr::ff_starter_positions()</a></code> and cleans up some abbreviations (PK -&gt; K)</p>
     </div>
 
-    <pre class="usage"><span class='va'>lhs</span> <span class='op'>%&gt;%</span> <span class='va'>rhs</span></pre>
+    <pre class="usage"><span class='fu'>ffs_starter_positions</span><span class='op'>(</span><span class='va'>conn</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>lhs</th>
-      <td><p>A value or the magrittr placeholder.</p></td>
-    </tr>
-    <tr>
-      <th>rhs</th>
-      <td><p>A function call using the magrittr semantics.</p></td>
+      <th>conn</th>
+      <td><p>a connection object as created by <code><a href='https://ffscrapr.ffverse.com/reference/ff_connect.html'>ffscrapr::ff_connect()</a></code> and friends.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>The result of calling <code>rhs(lhs)</code>.</p>
+    <p>A tidy dataframe of positional lineup rules, one row per position with minimum and maximum starters as well as total starter calculations.</p>
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='co'># \donttest{</span>
+<span class='co'># cached examples</span>
+<span class='va'>conn</span> <span class='op'>&lt;-</span> <span class='fu'>.ffs_cache</span><span class='op'>(</span><span class='st'>"mfl_conn.rds"</span><span class='op'>)</span>
+
+<span class='fu'>ffs_starter_positions</span><span class='op'>(</span><span class='va'>conn</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 9 × 7</span>
+#&gt;   pos     min   max offense_starters defense_starters kdst_starters
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span>            <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>            <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>         <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span>
+#&gt; <span style='color: #BCBCBC;'>1</span> QB        1     2               11               11             0
+#&gt; <span style='color: #BCBCBC;'>2</span> RB        2     6               11               11             0
+#&gt; <span style='color: #BCBCBC;'>3</span> WR        3     7               11               11             0
+#&gt; <span style='color: #BCBCBC;'>4</span> TE        1     5               11               11             0
+#&gt; <span style='color: #BCBCBC;'>5</span> DT        1     2               11               11             0
+#&gt; <span style='color: #BCBCBC;'>6</span> DE        2     3               11               11             0
+#&gt; <span style='color: #BCBCBC;'>7</span> LB        3     4               11               11             0
+#&gt; <span style='color: #BCBCBC;'>8</span> CB        2     3               11               11             0
+#&gt; <span style='color: #BCBCBC;'>9</span> S         2     3               11               11             0
+#&gt; <span style='color: #949494;'># … with 1 more variable: total_starters &lt;int&gt;</span></div><div class='input'><span class='co'># }</span>
+
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

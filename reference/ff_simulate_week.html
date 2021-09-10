@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Pipe operator — %&gt;% • ffsimulator</title>
+<title>Simulate Fantasy Week — ff_simulate_week • ffsimulator</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -48,8 +48,8 @@
   <link href="../extra.css" rel="stylesheet">
   
 
-<meta property="og:title" content="Pipe operator — %&gt;%" />
-<meta property="og:description" content="See magrittr::%&amp;gt;% for details." />
+<meta property="og:title" content="Simulate Fantasy Week — ff_simulate_week" />
+<meta property="og:description" content="This function simulates a single upcoming week using the same methodology as in the season-long simulation, ff_simulate()." />
 <meta property="og:image" content="https://ffsimulator.ffverse.com/reference/figures/logo.png" />
 <meta property="og:image:alt" content="ffsimulator - An R Package For Simulating Fantasy Football Seasons" />
 <meta name="twitter:card" content="summary" />
@@ -179,34 +179,85 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Pipe operator</h1>
-    <small class="dont-index">Source: <a href='https://github.com/ffverse/ffsimulator/blob/master/R/utils.R'><code>R/utils.R</code></a></small>
-    <div class="hidden name"><code>pipe.Rd</code></div>
+    <h1>Simulate Fantasy Week</h1>
+    <small class="dont-index">Source: <a href='https://github.com/ffverse/ffsimulator/blob/master/R/0_ff_simulate_week.R'><code>R/0_ff_simulate_week.R</code></a></small>
+    <div class="hidden name"><code>ff_simulate_week.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>See <code>magrittr::%&gt;%</code> for details.</p>
+    <p>This function simulates a single upcoming week using the same methodology as in the season-long simulation, <code><a href='ff_simulate.html'>ff_simulate()</a></code>.</p>
     </div>
 
-    <pre class="usage"><span class='va'>lhs</span> <span class='op'>%&gt;%</span> <span class='va'>rhs</span></pre>
+    <pre class="usage"><span class='fu'>ff_simulate_week</span><span class='op'>(</span>
+  <span class='va'>conn</span>,
+  n <span class='op'>=</span> <span class='fl'>1000</span>,
+  best_ball <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  seed <span class='op'>=</span> <span class='cn'>NULL</span>,
+  base_seasons <span class='op'>=</span> <span class='fl'>2012</span><span class='op'>:</span><span class='fl'>2020</span>,
+  actual_schedule <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  pos_filter <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"QB"</span>, <span class='st'>"RB"</span>, <span class='st'>"WR"</span>, <span class='st'>"TE"</span>, <span class='st'>"K"</span><span class='op'>)</span>,
+  verbose <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"ffsimulator.verbose"</span>, default <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>lhs</th>
-      <td><p>A value or the magrittr placeholder.</p></td>
+      <th>conn</th>
+      <td><p>an connection to a league made with <code><a href='ff_connect.html'>ff_connect()</a></code> and friends (required)</p></td>
     </tr>
     <tr>
-      <th>rhs</th>
-      <td><p>A function call using the magrittr semantics.</p></td>
+      <th>n</th>
+      <td><p>number of times to simulate the upcoming week, default is 1000</p></td>
+    </tr>
+    <tr>
+      <th>best_ball</th>
+      <td><p>a logical: are weekly wins based on optimal lineups?</p></td>
+    </tr>
+    <tr>
+      <th>seed</th>
+      <td><p>an integer to control reproducibility</p></td>
+    </tr>
+    <tr>
+      <th>base_seasons</th>
+      <td><p>a numeric vector that selects seasons as base data, earliest available is 2012</p></td>
+    </tr>
+    <tr>
+      <th>actual_schedule</th>
+      <td><p>a logical: use actual ff_schedule? default is TRUE</p></td>
+    </tr>
+    <tr>
+      <th>pos_filter</th>
+      <td><p>a character vector of positions to filter/run, default is c("QB","RB","WR","TE","K")</p></td>
+    </tr>
+    <tr>
+      <th>verbose</th>
+      <td><p>a logical: print status messages? default is TRUE, configure with options(ffsimulator.verbose)</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>The result of calling <code>rhs(lhs)</code>.</p>
+    <p>an <code>ff_simulation</code> object which can be passed to <code><a href='https://rdrr.io/r/graphics/plot.default.html'>plot()</a></code> and contains the output data from the simulation.</p>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
+    <div class='dont-index'><p><code><a href='../articles/basic.html'>vignette("basic")</a></code> for example usage</p>
+<p><code><a href='../articles/custom.html'>vignette("custom")</a></code> for examples on using the subfunctions for your own processes.</p></div>
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='co'># \donttest{</span>
+<span class='va'>conn</span> <span class='op'>&lt;-</span> <span class='fu'><a href='mfl_connect.html'>mfl_connect</a></span><span class='op'>(</span><span class='fl'>2021</span>, <span class='fl'>22627</span><span class='op'>)</span>
+<span class='fu'>ff_simulate_week</span><span class='op'>(</span><span class='va'>conn</span>, n <span class='op'>=</span> <span class='fl'>1000</span>, actual_schedule <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>── Starting simulation 2021-09-10 17:09:24 ─────────────────────────────────────</span></div><div class='output co'>#&gt; <span class='message'><span style='color: #00BBBB;'>ℹ</span> Importing data</span></div><div class='output co'>#&gt; <span class='message'><span style='color: #00BB00;'>✔</span> Importing data...done! 2021-09-10 17:09:32</span></div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'><span style='color: #00BBBB;'>ℹ</span> Generating Projections</span></div><div class='output co'>#&gt; <span class='message'><span style='color: #00BB00;'>✔</span> Generating Projections...done! 2021-09-10 17:09:37</span></div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'><span style='color: #00BBBB;'>ℹ</span> Calculating Roster Scores</span></div><div class='output co'>#&gt; <span class='message'><span style='color: #00BB00;'>✔</span> Calculating Roster Scores...done! 2021-09-10 17:09:37</span></div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'><span style='color: #00BBBB;'>ℹ</span> Optimizing Lineups</span></div><div class='output co'>#&gt; <span class='message'><span style='color: #00BB00;'>✔</span> Optimizing Lineups...done! 2021-09-10 17:09:46</span></div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'><span style='color: #00BBBB;'>ℹ</span> Building Schedules</span></div><div class='output co'>#&gt; <span class='message'><span style='color: #00BB00;'>✔</span> Building Schedules...done! 2021-09-10 17:09:46</span></div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'><span style='color: #00BBBB;'>ℹ</span> Summarising Simulation Data</span></div><div class='output co'>#&gt; <span class='message'><span style='color: #00BB00;'>✔</span> Summarising Simulation Data...done! 2021-09-10 17:09:46</span></div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'>── Simulation complete! 2021-09-10 17:09:46 ────────────────────────────────────</span></div><div class='output co'>#&gt; &lt;ff_simulation_week: 1000 simulated weeks of Four-Eight Dynasty League&gt;
+#&gt; List of 6
+#&gt;  $ summary_simulation:Classes ‘data.table’ and 'data.frame':	12 obs. of  11 variables:
+#&gt;  $ summary_week      :Classes ‘data.table’ and 'data.frame':	12000 obs. of  16 variables:
+#&gt;  $ roster_scores     :Classes ‘data.table’ and 'data.frame':	353493 obs. of  23 variables:
+#&gt;  $ projected_scores  :Classes ‘data.table’ and 'data.frame':	353493 obs. of  13 variables:
+#&gt;  $ league_info       : tibble [1 × 17] (S3: tbl_df/tbl/data.frame)
+#&gt;  $ simulation_params :List of 7</div><div class='input'><span class='co'># }</span>
+
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
