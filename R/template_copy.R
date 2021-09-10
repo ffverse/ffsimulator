@@ -3,7 +3,7 @@
 #' Creates a simulation template file with all of the components of ff_simulate, ready for tinkering!
 #'
 #' @param filename New file name, defaults to putting "ff_simulation.R" into your current directory
-#' @param template choice of template: one of "season", "week"
+#' @param template choice of template: one of "season" or "week"
 #' @param overwrite a logical (or NULL) - overwrite if existing file found?
 #' @examples \donttest{
 #'
@@ -15,8 +15,9 @@
 
 ffs_copy_template <- function(
   filename = "ff_simulation.R",
-  template = c("season","rest_of_season","week"),
-  overwrite = NULL) {
+  template = c("season", "week"),
+  overwrite = NULL
+  ) {
   template <- rlang::arg_match(template)
   checkmate::assert_flag(overwrite, null.ok = TRUE)
 
