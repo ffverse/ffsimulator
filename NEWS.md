@@ -12,14 +12,14 @@ This release of ffsimulator adds new features and refactors a lot of the backend
 
 ## Backend changes
 
-Many backend changes - some are breaking (*grimaces and points at the experimental badge*).
+Many backend changes - some are breaking (***grimaces and points at the experimental badge***).
 
-- Parallel options deprecated in favour of data.table options. 
+- Parallel options removed in favour of data.table options. ***BREAKING*** - parallel is gone.
 - Column assertions should be clearer on each error message.
 - Many functions, including `ffs_optimise_lineups()`, `ffs_score_rosters()`, and more are now written in data.table - this helps improve speed for all sizes of simulations. 
-- `injury_model` argument is now renamed to `gp_model`. ***BREAKING***
+- `injury_model` argument is now renamed to `gp_model`. ***BREAKING*** - argument name changed.
 - `autoplot()` refactored to hide legend and axis titles via geom/scale and not via theme - this allows for much easier theming (since you can apply a whole new theme via `+`).
-- `ffs_build_schedules()` now matches syntax from `ffscrapr::ff_schedule()` - `team` is now `franchise_id` and `opponent` is now `opponent_id` - ***BREAKING*** for custom sims.
+- `ffs_build_schedules()` now matches syntax from `ffscrapr::ff_schedule()` - `team` is now `franchise_id` and `opponent` is now `opponent_id` - ***BREAKING*** - output column names changed.
 - `ffs_build_schedules()` is now responsible for joining franchises to the schedule, and not `ffs_summarise_week()`, and now takes a franchises dataframe as created by `ffs_franchises()` ***BREAKING***
 - `ffs_repeat_schedules()` supports the actual_schedule feature by repeating it by `n_seasons`.
 - Print methods cleaned up.
