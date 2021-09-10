@@ -1,7 +1,7 @@
 
-cache_names <- list.files(system.file("cache", package = "ffsimulator"), full.names = TRUE)
-cache <- lapply(cache_names, readRDS)
-cache_names <- gsub(pattern = ".+cache/|\\.rds$", replacement = "", x = cache_names)
+cache_names <- list.files(system.file("cache", package = "ffsimulator"))
+cache <- lapply(cache_names, .ffs_cache)
+cache_names <- gsub(pattern = "\\.rds$", replacement = "", x = cache_names)
 names(cache) <- cache_names
 
 test_that("ffs_adp_outcomes() works for both the simple and none injury models", {

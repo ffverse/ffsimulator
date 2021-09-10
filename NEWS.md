@@ -1,10 +1,10 @@
-# ffsimulator (development version)
+# ffsimulator 1.1.0
 
 This release of ffsimulator adds new features and refactors a lot of the backend for improved calculation efficiency.
 
 ## New features
 
-- `ff_simulate_week()` is a new function (and supporting internal function family) that simulates upcoming inseason weeks.
+- `ff_simulate_week()` is a new function (and supporting internal function family) that simulates upcoming inseason weeks with daily-updated upcoming week ranks.
 - `ff_simulate()` gains an `actual_schedule` argument to simulate actual schedule + unplayed games.
 - `ff_simulate()` and `ff_simulate_week()` gain a `verbose` argument that is set ON by default and can also be turned off with `options(ffsimulator.verbose = FALSE)`
 - `ffs_copy_template()` helps build custom simulations by copying a template of starter code to a desired filepath.
@@ -22,6 +22,7 @@ Many backend changes - some are breaking (*grimaces and points at the experiment
 - `ffs_build_schedules()` now matches syntax from `ffscrapr::ff_schedule()` - `team` is now `franchise_id` and `opponent` is now `opponent_id` - ***BREAKING*** for custom sims.
 - `ffs_build_schedules()` is now responsible for joining franchises to the schedule, and not `ffs_summarise_week()`, and now takes a franchises dataframe as created by `ffs_franchises()` ***BREAKING***
 - `ffs_repeat_schedules()` supports the actual_schedule feature by repeating it by `n_seasons`.
+- Print methods cleaned up.
 
 ---
 

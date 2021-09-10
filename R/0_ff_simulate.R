@@ -223,7 +223,7 @@ print.ff_simulation <- function(x, ...) {
       ">\n",
       sep = ""
   )
-  str(x, max.level = 1)
+  str(x, max.level = 1, give.attr = FALSE)
   invisible(x)
 }
 

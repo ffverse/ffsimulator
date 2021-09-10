@@ -22,7 +22,7 @@ options(dplyr.summarise.inform = FALSE)
 
 ffsimulator also provides the component subfunctions (prefixed with `ffs_`) in case you want to customize and run certain components individually. This vignette will discuss various options and paths you might use in your own analysis, and discuss various customizations for simulating the [2021 Scott Fish Bowl](https://scottfishbowl.com/2021/).
 
-You can also use the `ffs_template_copy()` function to quickly get started with your own custom simulation!
+You can also use the `ffs_copy_template()` function to quickly get started with your own custom simulation!
 
 ```{r setup, message = FALSE}
 library(ffsimulator)
