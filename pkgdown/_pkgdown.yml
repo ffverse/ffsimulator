@@ -7,17 +7,26 @@ reference:
   desc: These are the primary functions of `ffsimulator`.
   contents:
   - "ff_simulate"
-  - "autoplot.ff_simulation"
+  - "plot.ff_simulation"
+  - "ff_simulate_week"
+  - "plot.ff_simulation_week"
+  - "ffs_copy_template"
 - title: Customized Simulations
   desc: Subfunctions used by ff_simulate
   contents:
   - "ffs_adp_outcomes"
+  - "ffs_adp_outcomes_week"
   - "ffs_latest_rankings"
+  - "ffs_starter_positions"
+  - "ffs_franchises"
   - "ffs_rosters"
   - "ffs_generate_projections"
+  - "ffs_generate_projections_week"
   - "ffs_score_rosters"
   - "ffs_optimise_lineups"
   - "ffs_build_schedules"
+  - "ffs_schedule"
+  - "ffs_repeat_schedules"
   - starts_with("ffs_summarise")
 - title: ffscrapr Imports
   desc: Functions imported from ffscrapr
@@ -29,6 +38,7 @@ reference:
   - "`%>%`"
   - "fp_rankings_history"
   - "fp_injury_table"
+  - "fp_rankings_history_week"
 
 authors:
   Tan Ho:
@@ -77,7 +87,7 @@ template:
      # index_name: dynastyprocess
   opengraph:
     image:
-      src: man/figures/logo.png
+      src: "https://ffsimulator.ffverse.com/reference/figures/logo.png"
       alt: "ffsimulator - An R Package For Simulating Fantasy Football Seasons"
     twitter:
       creator: "@_TanHo"

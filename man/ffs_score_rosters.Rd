@@ -28,5 +28,5 @@ ffs_score_rosters(projected_scores, rosters)
 
 }
 \seealso{
-vignette("Custom Simulations") for example usage
+vignette("custom") for example usage
 }

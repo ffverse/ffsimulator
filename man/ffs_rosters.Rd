@@ -37,5 +37,5 @@ ffs_rosters(conn)
 
 }
 \seealso{
-vignette("Custom Simulations") for more detailed example usage
+vignette("custom") for more detailed example usage
 }

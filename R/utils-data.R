@@ -4,8 +4,14 @@
 #'
 "fp_injury_table"
 
-#' Historical position ranks
+#' Historical draft position ranks
 #'
-#' This dataframe has historical positional rankings for 2012-2020 QB/RB/WR/TE/PK and 2015-2020 DL/LB/DB, as gathered by the ffpros package.
+#' This dataframe has historical positional draft rankings for 2012-2020 QB/RB/WR/TE/PK and 2015-2020 DL/LB/DB, as gathered by the ffpros package.
 #'
 "fp_rankings_history"
+
+#' Historical position ranks
+#'
+#' This dataframe has historical positional in-season rankings for 2012-2020 QB/RB/WR/TE/PK and 2015-2020 DL/LB/DB, as gathered by the ffpros package.
+#'
+"fp_rankings_history_week"

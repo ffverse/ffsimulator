@@ -4,6 +4,7 @@
 \alias{ffs_summarise_week}
 \alias{ffs_summarise_season}
 \alias{ffs_summarise_simulation}
+\alias{ffs_summarise_inseason}
 \alias{ffs_summarize_week}
 \alias{ffs_summarize_season}
 \alias{ffs_summarize_simulation}
@@ -15,6 +16,8 @@ ffs_summarise_season(summary_week)
 
 ffs_summarise_simulation(summary_season)
 
+ffs_summarise_inseason(summary_week, n)
+
 ffs_summarize_week(optimal_scores, schedules)
 
 ffs_summarize_season(summary_week)
@@ -24,11 +27,13 @@ ffs_summarize_simulation(summary_season)
 \arguments{
 \item{optimal_scores}{a dataframe of optimized lineups as created by \code{ffs_optimize_lineups()}}
 
-\item{schedules}{a dataframe of schedules as created by \code{ffs_build_schedules()}}
+\item{schedules}{a dataframe of schedules as created by \code{ffs_build_schedules()} or \code{ffs_actual_schedules()}}
 
 \item{summary_week}{a dataframe as created by \code{ffs_summarise_week()}}
 
 \item{summary_season}{a dataframe as created by \code{ffs_summarise_season()}}
+
+\item{n}{number of weeks}
 }
 \value{
 ffs_summarise_week: a dataframe summarising team results by simulation week
@@ -36,6 +41,8 @@ ffs_summarise_week: a dataframe summarising team results by simulation week
 ffs_summarise_season: a dataframe summarising franchise results across each simulation season
 
 ffs_summarise_simulation: a dataframe summarising franchise results across the simulation
+
+ffs_summarise_inseason: a dataframe summarising franchise results for the inseason simulation
 }
 \description{
 These functions are used to summarise the simulation outputs, typically by joining the optimal scores with a matching schedule.
@@ -52,10 +59,9 @@ summary_season <- ffs_summarise_season(summary_week)
 summary_season
 summary_simulation <- ffs_summarise_simulation(summary_season)
 summary_simulation
-
 }
 
 }
 \seealso{
-\code{vignette("Custom Simulations")} for example usage
+\code{vignette("custom")} for example usage
 }

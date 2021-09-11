@@ -26,7 +26,7 @@ The `{ffsimulator}` package uses bootstrap resampling to run fantasy
 football season simulations supported by historical rankings and
 nflfastR data, calculating optimal lineups, and returning aggregated
 results. This can quickly run your league through hundreds of seasons
-and may help you study:
+and can help you study:
 
 -   expected season finishes and range of outcomes
 -   player contributions to season wins
@@ -55,7 +55,7 @@ r-universe](https://dynastyprocess.r-universe.dev) or remotes + GitHub:
 install.packages("ffsimulator", repos = "https://dynastyprocess.r-universe.dev")
 
 # or via GitHub c/o remotes/devtools: # install.packages('remotes')
-remotes::install_github("ffverse/ffsimulator")
+remotes::install_github("ffverse/ffsimulator", ref = "dev")
 ```
 
 The development version has a [separate documentation site
@@ -67,15 +67,23 @@ A season simulation can be run as follows:
 
 ``` r
 library(ffsimulator)
+library(ggplot2)
+library(ggridges)
 
-foureight_conn <- mfl_connect(2021, 22627)
+mfl_conn <- mfl_connect(season = 2021, league_id = 22627)
 
-foureight_sim <- ff_simulate(conn = foureight_conn, n_seasons = 25, n_weeks = 14)
+## OTHER PLATFORM CONNECTIONS MAY BE USED, FOR EXAMPLE:
+# sleeper_conn <- sleeper_connect(season = 2021,  league_id = "652582284720971776") 
+# flea_conn <- fleaflicker_connect(season = 2021, league_id = 312861) 
+# espn_conn <- espn_connect(season = 2021, league_id = 899513)
 
-autoplot(foureight_sim)
+mfl_sim <- ff_simulate(conn = mfl_conn, n_seasons = 100)
+
+plot(mfl_sim)
 ```
 
-<img src="man/figures/README-unnamed-chunk-5-1.png" width="100%" />
+<img src="man/figures/ffsimulator_plot.png" width="100%" />
+
 Please also see the
 
 -   [basic usage](https://ffsimulator.ffverse.com/articles/basic.html)
@@ -102,10 +110,8 @@ this project:
 -   You can [open an
     issue](https://github.com/ffverse/ffsimulator/issues/new/choose) if
     you’d like to request specific data or report a bug/error.
-
 -   You can [sponsor this project with
     donations](https://github.com/sponsors/tanho63)!
-
 -   If you’d like to contribute code, please check out [the contribution
     guidelines](https://ffsimulator.ffverse.com/CONTRIBUTING.html).
 

@@ -10,9 +10,11 @@ ff_simulate(
   n_weeks = 14,
   best_ball = FALSE,
   seed = NULL,
-  injury_model = c("simple", "none"),
+  gp_model = c("simple", "none"),
   base_seasons = 2012:2020,
-  parallel = FALSE
+  actual_schedule = FALSE,
+  pos_filter = c("QB", "RB", "WR", "TE", "K"),
+  verbose = getOption("ffsimulator.verbose", default = TRUE)
 )
 }
 \arguments{
@@ -26,11 +28,15 @@ ff_simulate(
 
 \item{seed}{an integer to control reproducibility}
 
-\item{injury_model}{select between "simple", "none"}
+\item{gp_model}{select between "simple", "none" to apply a model for whether a player played in a given game, defaults to "simple"}
 
 \item{base_seasons}{a numeric vector that selects seasons as base data, earliest available is 2012}
 
-\item{parallel}{a logical: use parallel processing for optimizing lineups, default is FALSE}
+\item{actual_schedule}{a logical: use actual ff_schedule? default is FALSE}
+
+\item{pos_filter}{a character vector of positions to filter/run, default is c("QB","RB","WR","TE","K")}
+
+\item{verbose}{a logical: print status messages? default is TRUE, configure with options(ffsimulator.verbose)}
 }
 \value{
 an \code{ff_simulation} object which can be passed to \code{plot()} and contains the output data from the simulation.
@@ -39,15 +45,14 @@ an \code{ff_simulation} object which can be passed to \code{plot()} and contains
 The main function of the package - uses bootstrap resampling to run fantasy football season simulations supported by historical rankings and nflfastR data, calculating optimal lineups, and returns aggregated results.
 }
 \examples{
-
 \donttest{
-  conn <- mfl_connect(2021, 22627)
-  ff_simulate(conn, n_seasons = 25)
+conn <- mfl_connect(2021, 22627)
+ff_simulate(conn, n_seasons = 25)
 }
 
 }
 \seealso{
-\code{vignette("Basic Simulations")} for example usage
+\code{vignette("basic")} for example usage
 
-\code{vignette("Custom Simulations")} for examples on using the subfunctions for your own processes.
+\code{vignette("custom")} for examples on using the subfunctions for your own processes.
 }

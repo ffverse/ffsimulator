@@ -12,7 +12,7 @@
 \item{lineup_constraints}{a data frame as created by \code{ffscrapr::ff_starter_positions()}}
 }
 \value{
-a list including the optimal_score and the optimal_lineup tibble.
+a list including the optimal_score and the optimal_lineup.
 }
 \description{
 Optimises lineups for one franchise week at a time. Use purrr or loops to do more franchises/weeks/seasons

@@ -74,3 +74,26 @@ NULL
 #' @return A tidy dataframe of positional lineup rules, one row per position with minimum and maximum starters as well as total starter calculations.
 #' @export ff_starter_positions
 NULL
+
+#' Get league starter positions
+#'
+#' This function lightly wraps `ffscrapr::ff_starter_positions()` and cleans up some abbreviations (PK -> K)
+#'
+#' @param conn a connection object as created by `ffscrapr::ff_connect()` and friends.
+#'
+#' @return A tidy dataframe of positional lineup rules, one row per position with minimum and maximum starters as well as total starter calculations.
+#'
+#' @examples
+#' \donttest{
+#' # cached examples
+#' conn <- .ffs_cache("mfl_conn.rds")
+#'
+#' ffs_starter_positions(conn)
+#' }
+#'
+#' @export
+ffs_starter_positions <- function(conn){
+  sp <- ffscrapr::ff_starter_positions(conn)
+  sp$pos <- replace(sp$pos,sp$pos == "PK","K")
+  sp
+}

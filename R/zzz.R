@@ -2,9 +2,8 @@
 
 .onLoad <- function(...) {
   register_s3_method("ggplot2", "autoplot", "ff_simulation")
+  register_s3_method("ggplot2", "autoplot", "ff_simulation_week")
 }
-
-
 
 register_s3_method <- function(pkg, generic, class, fun = NULL) {
   stopifnot(is.character(pkg), length(pkg) == 1)
