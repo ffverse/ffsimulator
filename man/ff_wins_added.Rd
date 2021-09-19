@@ -4,7 +4,7 @@
 \alias{ff_wins_added}
 \title{Wins Added}
 \usage{
-ff_wins_added(conn, ..., verbose = NULL)
+ff_wins_added(conn, ...)
 }
 \arguments{
 \item{conn}{an connection to a league made with \code{ff_connect()} and friends (required)}
@@ -20,13 +20,12 @@ ff_wins_added(conn, ..., verbose = NULL)
     \item{\code{base_seasons}}{a numeric vector that selects seasons as base data, earliest available is 2012}
     \item{\code{actual_schedule}}{a logical: use actual ff_schedule? default is FALSE}
     \item{\code{pos_filter}}{a character vector of positions to filter/run, default is c("QB","RB","WR","TE","K")}
+    \item{\code{verbose}}{a logical: print status messages? default is TRUE, configure with options(ffsimulator.verbose)}
     \item{\code{return}}{one of c("default", "all") - what objects to return in the output list}
   }}
-
-\item{verbose}{a logical: print status messages? default is TRUE, configure with options(ffsimulator.verbose)}
 }
 \value{
-
+a dataframe summarising the net effect of each player on their team's wins
 }
 \description{
 Run base simulation once for n seasons/weeks etc
@@ -42,4 +41,12 @@ For every player on every team (except replacement level players),
 }
 
 Summarise WA as the difference between the sim with the player and the sim without them
+}
+\examples{
+\donttest {
+
+ff_wins_added(mfl_connect(2021,54040))
+
+}
+
 }

@@ -53,18 +53,21 @@ ff_wins_added <- function(conn, ...){
 
   rosters <- base_simulation$rosters[
     pos %in% base_simulation$simulation_params$pos_filter[[1]],
-    c("player_id","player_name","league_id","franchise_name","franchise_id")
+    c("player_id","player_name","league_id","franchise_name","franchise_id","pos")
   ]
 
   vcli_rule("Start WAR calcs {Sys.time()}")
 
-  war <- progressr::with_progress({
-    p <- function() NULL
+  progress_flag <- requireNamespace("progressr",quietly = TRUE) && getOption("ffsimulator.verbose", default =  TRUE)
 
-    if(requireNamespace("progressr",quietly = TRUE) &&
-       getOption("ffsimulator.verbose", default = TRUE)){
-      p <- progressr::progressor(nrow(rosters))
-    }
+  if(getOption("ffsimulator.verbose", default =  TRUE) & !progress_flag) warning("{progressr} package not found - please install for detailed progress updates!", call. = FALSE)
+
+  with_progress <- if(progress_flag) progressr::with_progress else force
+  p <- function() NULL
+
+  war <- with_progress({
+
+    if(progress_flag) p <- progressr::progressor(nrow(rosters))
 
     rosters[,
             .ffs_win_add(.SD, base_simulation,p),
@@ -75,7 +78,12 @@ ff_wins_added <- function(conn, ...){
 
   vcli_rule("WAR calcs complete! {Sys.time()}")
 
-  return(war)
+  out <- structure(
+    .Data = c(list(war = war), base_simulation),
+    class = c("ff_war","ff_simulation")
+  )
+
+  return(out)
 }
 
 .ffs_win_add <- function(rosters, base_simulation, p = NULL){
@@ -129,4 +137,18 @@ ff_wins_added <- function(conn, ...){
   if(!is.null(p)) p()
 
   return(war_simulation)
+}
+
+#' @export
+#' @noRd
+print.ff_war <- function(x, ...) {
+  cat("<ff_wins_added: ",
+      x$simulation_params$n_seasons,
+      " simulated seasons of ",
+      x$league_info$league_name,
+      ">\n",
+      sep = ""
+  )
+  str(x, max.level = 1, give.attr = FALSE)
+  invisible(x)
 }

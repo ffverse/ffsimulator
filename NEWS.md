@@ -2,6 +2,7 @@
 
 - Add start of `ff_wins_added()` calculation (v1.1.0.01)
 - Add return argument to ff_simulate and ff_simulate_week to control return of more contents ("default" vs "all")
+- Refactor verbose argument to primarily use the package option rather than the argument pattern
 
 
 ---
