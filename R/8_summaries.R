@@ -43,15 +43,16 @@ ffs_summarise_week <- function(optimal_scores, schedules) {
   allplay_wins <- NULL
   allplay_games <- NULL
 
-  optimal_scores[
+  team <- data.table::copy(optimal_scores)
+
+  team[
     ,
     `:=`(allplay_wins = data.table::frank(actual_score)-1,
          allplay_games = .N -1),
     by = c("season","week")
   ][,`:=`(allplay_pct = round(allplay_wins / allplay_games, 3))]
 
-  team <- data.table::copy(optimal_scores)
-  opponent <- data.table::copy(optimal_scores)
+  opponent <- data.table::copy(team)
   data.table::setnames(team,old = "actual_score",new = "team_score")
   data.table::setnames(opponent,
                        old = c("actual_score","franchise_id","franchise_name"),

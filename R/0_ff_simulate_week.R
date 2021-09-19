@@ -8,8 +8,10 @@
 #' @param seed an integer to control reproducibility
 #' @param base_seasons a numeric vector that selects seasons as base data, earliest available is 2012
 #' @param actual_schedule a logical: use actual ff_schedule? default is TRUE
+#' @param replacement_level a logical: use best available on waiver as  replacement level? defaults to FALSE for upcoming week simulations
 #' @param pos_filter a character vector of positions to filter/run, default is c("QB","RB","WR","TE","K")
 #' @param verbose a logical: print status messages? default is TRUE, configure with options(ffsimulator.verbose)
+#' @param return one of c("default", "all") - what objects to return in the output list
 #'
 #' @examples
 #' \donttest{
@@ -29,8 +31,24 @@ ff_simulate_week <- function(conn,
                              seed = NULL,
                              base_seasons = 2012:2020,
                              actual_schedule = TRUE,
+                             replacement_level = FALSE,
                              pos_filter = c("QB","RB","WR","TE","K"),
-                             verbose = getOption("ffsimulator.verbose", default = TRUE)) {
+                             verbose = NULL,
+                             return = c("default","all")) {
+
+  # conn <- mfl_connect(2021,54040)
+  # verbose <- NULL
+  # base_seasons = 2012:2020
+  # pos_filter = c("QB","RB","WR","TE","K")
+  # n = 1000
+  # best_ball = FALSE
+  # seed = NULL
+  # base_seasons = 2012:2020
+  # actual_schedule = TRUE
+  # pos_filter = c("QB","RB","WR","TE","K")
+  # verbose = NULL
+  # return = "all"
+
 
   #### Assertions ####
 
@@ -40,22 +58,18 @@ ff_simulate_week <- function(conn,
     )
   }
 
-  # gp_model <- rlang::arg_match(gp_model)
+  return <- rlang::arg_match(return)
   checkmate::assert_subset(pos_filter, c("QB","RB","WR","TE","K"))
   checkmate::assert_numeric(base_seasons, lower = 2012, upper = 2020)
   checkmate::assert_int(n, lower = 1)
   checkmate::assert_int(seed, null.ok = TRUE)
   if (!is.null(seed)) set.seed(seed)
   checkmate::assert_flag(best_ball)
-  checkmate::assert_flag(verbose)
+  if(!is.null(verbose)) set_verbose(verbose)
   checkmate::assert_flag(actual_schedule)
-
-  vcli_start <- verbose_cli(verbose, "start")
-  vcli_end <- verbose_cli(verbose, "end")
-  vcli_rule <- verbose_cli(verbose,"rule")
+  checkmate::assert_flag(replacement_level)
 
   #### Import Data ####
-
   vcli_rule("Starting simulation {Sys.time()}")
 
   vcli_start(msg = "Importing data")
@@ -98,6 +112,16 @@ ff_simulate_week <- function(conn,
 
   vcli_start(msg = "Generating Projections")
 
+  if(!replacement_level) rosters_rl <- rosters
+
+  if(replacement_level){
+    rosters_rl <- ffs_add_replacement_level(rosters = rosters,
+                                            latest_rankings = latest_rankings,
+                                            franchises = franchises,
+                                            lineup_constraints = lineup_constraints,
+                                            pos_filter = pos_filter)
+  }
+
   adp_outcomes <- ffs_adp_outcomes_week(
     scoring_history = scoring_history,
     pos_filter = pos_filter
@@ -107,7 +131,7 @@ ff_simulate_week <- function(conn,
     adp_outcomes = adp_outcomes,
     latest_rankings = latest_rankings,
     n = n,
-    rosters = rosters
+    rosters = rosters_rl
   )
 
   vcli_end(msg_done = "Generating Projections...done! {Sys.time()}")
@@ -117,7 +141,7 @@ ff_simulate_week <- function(conn,
 
   roster_scores <- ffs_score_rosters(
     projected_scores = projected_scores,
-    rosters = rosters
+    rosters = rosters_rl
   )
 
   vcli_end(msg_done = "Calculating Roster Scores...done! {Sys.time()}")
@@ -165,25 +189,58 @@ ff_simulate_week <- function(conn,
 
   #### Build and Return ####
 
-  out <- structure(
-    list(
-      summary_simulation = summary_simulation,
-      summary_week = summary_week,
-      roster_scores = roster_scores,
-      projected_scores = projected_scores,
-      league_info = league_info,
-      simulation_params = list(
-        n = n,
-        scrape_date = latest_rankings$scrape_date[[1]],
-        best_ball = best_ball,
-        seed = seed,
-        actual_schedule = actual_schedule,
-        base_seasons = list(base_seasons),
-        pos_filter = list(pos_filter)
-      )
-    ),
-    class = "ff_simulation_week"
-  )
+  if(return == "default"){
+
+    out <- structure(
+      list(
+        summary_simulation = summary_simulation,
+        summary_week = summary_week,
+        roster_scores = roster_scores,
+        projected_scores = projected_scores,
+        league_info = league_info,
+        simulation_params = list(
+          n = n,
+          scrape_date = latest_rankings$scrape_date[[1]],
+          best_ball = best_ball,
+          seed = seed,
+          actual_schedule = actual_schedule,
+          base_seasons = list(base_seasons),
+          pos_filter = list(pos_filter)
+        )
+      ),
+      class = "ff_simulation_week"
+    )
+  }
+
+  if(return == "all"){
+
+    out <- structure(
+      list(
+        summary_simulation = summary_simulation,
+        summary_week = summary_week,
+        optimal_scores = optimal_scores,
+        roster_scores = roster_scores,
+        projected_scores = projected_scores,
+        league_info = league_info,
+        latest_rankings = latest_rankings,
+        scoring_history = scoring_history,
+        franchises = franchises,
+        rosters = rosters,
+        lineup_constraints = lineup_constraints,
+        schedules = schedules,
+        simulation_params = list(
+          n = n,
+          scrape_date = latest_rankings$scrape_date[[1]],
+          best_ball = best_ball,
+          seed = seed,
+          actual_schedule = actual_schedule,
+          base_seasons = list(base_seasons),
+          pos_filter = list(pos_filter)
+        )
+      ),
+      class = "ff_simulation_week"
+    )
+  }
 
   vcli_rule("Simulation complete! {Sys.time()}")
 
@@ -202,18 +259,4 @@ print.ff_simulation_week <- function(x, ...) {
   )
   str(x, max.level = 1, give.attr = FALSE)
   invisible(x)
-}
-
-dump_function <- function(...) NULL
-
-verbose_cli <- function(verbose, type) {
-  if (!verbose) return(dump_function)
-
-  if (type == "start") return(cli::cli_process_start)
-
-  if (type == "end") return(cli::cli_process_done)
-
-  if (type == "rule") return(cli::cli_rule)
-
-  return(NULL)
 }

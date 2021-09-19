@@ -1,3 +1,12 @@
+# ffsimulator (development version)
+
+- Add start of `ff_wins_added()` calculation (v1.1.0.01)
+- Add return argument to ff_simulate and ff_simulate_week to control return of more contents ("default" vs "all")
+- Refactor verbose argument to primarily use the package option rather than the argument pattern
+- Add replacement level function and calculation (v1.1.0.02)
+
+---
+
 # ffsimulator 1.1.0
 
 This release of ffsimulator adds new features and refactors a lot of the backend for improved calculation efficiency.
