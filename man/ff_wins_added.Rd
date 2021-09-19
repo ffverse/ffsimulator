@@ -35,16 +35,15 @@ Run base simulation once for n seasons/weeks etc
 For every player on every team (except replacement level players),
 \itemize{
 \item remove them from that specific roster
-\item reoptimize the lineups just for that roster without the player
-\item use that set of weekly scores as the score for that week
+\item reoptimize the lineups just for that roster without the player to calculate what the score ends up being without the player
 \item summarise the new simulation
-\item return new wins total and points total for that franchise
+\item return the delta in wins and points
 }
 
 Summarise WA as the difference between the sim with the player and the sim without them
 }
 \examples{
-\donttest {
+\donttest{
 ff_wins_added(mfl_connect(2021,54040))
 }
 

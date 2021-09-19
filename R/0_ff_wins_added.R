@@ -5,10 +5,9 @@
 #' For every player on every team (except replacement level players),
 #'
 #' - remove them from that specific roster
-#' - reoptimize the lineups just for that roster without the player
-#' - use that set of weekly scores as the score for that week
+#' - reoptimize the lineups just for that roster without the player to calculate what the score ends up being without the player
 #' - summarise the new simulation
-#' - return new wins total and points total for that franchise
+#' - return the delta in wins and points
 #'
 #' Summarise WA as the difference between the sim with the player and the sim without them
 #'
@@ -17,7 +16,7 @@
 #' @inheritDotParams ff_simulate
 #'
 #' @examples
-#' \donttest {
+#' \donttest{
 #' ff_wins_added(mfl_connect(2021,54040))
 #' }
 #'

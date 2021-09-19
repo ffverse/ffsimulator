@@ -29,6 +29,8 @@ ffs_add_replacement_level <- function(rosters,
   pos_rank <- NULL
   max <- NULL
   ecr <- NULL
+  player <- NULL
+  fantasypros_id <- NULL
 
   r <- data.table::as.data.table(rosters)
   f <- data.table::as.data.table(franchises)[
@@ -54,7 +56,7 @@ ffs_add_replacement_level <- function(rosters,
     pos,
     team = NA,
     age = NA,
-    fantasypros_id= fantasypros_id,
+    fantasypros_id,
     joinkey = 1
   )]
 
