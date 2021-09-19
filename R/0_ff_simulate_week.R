@@ -8,6 +8,7 @@
 #' @param seed an integer to control reproducibility
 #' @param base_seasons a numeric vector that selects seasons as base data, earliest available is 2012
 #' @param actual_schedule a logical: use actual ff_schedule? default is TRUE
+#' @param replacement_level a logical: use best available on waiver as  replacement level? defaults to FALSE for upcoming week simulations
 #' @param pos_filter a character vector of positions to filter/run, default is c("QB","RB","WR","TE","K")
 #' @param verbose a logical: print status messages? default is TRUE, configure with options(ffsimulator.verbose)
 #' @param return one of c("default", "all") - what objects to return in the output list
@@ -30,9 +31,24 @@ ff_simulate_week <- function(conn,
                              seed = NULL,
                              base_seasons = 2012:2020,
                              actual_schedule = TRUE,
+                             replacement_level = FALSE,
                              pos_filter = c("QB","RB","WR","TE","K"),
                              verbose = NULL,
                              return = c("default","all")) {
+
+  # conn <- mfl_connect(2021,54040)
+  # verbose <- NULL
+  # base_seasons = 2012:2020
+  # pos_filter = c("QB","RB","WR","TE","K")
+  # n = 1000
+  # best_ball = FALSE
+  # seed = NULL
+  # base_seasons = 2012:2020
+  # actual_schedule = TRUE
+  # pos_filter = c("QB","RB","WR","TE","K")
+  # verbose = NULL
+  # return = "all"
+
 
   #### Assertions ####
 
@@ -51,6 +67,7 @@ ff_simulate_week <- function(conn,
   checkmate::assert_flag(best_ball)
   if(!is.null(verbose)) set_verbose(verbose)
   checkmate::assert_flag(actual_schedule)
+  checkmate::assert_flag(replacement_level)
 
   #### Import Data ####
   vcli_rule("Starting simulation {Sys.time()}")
@@ -95,6 +112,16 @@ ff_simulate_week <- function(conn,
 
   vcli_start(msg = "Generating Projections")
 
+  if(!replacement_level) rosters_rl <- rosters
+
+  if(replacement_level){
+    rosters_rl <- ffs_add_replacement_level(rosters = rosters,
+                                            latest_rankings = latest_rankings,
+                                            franchises = franchises,
+                                            lineup_constraints = lineup_constraints,
+                                            pos_filter = pos_filter)
+  }
+
   adp_outcomes <- ffs_adp_outcomes_week(
     scoring_history = scoring_history,
     pos_filter = pos_filter
@@ -104,7 +131,7 @@ ff_simulate_week <- function(conn,
     adp_outcomes = adp_outcomes,
     latest_rankings = latest_rankings,
     n = n,
-    rosters = rosters
+    rosters = rosters_rl
   )
 
   vcli_end(msg_done = "Generating Projections...done! {Sys.time()}")
@@ -114,7 +141,7 @@ ff_simulate_week <- function(conn,
 
   roster_scores <- ffs_score_rosters(
     projected_scores = projected_scores,
-    rosters = rosters
+    rosters = rosters_rl
   )
 
   vcli_end(msg_done = "Calculating Roster Scores...done! {Sys.time()}")

@@ -231,7 +231,7 @@ ffs_repeat_schedules <- function(actual_schedule, n_seasons){
   data.table::setDT(actual_schedule)
 
   merge(
-    data.table::data.table(seasons = seq_len(n_seasons),
+    data.table::data.table(season = seq_len(n_seasons),
                            k = 1),
     actual_schedule[,c(k = 1,.SD)],
     allow.cartesian = TRUE)[,`:=`(k = NULL)][]

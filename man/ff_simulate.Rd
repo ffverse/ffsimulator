@@ -13,6 +13,7 @@ ff_simulate(
   gp_model = c("simple", "none"),
   base_seasons = 2012:2020,
   actual_schedule = FALSE,
+  replacement_level = TRUE,
   pos_filter = c("QB", "RB", "WR", "TE", "K"),
   verbose = NULL,
   return = c("default", "all")
@@ -34,6 +35,8 @@ ff_simulate(
 \item{base_seasons}{a numeric vector that selects seasons as base data, earliest available is 2012}
 
 \item{actual_schedule}{a logical: use actual ff_schedule? default is FALSE}
+
+\item{replacement_level}{a logical: use best available on waiver as  replacement level? defaults to TRUE}
 
 \item{pos_filter}{a character vector of positions to filter/run, default is c("QB","RB","WR","TE","K")}
 

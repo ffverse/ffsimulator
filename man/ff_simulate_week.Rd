@@ -11,6 +11,7 @@ ff_simulate_week(
   seed = NULL,
   base_seasons = 2012:2020,
   actual_schedule = TRUE,
+  replacement_level = FALSE,
   pos_filter = c("QB", "RB", "WR", "TE", "K"),
   verbose = NULL,
   return = c("default", "all")
@@ -28,6 +29,8 @@ ff_simulate_week(
 \item{base_seasons}{a numeric vector that selects seasons as base data, earliest available is 2012}
 
 \item{actual_schedule}{a logical: use actual ff_schedule? default is TRUE}
+
+\item{replacement_level}{a logical: use best available on waiver as  replacement level? defaults to FALSE for upcoming week simulations}
 
 \item{pos_filter}{a character vector of positions to filter/run, default is c("QB","RB","WR","TE","K")}
 

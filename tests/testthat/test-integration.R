@@ -18,7 +18,12 @@ test_that("Sleeper simulation works", {
 
   jml <- ff_connect(platform = "sleeper", league_id = "652718526494253056", season = 2021)
   jml_sim <- ff_simulate(jml, n_seasons = 2, verbose = FALSE, return = "all")
-  jml_week_sim <- ff_simulate_week(jml,n = 10, verbose = FALSE, actual_schedule = FALSE, return = "all")
+  jml_week_sim <- ff_simulate_week(jml,
+                                   n = 10,
+                                   verbose = FALSE,
+                                   actual_schedule = FALSE,
+                                   replacement_level = TRUE,
+                                   return = "all")
 
   checkmate::expect_list(jml_sim, len = 14)
   checkmate::expect_list(jml_week_sim, len = 13)
@@ -32,7 +37,7 @@ test_that("Fleaflicker simulation works", {
   skip_on_cran()
 
   got <- fleaflicker_connect(2020, 206154)
-  got_sim <- ff_simulate(got, n_seasons = 2, verbose = FALSE)
+  got_sim <- ff_simulate(got, n_seasons = 2, verbose = FALSE, replacement_level = TRUE)
 
   checkmate::expect_list(got_sim, len = 7)
   checkmate::expect_data_frame(got_sim$summary_simulation, nrows = 16, any.missing = FALSE)
@@ -44,7 +49,7 @@ test_that("ESPN simulation works", {
   skip_on_cran()
 
   tony <- espn_connect(season = 2020, league_id = 899513)
-  tony_sim <- ff_simulate(tony, n_seasons = 2, verbose = FALSE)
+  tony_sim <- ff_simulate(tony, n_seasons = 2, verbose = FALSE, replacement_level = FALSE)
 
   checkmate::expect_list(tony_sim, len = 7)
   checkmate::expect_data_frame(tony_sim$summary_simulation, nrows = 10, any.missing = FALSE)

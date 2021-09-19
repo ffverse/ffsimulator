@@ -19,6 +19,7 @@ ff_wins_added(conn, ...)
     \item{\code{gp_model}}{select between "simple", "none" to apply a model for whether a player played in a given game, defaults to "simple"}
     \item{\code{base_seasons}}{a numeric vector that selects seasons as base data, earliest available is 2012}
     \item{\code{actual_schedule}}{a logical: use actual ff_schedule? default is FALSE}
+    \item{\code{replacement_level}}{a logical: use best available on waiver as  replacement level? defaults to TRUE}
     \item{\code{pos_filter}}{a character vector of positions to filter/run, default is c("QB","RB","WR","TE","K")}
     \item{\code{verbose}}{a logical: print status messages? default is TRUE, configure with options(ffsimulator.verbose)}
     \item{\code{return}}{one of c("default", "all") - what objects to return in the output list}
@@ -44,9 +45,7 @@ Summarise WA as the difference between the sim with the player and the sim witho
 }
 \examples{
 \donttest {
-
 ff_wins_added(mfl_connect(2021,54040))
-
 }
 
 }

@@ -18,9 +18,7 @@
 #'
 #' @examples
 #' \donttest {
-#'
 #' ff_wins_added(mfl_connect(2021,54040))
-#'
 #' }
 #'
 #' @return a dataframe summarising the net effect of each player on their team's wins
@@ -29,8 +27,8 @@
 ff_wins_added <- function(conn, ...){
 
   #### TEST STUFF ####
-  conn <- mfl_connect(2021,54040)
-  verbose <- NULL
+  # conn <- mfl_connect(2021,54040)
+  # verbose <- NULL
 
   #### ASSERTIONS ####
 
@@ -51,7 +49,7 @@ ff_wins_added <- function(conn, ...){
   pos <- NULL
   allplay_winpct <- NULL
 
-  rosters <- base_simulation$rosters[
+  rosters <- data.table::as.data.table(base_simulation$rosters)[
     pos %in% base_simulation$simulation_params$pos_filter[[1]],
     c("player_id","player_name","league_id","franchise_name","franchise_id","pos")
   ]
