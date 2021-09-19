@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Get Franchises — ffs_franchises • ffsimulator</title>
+<title>Wins Added — ff_wins_added • ffsimulator</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -48,8 +48,8 @@
   <link href="../extra.css" rel="stylesheet">
   
 
-<meta property="og:title" content="Get Franchises — ffs_franchises" />
-<meta property="og:description" content="This function lightly wraps ffscrapr::ff_franchises() and adds league_id, which is a required column for ffsimulator." />
+<meta property="og:title" content="Wins Added — ff_wins_added" />
+<meta property="og:description" content="Run base simulation once for n seasons/weeks etc" />
 <meta property="og:image" content="https://ffsimulator.ffverse.com/reference/figures/logo.png" />
 <meta property="og:image:alt" content="ffsimulator - An R Package For Simulating Fantasy Football Seasons" />
 <meta name="twitter:card" content="summary" />
@@ -179,56 +179,77 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Get Franchises</h1>
-    <small class="dont-index">Source: <a href='https://github.com/ffverse/ffsimulator/blob/master/R/3_rosters.R'><code>R/3_rosters.R</code></a></small>
-    <div class="hidden name"><code>ffs_franchises.Rd</code></div>
+    <h1>Wins Added</h1>
+    <small class="dont-index">Source: <a href='https://github.com/ffverse/ffsimulator/blob/master/R/0_ff_wins_added.R'><code>R/0_ff_wins_added.R</code></a></small>
+    <div class="hidden name"><code>ff_wins_added.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This function lightly wraps <code><a href='https://ffscrapr.ffverse.com/reference/ff_franchises.html'>ffscrapr::ff_franchises()</a></code> and adds league_id, which is a required column for ffsimulator.</p>
+    <p>Run base simulation once for n seasons/weeks etc</p>
     </div>
 
-    <pre class="usage"><span class='fu'>ffs_franchises</span><span class='op'>(</span><span class='va'>conn</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>ff_wins_added</span><span class='op'>(</span><span class='va'>conn</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>conn</th>
-      <td><p>a connection object as created by <code><a href='https://ffscrapr.ffverse.com/reference/ff_connect.html'>ffscrapr::ff_connect()</a></code> and friends.</p></td>
+      <td><p>an connection to a league made with <code><a href='ff_connect.html'>ff_connect()</a></code> and friends (required)</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Arguments passed on to <code><a href='ff_simulate.html'>ff_simulate</a></code></p><dl>
+    <dt><code>n_seasons</code></dt><dd><p>number of seasons to simulate, default = 100</p></dd>
+    <dt><code>n_weeks</code></dt><dd><p>number of weeks per season, default = 14</p></dd>
+    <dt><code>best_ball</code></dt><dd><p>a logical: are weekly wins based on optimal lineups?</p></dd>
+    <dt><code>seed</code></dt><dd><p>an integer to control reproducibility</p></dd>
+    <dt><code>gp_model</code></dt><dd><p>select between "simple", "none" to apply a model for whether a player played in a given game, defaults to "simple"</p></dd>
+    <dt><code>base_seasons</code></dt><dd><p>a numeric vector that selects seasons as base data, earliest available is 2012</p></dd>
+    <dt><code>actual_schedule</code></dt><dd><p>a logical: use actual ff_schedule? default is FALSE</p></dd>
+    <dt><code>replacement_level</code></dt><dd><p>a logical: use best available on waiver as  replacement level? defaults to TRUE</p></dd>
+    <dt><code>pos_filter</code></dt><dd><p>a character vector of positions to filter/run, default is c("QB","RB","WR","TE","K")</p></dd>
+    <dt><code>verbose</code></dt><dd><p>a logical: print status messages? default is TRUE, configure with options(ffsimulator.verbose)</p></dd>
+    <dt><code>return</code></dt><dd><p>one of c("default", "all") - what objects to return in the output list</p></dd>
+  
+</dl></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>a dataframe of franchises that includes the league_id column</p>
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+    <p>a dataframe summarising the net effect of each player on their team's wins</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <div class='dont-index'><p>vignette("Custom Simulations") for more detailed example usage</p></div>
+    <p>For every player on every team (except replacement level players),</p><ul>
+<li><p>remove them from that specific roster</p></li>
+<li><p>reoptimize the lineups just for that roster without the player to calculate what the score ends up being without the player</p></li>
+<li><p>summarise the new simulation</p></li>
+<li><p>return the delta in wins and points</p></li>
+</ul>
+
+<p>Summarise WA as the difference between the sim with the player and the sim without them</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># \donttest{</span>
-<span class='co'># cached examples</span>
-<span class='va'>conn</span> <span class='op'>&lt;-</span> <span class='fu'>.ffs_cache</span><span class='op'>(</span><span class='st'>"mfl_conn.rds"</span><span class='op'>)</span>
-
-<span class='fu'>ffs_franchises</span><span class='op'>(</span><span class='va'>conn</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 12 × 11</span>
-#&gt;    franchise_id franchise_name   icon         abbrev waiverSortOrder logo       
-#&gt;    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>        <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>            <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>        <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>           <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>      
-#&gt; <span style='color: #BCBCBC;'> 1</span> 0001         Mexico City Spa… https://www… PewPew 10              https://ww…
-#&gt; <span style='color: #BCBCBC;'> 2</span> 0002         Dirty Dgens      https://www… <span style='color: #BB0000;'>NA</span>     5               https://re…
-#&gt; <span style='color: #BCBCBC;'> 3</span> 0003         Alberta Armadil… https://www… AA     4               <span style='color: #BB0000;'>NA</span>         
-#&gt; <span style='color: #BCBCBC;'> 4</span> 0004         Electric Woodies https://www… EW     8               https://ww…
-#&gt; <span style='color: #BCBCBC;'> 5</span> 0005         Motor City Mutts <span style='color: #BB0000;'>NA</span>           <span style='color: #BB0000;'>NA</span>     7               <span style='color: #BB0000;'>NA</span>         
-#&gt; <span style='color: #BCBCBC;'> 6</span> 0006         Hoth City Taunt… https://i.i… HCT    3               https://i.…
-#&gt; <span style='color: #BCBCBC;'> 7</span> 0007         Paw Patrol       <span style='color: #BB0000;'>NA</span>           PP     12              <span style='color: #BB0000;'>NA</span>         
-#&gt; <span style='color: #BCBCBC;'> 8</span> 0008         Domination Stat… https://www… D.S.   2               https://ww…
-#&gt; <span style='color: #BCBCBC;'> 9</span> 0009         Kill Devil Hill… https://www… KDHC   1               https://ww…
-#&gt; <span style='color: #BCBCBC;'>10</span> 0010         [Redacted]       https://www… <span style='color: #BB0000;'>NA</span>     9               https://ww…
-#&gt; <span style='color: #BCBCBC;'>11</span> 0011         TB12             https://i.i… <span style='color: #BB0000;'>NA</span>     6               https://i.…
-#&gt; <span style='color: #BCBCBC;'>12</span> 0012         Indigo Plateau … https://i.i… <span style='color: #BB0000;'>NA</span>     11              https://i.…
-#&gt; <span style='color: #949494;'># … with 5 more variables: bbidAvailableBalance &lt;chr&gt;, salaryCapAmount &lt;chr&gt;,</span>
-#&gt; <span style='color: #949494;'>#   stadium &lt;chr&gt;, sound &lt;chr&gt;, league_id &lt;chr&gt;</span></div><div class='input'><span class='co'># }</span>
+<span class='fu'>ff_wins_added</span><span class='op'>(</span><span class='fu'><a href='mfl_connect.html'>mfl_connect</a></span><span class='op'>(</span><span class='fl'>2021</span>,<span class='fl'>54040</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>── BASE SIMULATION ─────────────────────────────────────────────────────────────</span></div><div class='output co'>#&gt; <span class='message'>── Starting simulation 2021-09-19 17:16:16 ─────────────────────────────────────</span></div><div class='output co'>#&gt; <span class='message'><span style='color: #00BBBB;'>ℹ</span> Importing data</span></div><div class='output co'>#&gt; <span class='message'><span style='color: #00BB00;'>✔</span> Importing data ... done</span></div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'><span style='color: #00BBBB;'>ℹ</span> Generating Projections</span></div><div class='output co'>#&gt; <span class='message'><span style='color: #00BB00;'>✔</span> Generating Projections ... done</span></div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'><span style='color: #00BBBB;'>ℹ</span> Calculating Roster Scores</span></div><div class='output co'>#&gt; <span class='message'><span style='color: #00BB00;'>✔</span> Calculating Roster Scores ... done</span></div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'><span style='color: #00BBBB;'>ℹ</span> Optimizing Lineups</span></div><div class='output co'>#&gt; <span class='message'><span style='color: #00BB00;'>✔</span> Optimizing Lineups ... done</span></div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'><span style='color: #00BBBB;'>ℹ</span> Building Schedules</span></div><div class='output co'>#&gt; <span class='message'><span style='color: #00BB00;'>✔</span> Building Schedules ... done</span></div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'><span style='color: #00BBBB;'>ℹ</span> Summarising Simulation Data</span></div><div class='output co'>#&gt; <span class='message'><span style='color: #00BB00;'>✔</span> Summarising Simulation Data ... done</span></div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'>── Simulation complete! 2021-09-19 17:16:50 ────────────────────────────────────</span></div><div class='output co'>#&gt; <span class='message'>── Start WAR calcs 2021-09-19 17:16:50 ─────────────────────────────────────────</span></div><div class='output co'>#&gt; <span class='message'>── WAR calcs complete! 2021-09-19 17:26:56 ─────────────────────────────────────</span></div><div class='output co'>#&gt; &lt;ff_wins_added: 100 simulated seasons of The Super Smash Bros Dynasty League&gt;
+#&gt; List of 15
+#&gt;  $ war               :Classes ‘data.table’ and 'data.frame':	406 obs. of  13 variables:
+#&gt;  $ summary_simulation:Classes ‘data.table’ and 'data.frame':	14 obs. of  11 variables:
+#&gt;  $ summary_season    :Classes ‘data.table’ and 'data.frame':	1400 obs. of  12 variables:
+#&gt;  $ summary_week      :Classes ‘data.table’ and 'data.frame':	19600 obs. of  16 variables:
+#&gt;  $ schedules         :Classes ‘data.table’ and 'data.frame':	19600 obs. of  5 variables:
+#&gt;  $ optimal_scores    :Classes ‘data.table’ and 'data.frame':	19600 obs. of  10 variables:
+#&gt;  $ roster_scores     :Classes ‘data.table’ and 'data.frame':	749000 obs. of  22 variables:
+#&gt;  $ projected_scores  :Classes ‘data.table’ and 'data.frame':	494200 obs. of  14 variables:
+#&gt;  $ scoring_history   : tibble [47,340 × 26] (S3: tbl_df/tbl/data.frame)
+#&gt;  $ franchises        : tibble [14 × 8] (S3: tbl_df/tbl/data.frame)
+#&gt;  $ rosters           :'data.frame':	406 obs. of  13 variables:
+#&gt;  $ lineup_constraints: tibble [4 × 7] (S3: tbl_df/tbl/data.frame)
+#&gt;  $ latest_rankings   : tibble [763 × 9] (S3: tbl_df/tbl/data.table/data.frame)
+#&gt;  $ league_info       : tibble [1 × 17] (S3: tbl_df/tbl/data.frame)
+#&gt;  $ simulation_params :List of 9</div><div class='input'><span class='co'># }</span>
 
 </div></pre>
   </div>
