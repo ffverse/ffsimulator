@@ -14,7 +14,8 @@ ff_simulate(
   base_seasons = 2012:2020,
   actual_schedule = FALSE,
   pos_filter = c("QB", "RB", "WR", "TE", "K"),
-  verbose = getOption("ffsimulator.verbose", default = TRUE)
+  verbose = NULL,
+  return = c("default", "all")
 )
 }
 \arguments{
@@ -37,6 +38,8 @@ ff_simulate(
 \item{pos_filter}{a character vector of positions to filter/run, default is c("QB","RB","WR","TE","K")}
 
 \item{verbose}{a logical: print status messages? default is TRUE, configure with options(ffsimulator.verbose)}
+
+\item{return}{one of c("default", "all") - what objects to return in the output list}
 }
 \value{
 an \code{ff_simulation} object which can be passed to \code{plot()} and contains the output data from the simulation.

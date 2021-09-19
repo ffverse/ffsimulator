@@ -1,3 +1,9 @@
+# ffsimulator (development version)
+
+- Add start of wins added calculation (v1.1.0.01)
+
+---
+
 # ffsimulator 1.1.0
 
 This release of ffsimulator adds new features and refactors a lot of the backend for improved calculation efficiency.

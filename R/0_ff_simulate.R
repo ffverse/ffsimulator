@@ -12,6 +12,7 @@
 #' @param actual_schedule a logical: use actual ff_schedule? default is FALSE
 #' @param pos_filter a character vector of positions to filter/run, default is c("QB","RB","WR","TE","K")
 #' @param verbose a logical: print status messages? default is TRUE, configure with options(ffsimulator.verbose)
+#' @param return one of c("default", "all") - what objects to return in the output list
 #'
 #' @examples
 #' \donttest{
@@ -34,7 +35,9 @@ ff_simulate <- function(conn,
                         base_seasons = 2012:2020,
                         actual_schedule = FALSE,
                         pos_filter = c("QB","RB","WR","TE","K"),
-                        verbose = getOption("ffsimulator.verbose", default = TRUE)) {
+                        verbose = NULL,
+                        return = c("default", "all")
+) {
 
   #### Assertions ####
 
@@ -44,7 +47,8 @@ ff_simulate <- function(conn,
     )
   }
 
-  gp_model <- rlang::arg_match0(gp_model,c("simple","none"))
+  gp_model <- rlang::arg_match0(gp_model, c("simple","none"))
+  return <- rlang::arg_match0(return, c("default","all"))
   checkmate::assert_subset(pos_filter, c("QB","RB","WR","TE","K"))
   checkmate::assert_numeric(base_seasons, lower = 2012, upper = 2020)
   checkmate::assert_int(n_seasons, lower = 1)
@@ -52,12 +56,8 @@ ff_simulate <- function(conn,
   checkmate::assert_int(seed, null.ok = TRUE)
   if (!is.null(seed)) set.seed(seed)
   checkmate::assert_flag(best_ball)
-  checkmate::assert_flag(verbose)
+  if(!is.null(verbose)) set_verbose(verbose)
   checkmate::assert_flag(actual_schedule)
-
-  vcli_start <- verbose_cli(verbose, "start")
-  vcli_end <- verbose_cli(verbose, "end")
-  vcli_rule <- verbose_cli(verbose,"rule")
 
   #### Import Data ####
 
@@ -185,28 +185,64 @@ ff_simulate <- function(conn,
 
   #### Build and Return ####
 
-  out <- structure(
-    list(
-      summary_simulation = summary_simulation,
-      summary_season = summary_season,
-      summary_week = summary_week,
-      roster_scores = roster_scores,
-      projected_scores = projected_scores,
-      league_info = league_info,
-      simulation_params = list(
-        n_seasons = n_seasons,
-        n_weeks = n_weeks,
-        scrape_date = latest_rankings$scrape_date[[1]],
-        best_ball = best_ball,
-        seed = seed,
-        gp_model = gp_model,
-        actual_schedule = actual_schedule,
-        base_seasons = list(base_seasons),
-        pos_filter = list(pos_filter)
-      )
-    ),
-    class = "ff_simulation"
-  )
+  if(return == "default"){
+
+    out <- structure(
+      list(
+        summary_simulation = summary_simulation,
+        summary_season = summary_season,
+        summary_week = summary_week,
+        roster_scores = roster_scores,
+        projected_scores = projected_scores,
+        league_info = league_info,
+        simulation_params = list(
+          n_seasons = n_seasons,
+          n_weeks = n_weeks,
+          scrape_date = latest_rankings$scrape_date[[1]],
+          best_ball = best_ball,
+          seed = seed,
+          gp_model = gp_model,
+          actual_schedule = actual_schedule,
+          base_seasons = list(base_seasons),
+          pos_filter = list(pos_filter)
+        )
+      ),
+      class = "ff_simulation"
+    )
+  }
+
+  if(return == "all"){
+
+    out <- structure(
+      list(
+        summary_simulation = summary_simulation,
+        summary_season = summary_season,
+        summary_week = summary_week,
+        schedules = schedules,
+        optimal_scores = optimal_scores,
+        roster_scores = roster_scores,
+        projected_scores = projected_scores,
+        scoring_history = scoring_history,
+        franchises = franchises,
+        rosters = rosters,
+        lineup_constraints = lineup_constraints,
+        latest_rankings = latest_rankings,
+        league_info = league_info,
+        simulation_params = list(
+          n_seasons = n_seasons,
+          n_weeks = n_weeks,
+          scrape_date = latest_rankings$scrape_date[[1]],
+          best_ball = best_ball,
+          seed = seed,
+          gp_model = gp_model,
+          actual_schedule = actual_schedule,
+          base_seasons = list(base_seasons),
+          pos_filter = list(pos_filter)
+        )
+      ),
+      class = "ff_simulation"
+    )
+  }
 
   vcli_rule("Simulation complete! {Sys.time()}")
 
@@ -225,18 +261,4 @@ print.ff_simulation <- function(x, ...) {
   )
   str(x, max.level = 1, give.attr = FALSE)
   invisible(x)
-}
-
-dump_function <- function(...) NULL
-
-verbose_cli <- function(verbose, type) {
-  if (!verbose) return(dump_function)
-
-  if (type == "start") return(cli::cli_process_start)
-
-  if (type == "end") return(cli::cli_process_done)
-
-  if (type == "rule") return(cli::cli_rule)
-
-  return(NULL)
 }
