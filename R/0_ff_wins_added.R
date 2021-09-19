@@ -68,7 +68,7 @@ ff_wins_added <- function(conn, ...){
 
     rosters[,
             .ffs_win_add(.SD, base_simulation,p),
-            by = c("league_id","franchise_id","franchise_name","player_id","player_name"),
+            by = c("league_id","franchise_id","franchise_name","player_id","player_name","pos"),
             .SDcols = c("player_id","player_name","franchise_id")
     ][order(-allplay_winpct)]
   })
@@ -130,6 +130,3 @@ ff_wins_added <- function(conn, ...){
 
   return(war_simulation)
 }
-
-# .ffs_win_add(p_id = "12186", p_name = "Diggs, Stefon", f_id = "0010", base_simulation = base_simulation)
-
