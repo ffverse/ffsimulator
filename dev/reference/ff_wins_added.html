@@ -231,27 +231,51 @@
 <p>Summarise WA as the difference between the sim with the player and the sim without them</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># \donttest{</span>
-<span class='fu'>ff_wins_added</span><span class='op'>(</span><span class='fu'><a href='mfl_connect.html'>mfl_connect</a></span><span class='op'>(</span><span class='fl'>2021</span>,<span class='fl'>54040</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>── BASE SIMULATION ─────────────────────────────────────────────────────────────</span></div><div class='output co'>#&gt; <span class='message'>── Starting simulation 2021-09-19 17:16:16 ─────────────────────────────────────</span></div><div class='output co'>#&gt; <span class='message'><span style='color: #00BBBB;'>ℹ</span> Importing data</span></div><div class='output co'>#&gt; <span class='message'><span style='color: #00BB00;'>✔</span> Importing data ... done</span></div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'><span style='color: #00BBBB;'>ℹ</span> Generating Projections</span></div><div class='output co'>#&gt; <span class='message'><span style='color: #00BB00;'>✔</span> Generating Projections ... done</span></div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'><span style='color: #00BBBB;'>ℹ</span> Calculating Roster Scores</span></div><div class='output co'>#&gt; <span class='message'><span style='color: #00BB00;'>✔</span> Calculating Roster Scores ... done</span></div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'><span style='color: #00BBBB;'>ℹ</span> Optimizing Lineups</span></div><div class='output co'>#&gt; <span class='message'><span style='color: #00BB00;'>✔</span> Optimizing Lineups ... done</span></div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'><span style='color: #00BBBB;'>ℹ</span> Building Schedules</span></div><div class='output co'>#&gt; <span class='message'><span style='color: #00BB00;'>✔</span> Building Schedules ... done</span></div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'><span style='color: #00BBBB;'>ℹ</span> Summarising Simulation Data</span></div><div class='output co'>#&gt; <span class='message'><span style='color: #00BB00;'>✔</span> Summarising Simulation Data ... done</span></div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'>── Simulation complete! 2021-09-19 17:16:50 ────────────────────────────────────</span></div><div class='output co'>#&gt; <span class='message'>── Start WAR calcs 2021-09-19 17:16:50 ─────────────────────────────────────────</span></div><div class='output co'>#&gt; <span class='message'>── WAR calcs complete! 2021-09-19 17:26:56 ─────────────────────────────────────</span></div><div class='output co'>#&gt; &lt;ff_wins_added: 100 simulated seasons of The Super Smash Bros Dynasty League&gt;
-#&gt; List of 15
-#&gt;  $ war               :Classes ‘data.table’ and 'data.frame':	406 obs. of  13 variables:
-#&gt;  $ summary_simulation:Classes ‘data.table’ and 'data.frame':	14 obs. of  11 variables:
-#&gt;  $ summary_season    :Classes ‘data.table’ and 'data.frame':	1400 obs. of  12 variables:
-#&gt;  $ summary_week      :Classes ‘data.table’ and 'data.frame':	19600 obs. of  16 variables:
-#&gt;  $ schedules         :Classes ‘data.table’ and 'data.frame':	19600 obs. of  5 variables:
-#&gt;  $ optimal_scores    :Classes ‘data.table’ and 'data.frame':	19600 obs. of  10 variables:
-#&gt;  $ roster_scores     :Classes ‘data.table’ and 'data.frame':	749000 obs. of  22 variables:
-#&gt;  $ projected_scores  :Classes ‘data.table’ and 'data.frame':	494200 obs. of  14 variables:
-#&gt;  $ scoring_history   : tibble [47,340 × 26] (S3: tbl_df/tbl/data.frame)
-#&gt;  $ franchises        : tibble [14 × 8] (S3: tbl_df/tbl/data.frame)
-#&gt;  $ rosters           :'data.frame':	406 obs. of  13 variables:
-#&gt;  $ lineup_constraints: tibble [4 × 7] (S3: tbl_df/tbl/data.frame)
-#&gt;  $ latest_rankings   : tibble [763 × 9] (S3: tbl_df/tbl/data.table/data.frame)
-#&gt;  $ league_info       : tibble [1 × 17] (S3: tbl_df/tbl/data.frame)
-#&gt;  $ simulation_params :List of 9</div><div class='input'><span class='co'># }</span>
-
-</div></pre>
+    <pre class="examples"><span class='r-in'><span class='co'># \donttest{</span></span>
+<span class='r-in'><span class='fu'>ff_wins_added</span><span class='op'>(</span><span class='fu'><a href='mfl_connect.html'>mfl_connect</a></span><span class='op'>(</span><span class='fl'>2021</span>,<span class='fl'>54040</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> ── BASE SIMULATION ─────────────────────────────────────────────────────────────</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> ── Starting simulation 2021-11-22 15:08:57 ─────────────────────────────────────</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'>ℹ</span> Importing data</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> <span style='color: #00BB00;'>✔</span> Importing data ... done</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'>ℹ</span> Generating Projections</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> <span style='color: #00BB00;'>✔</span> Generating Projections ... done</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'>ℹ</span> Calculating Roster Scores</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> <span style='color: #00BB00;'>✔</span> Calculating Roster Scores ... done</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'>ℹ</span> Optimizing Lineups</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> <span style='color: #00BB00;'>✔</span> Optimizing Lineups ... done</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'>ℹ</span> Building Schedules</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> <span style='color: #00BB00;'>✔</span> Building Schedules ... done</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'>ℹ</span> Summarising Simulation Data</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> <span style='color: #00BB00;'>✔</span> Summarising Simulation Data ... done</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> ── Simulation complete! 2021-11-22 15:09:27 ────────────────────────────────────</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> ── Start WAR calcs 2021-11-22 15:09:27 ─────────────────────────────────────────</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> ── WAR calcs complete! 2021-11-22 15:16:51 ─────────────────────────────────────</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> &lt;ff_wins_added: 100 simulated seasons of The Super Smash Bros Dynasty League&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> List of 15</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  $ war               :Classes ‘data.table’ and 'data.frame':	430 obs. of  13 variables:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  $ summary_simulation:Classes ‘data.table’ and 'data.frame':	14 obs. of  11 variables:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  $ summary_season    :Classes ‘data.table’ and 'data.frame':	1400 obs. of  12 variables:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  $ summary_week      :Classes ‘data.table’ and 'data.frame':	19600 obs. of  16 variables:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  $ schedules         :Classes ‘data.table’ and 'data.frame':	19600 obs. of  5 variables:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  $ optimal_scores    :Classes ‘data.table’ and 'data.frame':	19600 obs. of  10 variables:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  $ roster_scores     :Classes ‘data.table’ and 'data.frame':	707000 obs. of  22 variables:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  $ projected_scores  :Classes ‘data.table’ and 'data.frame':	452200 obs. of  14 variables:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  $ scoring_history   : tibble [47,340 × 26] (S3: tbl_df/tbl/data.frame)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  $ franchises        : tibble [14 × 8] (S3: tbl_df/tbl/data.frame)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  $ rosters           :'data.frame':	430 obs. of  13 variables:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  $ lineup_constraints: tibble [4 × 7] (S3: tbl_df/tbl/data.frame)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  $ latest_rankings   : tibble [748 × 9] (S3: tbl_df/tbl/data.table/data.frame)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  $ league_info       : tibble [1 × 17] (S3: tbl_df/tbl/data.frame)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  $ simulation_params :List of 9</span>
+<span class='r-in'><span class='co'># }</span></span>
+<span class='r-in'></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

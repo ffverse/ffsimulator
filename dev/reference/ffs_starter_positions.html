@@ -204,26 +204,27 @@
     <p>A tidy dataframe of positional lineup rules, one row per position with minimum and maximum starters as well as total starter calculations.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># \donttest{</span>
-<span class='co'># cached examples</span>
-<span class='va'>conn</span> <span class='op'>&lt;-</span> <span class='fu'>.ffs_cache</span><span class='op'>(</span><span class='st'>"mfl_conn.rds"</span><span class='op'>)</span>
-
-<span class='fu'>ffs_starter_positions</span><span class='op'>(</span><span class='va'>conn</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 9 × 7</span>
-#&gt;   pos     min   max offense_starters defense_starters kdst_starters
-#&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span>            <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>            <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>         <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span>
-#&gt; <span style='color: #BCBCBC;'>1</span> QB        1     2               11               11             0
-#&gt; <span style='color: #BCBCBC;'>2</span> RB        2     6               11               11             0
-#&gt; <span style='color: #BCBCBC;'>3</span> WR        3     7               11               11             0
-#&gt; <span style='color: #BCBCBC;'>4</span> TE        1     5               11               11             0
-#&gt; <span style='color: #BCBCBC;'>5</span> DT        1     2               11               11             0
-#&gt; <span style='color: #BCBCBC;'>6</span> DE        2     3               11               11             0
-#&gt; <span style='color: #BCBCBC;'>7</span> LB        3     4               11               11             0
-#&gt; <span style='color: #BCBCBC;'>8</span> CB        2     3               11               11             0
-#&gt; <span style='color: #BCBCBC;'>9</span> S         2     3               11               11             0
-#&gt; <span style='color: #949494;'># … with 1 more variable: total_starters &lt;int&gt;</span></div><div class='input'><span class='co'># }</span>
-
-</div></pre>
+    <pre class="examples"><span class='r-in'><span class='co'># \donttest{</span></span>
+<span class='r-in'><span class='co'># cached examples</span></span>
+<span class='r-in'><span class='va'>conn</span> <span class='op'>&lt;-</span> <span class='fu'>.ffs_cache</span><span class='op'>(</span><span class='st'>"mfl_conn.rds"</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>ffs_starter_positions</span><span class='op'>(</span><span class='va'>conn</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># A tibble: 9 × 7</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   pos     min   max offense_starters defense_starters kdst_starters</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span>            <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>            <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>         <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>1</span> QB        1     2               11               11             0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>2</span> RB        2     6               11               11             0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>3</span> WR        3     7               11               11             0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>4</span> TE        1     5               11               11             0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>5</span> DT        1     2               11               11             0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>6</span> DE        2     3               11               11             0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>7</span> LB        3     4               11               11             0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>8</span> CB        2     3               11               11             0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>9</span> S         2     3               11               11             0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># … with 1 more variable: total_starters &lt;int&gt;</span></span>
+<span class='r-in'><span class='co'># }</span></span>
+<span class='r-in'></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

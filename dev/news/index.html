@@ -208,7 +208,7 @@
 <li>
 <code><a href="../reference/ff_simulate.html">ff_simulate()</a></code> gains an <code>actual_schedule</code> argument to simulate actual schedule + unplayed games.</li>
 <li>
-<code><a href="../reference/ff_simulate.html">ff_simulate()</a></code> and <code><a href="../reference/ff_simulate_week.html">ff_simulate_week()</a></code> gain a <code>verbose</code> argument that is set ON by default and can also be turned off with <code><a href="https://rdrr.io/r/base/options.html">options(ffsimulator.verbose = FALSE)</a></code>
+<code><a href="../reference/ff_simulate.html">ff_simulate()</a></code> and <code><a href="../reference/ff_simulate_week.html">ff_simulate_week()</a></code> gain a <code>verbose</code> argument that is set ON by default and can also be turned off with <code>options(ffsimulator.verbose = FALSE)</code>
 </li>
 <li>
 <code><a href="../reference/ffs_copy_template.html">ffs_copy_template()</a></code> helps build custom simulations by copying a template of starter code to a desired filepath.</li>
@@ -226,7 +226,7 @@
 <li>
 <code>injury_model</code> argument is now renamed to <code>gp_model</code>. <strong><em>BREAKING</em></strong> - argument name changed.</li>
 <li>
-<code><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot()</a></code> refactored to hide legend and axis titles via geom/scale and not via theme - this allows for much easier theming (since you can apply a whole new theme via <code><a href="https://rdrr.io/r/base/Arithmetic.html">+</a></code>).</li>
+<code><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot()</a></code> refactored to hide legend and axis titles via geom/scale and not via theme - this allows for much easier theming (since you can apply a whole new theme via <code>+</code>).</li>
 <li>
 <code><a href="../reference/ffs_build_schedules.html">ffs_build_schedules()</a></code> now matches syntax from <code><a href="https://ffscrapr.ffverse.com/reference/ff_schedule.html">ffscrapr::ff_schedule()</a></code> - <code>team</code> is now <code>franchise_id</code> and <code>opponent</code> is now <code>opponent_id</code> - <strong><em>BREAKING</em></strong> - output column names changed.</li>
 <li>

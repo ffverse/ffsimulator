@@ -207,27 +207,28 @@
     <div class='dont-index'><p>vignette("Custom Simulations") for more detailed example usage</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># \donttest{</span>
-<span class='co'># cached examples</span>
-<span class='va'>conn</span> <span class='op'>&lt;-</span> <span class='fu'>.ffs_cache</span><span class='op'>(</span><span class='st'>"mfl_conn.rds"</span><span class='op'>)</span>
-
-<span class='fu'>ffs_schedule</span><span class='op'>(</span><span class='va'>conn</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 156 × 4</span>
-#&gt;     week franchise_id opponent_id league_id
-#&gt;    <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>        <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>       <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>    
-#&gt; <span style='color: #BCBCBC;'> 1</span>     2 0001         0003        22627    
-#&gt; <span style='color: #BCBCBC;'> 2</span>     2 0002         0004        22627    
-#&gt; <span style='color: #BCBCBC;'> 3</span>     2 0003         0001        22627    
-#&gt; <span style='color: #BCBCBC;'> 4</span>     2 0004         0002        22627    
-#&gt; <span style='color: #BCBCBC;'> 5</span>     2 0005         0007        22627    
-#&gt; <span style='color: #BCBCBC;'> 6</span>     2 0006         0008        22627    
-#&gt; <span style='color: #BCBCBC;'> 7</span>     2 0007         0005        22627    
-#&gt; <span style='color: #BCBCBC;'> 8</span>     2 0008         0006        22627    
-#&gt; <span style='color: #BCBCBC;'> 9</span>     2 0009         0011        22627    
-#&gt; <span style='color: #BCBCBC;'>10</span>     2 0010         0012        22627    
-#&gt; <span style='color: #949494;'># … with 146 more rows</span></div><div class='input'><span class='co'># }</span>
-
-</div></pre>
+    <pre class="examples"><span class='r-in'><span class='co'># \donttest{</span></span>
+<span class='r-in'><span class='co'># cached examples</span></span>
+<span class='r-in'><span class='va'>conn</span> <span class='op'>&lt;-</span> <span class='fu'>.ffs_cache</span><span class='op'>(</span><span class='st'>"mfl_conn.rds"</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>ffs_schedule</span><span class='op'>(</span><span class='va'>conn</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># A tibble: 48 × 4</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     week franchise_id opponent_id league_id</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>        <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>       <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 1</span>    11 0001         0010        22627    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 2</span>    11 0002         0008        22627    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 3</span>    11 0003         0007        22627    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 4</span>    11 0004         0012        22627    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 5</span>    11 0005         0009        22627    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 6</span>    11 0006         0011        22627    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 7</span>    11 0007         0003        22627    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 8</span>    11 0008         0002        22627    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 9</span>    11 0009         0005        22627    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>10</span>    11 0010         0001        22627    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># … with 38 more rows</span></span>
+<span class='r-in'><span class='co'># }</span></span>
+<span class='r-in'></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

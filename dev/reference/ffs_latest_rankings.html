@@ -212,25 +212,26 @@ the DynastyProcess data repository.</p>
 <p><code><a href='../articles/custom.html'>vignette("custom")</a></code> for example usage</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># \donttest{</span>
-
-<span class='fu'>ffs_latest_rankings</span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 763 × 9</span>
-#&gt;    player fantasypros_id pos   team    bye   ecr    sd sportradar_id scrape_date
-#&gt;    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>          <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>         <span style='color: #949494; font-style: italic;'>&lt;date&gt;</span>     
-#&gt; <span style='color: #BCBCBC;'> 1</span> Jamal… 16375          DB    SEA       9  2     0.71 1a92b0ad-3eb… 2021-09-17 
-#&gt; <span style='color: #BCBCBC;'> 2</span> Budda… 16733          DB    ARI      12  2.25  0.83 5ce20f3e-0f0… 2021-09-17 
-#&gt; <span style='color: #BCBCBC;'> 3</span> Derwi… 17310          DB    LAC       7  2.75  1.79 01c52412-725… 2021-09-17 
-#&gt; <span style='color: #BCBCBC;'> 4</span> Jorda… 11759          DB    BUF       7  3.75  1.09 95fab6fa-3ee… 2021-09-17 
-#&gt; <span style='color: #BCBCBC;'> 5</span> Jerem… 19429          DB    CAR      13  5.75  2.38 5f623fbc-415… 2021-09-17 
-#&gt; <span style='color: #BCBCBC;'> 6</span> Jessi… 17544          DB    CIN      10  6     0.71 89c84a59-18a… 2021-09-17 
-#&gt; <span style='color: #BCBCBC;'> 7</span> Justi… 15649          DB    DEN      11  8     2.35 2df474e5-711… 2021-09-17 
-#&gt; <span style='color: #BCBCBC;'> 8</span> John … 16747          DB    CLE      13 10     0.71 8c824157-eb3… 2021-09-17 
-#&gt; <span style='color: #BCBCBC;'> 9</span> Vonn … 15544          DB    CIN      10 10.8   0.43 656b68e1-651… 2021-09-17 
-#&gt; <span style='color: #BCBCBC;'>10</span> Tracy… 17586          DB    DET       9 12.5   2.87 6b8cdb8a-db1… 2021-09-17 
-#&gt; <span style='color: #949494;'># … with 753 more rows</span></div><div class='input'><span class='co'># }</span>
-
-</div></pre>
+    <pre class="examples"><span class='r-in'><span class='co'># \donttest{</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>ffs_latest_rankings</span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># A tibble: 748 × 9</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    player fantasypros_id pos   team    bye   ecr    sd sportradar_id scrape_date</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>          <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>         <span style='color: #949494; font-style: italic;'>&lt;date&gt;</span>     </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 1</span> Jorda… 11759          DB    BUF       7  2.25  0.43 95fab6fa-3ee… 2021-11-19 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 2</span> Derwi… 17310          DB    LAC       7  3     2.12 01c52412-725… 2021-11-19 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 3</span> Jamal… 16375          DB    SEA       9  3     1.41 1a92b0ad-3eb… 2021-11-19 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 4</span> Budda… 16733          DB    ARI      12  3     1.58 5ce20f3e-0f0… 2021-11-19 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 5</span> Jessi… 17544          DB    CIN      10  6     0.71 89c84a59-18a… 2021-11-19 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 6</span> Harri… 11260          DB    MIN       7  8.5   5.02 407f1923-665… 2021-11-19 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 7</span> Kevin… 15635          DB    TEN      13  9     2.12 c909532a-693… 2021-11-19 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 8</span> Jerem… 19429          DB    CAR      13 11.8   5.54 5f623fbc-415… 2021-11-19 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 9</span> Vonn … 15544          DB    CIN      10 12.8   1.79 656b68e1-651… 2021-11-19 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>10</span> Lando… 13895          DB    WAS       9 13.2   4.21 a9c41c5b-0dc… 2021-11-19 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># … with 738 more rows</span></span>
+<span class='r-in'><span class='co'># }</span></span>
+<span class='r-in'></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
