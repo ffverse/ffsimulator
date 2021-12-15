@@ -23,6 +23,7 @@ reference:
   - "ffs_rosters"
   - "ffs_generate_projections"
   - "ffs_generate_projections_week"
+  - "ffs_add_replacement_level"
   - "ffs_score_rosters"
   - "ffs_optimise_lineups"
   - "ffs_build_schedules"
