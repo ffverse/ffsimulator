@@ -1,7 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://ffsimulator.ffverse.com/CODE_OF_CONDUCT.html</loc>
+  </url>
+  <url>
+    <loc>https://ffsimulator.ffverse.com/CONTRIBUTING.html</loc>
+  </url>
+  <url>
+    <loc>https://ffsimulator.ffverse.com/LICENSE-text.html</loc>
+  </url>
+  <url>
+    <loc>https://ffsimulator.ffverse.com/LICENSE.html</loc>
+  </url>
+  <url>
+    <loc>https://ffsimulator.ffverse.com/articles/basic.html</loc>
+  </url>
+  <url>
+    <loc>https://ffsimulator.ffverse.com/articles/custom.html</loc>
+  </url>
+  <url>
+    <loc>https://ffsimulator.ffverse.com/articles/index.html</loc>
+  </url>
+  <url>
+    <loc>https://ffsimulator.ffverse.com/authors.html</loc>
+  </url>
+  <url>
     <loc>https://ffsimulator.ffverse.com/index.html</loc>
+  </url>
+  <url>
+    <loc>https://ffsimulator.ffverse.com/news/index.html</loc>
   </url>
   <url>
     <loc>https://ffsimulator.ffverse.com/reference/assert_columns.html</loc>
@@ -103,6 +130,9 @@
     <loc>https://ffsimulator.ffverse.com/reference/fp_rankings_history_week.html</loc>
   </url>
   <url>
+    <loc>https://ffsimulator.ffverse.com/reference/index.html</loc>
+  </url>
+  <url>
     <loc>https://ffsimulator.ffverse.com/reference/mfl_connect.html</loc>
   </url>
   <url>
@@ -110,11 +140,5 @@
   </url>
   <url>
     <loc>https://ffsimulator.ffverse.com/reference/sleeper_connect.html</loc>
-  </url>
-  <url>
-    <loc>https://ffsimulator.ffverse.com/articles/basic.html</loc>
-  </url>
-  <url>
-    <loc>https://ffsimulator.ffverse.com/articles/custom.html</loc>
   </url>
 </urlset>

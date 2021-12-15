@@ -32,6 +32,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -44,18 +46,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ffsimulator</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.1.0.02</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.1.0.03</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
@@ -80,13 +76,13 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://discord.com/invite/5Er2FBnnQa">
+  <a href="https://discord.com/invite/5Er2FBnnQa" class="external-link">
     <span class="fab fa-discord fa-lg"></span>
      
   </a>
 </li>
 <li>
-  <a href="https://github.com/ffverse/ffsimulator/">
+  <a href="https://github.com/ffverse/ffsimulator/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -99,28 +95,30 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="https://www.ffverse.com">ffverse</a>
+      <a href="https://www.ffverse.com" class="external-link">ffverse</a>
     </li>
     <li>
-      <a href="https://ffscrapr.dynastyprocess.com">ffscrapr package</a>
+      <a href="https://ffscrapr.dynastyprocess.com" class="external-link">ffscrapr package</a>
     </li>
     <li>
-      <a href="https://ffpros.ffverse.com">ffpros package</a>
+      <a href="https://ffpros.ffverse.com" class="external-link">ffpros package</a>
     </li>
     <li>
-      <a href="https://www.github.com/ffverse">ffverse GitHub</a>
-    </li>
-    <li class="divider">
-    <li class="dropdown-header">nflverse</li>
-    <li>
-      <a href="https://www.nflfastr.com">nflfastR package</a>
-    </li>
-    <li>
-      <a href="https://github.com/nflverse">nflverse GitHub</a>
+      <a href="https://www.github.com/ffverse" class="external-link">ffverse GitHub</a>
     </li>
     <li class="divider">
+    </li>
+<li class="dropdown-header">nflverse</li>
     <li>
-      <a href="https://dynastyprocess.com">DynastyProcess.com</a>
+      <a href="https://www.nflfastr.com" class="external-link">nflfastR package</a>
+    </li>
+    <li>
+      <a href="https://github.com/nflverse" class="external-link">nflverse GitHub</a>
+    </li>
+    <li class="divider">
+    </li>
+<li>
+      <a href="https://dynastyprocess.com" class="external-link">DynastyProcess.com</a>
     </li>
   </ul>
 </li>
@@ -138,11 +136,11 @@
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Basic Simulations</h1>
-                        <h4 class="author">Tan Ho</h4>
+                        <h4 data-toc-skip class="author">Tan Ho</h4>
             
-            <h4 class="date">2021-11-22</h4>
+            <h4 data-toc-skip class="date">2021-12-15</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/ffverse/ffsimulator/blob/master/vignettes/basic.Rmd"><code>vignettes/basic.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/ffverse/ffsimulator/blob/HEAD/vignettes/basic.Rmd" class="external-link"><code>vignettes/basic.Rmd</code></a></small>
       <div class="hidden name"><code>basic.Rmd</code></div>
 
     </div>
@@ -150,60 +148,60 @@
     
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ffsimulator.ffverse.com">ffsimulator</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ffsimulator.ffverse.com">ffsimulator</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></code></pre></div>
 <p>ffsimulator runs simulations on a given fantasy league based that league’s rosters, scoring settings, and current redraft rankings, connecting this data to historical weekly performances for each (preseason) positional ranking.</p>
 <p>This vignette will introduce the basic usage of ffsimulator - you may also be interested in the motivations and custom simulations vignettes!</p>
-<div id="usage---simulating-seasons" class="section level2">
-<h2 class="hasAnchor">
-<a href="#usage---simulating-seasons" class="anchor"></a>Usage - Simulating Seasons</h2>
-<p>ffsimulator connects directly to your league (via the <a href="https://ffscrapr.ffverse.com">ffscrapr package</a>) and can be used at a high level with just a few lines of code:</p>
+<div class="section level2">
+<h2 id="usage---simulating-seasons">Usage - Simulating Seasons<a class="anchor" aria-label="anchor" href="#usage---simulating-seasons"></a>
+</h2>
+<p>ffsimulator connects directly to your league (via the <a href="https://ffscrapr.ffverse.com" class="external-link">ffscrapr package</a>) and can be used at a high level with just a few lines of code:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">foureight_conn</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/mfl_connect.html">mfl_connect</a></span><span class="op">(</span><span class="fl">2021</span>, <span class="fl">22627</span><span class="op">)</span>
 
 <span class="va">foureight_sim</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ff_simulate.html">ff_simulate</a></span><span class="op">(</span>conn <span class="op">=</span> <span class="va">foureight_conn</span>, n_seasons <span class="op">=</span> <span class="fl">10</span>, n_weeks <span class="op">=</span> <span class="fl">14</span><span class="op">)</span>
 <span class="va">foureight_sim</span></code></pre></div>
-<pre><code>#&gt; &lt;ff_simulation: 10 simulated seasons of Four-Eight Dynasty League&gt;
-#&gt; List of 7
-#&gt;  $ summary_simulation: tibble [12 × 11] (S3: tbl_df/tbl/data.frame)
-#&gt;  $ summary_season    : tibble [120 × 12] (S3: tbl_df/tbl/data.frame)
-#&gt;  $ summary_week      : tibble [1,680 × 16] (S3: tbl_df/tbl/data.frame)
-#&gt;  $ roster_scores     :Classes 'data.table' and 'data.frame': 51450 obs. of  23 variables:
-#&gt;  $ projected_scores  :Classes 'data.table' and 'data.frame': 51450 obs. of  14 variables:
-#&gt;  $ league_info       : tibble [1 × 17] (S3: tbl_df/tbl/data.frame)
-#&gt;  $ simulation_params : tibble [1 × 9] (S3: tbl_df/tbl/data.frame)</code></pre>
+<pre><code><span class="co">#&gt; &lt;ff_simulation: 10 simulated seasons of Four-Eight Dynasty League&gt;</span>
+<span class="co">#&gt; List of 7</span>
+<span class="co">#&gt;  $ summary_simulation: tibble [12 × 11] (S3: tbl_df/tbl/data.frame)</span>
+<span class="co">#&gt;  $ summary_season    : tibble [120 × 12] (S3: tbl_df/tbl/data.frame)</span>
+<span class="co">#&gt;  $ summary_week      : tibble [1,680 × 16] (S3: tbl_df/tbl/data.frame)</span>
+<span class="co">#&gt;  $ roster_scores     :Classes 'data.table' and 'data.frame': 51450 obs. of  23 variables:</span>
+<span class="co">#&gt;  $ projected_scores  :Classes 'data.table' and 'data.frame': 51450 obs. of  14 variables:</span>
+<span class="co">#&gt;  $ league_info       : tibble [1 × 17] (S3: tbl_df/tbl/data.frame)</span>
+<span class="co">#&gt;  $ simulation_params : tibble [1 × 9] (S3: tbl_df/tbl/data.frame)</span></code></pre>
 <p>ffsimulator includes a few automatic plots that can be run on this ff_simulation object to get a quick sense of the simulation output:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">foureight_sim</span><span class="op">)</span> <span class="co"># defaults to type = "wins"</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">foureight_sim</span><span class="op">)</span> <span class="co"># defaults to type = "wins"</span></code></pre></div>
 <p><img src="basic_files/figure-html/unnamed-chunk-4-1.png" width="672"></p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">foureight_sim</span>, type <span class="op">=</span> <span class="st">"rank"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">foureight_sim</span>, type <span class="op">=</span> <span class="st">"rank"</span><span class="op">)</span></code></pre></div>
 <p><img src="basic_files/figure-html/unnamed-chunk-4-2.png" width="672"></p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">foureight_sim</span>, type <span class="op">=</span> <span class="st">"points"</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">foureight_sim</span>, type <span class="op">=</span> <span class="st">"points"</span><span class="op">)</span>
 <span class="co">#&gt; Picking joint bandwidth of 7.68</span></code></pre></div>
 <p><img src="basic_files/figure-html/unnamed-chunk-4-3.png" width="672"></p>
 <p>You can also access the various component dataframes by name, for further analysis.</p>
 <p>The <code>summary_simulation</code> table is a team-level summary across all of the simulated seasons.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">foureight_sim</span><span class="op">$</span><span class="va">summary_simulation</span>
-<span class="co">#&gt; # A tibble: 12 × 11</span>
+<span class="co">#&gt; <span style="color: #949494;"># A tibble: 12 × 11</span></span>
 <span class="co">#&gt;    league_id franchise_id franchise_name             seasons h2h_wins h2h_winpct</span>
-<span class="co">#&gt;    &lt;chr&gt;     &lt;chr&gt;        &lt;chr&gt;                        &lt;int&gt;    &lt;dbl&gt;      &lt;dbl&gt;</span>
-<span class="co">#&gt;  1 22627     0012         Indigo Plateau Elite            10     12.1      0.864</span>
-<span class="co">#&gt;  2 22627     0001         Mexico City Space Force         10     10.6      0.757</span>
-<span class="co">#&gt;  3 22627     0007         Paw Patrol                      10      7.8      0.557</span>
-<span class="co">#&gt;  4 22627     0004         Electric Woodies                10      7.4      0.529</span>
-<span class="co">#&gt;  5 22627     0011         TB12                            10      7.1      0.507</span>
-<span class="co">#&gt;  6 22627     0005         Motor City Mutts                10      7.6      0.543</span>
-<span class="co">#&gt;  7 22627     0009         Kill Devil Hills Carpetba…      10      7.3      0.521</span>
-<span class="co">#&gt;  8 22627     0008         Domination Station              10      6.3      0.45 </span>
-<span class="co">#&gt;  9 22627     0003         Alberta Armadillos              10      6.4      0.457</span>
-<span class="co">#&gt; 10 22627     0010         [Redacted]                      10      5.3      0.379</span>
-<span class="co">#&gt; 11 22627     0006         Hoth City Tauntauns             10      3        0.214</span>
-<span class="co">#&gt; 12 22627     0002         Dirty Dgens                     10      3.1      0.221</span>
-<span class="co">#&gt; # … with 5 more variables: allplay_wins &lt;dbl&gt;, allplay_winpct &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   points_for &lt;dbl&gt;, points_against &lt;dbl&gt;, potential_points &lt;dbl&gt;</span></code></pre></div>
+<span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                        <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> 22627     0012         Indigo Plateau Elite            10     12.1      0.864</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> 22627     0001         Mexico City Space Force         10     10.6      0.757</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> 22627     0007         Paw Patrol                      10      7.8      0.557</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> 22627     0004         Electric Woodies                10      7.4      0.529</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> 22627     0011         TB12                            10      7.1      0.507</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> 22627     0005         Motor City Mutts                10      7.6      0.543</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> 22627     0009         Kill Devil Hills Carpetba…      10      7.3      0.521</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> 22627     0008         Domination Station              10      6.3      0.45 </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> 22627     0003         Alberta Armadillos              10      6.4      0.457</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 22627     0010         [Redacted]                      10      5.3      0.379</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">11</span> 22627     0006         Hoth City Tauntauns             10      3        0.214</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">12</span> 22627     0002         Dirty Dgens                     10      3.1      0.221</span>
+<span class="co">#&gt; <span style="color: #949494;"># … with 5 more variables: allplay_wins &lt;dbl&gt;, allplay_winpct &lt;dbl&gt;,</span></span>
+<span class="co">#&gt; <span style="color: #949494;">#   points_for &lt;dbl&gt;, points_against &lt;dbl&gt;, potential_points &lt;dbl&gt;</span></span></code></pre></div>
 <p>The <code>summary_season</code> table is a season-level summary of all weeks within those seasons - any one of these seasons “could” theoretically be the outcome of the upcoming season!</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">foureight_sim</span><span class="op">$</span><span class="va">summary_season</span>
@@ -357,21 +355,21 @@
 <span class="co">#&gt; 51448:  2021-09-03        6</span>
 <span class="co">#&gt; 51449:  2021-09-03        6</span>
 <span class="co">#&gt; 51450:  2021-09-03        1</span></code></pre></div>
-<p>Finally, some basic parameters are included, including <code>league_info</code> which is generated by <code><a href="https://ffscrapr.ffverse.com/reference/ff_league.html">ffscrapr::ff_league()</a></code>.</p>
+<p>Finally, some basic parameters are included, including <code>league_info</code> which is generated by <code><a href="https://ffscrapr.ffverse.com/reference/ff_league.html" class="external-link">ffscrapr::ff_league()</a></code>.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">foureight_sim</span><span class="op">$</span><span class="va">league_info</span>
-<span class="co">#&gt; # A tibble: 1 × 17</span>
+<span class="co">#&gt; <span style="color: #949494;"># A tibble: 1 × 17</span></span>
 <span class="co">#&gt;   league_id league_name         season league_type franchise_count qb_type idp  </span>
-<span class="co">#&gt;   &lt;chr&gt;     &lt;chr&gt;                &lt;int&gt; &lt;chr&gt;                 &lt;dbl&gt; &lt;chr&gt;   &lt;lgl&gt;</span>
-<span class="co">#&gt; 1 22627     Four-Eight Dynasty…   2021 dynasty                  12 2QB/SF  TRUE </span>
-<span class="co">#&gt; # … with 10 more variables: scoring_flags &lt;chr&gt;, best_ball &lt;lgl&gt;,</span>
-<span class="co">#&gt; #   salary_cap &lt;lgl&gt;, player_copies &lt;dbl&gt;, years_active &lt;chr&gt;, qb_count &lt;chr&gt;,</span>
-<span class="co">#&gt; #   roster_size &lt;dbl&gt;, league_depth &lt;dbl&gt;, draft_type &lt;chr&gt;,</span>
-<span class="co">#&gt; #   draft_player_pool &lt;chr&gt;</span></code></pre></div>
+<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                 <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 22627     Four-Eight Dynasty…   <span style="text-decoration: underline;">2</span>021 dynasty                  12 2QB/SF  TRUE </span>
+<span class="co">#&gt; <span style="color: #949494;"># … with 10 more variables: scoring_flags &lt;chr&gt;, best_ball &lt;lgl&gt;,</span></span>
+<span class="co">#&gt; <span style="color: #949494;">#   salary_cap &lt;lgl&gt;, player_copies &lt;dbl&gt;, years_active &lt;chr&gt;, qb_count &lt;chr&gt;,</span></span>
+<span class="co">#&gt; <span style="color: #949494;">#   roster_size &lt;dbl&gt;, league_depth &lt;dbl&gt;, draft_type &lt;chr&gt;,</span></span>
+<span class="co">#&gt; <span style="color: #949494;">#   draft_player_pool &lt;chr&gt;</span></span></code></pre></div>
 </div>
-<div id="usage---simulating-weeks" class="section level2">
-<h2 class="hasAnchor">
-<a href="#usage---simulating-weeks" class="anchor"></a>Usage - Simulating Weeks</h2>
+<div class="section level2">
+<h2 id="usage---simulating-weeks">Usage - Simulating Weeks<a class="anchor" aria-label="anchor" href="#usage---simulating-weeks"></a>
+</h2>
 <p>As of the 1.1.0 release, ffsimulator also has functions to simulate an individual week, with that week’s FP rankings!</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">foureight_conn</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/mfl_connect.html">mfl_connect</a></span><span class="op">(</span><span class="fl">2021</span>, <span class="fl">22627</span><span class="op">)</span>
@@ -379,22 +377,22 @@
 <span class="va">foureight_sim_week</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ff_simulate_week.html">ff_simulate_week</a></span><span class="op">(</span>conn <span class="op">=</span> <span class="va">foureight_conn</span>, n <span class="op">=</span> <span class="fl">10</span><span class="op">)</span>
 
 <span class="va">foureight_sim_week</span></code></pre></div>
-<pre><code>#&gt; &lt;ff_simulation_week: 25 simulated weeks of Four-Eight Dynasty League&gt;
-#&gt; List of 6
-#&gt;  $ summary_simulation:Classes 'data.table' and 'data.frame': 12 obs. of  11 variables:
-#&gt;  $ summary_week      :Classes 'data.table' and 'data.frame': 300 obs. of  16 variables:
-#&gt;  $ roster_scores     :Classes 'data.table' and 'data.frame': 8836 obs. of  23 variables:
-#&gt;  $ projected_scores  :Classes 'data.table' and 'data.frame': 8836 obs. of  13 variables:
-#&gt;  $ league_info       : tibble [1 × 17] (S3: tbl_df/tbl/data.frame)
-#&gt;  $ simulation_params :List of 7</code></pre>
+<pre><code><span class="co">#&gt; &lt;ff_simulation_week: 25 simulated weeks of Four-Eight Dynasty League&gt;</span>
+<span class="co">#&gt; List of 6</span>
+<span class="co">#&gt;  $ summary_simulation:Classes 'data.table' and 'data.frame': 12 obs. of  11 variables:</span>
+<span class="co">#&gt;  $ summary_week      :Classes 'data.table' and 'data.frame': 300 obs. of  16 variables:</span>
+<span class="co">#&gt;  $ roster_scores     :Classes 'data.table' and 'data.frame': 8836 obs. of  23 variables:</span>
+<span class="co">#&gt;  $ projected_scores  :Classes 'data.table' and 'data.frame': 8836 obs. of  13 variables:</span>
+<span class="co">#&gt;  $ league_info       : tibble [1 × 17] (S3: tbl_df/tbl/data.frame)</span>
+<span class="co">#&gt;  $ simulation_params :List of 7</span></code></pre>
 <p>This simulation object has many of the same dataframes, including a summary_simulation, summary_week, roster_scores, projected_scores, league_info, and simulation_params.</p>
 <p>It also has some different automatic plots, including one for schedule luck:</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">foureight_sim_week</span>,type <span class="op">=</span> <span class="st">"luck"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">foureight_sim_week</span>,type <span class="op">=</span> <span class="st">"luck"</span><span class="op">)</span></code></pre></div>
 <p><img src="basic_files/figure-html/unnamed-chunk-12-1.png" width="672"></p>
 <p>and the usual points distribution:</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">foureight_sim_week</span>, type <span class="op">=</span> <span class="st">"points"</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">foureight_sim_week</span>, type <span class="op">=</span> <span class="st">"points"</span><span class="op">)</span>
 <span class="co">#&gt; Picking joint bandwidth of 9.54</span></code></pre></div>
 <p><img src="basic_files/figure-html/unnamed-chunk-13-1.png" width="672"></p>
 </div>
@@ -411,11 +409,13 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by <a href="https://twitter.com/_TanHo">Tan Ho</a>.</p>
+  <p></p>
+<p>Developed by <a href="https://twitter.com/_TanHo" class="external-link">Tan Ho</a>.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
 </div>
 
       </footer>
@@ -423,6 +423,8 @@
 
   
 
+
+  
 
   </body>
 </html>
