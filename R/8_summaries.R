@@ -66,8 +66,8 @@ ffs_summarise_week <- function(optimal_scores, schedules) {
   lineup_efficiency <- NULL
 
   summary_week <- schedules[
-    team, on = c("league_id","franchise_id", "season", "week")
-  ][opponent, on = c("league_id","opponent_id", "season", "week")
+    team, on = c("league_id","franchise_id", "season", "week"), nomatch = 0
+  ][opponent, on = c("league_id","opponent_id", "season", "week"), nomatch = 0
   ][,`:=`(result = data.table::fcase(team_score > opponent_score, "W",
                                      team_score < opponent_score, "L",
                                      team_score == opponent_score, "T",
