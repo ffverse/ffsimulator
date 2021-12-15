@@ -4,6 +4,7 @@
 - Add return argument to ff_simulate and ff_simulate_week to control return of more contents ("default" vs "all")
 - Refactor verbose argument to primarily use the package option rather than the argument pattern
 - Add replacement level function and calculation (v1.1.0.02)
+- Fix bye week handling for summarising weeks by using inner join (v1.1.0.03)
 
 ---
 
