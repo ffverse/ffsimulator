@@ -49,8 +49,8 @@ This function simulates a single upcoming week using the same methodology as in 
 try({ # try block to prevent CRAN-related issues
 conn <- mfl_connect(2021, 22627)
 ff_simulate_week(conn, n = 1000, actual_schedule = TRUE)
-}
 })
+}
 
 }
 \seealso{

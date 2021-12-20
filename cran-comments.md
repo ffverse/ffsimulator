@@ -1,9 +1,11 @@
+Adds new features and corrects failed donttest issue as requested by CRAN.
+
 ## Test environments
-* local Windows R installation, R 4.1.0
-* ubuntu-release 20.04 (on GitHub Actions), R 4.1.0
-* macOS-release (on GitHub Actions), R 4.1.0
-* windows-release (on GitHub Actions), R 4.1.0 
-* ubuntu 20.04 (on GitHub Actions), R-devel
+* local Windows 10 environment,             R 4.1.0
+* macOS-release        (on GitHub Actions), R 4.1.0
+* windows-release      (on GitHub Actions), R 4.1.0 
+* ubuntu 20.04         (on GitHub Actions), R 4.1.0
+* ubuntu 20.04         (on GitHub Actions), R-devel
 
 ## R CMD check results
 

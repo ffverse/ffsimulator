@@ -18,8 +18,8 @@
 #' try({ # try block to prevent CRAN-related issues
 #' conn <- mfl_connect(2021, 22627)
 #' ff_simulate_week(conn, n = 1000, actual_schedule = TRUE)
-#' }
 #' })
+#' }
 #'
 #' @return an `ff_simulation` object which can be passed to `plot()` and contains the output data from the simulation.
 #'
