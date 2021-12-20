@@ -1,6 +1,6 @@
 #' Wins Added
 #'
-#' [EXPERIMENTAL] This function adds a basic wins-added calculation for each player on every team, presenting the change in wins if that player was removed from the team as the net wins-over-replacement for that player. This can be a bit of a time/compute-expensive calculation.
+#' (EXPERIMENTAL) This function adds a basic wins-added calculation for each player on every team, presenting the change in wins if that player was removed from the team as the net wins-over-replacement for that player. This can be a bit of a time/compute-expensive calculation.
 #'
 #' Runs base simulation once (with the usual parameters available for ff_simulate), then for every player on every team (except replacement level players):
 #'
