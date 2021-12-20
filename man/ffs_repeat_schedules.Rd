@@ -19,7 +19,12 @@ This function repeats an actual \code{ffs_schedule()} by the appropriate number 
 }
 \examples{
 \donttest{
- # ffs_repeat_schedules(actual_schedule = x, n_seasons = 10)
+try({ # try block to prevent CRAN-related issues
+conn <- .ffs_cache("mfl_conn.rds") # cached connection
+actual_schedule <- ffs_schedule(conn)
+
+ffs_repeat_schedules(actual_schedule = actual_schedule, n_seasons = 10)
+})
 }
 
 }

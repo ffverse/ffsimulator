@@ -188,9 +188,10 @@ ffs_build_schedules <- function(n_teams = NULL,
 #' @examples
 #' \donttest{
 #' # cached examples
+#' try({ # try block to prevent CRAN-related issues
 #' conn <- .ffs_cache("mfl_conn.rds")
-#'
 #' ffs_schedule(conn)
+#' })
 #' }
 #'
 #' @seealso vignette("Custom Simulations") for more detailed example usage
@@ -219,7 +220,12 @@ ffs_schedule <- function(conn){
 #' @param n_seasons number of seasons to simulate, default = 100
 #'
 #' @examples \donttest{
-#'  # ffs_repeat_schedules(actual_schedule = x, n_seasons = 10)
+#' try({ # try block to prevent CRAN-related issues
+#' conn <- .ffs_cache("mfl_conn.rds") # cached connection
+#' actual_schedule <- ffs_schedule(conn)
+#'
+#' ffs_repeat_schedules(actual_schedule = actual_schedule, n_seasons = 10)
+#' })
 #' }
 #'
 #' @return a dataframe of schedules for the simulation

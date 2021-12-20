@@ -11,8 +11,9 @@
 #' @seealso `vignette("custom")` for example usage
 #'
 #' @examples \donttest{
-#'
+#' try({ # try block to prevent CRAN-related issues
 #' ffs_latest_rankings()
+#' })
 #' }
 #'
 #' @return a dataframe with a copy of the latest FP rankings from DynastyProcess's data repository

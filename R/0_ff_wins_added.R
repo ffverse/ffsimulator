@@ -1,15 +1,15 @@
 #' Wins Added
 #'
-#' Run base simulation once for n seasons/weeks etc
+#' [EXPERIMENTAL] This function adds a basic wins-added calculation for each player on every team, presenting the change in wins if that player was removed from the team as the net wins-over-replacement for that player. This can be a bit of a time/compute-expensive calculation.
 #'
-#' For every player on every team (except replacement level players),
+#' Runs base simulation once (with the usual parameters available for ff_simulate), then for every player on every team (except replacement level players):
 #'
 #' - remove them from that specific roster
 #' - reoptimize the lineups just for that roster without the player to calculate what the score ends up being without the player
 #' - summarise the new simulation
 #' - return the delta in wins and points
 #'
-#' Summarise WA as the difference between the sim with the player and the sim without them
+#' Summarise wins added as the difference between the sim with the player and the sim without them
 #'
 #' @param conn an connection to a league made with `ff_connect()` and friends (required)
 #' @param ... parameters passed to `ff_simulate()`
@@ -17,7 +17,9 @@
 #'
 #' @examples
 #' \donttest{
+#' try({ # try block to prevent CRAN-related issues
 #' ff_wins_added(mfl_connect(2021,54040))
+#' })
 #' }
 #'
 #' @return a dataframe summarising the net effect of each player on their team's wins

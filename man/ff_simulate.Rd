@@ -52,8 +52,10 @@ The main function of the package - uses bootstrap resampling to run fantasy foot
 }
 \examples{
 \donttest{
+try({ # try block to prevent CRAN-related issues
 conn <- mfl_connect(2021, 22627)
 ff_simulate(conn, n_seasons = 25)
+})
 }
 
 }

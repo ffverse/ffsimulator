@@ -29,10 +29,10 @@ ff_wins_added(conn, ...)
 a dataframe summarising the net effect of each player on their team's wins
 }
 \description{
-Run base simulation once for n seasons/weeks etc
+\link{EXPERIMENTAL} This function adds a basic wins-added calculation for each player on every team, presenting the change in wins if that player was removed from the team as the net wins-over-replacement for that player. This can be a bit of a time/compute-expensive calculation.
 }
 \details{
-For every player on every team (except replacement level players),
+Runs base simulation once (with the usual parameters available for ff_simulate), then for every player on every team (except replacement level players):
 \itemize{
 \item remove them from that specific roster
 \item reoptimize the lineups just for that roster without the player to calculate what the score ends up being without the player
@@ -40,11 +40,13 @@ For every player on every team (except replacement level players),
 \item return the delta in wins and points
 }
 
-Summarise WA as the difference between the sim with the player and the sim without them
+Summarise wins added as the difference between the sim with the player and the sim without them
 }
 \examples{
 \donttest{
+try({ # try block to prevent CRAN-related issues
 ff_wins_added(mfl_connect(2021,54040))
+})
 }
 
 }

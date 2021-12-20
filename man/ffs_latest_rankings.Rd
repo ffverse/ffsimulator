@@ -21,8 +21,9 @@ the DynastyProcess data repository.
 }
 \examples{
 \donttest{
-
+try({ # try block to prevent CRAN-related issues
 ffs_latest_rankings()
+})
 }
 
 }

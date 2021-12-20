@@ -1,4 +1,3 @@
-
 #' Add replacement level players to each roster
 #'
 #' @param rosters a dataframe of rosters as created by `ffs_rosters()`

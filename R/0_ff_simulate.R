@@ -17,8 +17,10 @@
 #'
 #' @examples
 #' \donttest{
+#' try({ # try block to prevent CRAN-related issues
 #' conn <- mfl_connect(2021, 22627)
 #' ff_simulate(conn, n_seasons = 25)
+#' })
 #' }
 #'
 #' @return an `ff_simulation` object which can be passed to `plot()` and contains the output data from the simulation.
