@@ -16,9 +16,9 @@ status](https://img.shields.io/github/workflow/status/ffverse/ffsimulator/R-CMD-
 [![Integration
 testing](https://img.shields.io/github/workflow/status/ffverse/ffsimulator/api-check?label=api%20check&style=flat-square&logo=github)](https://github.com/ffverse/ffsimulator/actions)
 [![Codecov test
-coverage](https://img.shields.io/codecov/c/github/ffverse/ffsimulator?label=codecov&style=flat-square&logo=codecov)](https://codecov.io/gh/ffverse/ffsimulator?branch=dev)
+coverage](https://img.shields.io/codecov/c/github/ffverse/ffsimulator?label=codecov&style=flat-square&logo=codecov)](https://app.codecov.io/gh/ffverse/ffsimulator?branch=dev)
 [![nflverse
-discord](https://img.shields.io/discord/591914197219016707.svg?color=5865F2&label=nflverse%20discord&logo=discord&logoColor=5865F2&style=flat-square)](https://discord.com/invite/5Er2FBnnQa)
+discord](https://img.shields.io/discord/789805604076126219?color=7289da&label=nflverse%20discord&logo=discord&logoColor=fff&style=flat-square)](https://discord.com/invite/5Er2FBnnQa)
 
 <!-- badges: end -->
 
@@ -26,7 +26,7 @@ The `{ffsimulator}` package uses bootstrap resampling to run fantasy
 football season simulations supported by historical rankings and
 nflfastR data, calculating optimal lineups, and returning aggregated
 results. This can quickly run your league through hundreds of seasons
-and can help you study:
+and builds out the data to help you study:
 
 -   expected season finishes and range of outcomes
 -   player contributions to season wins
