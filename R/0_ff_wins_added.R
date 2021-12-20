@@ -18,7 +18,8 @@
 #' @examples
 #' \donttest{
 #' try({ # try block to prevent CRAN-related issues
-#' ff_wins_added(mfl_connect(2021,54040), n_seasons = 5) # n_seasons set so that the example runs more quickly
+#' # n_seasons set so that the example runs more quickly
+#' ff_wins_added(mfl_connect(2021,54040), n_seasons = 5)
 #' })
 #' }
 #'
