@@ -98,7 +98,7 @@
     </div>
 
     <div class="section level2">
-<h2 class="page-header" data-toc-text="1.2.0" id="ffsimulator-120">ffsimulator 1.2.0<a class="anchor" aria-label="anchor" href="#ffsimulator-120"></a></h2>
+<h2 class="page-header" data-toc-text="1.2.0" id="ffsimulator-120">ffsimulator 1.2.0<small>2021-12-21</small><a class="anchor" aria-label="anchor" href="#ffsimulator-120"></a></h2>
 <p>This release of ffsimulator adds an experimental wins added calculation with <code><a href="../reference/ff_wins_added.html">ff_wins_added()</a></code>, some cleanups, and try-handling to examples because apparently donttest doesn’t exist.</p>
 <div class="section level3">
 <h3 id="new-features-1-2-0">New features<a class="anchor" aria-label="anchor" href="#new-features-1-2-0"></a></h3>
@@ -109,6 +109,13 @@
 <li>
 <code><a href="../reference/ff_simulate.html">ff_simulate()</a></code> and <code><a href="../reference/ff_simulate_week.html">ff_simulate_week()</a></code> gains a “return” parameter that controls elements to return - this provides more data so that wins_added can be calculated efficiently.</li>
 </ul></div>
+<div class="section level3">
+<h3 id="fixes-1-2-0">Fixes<a class="anchor" aria-label="anchor" href="#fixes-1-2-0"></a></h3>
+<ul><li>
+<code>verbose</code> argument primarily refers to the package option now.</li>
+<li>Fix bye week handling for summarising actual schedule weeks by using inner join.</li>
+</ul><p>Immensely grateful to everyone who shared and used <code>ffsimulator</code> this year, and especially to <a href="https://github.com/joesydlowski" class="external-link">@JoeSydlowski</a> for helping to build out the logic for wins added.</p>
+<hr></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.1.0" id="ffsimulator-110">ffsimulator 1.1.0<small>2021-09-11</small><a class="anchor" aria-label="anchor" href="#ffsimulator-110"></a></h2>
