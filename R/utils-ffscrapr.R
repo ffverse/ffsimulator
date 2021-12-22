@@ -86,9 +86,10 @@ NULL
 #' @examples
 #' \donttest{
 #' # cached examples
+#' try({ # try block to prevent CRAN-related issues
 #' conn <- .ffs_cache("mfl_conn.rds")
-#'
 #' ffs_starter_positions(conn)
+#' })
 #' }
 #'
 #' @export

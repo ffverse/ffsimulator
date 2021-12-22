@@ -8,9 +8,7 @@
 \description{
 \if{html}{\figure{logo.png}{options: align='right' alt='logo' width='120'}}
 
-Uses bootstrap resampling to run fantasy football season
-    simulations supported by historical rankings and 'nflfastR' data,
-    calculating optimal lineups, and returning aggregated results.
+Uses bootstrap resampling to run fantasy football season simulations supported by historical rankings and 'nflfastR' data, calculating optimal lineups, and returning aggregated results.
 }
 \seealso{
 Useful links:

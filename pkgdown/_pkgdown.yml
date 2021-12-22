@@ -10,6 +10,7 @@ reference:
   - "plot.ff_simulation"
   - "ff_simulate_week"
   - "plot.ff_simulation_week"
+  - "ff_wins_added"
   - "ffs_copy_template"
 - title: Customized Simulations
   desc: Subfunctions used by ff_simulate
@@ -22,6 +23,7 @@ reference:
   - "ffs_rosters"
   - "ffs_generate_projections"
   - "ffs_generate_projections_week"
+  - "ffs_add_replacement_level"
   - "ffs_score_rosters"
   - "ffs_optimise_lineups"
   - "ffs_build_schedules"

@@ -18,9 +18,10 @@ This function lightly wraps \code{ffscrapr::ff_starter_positions()} and cleans u
 \examples{
 \donttest{
 # cached examples
+try({ # try block to prevent CRAN-related issues
 conn <- .ffs_cache("mfl_conn.rds")
-
 ffs_starter_positions(conn)
+})
 }
 
 }

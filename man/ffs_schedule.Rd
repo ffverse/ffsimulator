@@ -18,9 +18,10 @@ This function lightly wraps \code{ffscrapr::ff_schedule()} and adds league_id, w
 \examples{
 \donttest{
 # cached examples
+try({ # try block to prevent CRAN-related issues
 conn <- .ffs_cache("mfl_conn.rds")
-
 ffs_schedule(conn)
+})
 }
 
 }
