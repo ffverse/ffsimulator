@@ -7,7 +7,7 @@ This release of ffsimulator adds an experimental wins added calculation with `ff
 - `ffs_add_replacement_level()` adds replacement level players to every team that are essentially the lowest player at each position that is not currently rostered. 
 - `ff_simulate()` and `ff_simulate_week()` gains a "return" parameter that controls elements to return - this provides more data so that wins_added can be calculated efficiently.  
 
-# Fixes
+## Fixes
 - `verbose` argument primarily refers to the package option now. 
 - Fix bye week handling for summarising actual schedule weeks by using inner join.
 
