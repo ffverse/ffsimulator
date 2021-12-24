@@ -53,6 +53,7 @@ home:
     using nflfastR data and FantasyPros rankings.
 
 navbar:
+  bg: dark
   structure:
     left:  [home, reference, news, articles]
     right: [discord,  github, more]
@@ -82,8 +83,9 @@ navbar:
           href: https://dynastyprocess.com
 
 template:
+  bootstrap: 5
   params:
-    bootswatch: cosmo
+    bootswatch: zephyr
    # docsearch:
      # api_key: 7abddd2aa591d955b365235f35d75a38
      # index_name: dynastyprocess
