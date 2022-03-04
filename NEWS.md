@@ -1,3 +1,8 @@
+# ffsimulator (development version)
+
+## Fixes
+- Patch if all weeks are bye weeks as zero
+
 # ffsimulator 1.2.0
 
 This release of ffsimulator adds an experimental wins added calculation with `ff_wins_added()`, some cleanups, and try-handling to examples because apparently donttest doesn't exist.
