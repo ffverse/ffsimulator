@@ -1,6 +1,6 @@
 on:
-  schedule:
-    - cron: 8 3 15 * *
+ # schedule:
+ #   - cron: 8 3 15 * *
   workflow_dispatch:
 
 name: api-check
