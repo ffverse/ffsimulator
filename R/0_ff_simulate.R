@@ -13,6 +13,7 @@
 #' @param replacement_level a logical: use best available on waiver as  replacement level? defaults to TRUE
 #' @param pos_filter a character vector of positions to filter/run, default is c("QB","RB","WR","TE","K")
 #' @param verbose a logical: print status messages? default is TRUE, configure with options(ffsimulator.verbose)
+#' @param playoffs one of c("six_team","four_team", "none") will automatically simulate a playoff bracket
 #' @param return one of c("default", "all") - what objects to return in the output list
 #'
 #' @examples
@@ -40,6 +41,7 @@ ff_simulate <- function(conn,
                         replacement_level = TRUE,
                         pos_filter = c("QB","RB","WR","TE","K"),
                         verbose = NULL,
+                        playoffs = c("six_team","four_team","none"),
                         return = c("default", "all")
 ) {
 
@@ -60,6 +62,7 @@ ff_simulate <- function(conn,
   # pos_filter = c("QB","RB","WR","TE","K")
   # verbose = TRUE
   # return = "all"
+  # playoffs = "six_team"
 
   #### Assertions ####
 
