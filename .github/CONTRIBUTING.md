@@ -7,7 +7,7 @@ Many hands make light work! Here are some ways you can contribute to this projec
 
 ### Open an issue
 
-- You can [open an issue](https://github.com/DynastyProcess/ffsimulator/issues/new/choose) if you'd like to request a specific function or report a bug/error.
+- You can [open an issue](https://github.com/ffverse/ffsimulator/issues/new/choose) if you'd like to request a specific function or report a bug/error.
 
 ### Fixing typos
 
@@ -21,15 +21,18 @@ You can find the `.R` file that generates the `.Rd` by reading the comment in th
 
 ### Project and branch strategy
 
+*   This project now uses [GitHub Flow](https://docs.github.com/en/get-started/quickstart/github-flow) as of May 2022, rather than Git Flow as per previous. 
 *   Feature development for this package is organized with GitHub Projects, each of which track towards a **minor version release**.
 *   Each function/method is tracked as a GitHub Issue, and linked to/closed by Pull Requests.
-*   The `main` branch contains the code for the current CRAN version of the package.
-*   The `dev` branch reflects a fully-tested, linted, and documented version of the proposed release.
-*   Feature branches are built off of the dev branch, add function/method + documentation + testing, and then is squash-merged back onto the staging branch once developed. 
+*   CRAN releases can be found on the [GitHub Releases](https://github.com/ffverse/ffsimulator/releases) page.
+*   The `main` branch contains the latest development version of the package, which is fully tested, linted, and documented.
+*   Development branches contain in-progress code. These get squash-merged onto the main branch when tested and documented. 
+*   Sub-branches of development may be created as necessary for experimental purposes.
+
 
 ### Pull request process
 
-*   Fork the package and clone onto your computer. If you haven't done this before, we recommend using `usethis::create_from_github("dynastyprocess/ffsimulator", fork = TRUE)`.
+*   Fork the package and clone onto your computer. If you haven't done this before, we recommend using `usethis::create_from_github("ffverse/ffsimulator", fork = TRUE)`.
 
 *   Install all development dependencies with `devtools::install_dev_deps()`, and then make sure the package passes R CMD check by running `devtools::check()`. 
     If R CMD check doesn't pass cleanly, it's a good idea to ask for help before continuing. 

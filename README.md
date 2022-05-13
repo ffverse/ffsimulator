@@ -8,7 +8,7 @@
 [![CRAN
 status](https://img.shields.io/cran/v/ffsimulator?style=flat-square&logo=R&label=CRAN)](https://CRAN.R-project.org/package=ffsimulator)
 [![Dev
-version](https://img.shields.io/github/r-package/v/ffverse/ffsimulator/dev?label=dev&style=flat-square&logo=github)](https://ffsimulator.ffverse.com/)
+version](https://img.shields.io/github/r-package/v/ffverse/ffsimulator/main?label=dev&style=flat-square&logo=github)](https://ffsimulator.ffverse.com/)
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg?style=flat-square)](https://lifecycle.r-lib.org/articles/stages.html)
 [![R build
@@ -39,23 +39,21 @@ R packages for fantasy football analysis.
 
 ## Installation
 
-Install the stable version of this package from CRAN or the [ffverse
-r-universe repository](https://ffverse.r-universe.dev):
+Install the stable version of this package from CRAN:
 
 ``` r
 install.packages("ffsimulator") # CRAN
-install.packages("ffsimulator", repos = "https://ffverse.r-universe.dev")
 ```
 
-Install the development version with either [DynastyProcess’s
-r-universe](https://dynastyprocess.r-universe.dev) or remotes + GitHub:
+Install the development version from either
+[r-universe](https://ffverse.r-universe.dev) or GitHub:
 
 ``` r
-# DynastyProcess's r-universe
-install.packages("ffsimulator", repos = "https://dynastyprocess.r-universe.dev")
-
-# or via GitHub c/o remotes/devtools: # install.packages('remotes')
-remotes::install_github("ffverse/ffsimulator", ref = "dev")
+install.packages("ffsimulator", repos = "https://ffverse.r-universe.dev")
+# pak is recommended, see https://github.com/r-lib/pak
+pak::pak("ffverse/ffsimulator")
+# can also use remotes
+remotes::install_github("ffverse/ffsimulator")
 ```
 
 The development version has a [separate documentation site
