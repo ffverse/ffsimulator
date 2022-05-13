@@ -41,7 +41,7 @@
     
     <a class="navbar-brand me-2" href="index.html">ffsimulator</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.2.0.02</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.2.0.03</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -110,9 +110,7 @@
 </h1>
 </div>
 <!-- badges: start -->
-
-<!-- badges: end -->
-<p>The <a href="https://ffsimulator.ffverse.com">ffsimulator</a> package uses bootstrap resampling to run fantasy football season simulations supported by historical rankings and nflfastR data, calculating optimal lineups, and returning aggregated results. This can quickly run your league through hundreds of seasons and builds out the data to help you study:</p>
+<!-- badges: end --><p>The <a href="https://ffsimulator.ffverse.com">ffsimulator</a> package uses bootstrap resampling to run fantasy football season simulations supported by historical rankings and nflfastR data, calculating optimal lineups, and returning aggregated results. This can quickly run your league through hundreds of seasons and builds out the data to help you study:</p>
 <ul>
 <li>expected season finishes and range of outcomes</li>
 <li>player contributions to season wins</li>
@@ -124,17 +122,16 @@
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
-<p>Install the stable version of this package from CRAN or the <a href="https://ffverse.r-universe.dev" class="external-link">ffverse r-universe repository</a>:</p>
+<p>Install the stable version of this package from CRAN:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"ffsimulator"</span><span class="op">)</span> <span class="co"># CRAN</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"ffsimulator"</span>, repos <span class="op">=</span> <span class="st">"https://ffverse.r-universe.dev"</span><span class="op">)</span></code></pre></div>
-<p>Install the development version with either <a href="https://dynastyprocess.r-universe.dev" class="external-link">DynastyProcess’s r-universe</a> or remotes + GitHub:</p>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"ffsimulator"</span><span class="op">)</span> <span class="co"># CRAN</span></code></pre></div>
+<p>Install the development version from either <a href="https://ffverse.r-universe.dev" class="external-link">r-universe</a> or GitHub:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># DynastyProcess's r-universe</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"ffsimulator"</span>, repos <span class="op">=</span> <span class="st">"https://dynastyprocess.r-universe.dev"</span><span class="op">)</span>
-
-<span class="co"># or via GitHub c/o remotes/devtools: # install.packages('remotes')</span>
-<span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"ffverse/ffsimulator"</span>, ref <span class="op">=</span> <span class="st">"dev"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"ffsimulator"</span>, repos <span class="op">=</span> <span class="st">"https://ffverse.r-universe.dev"</span><span class="op">)</span>
+<span class="co"># pak is recommended, see https://github.com/r-lib/pak</span>
+<span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="http://pak.r-lib.org/reference/pak.html" class="external-link">pak</a></span><span class="op">(</span><span class="st">"ffverse/ffsimulator"</span><span class="op">)</span>
+<span class="co"># can also use remotes</span>
+<span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"ffverse/ffsimulator"</span><span class="op">)</span></code></pre></div>
 <p>The development version has a <a href="https://ffsimulator.ffverse.com/dev/">separate documentation site here</a>.</p>
 </div>
 <div class="section level2">
@@ -235,7 +232,7 @@
 <h2 data-toc-skip>Dev status</h2>
 <ul class="list-unstyled">
 <li><a href="https://CRAN.R-project.org/package=ffsimulator" class="external-link"><img src="https://img.shields.io/cran/v/ffsimulator?style=flat-square&amp;logo=R&amp;label=CRAN" alt="CRAN status"></a></li>
-<li><a href="https://ffsimulator.ffverse.com/"><img src="https://img.shields.io/github/r-package/v/ffverse/ffsimulator/dev?label=dev&amp;style=flat-square&amp;logo=github" alt="Dev version"></a></li>
+<li><a href="https://ffsimulator.ffverse.com/"><img src="https://img.shields.io/github/r-package/v/ffverse/ffsimulator/main?label=dev&amp;style=flat-square&amp;logo=github" alt="Dev version"></a></li>
 <li><a href="https://lifecycle.r-lib.org/articles/stages.html" class="external-link"><img src="https://img.shields.io/badge/lifecycle-experimental-orange.svg?style=flat-square" alt="Lifecycle: experimental"></a></li>
 <li><a href="https://github.com/ffverse/ffsimulator/actions" class="external-link"><img src="https://img.shields.io/github/workflow/status/ffverse/ffsimulator/R-CMD-check?label=R%20check&amp;style=flat-square&amp;logo=github" alt="R build status"></a></li>
 <li><a href="https://github.com/ffverse/ffsimulator/actions" class="external-link"><img src="https://img.shields.io/github/workflow/status/ffverse/ffsimulator/api-check?label=api%20check&amp;style=flat-square&amp;logo=github" alt="Integration testing"></a></li>
@@ -255,7 +252,7 @@
 
 <div class="pkgdown-footer-right">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
 </div>
 
     </footer>
