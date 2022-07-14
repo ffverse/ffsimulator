@@ -4,6 +4,7 @@
 - Patch if all weeks are bye weeks as zero
 - Bump minimum nflreadr version to 1.2.0 because of data repo location change.
 - Reorganize repo to use github flow
+- typo corrections in custom simulations vignette
 
 ---
 

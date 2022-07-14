@@ -142,7 +142,7 @@ In order to calculate head to head wins, you need a schedule! Enter `ffs_build_s
     n_seasons = n_seasons,
     n_weeks = n_weeks,
     seed = NULL,
-    franchises = ff_franchises(conn)
+    franchises = ffs_franchises(conn)
   )
 ```
 
