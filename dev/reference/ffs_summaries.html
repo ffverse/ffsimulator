@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">ffsimulator</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.2.0.03</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.2.0.04</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -79,40 +79,57 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">ffs_summarise_week</span><span class="op">(</span><span class="va">optimal_scores</span>, <span class="va">schedules</span><span class="op">)</span>
-
-<span class="fu">ffs_summarise_season</span><span class="op">(</span><span class="va">summary_week</span><span class="op">)</span>
-
-<span class="fu">ffs_summarise_simulation</span><span class="op">(</span><span class="va">summary_season</span><span class="op">)</span>
-
-<span class="fu">ffs_summarise_inseason</span><span class="op">(</span><span class="va">summary_week</span>, <span class="va">n</span><span class="op">)</span>
-
-<span class="fu">ffs_summarize_week</span><span class="op">(</span><span class="va">optimal_scores</span>, <span class="va">schedules</span><span class="op">)</span>
-
-<span class="fu">ffs_summarize_season</span><span class="op">(</span><span class="va">summary_week</span><span class="op">)</span>
-
-<span class="fu">ffs_summarize_simulation</span><span class="op">(</span><span class="va">summary_season</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">ffs_summarise_week</span><span class="op">(</span><span class="va">optimal_scores</span>, <span class="va">schedules</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">ffs_summarise_season</span><span class="op">(</span><span class="va">summary_week</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">ffs_summarise_simulation</span><span class="op">(</span><span class="va">summary_season</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">ffs_summarise_inseason</span><span class="op">(</span><span class="va">summary_week</span>, <span class="va">n</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">ffs_summarize_week</span><span class="op">(</span><span class="va">optimal_scores</span>, <span class="va">schedules</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">ffs_summarize_season</span><span class="op">(</span><span class="va">summary_week</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">ffs_summarize_simulation</span><span class="op">(</span><span class="va">summary_season</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>optimal_scores</dt>
 <dd><p>a dataframe of optimized lineups as created by <code><a href="ffs_optimise_lineups.html">ffs_optimize_lineups()</a></code></p></dd>
+
+
 <dt>schedules</dt>
 <dd><p>a dataframe of schedules as created by <code><a href="ffs_build_schedules.html">ffs_build_schedules()</a></code> or <code>ffs_actual_schedules()</code></p></dd>
+
+
 <dt>summary_week</dt>
 <dd><p>a dataframe as created by <code>ffs_summarise_week()</code></p></dd>
+
+
 <dt>summary_season</dt>
 <dd><p>a dataframe as created by <code>ffs_summarise_season()</code></p></dd>
+
+
 <dt>n</dt>
 <dd><p>number of weeks</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>ffs_summarise_week: a dataframe summarising team results by simulation week
-ffs_summarise_season: a dataframe summarising franchise results across each simulation season
-ffs_summarise_simulation: a dataframe summarising franchise results across the simulation
-ffs_summarise_inseason: a dataframe summarising franchise results for the inseason simulation</p>
+    
+
+<p>ffs_summarise_week: a dataframe summarising team results by simulation week</p>
+
+
+<p>ffs_summarise_season: a dataframe summarising franchise results across each simulation season</p>
+
+
+<p>ffs_summarise_simulation: a dataframe summarising franchise results across the simulation</p>
+
+
+<p>ffs_summarise_inseason: a dataframe summarising franchise results for the inseason simulation</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
@@ -121,13 +138,13 @@ ffs_summarise_inseason: a dataframe summarising franchise results for the inseas
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># \donttest{</span></span>
-<span class="r-in"><span class="co"># cached examples</span></span>
-<span class="r-in"><span class="va">optimal_scores</span> <span class="op">&lt;-</span> <span class="fu">.ffs_cache</span><span class="op">(</span><span class="st">"optimal_scores.rds"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">schedules</span> <span class="op">&lt;-</span> <span class="fu">.ffs_cache</span><span class="op">(</span><span class="st">"schedules.rds"</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">summary_week</span> <span class="op">&lt;-</span> <span class="fu">ffs_summarise_week</span><span class="op">(</span><span class="va">optimal_scores</span>, <span class="va">schedules</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">summary_week</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># \donttest{</span></span></span>
+<span class="r-in"><span><span class="co"># cached examples</span></span></span>
+<span class="r-in"><span><span class="va">optimal_scores</span> <span class="op">&lt;-</span> <span class="fu">.ffs_cache</span><span class="op">(</span><span class="st">"optimal_scores.rds"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">schedules</span> <span class="op">&lt;-</span> <span class="fu">.ffs_cache</span><span class="op">(</span><span class="st">"schedules.rds"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">summary_week</span> <span class="op">&lt;-</span> <span class="fu">ffs_summarise_week</span><span class="op">(</span><span class="va">optimal_scores</span>, <span class="va">schedules</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">summary_week</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     season week                 franchise_name optimal_score lineup_efficiency</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  1:      1    1        Mexico City Space Force        189.38             0.840</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  2:      1    1                    Dirty Dgens        127.19             0.810</span>
@@ -498,8 +515,8 @@ ffs_summarise_inseason: a dataframe summarising franchise results for the inseas
 <span class="r-out co"><span class="r-pr">#&gt;</span> 71: 31.92,21.60, 7.60, 7.70, 7.90,14.45,...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 72: 14.56,21.64,10.40,19.20,20.50,14.20,...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                        optimal_player_score</span>
-<span class="r-in"><span class="va">summary_season</span> <span class="op">&lt;-</span> <span class="fu">ffs_summarise_season</span><span class="op">(</span><span class="va">summary_week</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">summary_season</span></span>
+<span class="r-in"><span><span class="va">summary_season</span> <span class="op">&lt;-</span> <span class="fu">ffs_summarise_season</span><span class="op">(</span><span class="va">summary_week</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">summary_season</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     season league_id franchise_id                 franchise_name h2h_wins</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  1:      1     22627         0001        Mexico City Space Force        3</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  2:      1     22627         0002                    Dirty Dgens        0</span>
@@ -578,8 +595,8 @@ ffs_summarise_inseason: a dataframe summarising franchise results for the inseas
 <span class="r-out co"><span class="r-pr">#&gt;</span> 23:         299.00           563.81</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 24:         465.97           530.64</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     points_against potential_points</span>
-<span class="r-in"><span class="va">summary_simulation</span> <span class="op">&lt;-</span> <span class="fu">ffs_summarise_simulation</span><span class="op">(</span><span class="va">summary_season</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">summary_simulation</span></span>
+<span class="r-in"><span><span class="va">summary_simulation</span> <span class="op">&lt;-</span> <span class="fu">ffs_summarise_simulation</span><span class="op">(</span><span class="va">summary_season</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">summary_simulation</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     league_id franchise_id                 franchise_name seasons h2h_wins</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  1:     22627         0001        Mexico City Space Force       2      3.0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  2:     22627         0012           Indigo Plateau Elite       2      1.0</span>
@@ -619,8 +636,8 @@ ffs_summarise_inseason: a dataframe summarising franchise results for the inseas
 <span class="r-out co"><span class="r-pr">#&gt;</span> 10:          419.665</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 11:          447.355</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 12:          331.865</span>
-<span class="r-in"><span class="co"># }</span></span>
-<span class="r-in"></span>
+<span class="r-in"><span><span class="co"># }</span></span></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
@@ -632,7 +649,7 @@ ffs_summarise_inseason: a dataframe summarising franchise results for the inseas
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
     </footer></div>

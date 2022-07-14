@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">ffsimulator</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.2.0.03</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.2.0.04</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -79,28 +79,37 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">ffs_generate_projections_week</span><span class="op">(</span>
-  <span class="va">adp_outcomes</span>,
-  <span class="va">latest_rankings</span>,
-  n <span class="op">=</span> <span class="fl">1000</span>,
-  rosters <span class="op">=</span> <span class="cn">NULL</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">ffs_generate_projections_week</span><span class="op">(</span></span>
+<span>  <span class="va">adp_outcomes</span>,</span>
+<span>  <span class="va">latest_rankings</span>,</span>
+<span>  n <span class="op">=</span> <span class="fl">1000</span>,</span>
+<span>  rosters <span class="op">=</span> <span class="cn">NULL</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>adp_outcomes</dt>
 <dd><p>a dataframe of adp-based weekly outcomes, as created by <code><a href="ffs_adp_outcomes.html">ffs_adp_outcomes()</a></code></p></dd>
+
+
 <dt>latest_rankings</dt>
 <dd><p>a dataframe of rankings, as created by <code><a href="ffs_latest_rankings.html">ffs_latest_rankings()</a></code></p></dd>
+
+
 <dt>n</dt>
 <dd><p>number of weeks to simulate</p></dd>
+
+
 <dt>rosters</dt>
 <dd><p>a dataframe of rosters, as created by <code><a href="ffs_rosters.html">ffs_rosters()</a></code> - optional, reduces computation to just rostered players</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>a dataframe of weekly scores for each player in the simulation, approximately of length n_seasons x n_weeks x latest_rankings</p>
+    
+
+<p>a dataframe of weekly scores for each player in the simulation, approximately of length n_seasons x n_weeks x latest_rankings</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
@@ -109,38 +118,38 @@
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># \donttest{</span></span>
-<span class="r-in"><span class="co"># cached examples</span></span>
-<span class="r-in"><span class="va">adp_outcomes_week</span> <span class="op">&lt;-</span> <span class="fu">.ffs_cache</span><span class="op">(</span><span class="st">"adp_outcomes_week.rds"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">latest_rankings_week</span> <span class="op">&lt;-</span> <span class="fu">.ffs_cache</span><span class="op">(</span><span class="st">"latest_rankings_week.rds"</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">ffs_generate_projections_week</span><span class="op">(</span><span class="va">adp_outcomes_week</span>, <span class="va">latest_rankings_week</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># \donttest{</span></span></span>
+<span class="r-in"><span><span class="co"># cached examples</span></span></span>
+<span class="r-in"><span><span class="va">adp_outcomes_week</span> <span class="op">&lt;-</span> <span class="fu">.ffs_cache</span><span class="op">(</span><span class="st">"adp_outcomes_week.rds"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">latest_rankings_week</span> <span class="op">&lt;-</span> <span class="fu">.ffs_cache</span><span class="op">(</span><span class="st">"latest_rankings_week.rds"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">ffs_generate_projections_week</span><span class="op">(</span><span class="va">adp_outcomes_week</span>, <span class="va">latest_rankings_week</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         week fantasypros_id         player pos team    ecr    sd rank</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      1:   16          17233  Lamar Jackson  QB  BAL   1.79  0.67    1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      2:   17          17233  Lamar Jackson  QB  BAL   1.79  0.67    1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      3:   29          17233  Lamar Jackson  QB  BAL   1.79  0.67    1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      4:   31          17233  Lamar Jackson  QB  BAL   1.79  0.67    1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      5:   34          17233  Lamar Jackson  QB  BAL   1.79  0.67    1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      1:    6          17233  Lamar Jackson  QB  BAL   1.79  0.67    1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      2:   10          17233  Lamar Jackson  QB  BAL   1.79  0.67    1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      3:   16          17233  Lamar Jackson  QB  BAL   1.79  0.67    1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      4:   18          17233  Lamar Jackson  QB  BAL   1.79  0.67    1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      5:   32          17233  Lamar Jackson  QB  BAL   1.79  0.67    1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     ---                                                              </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 276996:  719          19270 Devin Duvernay  WR  BAL 121.00 15.00  140</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 276997:  710          18318     Jalen Hurd  WR   SF 117.67 15.92  142</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 276998:  982          19270 Devin Duvernay  WR  BAL 121.00 15.00  142</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 276999:  741          19270 Devin Duvernay  WR  BAL 121.00 15.00  143</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 277000:  164          19270 Devin Duvernay  WR  BAL 121.00 15.00  145</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 276996:  974          19270 Devin Duvernay  WR  BAL 121.00 15.00  140</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 276997:  159          19270 Devin Duvernay  WR  BAL 121.00 15.00  141</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 276998:  447          19270 Devin Duvernay  WR  BAL 121.00 15.00  141</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 276999:  445          19270 Devin Duvernay  WR  BAL 121.00 15.00  146</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 277000:  988          19270 Devin Duvernay  WR  BAL 121.00 15.00  147</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         scrape_date projected_score projection gp_model season</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      1:  2021-09-06           15.18      15.18        1      1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      2:  2021-09-06           32.78      32.78        1      1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      3:  2021-09-06              NA         NA        1      1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      1:  2021-09-06           30.72      30.72        1      1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      2:  2021-09-06           28.92      28.92        1      1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      3:  2021-09-06           19.50      19.50        1      1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      4:  2021-09-06              NA         NA        1      1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      5:  2021-09-06              NA         NA        1      1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     ---                                                       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 276996:  2021-09-06              NA         NA        1      1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 276996:  2021-09-06            7.40       7.40        1      1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 276997:  2021-09-06              NA         NA        1      1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 276998:  2021-09-06              NA         NA        1      1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 276999:  2021-09-06              NA         NA        1      1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 276999:  2021-09-06            8.70       8.70        1      1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 277000:  2021-09-06              NA         NA        1      1</span>
-<span class="r-in"><span class="co"># }</span></span>
-<span class="r-in"></span>
+<span class="r-in"><span><span class="co"># }</span></span></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
@@ -152,7 +161,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
     </footer></div>
