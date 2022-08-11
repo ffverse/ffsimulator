@@ -4,7 +4,7 @@ library(ffscrapr)
 
 fp_set_ratelimit(rate_limit = FALSE)
 
-seasons <- 2016:2020
+seasons <- 2016:nflreadr::most_recent_season(roster = TRUE)
 
 pages <- c(
   "qb-cheatsheets",
