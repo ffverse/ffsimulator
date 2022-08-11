@@ -15,8 +15,8 @@
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="apple-touch-icon-60x60.png">
 <script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="deps/bootstrap-5.1.0/bootstrap.min.css" rel="stylesheet">
-<script src="deps/bootstrap-5.1.0/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<link href="deps/bootstrap-5.1.3/bootstrap.min.css" rel="stylesheet">
+<script src="deps/bootstrap-5.1.3/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="pkgdown.js"></script><link href="extra.css" rel="stylesheet">
 <meta property="og:title" content="ffsimulator • Simulate Fantasy Football Seasons">
@@ -40,7 +40,7 @@
     
     <a class="navbar-brand me-2" href="index.html">ffsimulator</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.2.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.0.04</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -84,7 +84,7 @@
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-more">More</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-more">
     <a class="external-link dropdown-item" href="https://www.ffverse.com">ffverse</a>
-    <a class="external-link dropdown-item" href="https://ffscrapr.dynastyprocess.com">ffscrapr package</a>
+    <a class="external-link dropdown-item" href="https://ffscrapr.ffverse.com">ffscrapr package</a>
     <a class="external-link dropdown-item" href="https://ffpros.ffverse.com">ffpros package</a>
     <a class="external-link dropdown-item" href="https://www.github.com/ffverse">ffverse GitHub</a>
     <div class="dropdown-divider"></div>
@@ -109,9 +109,7 @@
 </h1>
 </div>
 <!-- badges: start -->
-
-<!-- badges: end -->
-<p>The <a href="https://ffsimulator.ffverse.com">ffsimulator</a> package uses bootstrap resampling to run fantasy football season simulations supported by historical rankings and nflfastR data, calculating optimal lineups, and returning aggregated results. This can quickly run your league through hundreds of seasons and builds out the data to help you study:</p>
+<!-- badges: end --><p>The <a href="https://ffsimulator.ffverse.com">ffsimulator</a> package uses bootstrap resampling to run fantasy football season simulations supported by historical rankings and nflfastR data, calculating optimal lineups, and returning aggregated results. This can quickly run your league through hundreds of seasons and builds out the data to help you study:</p>
 <ul>
 <li>expected season finishes and range of outcomes</li>
 <li>player contributions to season wins</li>
@@ -123,17 +121,16 @@
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
-<p>Install the stable version of this package from CRAN or the <a href="https://ffverse.r-universe.dev" class="external-link">ffverse r-universe repository</a>:</p>
+<p>Install the stable version of this package from CRAN:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"ffsimulator"</span><span class="op">)</span> <span class="co"># CRAN</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"ffsimulator"</span>, repos <span class="op">=</span> <span class="st">"https://ffverse.r-universe.dev"</span><span class="op">)</span></code></pre></div>
-<p>Install the development version with either <a href="https://dynastyprocess.r-universe.dev" class="external-link">DynastyProcess’s r-universe</a> or remotes + GitHub:</p>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"ffsimulator"</span><span class="op">)</span> <span class="co"># CRAN</span></span></code></pre></div>
+<p>Install the development version from either <a href="https://ffverse.r-universe.dev" class="external-link">r-universe</a> or GitHub:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># DynastyProcess's r-universe</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"ffsimulator"</span>, repos <span class="op">=</span> <span class="st">"https://dynastyprocess.r-universe.dev"</span><span class="op">)</span>
-
-<span class="co"># or via GitHub c/o remotes/devtools: # install.packages('remotes')</span>
-<span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"ffverse/ffsimulator"</span>, ref <span class="op">=</span> <span class="st">"dev"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"ffsimulator"</span>, repos <span class="op">=</span> <span class="st">"https://ffverse.r-universe.dev"</span><span class="op">)</span></span>
+<span><span class="co"># pak is recommended, see https://github.com/r-lib/pak</span></span>
+<span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="http://pak.r-lib.org/reference/pak.html" class="external-link">pak</a></span><span class="op">(</span><span class="st">"ffverse/ffsimulator"</span><span class="op">)</span></span>
+<span><span class="co"># can also use remotes</span></span>
+<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"ffverse/ffsimulator"</span><span class="op">)</span></span></code></pre></div>
 <p>The development version has a <a href="https://ffsimulator.ffverse.com/dev/">separate documentation site here</a>.</p>
 </div>
 <div class="section level2">
@@ -141,20 +138,20 @@
 </h2>
 <p>A season simulation can be run as follows:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ffsimulator.ffverse.com">ffsimulator</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://wilkelab.org/ggridges/" class="external-link">ggridges</a></span><span class="op">)</span>
-
-<span class="va">mfl_conn</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/mfl_connect.html">mfl_connect</a></span><span class="op">(</span>season <span class="op">=</span> <span class="fl">2021</span>, league_id <span class="op">=</span> <span class="fl">22627</span><span class="op">)</span>
-
-<span class="co">## OTHER PLATFORM CONNECTIONS MAY BE USED, FOR EXAMPLE:</span>
-<span class="co"># sleeper_conn &lt;- sleeper_connect(season = 2021,  league_id = "652582284720971776") </span>
-<span class="co"># flea_conn &lt;- fleaflicker_connect(season = 2021, league_id = 312861) </span>
-<span class="co"># espn_conn &lt;- espn_connect(season = 2021, league_id = 899513)</span>
-
-<span class="va">mfl_sim</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/ff_simulate.html">ff_simulate</a></span><span class="op">(</span>conn <span class="op">=</span> <span class="va">mfl_conn</span>, n_seasons <span class="op">=</span> <span class="fl">100</span><span class="op">)</span>
-
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mfl_sim</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ffsimulator.ffverse.com">ffsimulator</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://wilkelab.org/ggridges/" class="external-link">ggridges</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">mfl_conn</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/mfl_connect.html">mfl_connect</a></span><span class="op">(</span>season <span class="op">=</span> <span class="fl">2021</span>, league_id <span class="op">=</span> <span class="fl">22627</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">## OTHER PLATFORM CONNECTIONS MAY BE USED, FOR EXAMPLE:</span></span>
+<span><span class="co"># sleeper_conn &lt;- sleeper_connect(season = 2021,  league_id = "652582284720971776") </span></span>
+<span><span class="co"># flea_conn &lt;- fleaflicker_connect(season = 2021, league_id = 312861) </span></span>
+<span><span class="co"># espn_conn &lt;- espn_connect(season = 2021, league_id = 899513)</span></span>
+<span></span>
+<span><span class="va">mfl_sim</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/ff_simulate.html">ff_simulate</a></span><span class="op">(</span>conn <span class="op">=</span> <span class="va">mfl_conn</span>, n_seasons <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mfl_sim</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/ffsimulator_plot.png" width="100%"></p>
 <p>Please also see the</p>
 <ul>
@@ -234,7 +231,7 @@
 <h2 data-toc-skip>Dev status</h2>
 <ul class="list-unstyled">
 <li><a href="https://CRAN.R-project.org/package=ffsimulator" class="external-link"><img src="https://img.shields.io/cran/v/ffsimulator?style=flat-square&amp;logo=R&amp;label=CRAN" alt="CRAN status"></a></li>
-<li><a href="https://ffsimulator.ffverse.com/"><img src="https://img.shields.io/github/r-package/v/ffverse/ffsimulator/dev?label=dev&amp;style=flat-square&amp;logo=github" alt="Dev version"></a></li>
+<li><a href="https://ffsimulator.ffverse.com/"><img src="https://img.shields.io/github/r-package/v/ffverse/ffsimulator/main?label=dev&amp;style=flat-square&amp;logo=github" alt="Dev version"></a></li>
 <li><a href="https://lifecycle.r-lib.org/articles/stages.html" class="external-link"><img src="https://img.shields.io/badge/lifecycle-experimental-orange.svg?style=flat-square" alt="Lifecycle: experimental"></a></li>
 <li><a href="https://github.com/ffverse/ffsimulator/actions" class="external-link"><img src="https://img.shields.io/github/workflow/status/ffverse/ffsimulator/R-CMD-check?label=R%20check&amp;style=flat-square&amp;logo=github" alt="R build status"></a></li>
 <li><a href="https://github.com/ffverse/ffsimulator/actions" class="external-link"><img src="https://img.shields.io/github/workflow/status/ffverse/ffsimulator/api-check?label=api%20check&amp;style=flat-square&amp;logo=github" alt="Integration testing"></a></li>
@@ -254,7 +251,7 @@
 
 <div class="pkgdown-footer-right">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
     </footer>
