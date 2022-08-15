@@ -1,12 +1,16 @@
-# ffsimulator (development version)
+# ffsimulator 1.2.1
 
-## Fixes
+Update to add 2021 data to ranking history, minor bug fixes, and resolve CRAN documentation issues.
+
+## Bugfixes
 
 - Patch if all weeks are bye weeks as zero
 - Bump minimum nflreadr version to 1.2.0 because of data repo location change.
 - Reorganize repo to use github flow
 - typo corrections in custom simulations vignette
 - Redocument and fix spacing for CRAN issues
+
+Thank you to all who've provided feedback and contributions on this release, including: [&#x0040;bcarancibia](https://github.com/bcarancibia), [&#x0040;maatspencer](https://github.com/maatspencer), [&#x0040;rogers1000](https://github.com/rogers1000), and [&#x0040;topfunky](https://github.com/topfunky).
 
 ---
 

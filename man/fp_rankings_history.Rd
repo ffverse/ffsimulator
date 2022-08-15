@@ -5,7 +5,7 @@
 \alias{fp_rankings_history}
 \title{Historical draft position ranks}
 \format{
-An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 7503 rows and 10 columns.
+An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 10749 rows and 10 columns.
 }
 \usage{
 fp_rankings_history
