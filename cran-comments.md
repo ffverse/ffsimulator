@@ -1,4 +1,10 @@
-donttest example code now fails gracefully if run. 
+## Resubmission
+
+Remove stray folder accidentally added to package.
+
+## Original Submission
+
+donttest example code now fails gracefully if run
 
 ## Test environments
 * Windows 10      (local),  R 4.2.0
