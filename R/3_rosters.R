@@ -13,7 +13,9 @@
 #' # cached examples
 #' conn <- .ffs_cache("mfl_conn.rds")
 #'
-#' ffs_rosters(conn)
+#' try({ # prevents CRAN connectivity issues, not actually required in normal usage
+#'   ffs_rosters(conn)
+#' })
 #' }
 #'
 #' @seealso vignette("custom") for more detailed example usage
@@ -119,7 +121,9 @@ ffs_rosters.default <- function(conn) {
 #' # cached examples
 #' conn <- .ffs_cache("mfl_conn.rds")
 #'
+#' try({ # prevents CRAN connectivity issues, not actually required in normal usage
 #' ffs_franchises(conn)
+#' })
 #' }
 #'
 #' @seealso vignette("Custom Simulations") for more detailed example usage

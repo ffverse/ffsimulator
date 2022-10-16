@@ -20,7 +20,9 @@ This function lightly wraps \code{ffscrapr::ff_franchises()} and adds league_id,
 # cached examples
 conn <- .ffs_cache("mfl_conn.rds")
 
+try({ # prevents CRAN connectivity issues, not actually required in normal usage
 ffs_franchises(conn)
+})
 }
 
 }
