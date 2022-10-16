@@ -1,4 +1,4 @@
-Minor data update and documentation fix as requested by CRAN.
+donttest example code now fails gracefully if run. 
 
 ## Test environments
 * Windows 10      (local),  R 4.2.0
