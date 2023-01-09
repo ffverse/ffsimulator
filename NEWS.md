@@ -1,3 +1,9 @@
+# ffsimulator 1.2.2
+
+One line of documentation changed. Yay.
+
+---
+
 # ffsimulator 1.2.1
 
 Update to add 2021 data to ranking history, minor bug fixes, and resolve CRAN documentation issues.

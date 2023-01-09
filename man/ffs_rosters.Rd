@@ -32,7 +32,9 @@ This function lightly wraps \code{ffscrapr::ff_rosters()} and adds fantasypros_i
 # cached examples
 conn <- .ffs_cache("mfl_conn.rds")
 
-ffs_rosters(conn)
+try({ # prevents CRAN connectivity issues, not actually required in normal usage
+  ffs_rosters(conn)
+})
 }
 
 }

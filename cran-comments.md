@@ -1,4 +1,10 @@
-Minor data update and documentation fix as requested by CRAN.
+## Resubmission
+
+Remove stray folder accidentally added to package.
+
+## Original Submission
+
+donttest example code now fails gracefully if run
 
 ## Test environments
 * Windows 10      (local),  R 4.2.0

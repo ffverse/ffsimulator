@@ -10,6 +10,7 @@
 ^pkgdown$
 ^codecov\.yml$
 ^doc$
+^revdep$
 ^Meta$
 ^CRAN-RELEASE$
 ^CRAN-SUBMISSION$
