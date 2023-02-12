@@ -1,3 +1,9 @@
+# ffsimulator 1.2.3
+
+Zero changes from 1.2.2 except needed a version bump to put it back on CRAN after ffscrapr got back on CRAN.
+
+--- 
+
 # ffsimulator 1.2.2
 
 One line of documentation changed. Yay.
