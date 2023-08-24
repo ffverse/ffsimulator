@@ -1,4 +1,4 @@
-library(ffpros) # https://ffpros.dynastyprocess.com
+library(ffpros) # https://ffpros.ffverse.com
 library(tidyverse)
 library(ffscrapr)
 library(furrr)
@@ -54,7 +54,7 @@ fp_rankings_history <- crossing(pages, seasons, weeks) %>%
   ) %>%
   filter(page_pos == pos)
 
-seasons2 <- 2016:2020
+seasons2 <- 2016:nflreadr::most_recent_season()
 pages2 <- c(
   "qb",
   "ppr-rb",
