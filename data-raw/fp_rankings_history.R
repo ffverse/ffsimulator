@@ -1,10 +1,10 @@
-library(ffpros) # https://ffpros.dynastyprocess.com
+library(ffpros) # https://ffpros.ffpros.com
 library(tidyverse)
 library(ffscrapr)
 
 fp_set_ratelimit(rate_limit = FALSE)
 
-seasons <- 2016:nflreadr::most_recent_season(roster = TRUE)
+seasons <- 2016:nflreadr::most_recent_season()
 
 pages <- c(
   "qb-cheatsheets",
@@ -19,7 +19,7 @@ pages <- c(
 )
 
 fp_rankings_history <- crossing(pages, seasons) %>%
-  mutate(rankings = map2(pages, seasons, ~ fp_rankings(page = .x, year = .y))) %>%
+  mutate(rankings = map2(pages, seasons, ~ fp_rankings(page = .x, year = .y), .progress = TRUE)) %>%
   unnest(rankings) %>%
   transmute(
     page_pos =
@@ -54,7 +54,7 @@ pages2 <- c(
 )
 
 fp_rankings_history2 <- crossing(pages2, seasons2) %>%
-  mutate(rankings = map2(pages2, seasons2, ~ fp_rankings(page = .x, year = .y))) %>%
+  mutate(rankings = map2(pages2, seasons2, ~ fp_rankings(page = .x, year = .y), .progress = TRUE)) %>%
   unnest(rankings) %>%
   transmute(
     page_pos =

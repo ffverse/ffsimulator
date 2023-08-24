@@ -5,7 +5,7 @@ library(ffsimulator)
 # pkgload::load_all()
 
 conn <- mfl_connect(2021, 47747)
-base_seasons <- 2010:2020
+base_seasons <- 2010:nflreadr::most_recent_season()
 scoring_history <- ff_scoringhistory(conn, base_seasons)
 
 model_gam <- function(data) {
