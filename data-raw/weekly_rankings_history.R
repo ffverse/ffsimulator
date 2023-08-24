@@ -40,7 +40,7 @@ fp_rankings_history <- crossing(pages, seasons, weeks) %>%
     week = weeks,
     fantasypros_id = as.character(fantasypros_id),
     sportradar_id,
-    player_name = dp_cleannames(player_name),
+    player_name = nflreadr::clean_player_names(player_name),
     pos = case_when(
       pos %in% c("CB", "S") ~ "DB",
       pos %in% c("OLB", "LB") ~ "LB",
@@ -83,7 +83,7 @@ fp_rankings_history2 <- crossing(pages2, seasons2, weeks) %>%
     week = weeks,
     fantasypros_id = as.character(fantasypros_id),
     sportradar_id,
-    player_name = dp_cleannames(player_name),
+    player_name = nflreadr::clean_player_names(player_name),
     pos,
     team,
     rank,
