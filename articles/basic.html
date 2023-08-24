@@ -108,7 +108,7 @@
       <img src="../logo.png" class="logo" alt=""><h1>Basic Simulations</h1>
                         <h4 data-toc-skip class="author">Tan Ho</h4>
             
-            <h4 data-toc-skip class="date">2023-02-12</h4>
+            <h4 data-toc-skip class="date">2023-08-24</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/ffverse/ffsimulator/blob/HEAD/vignettes/basic.Rmd" class="external-link"><code>vignettes/basic.Rmd</code></a></small>
       <div class="d-none name"><code>basic.Rmd</code></div>
@@ -164,23 +164,22 @@ across all of the simulated seasons.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">foureight_sim</span><span class="op">$</span><span class="va">summary_simulation</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 12 × 11</span></span></span>
-<span><span class="co">#&gt;    league_id franchise…¹ franc…² seasons h2h_w…³ h2h_w…⁴ allpl…⁵ allpl…⁶ point…⁷</span></span>
-<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> 22627     0012        Indigo…      10    12.1   0.864   134.    0.867   <span style="text-decoration: underline;">2</span>074.</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> 22627     0001        Mexico…      10    10.6   0.757   110     0.714   <span style="text-decoration: underline;">1</span>842.</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> 22627     0007        Paw Pa…      10     7.8   0.557    84.9   0.551   <span style="text-decoration: underline;">1</span>671.</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> 22627     0004        Electr…      10     7.4   0.529    84.2   0.547   <span style="text-decoration: underline;">1</span>649.</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> 22627     0011        TB12         10     7.1   0.507    83.5   0.542   <span style="text-decoration: underline;">1</span>659.</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> 22627     0005        Motor …      10     7.6   0.543    79.2   0.514   <span style="text-decoration: underline;">1</span>626.</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> 22627     0009        Kill D…      10     7.3   0.521    74.8   0.486   <span style="text-decoration: underline;">1</span>570.</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> 22627     0008        Domina…      10     6.3   0.45     73.6   0.478   <span style="text-decoration: underline;">1</span>571.</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> 22627     0003        Albert…      10     6.4   0.457    71.4   0.464   <span style="text-decoration: underline;">1</span>568.</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 22627     0010        [Redac…      10     5.3   0.379    54.9   0.357   <span style="text-decoration: underline;">1</span>458.</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">11</span> 22627     0006        Hoth C…      10     3     0.214    38.3   0.249   <span style="text-decoration: underline;">1</span>318.</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">12</span> 22627     0002        Dirty …      10     3.1   0.221    35.7   0.232   <span style="text-decoration: underline;">1</span>277.</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># … with 2 more variables: points_against &lt;dbl&gt;, potential_points &lt;dbl&gt;, and</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   abbreviated variable names ¹​franchise_id, ²​franchise_name, ³​h2h_wins,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   ⁴​h2h_winpct, ⁵​allplay_wins, ⁶​allplay_winpct, ⁷​points_for</span></span></span></code></pre></div>
+<span><span class="co">#&gt;    league_id franchise_id franchise_name             seasons h2h_wins h2h_winpct</span></span>
+<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                        <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> 22627     0012         Indigo Plateau Elite            10     12.1      0.864</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> 22627     0001         Mexico City Space Force         10     10.6      0.757</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> 22627     0007         Paw Patrol                      10      7.8      0.557</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> 22627     0004         Electric Woodies                10      7.4      0.529</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> 22627     0011         TB12                            10      7.1      0.507</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> 22627     0005         Motor City Mutts                10      7.6      0.543</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> 22627     0009         Kill Devil Hills Carpetba…      10      7.3      0.521</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> 22627     0008         Domination Station              10      6.3      0.45 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> 22627     0003         Alberta Armadillos              10      6.4      0.457</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 22627     0010         [Redacted]                      10      5.3      0.379</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">11</span> 22627     0006         Hoth City Tauntauns             10      3        0.214</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">12</span> 22627     0002         Dirty Dgens                     10      3.1      0.221</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 5 more variables: allplay_wins &lt;dbl&gt;, allplay_winpct &lt;dbl&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   points_for &lt;dbl&gt;, points_against &lt;dbl&gt;, potential_points &lt;dbl&gt;</span></span></span></code></pre></div>
 <p>The <code>summary_season</code> table is a season-level summary of
 all weeks within those seasons - any one of these seasons “could”
 theoretically be the outcome of the upcoming season!</p>
@@ -349,13 +348,12 @@ copies of players within the league).</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">foureight_sim</span><span class="op">$</span><span class="va">league_info</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 1 × 17</span></span></span>
-<span><span class="co">#&gt;   league_id leagu…¹ season leagu…² franc…³ qb_type idp   scori…⁴ best_…⁵ salar…⁶</span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 22627     Four-E…   <span style="text-decoration: underline;">2</span>021 dynasty      12 2QB/SF  TRUE  0.5_pp… FALSE   TRUE   </span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># … with 7 more variables: player_copies &lt;dbl&gt;, years_active &lt;chr&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   qb_count &lt;chr&gt;, roster_size &lt;dbl&gt;, league_depth &lt;dbl&gt;, draft_type &lt;chr&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   draft_player_pool &lt;chr&gt;, and abbreviated variable names ¹​league_name,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   ²​league_type, ³​franchise_count, ⁴​scoring_flags, ⁵​best_ball, ⁶​salary_cap</span></span></span></code></pre></div>
+<span><span class="co">#&gt;   league_id league_name         season league_type franchise_count qb_type idp  </span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                 <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 22627     Four-Eight Dynasty…   <span style="text-decoration: underline;">2</span>021 dynasty                  12 2QB/SF  TRUE </span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 10 more variables: scoring_flags &lt;chr&gt;, best_ball &lt;lgl&gt;, salary_cap &lt;lgl&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   player_copies &lt;dbl&gt;, years_active &lt;chr&gt;, qb_count &lt;chr&gt;, roster_size &lt;dbl&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   league_depth &lt;dbl&gt;, draft_type &lt;chr&gt;, draft_player_pool &lt;chr&gt;</span></span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="usage---simulating-weeks">Usage - Simulating Weeks<a class="anchor" aria-label="anchor" href="#usage---simulating-weeks"></a>
