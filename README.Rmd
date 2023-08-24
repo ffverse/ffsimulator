@@ -23,9 +23,8 @@ knitr::opts_chunk$set(
 [![CRAN status](https://img.shields.io/cran/v/ffsimulator?style=flat-square&logo=R&label=CRAN)](https://CRAN.R-project.org/package=ffsimulator)
 [![Dev version](https://img.shields.io/github/r-package/v/ffverse/ffsimulator/main?label=dev&style=flat-square&logo=github)](https://ffsimulator.ffverse.com/) 
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg?style=flat-square)](https://lifecycle.r-lib.org/articles/stages.html) 
-[![R build status](https://img.shields.io/github/workflow/status/ffverse/ffsimulator/R-CMD-check?label=R%20check&style=flat-square&logo=github)](https://github.com/ffverse/ffsimulator/actions) 
-[![Integration testing](https://img.shields.io/github/workflow/status/ffverse/ffsimulator/api-check?label=api%20check&style=flat-square&logo=github)](https://github.com/ffverse/ffsimulator/actions) 
-[![Codecov test coverage](https://img.shields.io/codecov/c/github/ffverse/ffsimulator?label=codecov&style=flat-square&logo=codecov)](https://app.codecov.io/gh/ffverse/ffsimulator?branch=dev) 
+[![R build status](https://img.shields.io/github/actions/workflow/status/ffverse/ffsimulator/R-CMD-check.yaml?label=R%20check&style=flat-square&logo=github)](https://github.com/ffverse/ffsimulator/actions)
+[![Codecov test coverage](https://img.shields.io/codecov/c/github/ffverse/ffsimulator?label=codecov&style=flat-square&logo=codecov)](https://app.codecov.io/gh/ffverse/ffsimulator) 
 [![nflverse discord](https://img.shields.io/discord/789805604076126219?color=7289da&label=nflverse%20discord&logo=discord&logoColor=fff&style=flat-square)](https://discord.com/invite/5Er2FBnnQa)
 
 <!-- badges: end -->

@@ -1,10 +1,6 @@
-## Resubmission
+## SUBMISSION
 
-Remove stray folder accidentally added to package.
-
-## Original Submission
-
-donttest example code now fails gracefully if run
+Resubmit to CRAN after required dependency ffscrapr was returned to CRAN
 
 ## Test environments
 * Windows 10      (local),  R 4.2.0
