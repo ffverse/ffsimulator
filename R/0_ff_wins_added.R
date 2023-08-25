@@ -34,19 +34,12 @@ ff_wins_added <- function(conn, ...){
 
   #### ASSERTIONS ####
 
-  if (!class(conn) %in% c("mfl_conn", "sleeper_conn", "flea_conn", "espn_conn")) {
-    stop(
-      "conn should be a connection object created by `ff_connect()` and friends!",
-      call. = FALSE
-    )
-  }
+  checkmate::assert_multi_class(c("mfl_conn", "sleeper_conn", "flea_conn", "espn_conn"))
 
   vcli_rule("BASE SIMULATION")
 
   # Run base simulation once for n seasons/weeks etc
-  base_simulation <- ff_simulate(conn = conn,
-                                 ...,
-                                 return = "all")
+  base_simulation <- ff_simulate(conn = conn, ..., return = "all")
 
   pos <- NULL
   allplay_winpct <- NULL
@@ -58,22 +51,27 @@ ff_wins_added <- function(conn, ...){
 
   vcli_rule("Start WAR calcs {Sys.time()}")
 
-  progress_flag <- requireNamespace("progressr",quietly = TRUE) && getOption("ffsimulator.verbose", default =  TRUE)
+  progress_flag <- rlang::is_installed("progressr") && getOption("ffsimulator.verbose", default =  TRUE)
 
-  if(getOption("ffsimulator.verbose", default =  TRUE) & !progress_flag) warning("{progressr} package not found - please install for detailed progress updates!", call. = FALSE)
+  if(getOption("ffsimulator.verbose", default =  TRUE) & !progress_flag) {
+    cli::cli_warn("{.pkg progressr} package not found - please install for detailed progress updates!")
+  }
 
-  with_progress <- if(progress_flag) progressr::with_progress else force
+  with_progress <- if (progress_flag) progressr::with_progress else force
   p <- function() NULL
 
   war <- with_progress({
 
     if(progress_flag) p <- progressr::progressor(nrow(rosters))
 
-    rosters[,
-            .ffs_win_add(.SD, base_simulation,p),
-            by = c("league_id","franchise_id","franchise_name","player_id","player_name","pos"),
-            .SDcols = c("player_id","player_name","franchise_id")
-    ][order(-allplay_winpct)]
+    rosters[
+      ,
+      .ffs_win_add(.SD, base_simulation,p),
+      by = c("league_id","franchise_id","franchise_name","player_id","player_name","pos"),
+      .SDcols = c("player_id","player_name","franchise_id")
+    ][
+      order(-allplay_winpct)
+    ]
   })
 
   vcli_rule("WAR calcs complete! {Sys.time()}")
@@ -105,8 +103,7 @@ ff_wins_added <- function(conn, ...){
   )
 
   all_scores <- data.table::rbindlist(
-    list(base_simulation$optimal_scores[franchise_id != f_id],
-         wa_optimal)
+    list(base_simulation$optimal_scores[franchise_id != f_id], wa_optimal)
   )
 
   wa_week <- ffs_summarise_week(optimal_scores = all_scores, schedules = base_simulation$schedules)

@@ -35,7 +35,7 @@ ff_simulate <- function(conn,
                         best_ball = FALSE,
                         seed = NULL,
                         gp_model = c("simple", "none"),
-                        base_seasons = 2012:2020,
+                        base_seasons = 2012:2022,
                         actual_schedule = FALSE,
                         replacement_level = TRUE,
                         pos_filter = c("QB","RB","WR","TE","K"),
@@ -72,7 +72,7 @@ ff_simulate <- function(conn,
   gp_model <- rlang::arg_match0(gp_model, c("simple","none"))
   return <- rlang::arg_match0(return, c("default","all"))
   checkmate::assert_subset(pos_filter, c("QB","RB","WR","TE","K"))
-  checkmate::assert_numeric(base_seasons, lower = 2012, upper = 2020)
+  checkmate::assert_numeric(base_seasons, lower = 2012, upper = 2022)
   checkmate::assert_int(n_seasons, lower = 1)
   checkmate::assert_int(n_weeks, lower = 1)
   checkmate::assert_int(seed, null.ok = TRUE)
