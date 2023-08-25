@@ -27,10 +27,7 @@ autoplot.ff_simulation_week <- function(object,
                                         ...) {
   type <- rlang::arg_match(type)
 
-  if (!requireNamespace("ggplot2", quietly = TRUE) &&
-      !requireNamespace("ggridges", quietly = TRUE)) {
-    stop("`ggplot2` and `ggridges` must be installed to use `autoplot`.", call. = FALSE)
-  }
+  rlang::check_installed(c("ggplot2 (>= 3.4.0)", "ggridges"))
 
   switch(type,
          "luck" = p <- .ffs_plot_week_luck(object, ...),
@@ -39,9 +36,11 @@ autoplot.ff_simulation_week <- function(object,
   p
 }
 
-.ffs_plot_week_luck <- function(object, ...) {
+.ffs_plot_week_luck <- function(object, ..., caller_env = rlang::caller_env()) {
 
-  if(!object$simulation_params$actual_schedule) stop("Schedule luck plot not available if `actual_schedule` is FALSE")
+  if(!object$simulation_params$actual_schedule) {
+    cli::cli_abort("Schedule luck plot not available if `actual_schedule` is FALSE", call = caller_env)
+  }
 
   luck <- object$summary_simulation
   data.table::setDT(luck)
@@ -49,13 +48,17 @@ autoplot.ff_simulation_week <- function(object,
   allplay_winpct <- NULL
   luck_pct <- NULL
 
-  luck <- luck[,`:=`(luck_pct = h2h_winpct - allplay_winpct)
-  ][,`:=`(
-    luck_label = scales::percent(luck_pct, accuracy = 0.1),
-    ap_hjust = ifelse(luck_pct > 0, 1.1, -0.1),
-    h2h_hjust = ifelse(luck_pct > 0, -0.1, 1.1)
+  luck <- luck[
+    ,`:=`(luck_pct = h2h_winpct - allplay_winpct)
+  ][
+    ,`:=`(
+      luck_label = scales::percent(luck_pct, accuracy = 0.1),
+      ap_hjust = ifelse(luck_pct > 0, 1.1, -0.1),
+      h2h_hjust = ifelse(luck_pct > 0, -0.1, 1.1)
     )
-  ][order(h2h_winpct)]
+  ][
+    order(h2h_winpct)
+  ]
 
   luck$franchise_name <- factor(luck$franchise_name, levels = luck$franchise_name)
 
@@ -66,7 +69,7 @@ autoplot.ff_simulation_week <- function(object,
       color = .data$franchise_name
     )
   ) +
-    ggplot2::geom_point(ggplot2::aes(x=.data$allplay_winpct), alpha = 0.8, size = 2) +
+    ggplot2::geom_point(ggplot2::aes(x = .data$allplay_winpct), alpha = 0.8, size = 2) +
     ggplot2::geom_segment(
       ggplot2::aes(
         x = .data$allplay_winpct,
@@ -129,7 +132,13 @@ autoplot.ff_simulation_week <- function(object,
   sw <- object$summary_week
   data.table::setDT(sw)
   team_score <- NULL
-  sw_levels <- sw[,.(team_score = stats::median(team_score, na.rm = TRUE)),by = c("franchise_name")][order(team_score)]
+  sw_levels <- sw[
+    , list(team_score = stats::median(team_score, na.rm = TRUE))
+    , by = c("franchise_name")
+  ][
+    order(team_score)
+  ]
+
   sw$franchise_name <- factor(sw$franchise_name, levels = sw_levels$franchise_name)
 
   ggplot2::ggplot(
@@ -166,10 +175,7 @@ autoplot.ff_simulation_week <- function(object,
 #' @param y Ignored, required for compatibility with the `plot()` generic.
 #' @export
 plot.ff_simulation_week <- function(x, ..., type = c("luck", "points"), y) {
-  if (!requireNamespace("ggplot2", quietly = TRUE) &&
-      !requireNamespace("ggridges", quietly = TRUE)) {
-    stop("`ggplot2` and `ggridges` must be installed to use `plot`.", call. = FALSE)
-  }
+  rlang::check_installed(c("ggplot2 (>= 3.4.0)", "ggridges"))
 
   type <- rlang::arg_match(type)
 

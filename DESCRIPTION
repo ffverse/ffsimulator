@@ -29,8 +29,8 @@ Imports:
     tidytable (>= 0.6.4)
 Suggests:
     covr (>= 3.0.0),
-    ggplot2 (>= 3.0.0),
-    ggridges (>= 0.5.0),
+    ggplot2 (>= 3.4.0),
+    ggridges (>= 0.5.4),
     knitr (>= 1.0),
     progressr (>= 0.8.0),
     rmarkdown (>= 2.6),

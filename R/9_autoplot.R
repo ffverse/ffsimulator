@@ -28,10 +28,7 @@ autoplot.ff_simulation <- function(object,
                                    ...) {
   type <- rlang::arg_match(type)
 
-  if (!requireNamespace("ggplot2", quietly = TRUE) &&
-      !requireNamespace("ggridges", quietly = TRUE)) {
-    stop("`ggplot2` and `ggridges` must be installed to use `autoplot`.", call. = FALSE)
-  }
+  rlang::check_installed(c("ggplot2 (>= 3.4.0)", "ggridges"))
 
   switch(type,
          "wins" = p <- .ffs_plot_wins(object, ...),
@@ -49,8 +46,12 @@ autoplot.ff_simulation <- function(object,
   h2h_wins <- NULL
   franchise_name <- NULL
 
-  ss_levels <- ss[,.(franchise_name,h2h_wins = stats::median(h2h_wins, na.rm = TRUE)),by = "franchise_name"
-  ][order(h2h_wins)]
+  ss_levels <- ss[
+    , list(franchise_name,h2h_wins = stats::median(h2h_wins, na.rm = TRUE))
+    ,by = "franchise_name"
+  ][
+    order(h2h_wins)
+  ]
 
   ss$franchise_name <- factor(ss$franchise_name, levels = ss_levels$franchise_name)
 
@@ -77,7 +78,6 @@ autoplot.ff_simulation <- function(object,
     ggplot2::ylab(NULL) +
     ggplot2::theme_minimal() +
     ggplot2::theme(
-      # legend.position = "none",
       panel.grid.major.y = ggplot2::element_blank(),
       panel.grid.minor.x = ggplot2::element_blank(),
       plot.title.position = "plot"
@@ -98,11 +98,17 @@ autoplot.ff_simulation <- function(object,
   franchise_name <- NULL
   season_rank <- NULL
 
-  ss[,`:=`(season_rank = rank(-h2h_wins, ties.method = "min")), by = "season"]
+  ss[
+    ,`:=`(season_rank = rank(-h2h_wins, ties.method = "min"))
+    , by = "season"
+  ]
+
   ss_levels <- ss[
-    ,.(franchise_name,season_rank = mean(season_rank, ties.method = "min")),
-    by = "franchise_name"
-  ][order(season_rank)]
+    , list(franchise_name, season_rank = mean(season_rank, ties.method = "min"))
+    , by = "franchise_name"
+  ][
+    order(season_rank)
+  ]
 
   ss$franchise_name <- factor(ss$franchise_name, levels = ss_levels$franchise_name)
   ss$rank_label <- factor(scales::ordinal(ss$season_rank), scales::ordinal(sort(unique(ss$season_rank))))
@@ -136,7 +142,12 @@ autoplot.ff_simulation <- function(object,
   sw <- object$summary_week
   data.table::setDT(sw)
   team_score <- NULL
-  sw_levels <- sw[,.(team_score = stats::median(team_score, na.rm = TRUE)),by = c("franchise_name")][order(team_score)]
+  sw_levels <- sw[
+    , list(team_score = stats::median(team_score, na.rm = TRUE))
+    ,by = c("franchise_name")
+    ][
+      order(team_score)
+    ]
   sw$franchise_name <- factor(sw$franchise_name, levels = sw_levels$franchise_name)
 
   ggplot2::ggplot(
@@ -175,10 +186,7 @@ autoplot.ff_simulation <- function(object,
 #' @param y Ignored, required for compatibility with the `plot()` generic.
 #' @export
 plot.ff_simulation <- function(x, ..., type = c("wins", "rank", "points"), y) {
-  if (!requireNamespace("ggplot2", quietly = TRUE) &&
-      !requireNamespace("ggridges", quietly = TRUE)) {
-    stop("`ggplot2` and `ggridges` must be installed to use `plot`.", call. = FALSE)
-  }
+  rlang::check_installed(c("ggplot2 (>= 3.4.0)", "ggridges"))
 
   type <- rlang::arg_match(type)
 
