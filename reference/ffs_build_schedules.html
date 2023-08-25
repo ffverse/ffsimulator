@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">ffsimulator</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.3.01</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -129,20 +129,18 @@
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># \donttest{</span></span></span>
 <span class="r-in"><span><span class="fu">ffs_build_schedules</span><span class="op">(</span>n_teams <span class="op">=</span> <span class="fl">12</span>, n_seasons <span class="op">=</span> <span class="fl">1</span>, n_weeks <span class="op">=</span> <span class="fl">14</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tidytable: 168 × 4</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    season  week franchise_id opponent_id</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span>      1     9            1          12</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span>      1     9           10           2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span>      1     9            5           7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span>      1     9           11           6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span>      1     9            3           9</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span>      1     9            4           8</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span>      1     9            8           4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span>      1     9            9           3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span>      1     9            6          11</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span>      1     9            7           5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 158 more rows</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      team opponent franchise_id opponent_id</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   1:    7       12            9           1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   2:   11       10            9           1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   3:    6        1            9           1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   4:    5        9            9           1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   5:    2        8            9           1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  ---                                       </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 164:    8       12           14           1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 165:    9       10           14           1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 166:    1        7           14           1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 167:   10        9           14           1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 168:   12        8           14           1</span>
 <span class="r-in"><span><span class="co"># }</span></span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
