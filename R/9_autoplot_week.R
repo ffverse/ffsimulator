@@ -75,7 +75,7 @@ autoplot.ff_simulation_week <- function(object,
         yend = .data$franchise_name
 
       ),
-      size = 1,
+      linewidth = 1,
       alpha = 0.75,
       lineend = "round",
       linejoin = "mitre",
