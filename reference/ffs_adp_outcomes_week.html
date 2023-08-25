@@ -109,20 +109,42 @@
 <span class="r-in"><span><span class="co"># cached data</span></span></span>
 <span class="r-in"><span><span class="va">scoring_history</span> <span class="op">&lt;-</span> <span class="fu">.ffs_cache</span><span class="op">(</span><span class="st">"mfl_scoring_history.rds"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">ffs_adp_outcomes_week</span><span class="op">(</span><span class="va">scoring_history</span>, pos_filter <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"QB"</span>,<span class="st">"RB"</span>,<span class="st">"WR"</span>,<span class="st">"TE"</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tidytable: 470 × 5</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    pos    rank week_outcomes player_name fantasypros_id</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> QB        1 <span style="color: #949494;">&lt;dbl [96]&gt;</span>    <span style="color: #949494;">&lt;chr [31]&gt;</span>  <span style="color: #949494;">&lt;chr [31]&gt;</span>    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> QB        2 <span style="color: #949494;">&lt;dbl [96]&gt;</span>    <span style="color: #949494;">&lt;chr [38]&gt;</span>  <span style="color: #949494;">&lt;chr [38]&gt;</span>    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> QB        3 <span style="color: #949494;">&lt;dbl [96]&gt;</span>    <span style="color: #949494;">&lt;chr [47]&gt;</span>  <span style="color: #949494;">&lt;chr [47]&gt;</span>    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> QB        4 <span style="color: #949494;">&lt;dbl [96]&gt;</span>    <span style="color: #949494;">&lt;chr [53]&gt;</span>  <span style="color: #949494;">&lt;chr [53]&gt;</span>    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> QB        5 <span style="color: #949494;">&lt;dbl [96]&gt;</span>    <span style="color: #949494;">&lt;chr [57]&gt;</span>  <span style="color: #949494;">&lt;chr [57]&gt;</span>    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> QB        6 <span style="color: #949494;">&lt;dbl [96]&gt;</span>    <span style="color: #949494;">&lt;chr [56]&gt;</span>  <span style="color: #949494;">&lt;chr [56]&gt;</span>    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> QB        7 <span style="color: #949494;">&lt;dbl [96]&gt;</span>    <span style="color: #949494;">&lt;chr [58]&gt;</span>  <span style="color: #949494;">&lt;chr [58]&gt;</span>    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> QB        8 <span style="color: #949494;">&lt;dbl [96]&gt;</span>    <span style="color: #949494;">&lt;chr [59]&gt;</span>  <span style="color: #949494;">&lt;chr [59]&gt;</span>    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> QB        9 <span style="color: #949494;">&lt;dbl [96]&gt;</span>    <span style="color: #949494;">&lt;chr [62]&gt;</span>  <span style="color: #949494;">&lt;chr [62]&gt;</span>    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> QB       10 <span style="color: #949494;">&lt;dbl [96]&gt;</span>    <span style="color: #949494;">&lt;chr [65]&gt;</span>  <span style="color: #949494;">&lt;chr [65]&gt;</span>    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 460 more rows</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      pos rank                           week_outcomes</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   1:  QB    1  7.64, 7.64,32.88,24.48,11.44,24.30,...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   2:  QB    2 32.94, 7.64,32.88,24.48,11.44,24.30,...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   3:  QB    3 32.94, 2.56, 7.64,32.88,24.48,11.44,...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   4:  QB    4 30.80, 6.96,28.76,13.32,32.94, 2.56,...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   5:  QB    5 30.80, 6.96,28.76,13.32,21.10,24.46,...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  ---                                                 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 476:  WR  170       -0.2, 1.2, 0.0, 2.1,  NA,  NA,...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 477:  WR  171       -0.2, 0.0,  NA,  NA,  NA,  NA,...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 478:  WR  172       -0.2, 0.0,  NA,  NA,  NA,  NA,...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 479:  WR  173                    0,NA,NA,NA,NA,NA,...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 480:  WR  174                    0,NA,NA,NA,NA,NA,...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                          player_name</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   1: Matt Ryan,Matt Ryan,Lamar Jackson,Lamar Jackson,Lamar Jackson,Lamar Jackson,...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   2:  Matt Ryan,Matt Ryan,Lamar Jackson,Lamar Jackson,Lamar Jackson,Dak Prescott,...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   3:     Matt Ryan,Matt Ryan,Matt Ryan,Lamar Jackson,Lamar Jackson,Lamar Jackson,...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   4:      Kyler Murray,Matt Ryan,Matt Ryan,Matt Ryan,Lamar Jackson,Lamar Jackson,...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   5:      Kyler Murray,Matt Ryan,Matt Ryan,Matt Ryan,Lamar Jackson,Lamar Jackson,...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  ---                                                                                </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 476:                           Deonte Harty,Dwayne Harris,Johnny Holton,Jaleel Scott</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 477:                                                      Deonte Harty,Johnny Holton</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 478:                                                      Deonte Harty,Johnny Holton</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 479:                                                                   Johnny Holton</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 480:                                                                   Johnny Holton</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                             fantasypros_id</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   1: 9444,9444,17233,17233,17233,17233,...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   2: 9444,9444,17233,17233,17233,15600,...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   3:  9444,9444,9444,17233,17233,17233,...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   4:  18600,9444,9444,9444,17233,17233,...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   5:  18600,9444,9444,9444,17233,17233,...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  ---                                      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 476:               18876,10004,15803,17260</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 477:                           18876,15803</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 478:                           18876,15803</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 479:                                 15803</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 480:                                 15803</span>
 <span class="r-in"><span><span class="co"># }</span></span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
