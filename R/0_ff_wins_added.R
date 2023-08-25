@@ -34,7 +34,7 @@ ff_wins_added <- function(conn, ...){
 
   #### ASSERTIONS ####
 
-  checkmate::assert_multi_class(c("mfl_conn", "sleeper_conn", "flea_conn", "espn_conn"))
+  checkmate::assert_multi_class(conn, c("mfl_conn", "sleeper_conn", "flea_conn", "espn_conn"))
 
   vcli_rule("BASE SIMULATION")
 
