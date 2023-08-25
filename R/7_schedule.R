@@ -60,11 +60,10 @@ ffs_build_schedules <- function(n_teams = NULL,
   )
   schedules$season <- rep(seq_len(n_seasons), each = n_teams * n_weeks)
 
-
   #### Attach actual franchise IDs, if available ####
 
   if (is.null(franchises)) {
-    names(schedules)[c(3,4)] <- c("franchise_id","opponent_id")
+    data.table::setnames(schedules, c("team", "opponent"), c("franchise_id", "opponent_id"))
   }
 
   if (!is.null(franchises)) {
@@ -78,8 +77,10 @@ ffs_build_schedules <- function(n_teams = NULL,
     ][o, on = c("opponent"="schedule_id")
     ][,c("season", "week", "league_id", "franchise_id", "opponent_id")
     ]
-    data.table::setorderv(schedules,c("season","week","franchise_id"))
+    data.table::setorderv(schedules, c("season","week","franchise_id"))
   }
+
+  data.table::setcolorder(schedules, c("season", "week", "franchise_id", "opponent_id"))
 
   return(schedules)
 }
@@ -89,6 +90,7 @@ ffs_build_schedules <- function(n_teams = NULL,
   bye <- FALSE
 
   if (n_teams %% 2) {
+    # add extra team to allow round robin schedule
     bye <- TRUE
     n_teams <- n_teams + 1
   }
@@ -105,6 +107,7 @@ ffs_build_schedules <- function(n_teams = NULL,
 
   schedule[[1]] <- week_one
 
+  # https://en.wikipedia.org/wiki/Round-robin_tournament#Scheduling_algorithm
   for (i in 2:(n_teams - 1)) {
     half_one <- c(1L, utils::head(half_two, 1), utils::tail(half_one, -1))
     half_two <- c(utils::tail(half_two, -1), utils::tail(half_one, 1))
@@ -125,9 +128,9 @@ ffs_build_schedules <- function(n_teams = NULL,
   ]
 
   if (bye) {
+    # remove additional team
     df_schedule <- df_schedule[
-      team == n_teams
-      , team := NA_integer_
+      team == n_teams , team := NA_integer_
     ][
       opponent == n_teams, opponent := NA_integer_
     ][
