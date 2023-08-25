@@ -1,3 +1,14 @@
+# ffsimulator (development version)
+
+## Changelog
+
+- Update available fantasypros rankings to include 2022
+- Require ggplot2 3.4.0 for plotting features
+- Draws from a slightly broader sample of players for season outcomes
+
+
+---
+
 # ffsimulator 1.2.3
 
 Zero changes from 1.2.2 except needed a version bump to put it back on CRAN after ffscrapr got back on CRAN.

@@ -1,6 +1,6 @@
 Package: ffsimulator
 Title: Simulate Fantasy Football Seasons
-Version: 1.2.3
+Version: 1.2.3.01
 Authors@R: 
     person(given = "Tan",
            family = "Ho",
@@ -25,16 +25,14 @@ Imports:
     magrittr (>= 1.0.0),
     nflreadr (>= 1.2.0),
     Rglpk (>= 0.6.0),
-    rlang (>= 0.4.0),
-    tidytable (>= 0.6.4)
+    rlang (>= 0.4.0)
 Suggests:
-    covr (>= 3.0.0),
     ggplot2 (>= 3.4.0),
     ggridges (>= 0.5.4),
-    knitr (>= 1.0),
-    progressr (>= 0.8.0),
-    rmarkdown (>= 2.6),
     scales (>= 1.0.0),
+    progressr (>= 0.8.0),
+    knitr (>= 1.0.0),
+    rmarkdown (>= 2.6),
     testthat (>= 3.0.0),
     vdiffr (>= 1.0.2)
 VignetteBuilder: 
@@ -43,4 +41,4 @@ Config/testthat/edition: 3
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.1
+RoxygenNote: 7.2.3

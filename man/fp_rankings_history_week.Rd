@@ -5,7 +5,7 @@
 \alias{fp_rankings_history_week}
 \title{Historical position ranks}
 \format{
-An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 76224 rows and 11 columns.
+An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 94257 rows and 11 columns.
 }
 \usage{
 fp_rankings_history_week

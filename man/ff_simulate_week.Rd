@@ -9,7 +9,7 @@ ff_simulate_week(
   n = 1000,
   best_ball = FALSE,
   seed = NULL,
-  base_seasons = 2012:2020,
+  base_seasons = 2012:2022,
   actual_schedule = TRUE,
   replacement_level = FALSE,
   pos_filter = c("QB", "RB", "WR", "TE", "K"),

@@ -11,7 +11,7 @@ ff_simulate(
   best_ball = FALSE,
   seed = NULL,
   gp_model = c("simple", "none"),
-  base_seasons = 2012:2020,
+  base_seasons = 2012:2022,
   actual_schedule = FALSE,
   replacement_level = TRUE,
   pos_filter = c("QB", "RB", "WR", "TE", "K"),

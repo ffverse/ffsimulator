@@ -50,16 +50,16 @@ ffs_build_schedules <- function(n_teams = NULL,
 
   #### Join Template onto Team and Week ####
 
-  schedules <- data.table::data.table(
-    season = seq_len(n_seasons),
-    schedule = mapply(.ff_roundrobin_applytemplate,
-                      team_order = team_order,
-                      week_order = week_order,
-                      MoreArgs = list(schedule_template = schedule_template),
-                      SIMPLIFY = FALSE
-                      )
-  ) %>%
-    tidytable::unnest.("schedule")
+  schedules <- data.table::rbindlist(
+    mapply(.ff_roundrobin_applytemplate,
+           team_order = team_order,
+           week_order = week_order,
+           MoreArgs = list(schedule_template = schedule_template),
+           SIMPLIFY = FALSE
+    )
+  )
+  schedules$season <- rep(seq_len(n_seasons), each = n_teams * n_weeks)
+
 
   #### Attach actual franchise IDs, if available ####
 
@@ -118,17 +118,21 @@ ffs_build_schedules <- function(n_teams = NULL,
   week <- NULL
   team <- NULL
   opponent <- NULL
-  df_schedule <- data.table::data.table(week = seq_len(n_teams-1),
-                              x = lapply(schedule,.ff_enframe))
-
-  df_schedule <- tidytable::unnest.(df_schedule,x)[
-    ,list(week,team = as.integer(team),opponent)
-  ][order(week,team)]
+  df_schedule <- data.table::rbindlist(lapply(schedule,.ff_enframe))[
+    , week := rep(seq_len(n_teams - 1), each = n_teams)
+  ][
+    order(week, team)
+  ]
 
   if (bye) {
-    df_schedule <- df_schedule[team == n_teams,team := NA_integer_]
-    df_schedule <- df_schedule[opponent == n_teams, opponent := NA_integer_]
-    df_schedule <- df_schedule[!is.na(team)]
+    df_schedule <- df_schedule[
+      team == n_teams
+      , team := NA_integer_
+    ][
+      opponent == n_teams, opponent := NA_integer_
+    ][
+      !is.na(team)
+    ]
   }
 
   return(df_schedule)
@@ -137,7 +141,7 @@ ffs_build_schedules <- function(n_teams = NULL,
 #' @keywords internal
 .ff_enframe <- function(vec){
   data.table::data.table(
-    team = names(vec),
+    team = as.integer(names(vec)),
     opponent = vec
   )
 }
@@ -170,9 +174,11 @@ ffs_build_schedules <- function(n_teams = NULL,
   opponent <- NULL
   week <- NULL
 
-  x <- schedule_template[,`:=`(team = team_order[team],
-                                         opponent = team_order[opponent],
-                                         week = week_order[week])]
+  x <- schedule_template[,`:=`(
+    team = team_order[team],
+    opponent = team_order[opponent],
+    week = week_order[week])
+  ]
 
   return(x)
 }

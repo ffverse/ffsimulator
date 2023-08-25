@@ -35,6 +35,8 @@ ffs_adp_outcomes_week <- function(scoring_history,
   player_name <- NULL
   fantasypros_id <- NULL
   len <- NULL
+  season <- NULL
+  games_played <- NULL
 
   sh <- data.table::as.data.table(scoring_history)[!is.na(gsis_id) & week <= 16,c("gsis_id","week", "season", "points")]
   fp_rh <- data.table::as.data.table(ffsimulator::fp_rankings_history_week)[,-"page_pos"]

@@ -40,6 +40,8 @@ ffs_adp_outcomes <- function(scoring_history,
   week <- NULL
   week_outcomes <- NULL
   player_name <- NULL
+  season <- NULL
+  games_played <- NULL
 
   sh <- data.table::as.data.table(scoring_history)[
     !is.na(gsis_id) & week <= 17
