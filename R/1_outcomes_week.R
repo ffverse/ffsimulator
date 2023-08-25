@@ -19,10 +19,8 @@
 #'
 #' @export
 ffs_adp_outcomes_week <- function(scoring_history,
-                                  # gp_model = "simple",
                                   pos_filter = c("QB", "RB", "WR", "TE")) {
   # ASSERTIONS #
-  # checkmate::assert_choice(gp_model, choices = c("simple", "none"))
   checkmate::assert_character(pos_filter)
   checkmate::assert_data_frame(scoring_history)
   assert_columns(scoring_history, c("gsis_id", "week", "season", "points"))
@@ -42,29 +40,48 @@ ffs_adp_outcomes_week <- function(scoring_history,
   fp_rh <- data.table::as.data.table(ffsimulator::fp_rankings_history_week)[,-"page_pos"]
   dp_id <- data.table::as.data.table(ffscrapr::dp_playerids())[!is.na(gsis_id) & !is.na(fantasypros_id),c("fantasypros_id","gsis_id")]
 
-  ao <- fp_rh[dp_id,on = "fantasypros_id", nomatch = 0
-  ][!is.na(gsis_id) & pos %in% pos_filter
-  ][sh, on = c("season","week","gsis_id"),nomatch = 0
-  ][,list(week_outcomes = list(points), games_played = .N),
-    by = c("season","pos","rank","fantasypros_id","player_name")
-  ][,rank := lapply(rank, .ff_triplicate)]
-
-  ao <- tidytable::unnest.(ao,"rank", .drop = FALSE)
-
-  ao <- ao[
-    ,list(week_outcomes = list(c(unlist(week_outcomes))),
-          player_name = list(player_name),
-          fantasypros_id = list(fantasypros_id)
+  ao <- fp_rh[
+    dp_id
+    , on = "fantasypros_id"
+    , nomatch = 0
+  ][
+    !is.na(gsis_id) & pos %in% pos_filter
+  ][
+    sh
+    , on = c("season","week","gsis_id")
+    , nomatch = 0
+  ][
+    , list(week_outcomes = list(points), games_played = .N)
+    , by = c("season","pos","rank","fantasypros_id","player_name")
+  ][
+    , list(
+      season = rep(season, each = 5),
+      pos = rep(pos, each = 5),
+      fantasypros_id = rep(fantasypros_id, each = 5),
+      player_name = rep(player_name,each =  5),
+      games_played = rep(games_played, each = 5),
+      week_outcomes = rep(week_outcomes, each = 5),
+      rank = unlist(lapply(rank, .ff_rank_expand))
+    )
+  ][
+    , list(week_outcomes = list(c(unlist(week_outcomes))),
+           player_name = list(player_name),
+           fantasypros_id = list(fantasypros_id)
     ),
     by = c("pos","rank")
-  ][,len := sapply(week_outcomes,length)
-  ][,len := max(len)-len
-  ][,`:=`(week_outcomes = mapply(.ff_rep_na,week_outcomes,len, SIMPLIFY = FALSE),len = NULL)
-  ][order(pos,rank)]
+  ][
+    , len := sapply(week_outcomes,length)
+  ][
+    , len := max(len)-len
+  ][
+    ,`:=`(week_outcomes = mapply(.ff_rep_na, week_outcomes, len, SIMPLIFY = FALSE), len = NULL)
+  ][
+    order(pos,rank)
+  ]
 
   return(ao)
 }
 
 .ff_rep_na <- function(week_outcomes,len){
-  c(unlist(week_outcomes),rep(NA,times = len))
+  c(unlist(week_outcomes), rep(NA, times = len))
 }

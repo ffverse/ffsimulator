@@ -41,27 +41,55 @@ ffs_adp_outcomes <- function(scoring_history,
   week_outcomes <- NULL
   player_name <- NULL
 
-  sh <- data.table::as.data.table(scoring_history)[!is.na(gsis_id) & week <= 17,c("gsis_id", "team", "season", "points")]
+  sh <- data.table::as.data.table(scoring_history)[
+    !is.na(gsis_id) & week <= 17
+    , c("gsis_id", "team", "season", "points")
+  ]
   fp_rh <- data.table::as.data.table(ffsimulator::fp_rankings_history)[,-"page_pos"]
-  dp_id <- data.table::as.data.table(ffscrapr::dp_playerids())[!is.na(gsis_id) & !is.na(fantasypros_id),c("fantasypros_id","gsis_id")]
+  dp_id <- data.table::as.data.table(ffscrapr::dp_playerids())[
+    !is.na(gsis_id) & !is.na(fantasypros_id)
+    ,c("fantasypros_id","gsis_id")
+  ]
 
-  ao <- fp_rh[dp_id,on = "fantasypros_id", nomatch = 0
-  ][!is.na(gsis_id) & pos %in% pos_filter
-  ][sh, on = c("season","gsis_id"), nomatch = 0
-  ][,list(week_outcomes = list(points), games_played = .N),
-    by = c("season","pos","rank","fantasypros_id","player_name")
-  ][,rank := lapply(rank, .ff_triplicate)]
+  ao <- fp_rh[
+    dp_id
+    , on = "fantasypros_id"
+    , nomatch = 0
+  ][
+    !is.na(gsis_id) & pos %in% pos_filter
+  ][
+    sh
+    , on = c("season","gsis_id")
+    , nomatch = 0
+  ][
+    ,list(week_outcomes = list(points), games_played = .N)
+    , by = c("season","pos","rank","fantasypros_id","player_name")
+  ][
+    , list(
+      season = rep(season, each = 5),
+      pos = rep(pos, each = 5),
+      fantasypros_id = rep(fantasypros_id, each = 5),
+      player_name = rep(player_name,each =  5),
+      games_played = rep(games_played, each = 5),
+      week_outcomes = rep(week_outcomes, each = 5),
+      rank = unlist(lapply(rank, .ff_rank_expand))
+    )
+  ]
 
-  ao <- tidytable::unnest.(ao,"rank",.drop = FALSE) %>%
-    .ff_apply_gp_model(gp_model)
+  ao <- .ff_apply_gp_model(ao, gp_model)
 
   ao <- ao[
-    ,list(week_outcomes = list(c(unlist(week_outcomes))),
-          player_name = list(player_name),
-          fantasypros_id = list(fantasypros_id)
-          ),
-    by = c("pos","rank","prob_gp")
-    ][order(pos,rank)][!is.na(fantasypros_id)]
+    ,list(
+      week_outcomes = list(c(unlist(week_outcomes))),
+      player_name = list(player_name),
+      fantasypros_id = list(fantasypros_id)
+    )
+    , by = c("pos","rank","prob_gp")
+  ][
+    order(pos,rank)
+  ][
+    !is.na(fantasypros_id)
+  ]
 
   return(ao)
 }
@@ -82,6 +110,9 @@ ffs_adp_outcomes <- function(scoring_history,
   adp_outcomes
 }
 
-.ff_triplicate <- function(.x){
-  c(ifelse(.x-1==0,.x,.x-1),.x,.x+1)
+#' Expand one rank into a vector of five ranks to broaden population of possible outcomes
+#' @keywords internal
+.ff_rank_expand <- function(.x){
+  .x <- seq.int(from = .x - 2, to = .x + 2, by = 1)
+  ifelse(.x <= 0, 1, .x)
 }
