@@ -2,15 +2,11 @@ library(tidyverse)
 library(mgcv)
 library(ffscrapr)
 library(ffsimulator)
-# pkgload::load_all()
 
 conn <- mfl_connect(2021, 47747)
-base_seasons <- 2010:nflreadr::most_recent_season()
+base_seasons <- seq(2010, nflreadr::most_recent_season())
 scoring_history <- ff_scoringhistory(conn, base_seasons)
-
-model_gam <- function(data) {
-  gam(games_played_rate ~ s(rank, bs = "cs"), data = data)
-}
+model_gam <- function(data) mgcv::gam(games_played_rate ~ mgcv::s(rank, bs = "cs"), data = data)
 
 fp_injury_table <- ffsimulator::fp_rankings_history %>%
   dplyr::select(-"page_pos") %>%

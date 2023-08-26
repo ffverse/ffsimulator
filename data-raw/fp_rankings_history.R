@@ -73,6 +73,6 @@ fp_rankings_history2 <- crossing(pages2, seasons2) %>%
   ) %>%
   filter(page_pos == pos)
 
-fp_rankings_history <- bind_rows(fp_rankings_history2, fp_rankings_history)
+.fp_rankings_history <- bind_rows(fp_rankings_history2, fp_rankings_history)
 
-usethis::use_data(fp_rankings_history, overwrite = TRUE)
+usethis::use_data(.fp_rankings_history, overwrite = TRUE)
