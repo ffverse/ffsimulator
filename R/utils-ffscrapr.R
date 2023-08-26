@@ -87,7 +87,7 @@ NULL
 #' \donttest{
 #' # cached examples
 #' try({ # try block to prevent CRAN-related issues
-#' conn <- .ffs_cache("mfl_conn.rds")
+#' conn <- .ffs_cache_example("mfl_conn.rds")
 #' ffs_starter_positions(conn)
 #' })
 #' }

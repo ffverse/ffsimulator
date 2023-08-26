@@ -88,7 +88,7 @@ foureight_sim_week <- ff_simulate_week(conn = foureight_conn, n = 10)
 foureight_sim_week
 ```
 ```{r echo = FALSE}
-foureight_sim_week <- .ffs_cache("foureight_sim_week.rds")
+foureight_sim_week <- .ffs_cache_example("foureight_sim_week.rds")
 foureight_sim_week
 ```
 

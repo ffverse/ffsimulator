@@ -12,7 +12,7 @@
 #' @examples
 #' \donttest{
 #'
-#' simulation <- .ffs_cache("foureight_sim_week.rds")
+#' simulation <- .ffs_cache_example("foureight_sim_week.rds")
 #'
 #' ggplot2::autoplot(simulation) # default is type = "luck"
 #' ggplot2::autoplot(simulation, type = "points")

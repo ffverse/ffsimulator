@@ -12,7 +12,7 @@
 #' @examples
 #' \donttest{
 #' # cached data
-#' scoring_history <- .ffs_cache("mfl_scoring_history.rds")
+#' scoring_history <- .ffs_cache_example("mfl_scoring_history.rds")
 #'
 #' ffs_adp_outcomes(scoring_history, gp_model = "simple")
 #' ffs_adp_outcomes(scoring_history, gp_model = "none")

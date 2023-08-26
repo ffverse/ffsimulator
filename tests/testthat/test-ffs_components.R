@@ -1,6 +1,6 @@
 
 cache_names <- list.files(system.file("cache", package = "ffsimulator"))
-cache <- lapply(cache_names, .ffs_cache)
+cache <- lapply(cache_names, .ffs_cache_example)
 cache_names <- gsub(pattern = "\\.rds$", replacement = "", x = cache_names)
 names(cache) <- cache_names
 

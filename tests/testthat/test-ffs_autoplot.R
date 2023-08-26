@@ -1,7 +1,7 @@
 
 test_that("autoplot works", {
-  foureight_sim <- .ffs_cache("foureight_sim.rds")
-  foureight_sim_week <- .ffs_cache("foureight_sim_week.rds")
+  foureight_sim <- .ffs_cache_example("foureight_sim.rds")
+  foureight_sim_week <- .ffs_cache_example("foureight_sim_week.rds")
 
   wins <- plot(foureight_sim, type = "wins")
   rank <- plot(foureight_sim, type = "rank")

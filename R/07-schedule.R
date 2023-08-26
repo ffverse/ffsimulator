@@ -198,7 +198,7 @@ ffs_build_schedules <- function(n_teams = NULL,
 #' \donttest{
 #' # cached examples
 #' try({ # try block to prevent CRAN-related issues
-#' conn <- .ffs_cache("mfl_conn.rds")
+#' conn <- .ffs_cache_example("mfl_conn.rds")
 #' ffs_schedule(conn)
 #' })
 #' }
@@ -230,7 +230,7 @@ ffs_schedule <- function(conn){
 #'
 #' @examples \donttest{
 #' try({ # try block to prevent CRAN-related issues
-#' conn <- .ffs_cache("mfl_conn.rds") # cached connection
+#' conn <- .ffs_cache_example("mfl_conn.rds") # cached connection
 #' actual_schedule <- ffs_schedule(conn)
 #'
 #' ffs_repeat_schedules(actual_schedule = actual_schedule, n_seasons = 10)

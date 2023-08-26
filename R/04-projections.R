@@ -10,8 +10,8 @@
 #'
 #' @examples \donttest{
 #' # cached examples
-#' adp_outcomes <- .ffs_cache("adp_outcomes.rds")
-#' latest_rankings <- .ffs_cache("latest_rankings.rds")
+#' adp_outcomes <- .ffs_cache_example("adp_outcomes.rds")
+#' latest_rankings <- .ffs_cache_example("latest_rankings.rds")
 #'
 #' ffs_generate_projections(adp_outcomes, latest_rankings)
 #' }

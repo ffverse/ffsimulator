@@ -18,7 +18,7 @@ This function lightly wraps \code{ffscrapr::ff_franchises()} and adds league_id,
 \examples{
 \donttest{
 # cached examples
-conn <- .ffs_cache("mfl_conn.rds")
+conn <- .ffs_cache_example("mfl_conn.rds")
 
 try({ # prevents CRAN connectivity issues, not actually required in normal usage
 ffs_franchises(conn)

@@ -4,7 +4,7 @@
 #'
 #' @noRd
 #' @export
-.ffs_cache <- function(filename) {
+.ffs_cache_example <- function(filename) {
     readRDS(
       system.file(
         file.path("cache_examples", filename),

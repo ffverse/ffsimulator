@@ -9,8 +9,8 @@
 #'
 #' @examples \donttest{
 #' # cached examples
-#' adp_outcomes_week <- .ffs_cache("adp_outcomes_week.rds")
-#' latest_rankings_week <- .ffs_cache("latest_rankings_week.rds")
+#' adp_outcomes_week <- .ffs_cache_example("adp_outcomes_week.rds")
+#' latest_rankings_week <- .ffs_cache_example("latest_rankings_week.rds")
 #'
 #' ffs_generate_projections_week(adp_outcomes_week, latest_rankings_week)
 #' }
