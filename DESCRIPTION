@@ -8,7 +8,7 @@ Authors@R:
            email = "tan@tanho.ca",
            comment = c(ORCID = "0000-0001-8388-5155"))
 Description: Uses bootstrap resampling to run fantasy football season
-    simulations supported by historical rankings and 'nflfastR' data,
+    simulations supported by historical 'FantasyPros' rankings and 'nflverse' data,
     calculating optimal lineups, and returning aggregated results.
 License: MIT + file LICENSE
 URL: https://ffsimulator.ffverse.com,

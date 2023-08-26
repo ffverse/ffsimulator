@@ -46,26 +46,24 @@ ff_simulate <- function(conn,
   #### TEST ####
 
   # conn <- mfl_connect(2021,54040)
-  # conn <- sleeper_connect(2021,"734442977157603328")
-  # verbose <- NULL
-  # base_seasons = 2012:2020
+  # conn <- sleeper_connect(2023,"995578537426030592")
+  # base_seasons = 2012:2022
   # gp_model = "simple"
   # pos_filter = c("QB","RB","WR","TE","K")
   # n_seasons = 100
   # n_weeks = 14
   # best_ball = FALSE
   # seed = NULL
-  # base_seasons = 2012:2020
   # actual_schedule = TRUE
-  # pos_filter = c("QB","RB","WR","TE","K")
+  # replacement_level = TRUE
   # verbose = TRUE
   # return = "all"
 
   #### Assertions ####
 
   if (!class(conn) %in% c("mfl_conn", "sleeper_conn", "flea_conn", "espn_conn")) {
-    stop("conn should be a connection object created by `ff_connect()` and friends!",
-         call. = FALSE
+    cli::cli_abort(
+      "conn should be a connection object created by `ff_connect()` and friends!"
     )
   }
 
@@ -84,7 +82,7 @@ ff_simulate <- function(conn,
 
   #### Import Data ####
 
-  vcli_rule("Starting simulation {Sys.time()}")
+  vcli_rule("Starting simulation {format(Sys.time())}")
 
   vcli_start(msg = "Importing data")
 
@@ -268,7 +266,7 @@ ff_simulate <- function(conn,
     )
   }
 
-  vcli_rule("Simulation complete! {Sys.time()}")
+  vcli_rule("Simulation complete! {format(Sys.time())}")
 
   return(out)
 }

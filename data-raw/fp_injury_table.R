@@ -48,4 +48,4 @@ fp_injury_table <- ffsimulator::fp_rankings_history %>%
   distinct(pos, rank, prob_gp) %>%
   arrange(pos, rank)
 
-usethis::use_data(fp_injury_table, overwrite = TRUE)
+saveRDS(fp_injury_table, "inst/data/fp_injury_table.rds")

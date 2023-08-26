@@ -11,10 +11,10 @@ reference:
   - "ff_simulate_week"
   - "plot.ff_simulation_week"
   - "ff_wins_added"
-  - "ffs_copy_template"
 - title: Customized Simulations
-  desc: Subfunctions used by ff_simulate
+  desc: Useful subfunctions for running your own simulation scripts
   contents:
+  - "ffs_copy_template"
   - "ffs_adp_outcomes"
   - "ffs_adp_outcomes_week"
   - "ffs_latest_rankings"
@@ -30,6 +30,11 @@ reference:
   - "ffs_schedule"
   - "ffs_repeat_schedules"
   - starts_with("ffs_summarise")
+- title: ffpros Rankings
+  desc: Core rankings data used to power ffsimulator
+  - "fp_rankings_history"
+  - "fp_injury_table"
+  - "fp_rankings_history_week"
 - title: ffscrapr Imports
   desc: Functions imported from ffscrapr
   contents:
@@ -38,9 +43,6 @@ reference:
   desc: Additional helper functions and data
   contents:
   - "`%>%`"
-  - "fp_rankings_history"
-  - "fp_injury_table"
-  - "fp_rankings_history_week"
 
 authors:
   Tan Ho:
@@ -50,7 +52,7 @@ home:
   title: ffsimulator • Simulate Fantasy Football Seasons
   description: >
     An R package that helps simulate fantasy football seasons,
-    using nflfastR data and FantasyPros rankings.
+    using nflverse data and FantasyPros rankings.
 
 navbar:
   bg: dark
@@ -74,26 +76,17 @@ navbar:
           href: https://www.github.com/ffverse
         - text: -------
         - text: "nflverse"
-        - text: nflfastR package
-          href: https://www.nflfastr.com
         - text: nflverse GitHub
           href: https://github.com/nflverse
-        - text: -------
-        - text: "DynastyProcess.com"
-          href: https://dynastyprocess.com
 
 template:
   bootstrap: 5
   params:
     bootswatch: zephyr
-   # docsearch:
-     # api_key: 7abddd2aa591d955b365235f35d75a38
-     # index_name: dynastyprocess
   opengraph:
     image:
       src: "https://ffsimulator.ffverse.com/reference/figures/logo.png"
       alt: "ffsimulator - An R Package For Simulating Fantasy Football Seasons"
     twitter:
       creator: "@_TanHo"
-      site: "@DynastyProcess"
       card: summary

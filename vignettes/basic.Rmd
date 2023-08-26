@@ -39,7 +39,7 @@ foureight_sim <- ff_simulate(conn = foureight_conn, n_seasons = 10, n_weeks = 14
 foureight_sim
 ```
 ```{r echo = FALSE, message = FALSE}
-foureight_sim <- readRDS(system.file("cache/foureight_sim.rds", package = "ffsimulator"))
+foureight_sim <- .ffs_cache_example("foureight_sim.rds")
 foureight_sim
 ```
 ffsimulator includes a few automatic plots that can be run on this ff_simulation object to get a quick sense of the simulation output:

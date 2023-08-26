@@ -21,8 +21,7 @@
 ffs_adp_outcomes_week <- function(scoring_history,
                                   pos_filter = c("QB", "RB", "WR", "TE")) {
   # ASSERTIONS #
-  checkmate::assert_character(pos_filter)
-  checkmate::assert_data_frame(scoring_history)
+  assert_character(pos_filter)
   assert_columns(scoring_history, c("gsis_id", "week", "season", "points"))
 
   gsis_id <- NULL
@@ -39,7 +38,7 @@ ffs_adp_outcomes_week <- function(scoring_history,
   games_played <- NULL
 
   sh <- data.table::as.data.table(scoring_history)[!is.na(gsis_id) & week <= 16,c("gsis_id","week", "season", "points")]
-  fp_rh <- data.table::as.data.table(ffsimulator::fp_rankings_history_week)[,-"page_pos"]
+  fp_rh <- data.table::as.data.table(fp_rankings_history_week())[,-"page_pos"]
   dp_id <- data.table::as.data.table(ffscrapr::dp_playerids())[!is.na(gsis_id) & !is.na(fantasypros_id),c("fantasypros_id","gsis_id")]
 
   ao <- fp_rh[

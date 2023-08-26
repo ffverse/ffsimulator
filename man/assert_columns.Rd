@@ -4,12 +4,14 @@
 \alias{assert_columns}
 \title{Check that dataframe has x column names}
 \usage{
-assert_columns(dataframe, required_columns)
+assert_columns(dataframe, required_columns, .env = rlang::caller_env())
 }
 \arguments{
 \item{dataframe}{dataframe to check}
 
 \item{required_columns}{required column names}
+
+\item{.env}{caller environment to complain from}
 }
 \value{
 silent if ok or else an error if something is missing.

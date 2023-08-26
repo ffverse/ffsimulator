@@ -2,7 +2,7 @@
 
 #' Access cached function data
 #'
-#' @noRd
+#' @keywords internal
 #' @export
 .ffs_cache_example <- function(filename) {
     readRDS(

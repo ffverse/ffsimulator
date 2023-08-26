@@ -94,4 +94,4 @@ fp_rankings_history2 <- crossing(pages2, seasons2, weeks) %>%
 
 fp_rankings_history_week <- bind_rows(fp_rankings_history, fp_rankings_history2)
 
-usethis::use_data(fp_rankings_history_week, overwrite = TRUE)
+saveRDS(fp_rankings_history_week, "inst/data/fp_rankings_history_week.rds")

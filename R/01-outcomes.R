@@ -47,7 +47,7 @@ ffs_adp_outcomes <- function(scoring_history,
     !is.na(gsis_id) & week <= 17
     , c("gsis_id", "team", "season", "points")
   ]
-  fp_rh <- data.table::as.data.table(ffsimulator::fp_rankings_history)[,-"page_pos"]
+  fp_rh <- data.table::as.data.table(fp_rankings_history())[,-"page_pos"]
   dp_id <- data.table::as.data.table(ffscrapr::dp_playerids())[
     !is.na(gsis_id) & !is.na(fantasypros_id)
     ,c("fantasypros_id","gsis_id")
@@ -106,7 +106,7 @@ ffs_adp_outcomes <- function(scoring_history,
   }
 
   if (model_type == "simple") {
-    adp_outcomes <- adp_outcomes[data.table::as.data.table(ffsimulator::fp_injury_table),on = c("pos","rank")]
+    adp_outcomes <- adp_outcomes[data.table::as.data.table(fp_injury_table()),on = c("pos","rank")]
   }
 
   adp_outcomes
