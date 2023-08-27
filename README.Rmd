@@ -71,8 +71,8 @@ library(ggridges)
 mfl_conn <- mfl_connect(season = 2021, league_id = 22627)
 
 ## OTHER PLATFORM CONNECTIONS MAY BE USED, FOR EXAMPLE:
-# sleeper_conn <- sleeper_connect(season = 2021,  league_id = "652582284720971776") 
-# flea_conn <- fleaflicker_connect(season = 2021, league_id = 312861) 
+# sleeper_conn <- sleeper_connect(season = 2021,  league_id = "652582284720971776")
+# flea_conn <- fleaflicker_connect(season = 2021, league_id = 312861)
 # espn_conn <- espn_connect(season = 2021, league_id = 899513)
 
 mfl_sim <- ff_simulate(conn = mfl_conn, n_seasons = 100)

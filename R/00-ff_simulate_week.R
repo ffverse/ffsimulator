@@ -34,9 +34,9 @@ ff_simulate_week <- function(conn,
                              base_seasons = 2012:2022,
                              actual_schedule = TRUE,
                              replacement_level = FALSE,
-                             pos_filter = c("QB","RB","WR","TE","K"),
+                             pos_filter = c("QB", "RB", "WR", "TE", "K"),
                              verbose = NULL,
-                             return = c("default","all")) {
+                             return = c("default", "all")) {
 
   # conn <- mfl_connect(2021,54040)
   # verbose <- NULL
@@ -61,13 +61,13 @@ ff_simulate_week <- function(conn,
   }
 
   return <- rlang::arg_match(return)
-  checkmate::assert_subset(pos_filter, c("QB","RB","WR","TE","K"))
+  checkmate::assert_subset(pos_filter, c("QB", "RB", "WR", "TE", "K"))
   checkmate::assert_numeric(base_seasons, lower = 2012, upper = 2022)
   checkmate::assert_int(n, lower = 1)
   checkmate::assert_int(seed, null.ok = TRUE)
   if (!is.null(seed)) set.seed(seed)
   checkmate::assert_flag(best_ball)
-  if(!is.null(verbose)) set_verbose(verbose)
+  if (!is.null(verbose)) set_verbose(verbose)
   checkmate::assert_flag(actual_schedule)
   checkmate::assert_flag(replacement_level)
 
@@ -87,11 +87,11 @@ ff_simulate_week <- function(conn,
 
   lineup_constraints <- ffs_starter_positions(conn)
 
-  if(actual_schedule) {
+  if (actual_schedule) {
     schedule <- ffs_schedule(conn)
-    schedule <- schedule[schedule$week == min(schedule$week),] # simulate first unplayed week
+    schedule <- schedule[schedule$week == min(schedule$week), ] # simulate first unplayed week
 
-    if(nrow(schedule)==0) {
+    if (nrow(schedule) == 0) {
       cli::cli_alert_danger("No unplayed weeks to simulate!")
       out <- structure(list(schedule = ffscrapr::ff_schedule(conn),
                             league_info = league_info,
@@ -114,9 +114,9 @@ ff_simulate_week <- function(conn,
 
   vcli_start(msg = "Generating Projections")
 
-  if(!replacement_level) rosters_rl <- rosters
+  if (!replacement_level) rosters_rl <- rosters
 
-  if(replacement_level){
+  if (replacement_level) {
     rosters_rl <- ffs_add_replacement_level(rosters = rosters,
                                             latest_rankings = latest_rankings,
                                             franchises = franchises,
@@ -163,13 +163,13 @@ ff_simulate_week <- function(conn,
 
   vcli_start(msg = "Building Schedules")
 
-  if(actual_schedule) {
+  if (actual_schedule) {
     schedules <- ffs_repeat_schedules(n_seasons = n, actual_schedule = schedule)
     schedules$week <- schedules$season
     schedules$season <- 1
   }
 
-  if(!actual_schedule){
+  if (!actual_schedule) {
     schedules <- ffs_build_schedules(
       n_seasons = n,
       n_weeks = 1,
@@ -185,13 +185,13 @@ ff_simulate_week <- function(conn,
   vcli_start(msg = "Summarising Simulation Data")
 
   summary_week <- ffs_summarise_week(optimal_scores, schedules)
-  summary_simulation <- ffs_summarise_inseason(summary_week,n)
+  summary_simulation <- ffs_summarise_inseason(summary_week, n)
 
   vcli_end(msg_done = "Summarising Simulation Data...done! {Sys.time()}")
 
   #### Build and Return ####
 
-  if(return == "default"){
+  if (return == "default") {
 
     out <- structure(
       list(
@@ -214,7 +214,7 @@ ff_simulate_week <- function(conn,
     )
   }
 
-  if(return == "all"){
+  if (return == "all") {
 
     out <- structure(
       list(

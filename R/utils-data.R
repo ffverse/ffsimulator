@@ -11,7 +11,7 @@
 #'
 #' @return dataframe of injury probability by position rank
 #' @export
-fp_injury_table <- function(){
+fp_injury_table <- function() {
   .fp_injury_table <- .ffs_read_data("fp_injury_table.rds")
 
   assert_df(.fp_injury_table, c("pos", "rank", "prob_gp"))
@@ -30,7 +30,7 @@ fp_injury_table <- function(){
 #' @return dataframe of preseason/draft rankings from ffpros
 #' @export
 #'
-fp_rankings_history <- function(){
+fp_rankings_history <- function() {
   .fp_rankings_history <- .ffs_read_data("fp_rankings_history.rds")
   assert_df(
     .fp_rankings_history,
@@ -51,20 +51,20 @@ fp_rankings_history <- function(){
 #'
 #' @return dataframe of in-season positional rankings
 #' @export
-fp_rankings_history_week <- function(){
+fp_rankings_history_week <- function() {
   .fp_rankings_history_week <- .ffs_read_data("fp_rankings_history_week.rds")
   assert_df(
     .fp_rankings_history_week,
-    c("season","week", "fantasypros_id", "sportradar_id",
+    c("season", "week", "fantasypros_id", "sportradar_id",
       "player_name", "pos", "team", "rank", "ecr", "sd")
   )
   return(.fp_rankings_history_week)
 }
 
-.ffs_read_data <- function(file_name, .env = rlang::caller_env()){
+.ffs_read_data <- function(file_name, .env = rlang::caller_env()) {
   cache_file <- .ffs_cache_dir(file_name)
 
-  if(!checkmate::test_file_exists(cache_file)) {
+  if (!checkmate::test_file_exists(cache_file)) {
     out <- readRDS(.ffs_cache_pkgdir(file_name))
     return(out)
   }
@@ -72,7 +72,7 @@ fp_rankings_history_week <- function(){
   cli::cli_inform(
     "Using {.file {file_name}} found in cache directory {.path { .ffs_cache_dir()}}",
     .frequency = "regularly",
-    .frequency_id = paste0("ffsimulator_cache_",file_name)
+    .frequency_id = paste0("ffsimulator_cache_", file_name)
   )
 
   rlang::try_fetch(
@@ -87,15 +87,15 @@ fp_rankings_history_week <- function(){
 
 #' @export
 #' @noRd
-.ffs_cache_dir <- function(...){
+.ffs_cache_dir <- function(...) {
   dir <- getOption(
     "ffsimulator.cache_directory",
-    default = rappdirs::user_cache_dir("ffsimulator","ffverse")
+    default = rappdirs::user_cache_dir("ffsimulator", "ffverse")
   )
   file.path(dir, ...)
 }
 
-.ffs_cache_pkgdir <- function(...){
+.ffs_cache_pkgdir <- function(...) {
   system.file(
     "data",
     ...,
@@ -103,4 +103,3 @@ fp_rankings_history_week <- function(){
     mustWork = TRUE
   )
 }
-

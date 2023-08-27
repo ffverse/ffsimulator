@@ -33,7 +33,7 @@ ffs_rosters.mfl_conn <- function(conn) {
   r$player_id <- as.character(r$player_id)
 
   r <- merge(r,
-             ffscrapr::dp_playerids()[,c("mfl_id","fantasypros_id")],
+             ffscrapr::dp_playerids()[, c("mfl_id", "fantasypros_id")],
              by.x = "player_id",
              by.y = "mfl_id",
              all.x = TRUE)
@@ -51,7 +51,7 @@ ffs_rosters.sleeper_conn <- function(conn) {
   r$player_id <- as.character(r$player_id)
 
   r <- merge(r,
-             ffscrapr::dp_playerids()[,c("sleeper_id","fantasypros_id")],
+             ffscrapr::dp_playerids()[, c("sleeper_id", "fantasypros_id")],
              by.x = "player_id",
              by.y = "sleeper_id",
              all.x = TRUE)
@@ -69,7 +69,7 @@ ffs_rosters.flea_conn <- function(conn) {
   r$player_id <- as.character(r$player_id)
 
   r <- merge(r,
-             ffscrapr::dp_playerids()[,c("sportradar_id","fantasypros_id")],
+             ffscrapr::dp_playerids()[, c("sportradar_id", "fantasypros_id")],
              by.x = "sportradar_id",
              by.y = "sportradar_id",
              all.x = TRUE)
@@ -87,7 +87,7 @@ ffs_rosters.espn_conn <- function(conn) {
   r$player_id <- as.character(r$player_id)
 
   r <- merge(r,
-             ffscrapr::dp_playerids()[,c("espn_id","fantasypros_id")],
+             ffscrapr::dp_playerids()[, c("espn_id", "fantasypros_id")],
              by.x = "player_id",
              by.y = "espn_id",
              all.x = TRUE)
@@ -129,11 +129,10 @@ ffs_rosters.default <- function(conn) {
 #' @seealso vignette("Custom Simulations") for more detailed example usage
 #'
 #' @export
-ffs_franchises <- function(conn){
+ffs_franchises <- function(conn) {
   f <- ffscrapr::ff_franchises(conn)
   f$league_id <- as.character(conn$league_id)
   f$franchise_id <- as.character(f$franchise_id)
 
   return(f)
 }
-

@@ -119,7 +119,7 @@ ffs_optimize_lineups <- ffs_optimise_lineups
       pos_ids, # pos minimums
       pos_ids, # pos maximums
       as.integer(franchise_scores$pos %in% c("QB", "RB", "WR", "TE")), rep.int(1L, min_req), # total offensive starters
-      rep.int(1L,length(player_scores))
+      rep.int(1L, length(player_scores))
       ),
     nrow = nrow(lineup_constraints) * 2 + 2,
     byrow = TRUE

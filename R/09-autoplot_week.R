@@ -1,4 +1,3 @@
-
 #' Automatically Plot ff_simulation Object
 #'
 #' Creates automatic plots for wins, ranks, or points for an `ff_simulation` object as created by `ff_simulate()`.
@@ -23,7 +22,7 @@
 #' @return a ggplot object
 #' @export
 autoplot.ff_simulation_week <- function(object,
-                                        type = c("luck","points"),
+                                        type = c("luck", "points"),
                                         ...) {
   type <- rlang::arg_match(type)
 
@@ -38,7 +37,7 @@ autoplot.ff_simulation_week <- function(object,
 
 .ffs_plot_week_luck <- function(object, ..., caller_env = rlang::caller_env()) {
 
-  if(!object$simulation_params$actual_schedule) {
+  if (!object$simulation_params$actual_schedule) {
     cli::cli_abort("Schedule luck plot not available if `actual_schedule` is FALSE", call = caller_env)
   }
 
@@ -49,9 +48,9 @@ autoplot.ff_simulation_week <- function(object,
   luck_pct <- NULL
 
   luck <- luck[
-    ,`:=`(luck_pct = h2h_winpct - allplay_winpct)
+    , `:=`(luck_pct = h2h_winpct - allplay_winpct)
   ][
-    ,`:=`(
+    , `:=`(
       luck_label = scales::percent(luck_pct, accuracy = 0.1),
       ap_hjust = ifelse(luck_pct > 0, 1.1, -0.1),
       h2h_hjust = ifelse(luck_pct > 0, -0.1, 1.1)
@@ -82,10 +81,10 @@ autoplot.ff_simulation_week <- function(object,
       alpha = 0.75,
       lineend = "round",
       linejoin = "mitre",
-      arrow = ggplot2::arrow(angle = 30,length = ggplot2::unit(6, "points"),type = "closed")) +
+      arrow = ggplot2::arrow(angle = 30, length = ggplot2::unit(6, "points"), type = "closed")) +
     ggplot2::geom_text(
       ggplot2::aes(
-        x = (.data$allplay_winpct + .data$h2h_winpct)/2,
+        x = (.data$allplay_winpct + .data$h2h_winpct) / 2,
         label = .data$luck_label),
       hjust = 0.5,
       vjust = -0.75
@@ -109,8 +108,8 @@ autoplot.ff_simulation_week <- function(object,
       label = "AllPlay Win %",
       data = luck[.N]
     ) +
-    ggplot2::scale_x_continuous(labels = scales::percent_format(),limits = c(0, 1))+
-    ggplot2::scale_color_discrete(guide = "none")+
+    ggplot2::scale_x_continuous(labels = scales::percent_format(), limits = c(0, 1)) +
+    ggplot2::scale_color_discrete(guide = "none") +
     ggplot2::xlab("Win Percentage") +
     ggplot2::ylab(NULL) +
     ggplot2::theme_minimal() +

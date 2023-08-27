@@ -27,7 +27,7 @@ ffs_build_schedules <- function(n_teams = NULL,
     checkmate::assert_data_frame(franchises)
     assert_df(franchises, c("league_id", "franchise_id"))
     f <- data.table::as.data.table(franchises)
-    f <- f[,c("league_id","franchise_id")]
+    f <- f[, c("league_id", "franchise_id")]
     n_teams <- nrow(franchises)
   }
   checkmate::assert_number(n_teams)
@@ -69,15 +69,15 @@ ffs_build_schedules <- function(n_teams = NULL,
   if (!is.null(franchises)) {
     schedule_id <- NULL
     franchise_id <- NULL
-    data.table::setorderv(f,c("league_id","franchise_id"))
-    f[,`:=`(schedule_id = seq_len(.N))]
-    o <- f[,.(schedule_id,opponent_id=franchise_id)]
+    data.table::setorderv(f, c("league_id", "franchise_id"))
+    f[, `:=`(schedule_id = seq_len(.N))]
+    o <- f[, .(schedule_id, opponent_id = franchise_id)]
 
-    schedules <- schedules[f, on = c("team"="schedule_id")
-    ][o, on = c("opponent"="schedule_id")
-    ][,c("season", "week", "league_id", "franchise_id", "opponent_id")
+    schedules <- schedules[f, on = c("team" = "schedule_id")
+    ][o, on = c("opponent" = "schedule_id")
+    ][, c("season", "week", "league_id", "franchise_id", "opponent_id")
     ]
-    data.table::setorderv(schedules, c("season","week","franchise_id"))
+    data.table::setorderv(schedules, c("season", "week", "franchise_id"))
   }
 
   data.table::setcolorder(schedules, c("season", "week", "franchise_id", "opponent_id"))
@@ -121,7 +121,7 @@ ffs_build_schedules <- function(n_teams = NULL,
   week <- NULL
   team <- NULL
   opponent <- NULL
-  df_schedule <- data.table::rbindlist(lapply(schedule,.ff_enframe))[
+  df_schedule <- data.table::rbindlist(lapply(schedule, .ff_enframe))[
     , week := rep(seq_len(n_teams - 1), each = n_teams)
   ][
     order(week, team)
@@ -130,7 +130,7 @@ ffs_build_schedules <- function(n_teams = NULL,
   if (bye) {
     # remove additional team
     df_schedule <- df_schedule[
-      team == n_teams , team := NA_integer_
+      team == n_teams, team := NA_integer_
     ][
       opponent == n_teams, opponent := NA_integer_
     ][
@@ -142,7 +142,7 @@ ffs_build_schedules <- function(n_teams = NULL,
 }
 
 #' @keywords internal
-.ff_enframe <- function(vec){
+.ff_enframe <- function(vec) {
   data.table::data.table(
     team = as.integer(names(vec)),
     opponent = vec
@@ -160,8 +160,8 @@ ffs_build_schedules <- function(n_teams = NULL,
   week <- NULL
 
   if (schedule_max < n_weeks) {
-    x <- df_schedule[week <=(n_weeks-schedule_max)][,`:=`(week = week + schedule_max)]
-    df_schedule <- data.table::rbindlist(list(df_schedule,x))
+    x <- df_schedule[week <= (n_weeks - schedule_max)][, `:=`(week = week + schedule_max)]
+    df_schedule <- data.table::rbindlist(list(df_schedule, x))
   }
 
   if (schedule_max > n_weeks) {
@@ -177,7 +177,7 @@ ffs_build_schedules <- function(n_teams = NULL,
   opponent <- NULL
   week <- NULL
 
-  x <- schedule_template[,`:=`(
+  x <- schedule_template[, `:=`(
     team = team_order[team],
     opponent = team_order[opponent],
     week = week_order[week])
@@ -206,16 +206,16 @@ ffs_build_schedules <- function(n_teams = NULL,
 #' @seealso vignette("Custom Simulations") for more detailed example usage
 #'
 #' @export
-ffs_schedule <- function(conn){
+ffs_schedule <- function(conn) {
 
   schedule <- ffscrapr::ff_schedule(conn)
-  if("spread" %in% names(schedule)){
-    schedule$result[(!is.na(schedule$spread)|schedule$spread==0) & schedule$result == "T"] <- NA
+  if ("spread" %in% names(schedule)) {
+    schedule$result[(!is.na(schedule$spread) | schedule$spread == 0) & schedule$result == "T"] <- NA
   }
-  schedule <- schedule[is.na(schedule$result),c("week","franchise_id","opponent_id")]
+  schedule <- schedule[is.na(schedule$result), c("week", "franchise_id", "opponent_id")]
   schedule$league_id <- as.character(conn$league_id)
   schedule$franchise_id <- as.character(schedule$franchise_id)
-  schedule$opponent_id <-  as.character(schedule$opponent_id)
+  schedule$opponent_id <- as.character(schedule$opponent_id)
 
 
   return(schedule)
@@ -241,14 +241,13 @@ ffs_schedule <- function(conn){
 #'
 #' @seealso `vignette("Custom Simulations")` for example usage
 #' @export
-ffs_repeat_schedules <- function(actual_schedule, n_seasons){
+ffs_repeat_schedules <- function(actual_schedule, n_seasons) {
 
   data.table::setDT(actual_schedule)
 
   merge(
     data.table::data.table(season = seq_len(n_seasons),
                            k = 1),
-    actual_schedule[,c(k = 1,.SD)],
-    allow.cartesian = TRUE)[,`:=`(k = NULL)][]
+    actual_schedule[, c(k = 1, .SD)],
+    allow.cartesian = TRUE)[, `:=`(k = NULL)][]
 }
-

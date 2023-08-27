@@ -93,8 +93,8 @@ NULL
 #' }
 #'
 #' @export
-ffs_starter_positions <- function(conn){
+ffs_starter_positions <- function(conn) {
   sp <- ffscrapr::ff_starter_positions(conn)
-  sp$pos <- replace(sp$pos,sp$pos == "PK","K")
+  sp$pos <- replace(sp$pos, sp$pos == "PK", "K")
   sp
 }

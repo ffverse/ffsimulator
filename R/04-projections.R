@@ -28,7 +28,7 @@ ffs_generate_projections <- function(adp_outcomes,
                                      ) {
   checkmate::assert_number(n_seasons, lower = 1)
 
-  checkmate::assert_numeric(weeks, lower = 1, min.len=1)
+  checkmate::assert_numeric(weeks, lower = 1, min.len = 1)
   weeks <- unique(weeks)
   n_weeks <- length(weeks)
 
@@ -37,8 +37,8 @@ ffs_generate_projections <- function(adp_outcomes,
   adp_outcomes <- data.table::as.data.table(adp_outcomes)[, c("pos", "rank", "prob_gp", "week_outcomes")]
 
   checkmate::assert_data_frame(latest_rankings)
-  assert_df(latest_rankings, c("player", "pos", "team", "ecr", "sd", "bye", "fantasypros_id","scrape_date"))
-  latest_rankings <- data.table::as.data.table(latest_rankings)[, c("player", "pos", "team", "ecr", "sd", "bye", "fantasypros_id","scrape_date")]
+  assert_df(latest_rankings, c("player", "pos", "team", "ecr", "sd", "bye", "fantasypros_id", "scrape_date"))
+  latest_rankings <- data.table::as.data.table(latest_rankings)[, c("player", "pos", "team", "ecr", "sd", "bye", "fantasypros_id", "scrape_date")]
 
   if (is.null(rosters)) rosters <- latest_rankings[, "fantasypros_id"]
   checkmate::assert_data_frame(rosters)
@@ -74,7 +74,7 @@ ffs_generate_projections <- function(adp_outcomes,
       gp_model = stats::rbinom(n = n_weeks, size = 1, prob = .SD$prob_gp)
     ),
     by = c("season", "fantasypros_id", "player", "pos",
-           "team", "bye", "ecr", "sd", "rank","scrape_date"),
+           "team", "bye", "ecr", "sd", "rank", "scrape_date"),
     .SDcols = c("week_outcomes", "prob_gp")
   ]
 

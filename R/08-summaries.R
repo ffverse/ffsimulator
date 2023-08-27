@@ -34,7 +34,7 @@ ffs_summarise_week <- function(optimal_scores, schedules) {
   checkmate::assert_data_frame(schedules)
   assert_df(
     schedules,
-    c("league_id","franchise_id","opponent_id","season", "week")
+    c("league_id", "franchise_id", "opponent_id", "season", "week")
   )
 
   data.table::setDT(schedules)
@@ -47,18 +47,18 @@ ffs_summarise_week <- function(optimal_scores, schedules) {
 
   team[
     ,
-    `:=`(allplay_wins = data.table::frank(actual_score)-1,
-         allplay_games = .N -1),
-    by = c("season","week")
-  ][,`:=`(allplay_pct = round(allplay_wins / allplay_games, 3))]
+    `:=`(allplay_wins = data.table::frank(actual_score) - 1,
+         allplay_games = .N - 1),
+    by = c("season", "week")
+  ][, `:=`(allplay_pct = round(allplay_wins / allplay_games, 3))]
 
   opponent <- data.table::copy(team)
-  data.table::setnames(team,old = "actual_score",new = "team_score")
+  data.table::setnames(team, old = "actual_score", new = "team_score")
   data.table::setnames(opponent,
-                       old = c("actual_score","franchise_id","franchise_name"),
-                       new = c("opponent_score","opponent_id","opponent_name"))
+                       old = c("actual_score", "franchise_id", "franchise_name"),
+                       new = c("opponent_score", "opponent_id", "opponent_name"))
 
-  opponent <- opponent[,c("opponent_score","opponent_id","opponent_name","league_id","season","week")]
+  opponent <- opponent[, c("opponent_score", "opponent_id", "opponent_name", "league_id", "season", "week")]
 
   team_score <- NULL
   opponent_score <- NULL
@@ -66,17 +66,17 @@ ffs_summarise_week <- function(optimal_scores, schedules) {
   lineup_efficiency <- NULL
 
   summary_week <- schedules[
-    team, on = c("league_id","franchise_id", "season", "week"), nomatch = 0
-  ][opponent, on = c("league_id","opponent_id", "season", "week"), nomatch = 0
-  ][,`:=`(result = data.table::fcase(team_score > opponent_score, "W",
+    team, on = c("league_id", "franchise_id", "season", "week"), nomatch = 0
+  ][opponent, on = c("league_id", "opponent_id", "season", "week"), nomatch = 0
+  ][, `:=`(result = data.table::fcase(team_score > opponent_score, "W",
                                      team_score < opponent_score, "L",
                                      team_score == opponent_score, "T",
                                      TRUE, NA_character_),
-          team_score = round(team_score,2),
-          optimal_score = round(optimal_score,2),
-          opponent_score = round(opponent_score,2),
-          lineup_efficiency = round(lineup_efficiency,3))
-  ][,c("season",
+          team_score = round(team_score, 2),
+          optimal_score = round(optimal_score, 2),
+          opponent_score = round(opponent_score, 2),
+          lineup_efficiency = round(lineup_efficiency, 3))
+  ][, c("season",
        "week",
        "franchise_name",
        "optimal_score",
@@ -93,7 +93,7 @@ ffs_summarise_week <- function(optimal_scores, schedules) {
        "optimal_player_id",
        "optimal_player_score")]
 
-  data.table::setorderv(summary_week,c("season","week","franchise_id"))
+  data.table::setorderv(summary_week, c("season", "week", "franchise_id"))
 
   return(summary_week)
 }
@@ -126,15 +126,15 @@ ffs_summarise_season <- function(summary_week) {
   summary_season <- summary_week[
     ,
     .(h2h_wins = sum(result == "W", na.rm = TRUE),
-      h2h_winpct = round(sum(result == "W", na.rm = TRUE) / .N,3),
+      h2h_winpct = round(sum(result == "W", na.rm = TRUE) / .N, 3),
       allplay_wins = sum(allplay_wins, na.rm = TRUE),
       allplay_games = sum(allplay_games, na.rm = TRUE),
-      allplay_winpct = round(sum(allplay_wins, na.rm = TRUE) / sum(allplay_games, na.rm = TRUE),3),
+      allplay_winpct = round(sum(allplay_wins, na.rm = TRUE) / sum(allplay_games, na.rm = TRUE), 3),
       points_for = sum(team_score, na.rm = TRUE),
       points_against = sum(opponent_score, na.rm = TRUE),
       potential_points = sum(optimal_score, na.rm = TRUE)
     ),
-    by = c("season","league_id","franchise_id","franchise_name")
+    by = c("season", "league_id", "franchise_id", "franchise_name")
   ]
 
   return(summary_season)
@@ -161,16 +161,16 @@ ffs_summarise_simulation <- function(summary_season) {
   allplay_winpct <- NULL
 
   summary_simulation <- summary_season[
-    ,c(list(seasons = .N),
+    , c(list(seasons = .N),
        lapply(.SD, ffs_mean)),
-    by = c("league_id","franchise_id","franchise_name"),
+    by = c("league_id", "franchise_id", "franchise_name"),
     .SDcols = c("h2h_wins", "h2h_winpct", "allplay_wins", "allplay_winpct", "points_for", "points_against", "potential_points")
   ][order(-allplay_winpct)]
 
   return(summary_simulation)
 }
 
-ffs_mean <- function(...){round(mean(...,na.rm = TRUE),3)}
+ffs_mean <- function(...) {round(mean(..., na.rm = TRUE), 3)}
 
 #' Summarise Inseason Simulation
 #'
@@ -179,7 +179,7 @@ ffs_mean <- function(...){round(mean(...,na.rm = TRUE),3)}
 #' @rdname ffs_summaries
 #' @return ffs_summarise_inseason: a dataframe summarising franchise results for the inseason simulation
 #' @export
-ffs_summarise_inseason <- function(summary_week,n) {
+ffs_summarise_inseason <- function(summary_week, n) {
   checkmate::assert_number(n)
   checkmate::assert_data_frame(summary_week)
   assert_df(
@@ -202,15 +202,15 @@ ffs_summarise_inseason <- function(summary_week,n) {
   summary_season <- summary_week[
     ,
     .(h2h_wins = sum(result == "W", na.rm = TRUE),
-      h2h_winpct = round(sum(result == "W", na.rm = TRUE) / .N,3),
+      h2h_winpct = round(sum(result == "W", na.rm = TRUE) / .N, 3),
       allplay_wins = sum(allplay_wins, na.rm = TRUE),
       allplay_games = sum(allplay_games, na.rm = TRUE),
-      allplay_winpct = round(sum(allplay_wins, na.rm = TRUE) / sum(allplay_games, na.rm = TRUE),3),
-      points_for = round(sum(team_score, na.rm = TRUE)/n,2),
-      points_against = round(sum(opponent_score, na.rm = TRUE)/n,2),
-      potential_points = round(sum(optimal_score, na.rm = TRUE)/n,2)
+      allplay_winpct = round(sum(allplay_wins, na.rm = TRUE) / sum(allplay_games, na.rm = TRUE), 3),
+      points_for = round(sum(team_score, na.rm = TRUE) / n, 2),
+      points_against = round(sum(opponent_score, na.rm = TRUE) / n, 2),
+      potential_points = round(sum(optimal_score, na.rm = TRUE) / n, 2)
     ),
-    by = c("league_id","franchise_id","franchise_name")
+    by = c("league_id", "franchise_id", "franchise_name")
   ]
 
   return(summary_season)

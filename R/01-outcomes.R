@@ -47,10 +47,10 @@ ffs_adp_outcomes <- function(scoring_history,
     !is.na(gsis_id) & week <= 17
     , c("gsis_id", "team", "season", "points")
   ]
-  fp_rh <- data.table::as.data.table(fp_rankings_history())[,-"page_pos"]
+  fp_rh <- data.table::as.data.table(fp_rankings_history())[, -"page_pos"]
   dp_id <- data.table::as.data.table(ffscrapr::dp_playerids())[
     !is.na(gsis_id) & !is.na(fantasypros_id)
-    ,c("fantasypros_id","gsis_id")
+    , c("fantasypros_id", "gsis_id")
   ]
 
   ao <- fp_rh[
@@ -61,17 +61,17 @@ ffs_adp_outcomes <- function(scoring_history,
     !is.na(gsis_id) & pos %in% pos_filter
   ][
     sh
-    , on = c("season","gsis_id")
+    , on = c("season", "gsis_id")
     , nomatch = 0
   ][
-    ,list(week_outcomes = list(points), games_played = .N)
-    , by = c("season","pos","rank","fantasypros_id","player_name")
+    , list(week_outcomes = list(points), games_played = .N)
+    , by = c("season", "pos", "rank", "fantasypros_id", "player_name")
   ][
     , list(
       season = rep(season, each = 5),
       pos = rep(pos, each = 5),
       fantasypros_id = rep(fantasypros_id, each = 5),
-      player_name = rep(player_name,each =  5),
+      player_name = rep(player_name, each = 5),
       games_played = rep(games_played, each = 5),
       week_outcomes = rep(week_outcomes, each = 5),
       rank = unlist(lapply(rank, .ff_rank_expand))
@@ -81,14 +81,14 @@ ffs_adp_outcomes <- function(scoring_history,
   ao <- .ff_apply_gp_model(ao, gp_model)
 
   ao <- ao[
-    ,list(
+    , list(
       week_outcomes = list(c(unlist(week_outcomes))),
       player_name = list(player_name),
       fantasypros_id = list(fantasypros_id)
     )
-    , by = c("pos","rank","prob_gp")
+    , by = c("pos", "rank", "prob_gp")
   ][
-    order(pos,rank)
+    order(pos, rank)
   ][
     !is.na(fantasypros_id)
   ]
@@ -106,7 +106,7 @@ ffs_adp_outcomes <- function(scoring_history,
   }
 
   if (model_type == "simple") {
-    adp_outcomes <- adp_outcomes[data.table::as.data.table(fp_injury_table()),on = c("pos","rank")]
+    adp_outcomes <- adp_outcomes[data.table::as.data.table(fp_injury_table()), on = c("pos", "rank")]
   }
 
   adp_outcomes
@@ -114,7 +114,7 @@ ffs_adp_outcomes <- function(scoring_history,
 
 #' Expand one rank into a vector of five ranks to broaden population of possible outcomes
 #' @keywords internal
-.ff_rank_expand <- function(.x){
+.ff_rank_expand <- function(.x) {
   .x <- seq.int(from = .x - 2, to = .x + 2, by = 1)
   ifelse(.x <= 0, 1, .x)
 }

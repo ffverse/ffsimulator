@@ -35,7 +35,7 @@ ffs_generate_projections_week <- function(adp_outcomes,
                                     "ecr", "sd", "fantasypros_id",
                                     "scrape_date"))
 
-  latest_rankings <- data.table::as.data.table(latest_rankings)[, c("player", "pos", "team", "ecr", "sd", "fantasypros_id","scrape_date")]
+  latest_rankings <- data.table::as.data.table(latest_rankings)[, c("player", "pos", "team", "ecr", "sd", "fantasypros_id", "scrape_date")]
 
   if (is.null(rosters)) rosters <- latest_rankings[, "fantasypros_id"]
   checkmate::assert_data_frame(rosters)
@@ -68,10 +68,10 @@ ffs_generate_projections_week <- function(adp_outcomes,
                                           size = 1, replace = TRUE))
     ),
     by = c("week", "fantasypros_id", "player", "pos",
-           "team", "ecr", "sd", "rank","scrape_date"),
+           "team", "ecr", "sd", "rank", "scrape_date"),
     .SDcols = c("week_outcomes")
   ]
-  ps <- ps[,`:=`(
+  ps <- ps[, `:=`(
     projection = ps$projected_score,
     gp_model = 1,
     season = 1

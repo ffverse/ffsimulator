@@ -38,7 +38,7 @@ ff_simulate <- function(conn,
                         base_seasons = 2012:2022,
                         actual_schedule = FALSE,
                         replacement_level = TRUE,
-                        pos_filter = c("QB","RB","WR","TE","K"),
+                        pos_filter = c("QB", "RB", "WR", "TE", "K"),
                         verbose = NULL,
                         return = c("default", "all")
 ) {
@@ -67,16 +67,16 @@ ff_simulate <- function(conn,
     )
   }
 
-  gp_model <- rlang::arg_match0(gp_model, c("simple","none"))
-  return <- rlang::arg_match0(return, c("default","all"))
-  pos_filter <- rlang::arg_match(pos_filter, c("QB","RB","WR","TE","K"), multiple = TRUE)
+  gp_model <- rlang::arg_match0(gp_model, c("simple", "none"))
+  return <- rlang::arg_match0(return, c("default", "all"))
+  pos_filter <- rlang::arg_match(pos_filter, c("QB", "RB", "WR", "TE", "K"), multiple = TRUE)
   checkmate::assert_numeric(base_seasons, lower = 2012, upper = 2022)
   checkmate::assert_int(n_seasons, lower = 1)
   checkmate::assert_int(n_weeks, lower = 1)
   checkmate::assert_int(seed, null.ok = TRUE)
   if (!is.null(seed)) set.seed(seed)
   checkmate::assert_flag(best_ball)
-  if(!is.null(verbose)) set_verbose(verbose)
+  if (!is.null(verbose)) set_verbose(verbose)
   checkmate::assert_flag(actual_schedule)
   checkmate::assert_flag(replacement_level)
 
@@ -99,12 +99,12 @@ ff_simulate <- function(conn,
 
   weeks <- seq_len(n_weeks)
 
-  if(actual_schedule) {
+  if (actual_schedule) {
     schedule <- ffs_schedule(conn)
 
     weeks <- unique(schedule$week)
 
-    if(length(weeks)==0) {
+    if (length(weeks) == 0) {
 
       cli::cli_alert_danger("No unplayed weeks to simulate!")
       out <- structure(
@@ -139,9 +139,9 @@ ff_simulate <- function(conn,
 
   vcli_start(msg = "Generating Projections")
 
-  if(!replacement_level) rosters_rl <- rosters
+  if (!replacement_level) rosters_rl <- rosters
 
-  if(replacement_level){
+  if (replacement_level) {
     rosters_rl <- ffs_add_replacement_level(
       rosters = rosters,
       latest_rankings = latest_rankings,
@@ -189,12 +189,12 @@ ff_simulate <- function(conn,
 
   vcli_start(msg = "Building Schedules")
 
-  if(actual_schedule) {
+  if (actual_schedule) {
     schedules <- ffs_repeat_schedules(n_seasons = n_seasons,
                                       actual_schedule = schedule)
   }
 
-  if(!actual_schedule){
+  if (!actual_schedule) {
     schedules <- ffs_build_schedules(
       n_seasons = n_seasons,
       n_weeks = n_weeks,
@@ -212,7 +212,7 @@ ff_simulate <- function(conn,
 
   vcli_end(msg_done = "Summarising Simulation Data...done! {Sys.time()}")
 
-  if(return == "default"){
+  if (return == "default") {
 
     out <- structure(
       list(
@@ -238,7 +238,7 @@ ff_simulate <- function(conn,
     )
   }
 
-  if(return == "all"){
+  if (return == "all") {
 
     out <- structure(
       list(

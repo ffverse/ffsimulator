@@ -75,4 +75,4 @@ fp_rankings_history2 <- crossing(pages2, seasons2) %>%
 
 fp_rankings_history <- bind_rows(fp_rankings_history2, fp_rankings_history)
 
-saveRDS(fp_rankings_history,file = "inst/data/fp_rankings_history.rds")
+saveRDS(fp_rankings_history, file = "inst/data/fp_rankings_history.rds")

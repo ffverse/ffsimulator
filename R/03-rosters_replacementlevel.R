@@ -16,13 +16,13 @@ ffs_add_replacement_level <- function(rosters,
                                       latest_rankings,
                                       franchises,
                                       lineup_constraints,
-                                      pos_filter = c("QB","RB","WR","TE")
-                                      ){
+                                      pos_filter = c("QB", "RB", "WR", "TE")
+                                      ) {
 
   assert_df(franchises, c("franchise_id", "franchise_name", "league_id"))
-  assert_df(rosters, c("pos","fantasypros_id", "franchise_id","franchise_name"))
+  assert_df(rosters, c("pos", "fantasypros_id", "franchise_id", "franchise_name"))
   assert_df(latest_rankings, c("fantasypros_id"))
-  assert_df(lineup_constraints, c("pos","min","max"))
+  assert_df(lineup_constraints, c("pos", "min", "max"))
 
   pos <- NULL
   franchise_id <- NULL
@@ -34,25 +34,25 @@ ffs_add_replacement_level <- function(rosters,
 
   r <- data.table::as.data.table(rosters)
   f <- data.table::as.data.table(franchises)[
-    ,c("franchise_id","franchise_name","league_id")
-  ][,`:=`(joinkey = 1)]
+    , c("franchise_id", "franchise_name", "league_id")
+  ][, `:=`(joinkey = 1)]
 
   lr <- data.table::as.data.table(latest_rankings)[pos %in% pos_filter]
   lc <- data.table::as.data.table(lineup_constraints)[
     pos %in% pos_filter,
-    c("pos","min","max")]
+    c("pos", "min", "max")]
 
   fa <- r[
-    ,c("fantasypros_id","franchise_id")
+    , c("fantasypros_id", "franchise_id")
   ][lr, on = c("fantasypros_id")
   ][is.na(franchise_id)
-  ][order(pos,ecr)
-  ][,pos_rank := seq_len(.N), by = c("pos")
+  ][order(pos, ecr)
+  ][, pos_rank := seq_len(.N), by = c("pos")
   ][lc, on = "pos"
   ][pos_rank <= max
-  ][,list(
+  ][, list(
     player_id = paste(pos, pos_rank, sep = "_"),
-    player_name = paste("Replacement",pos, "-", pos_rank, player),
+    player_name = paste("Replacement", pos, "-", pos_rank, player),
     pos,
     team = NA,
     age = NA,
@@ -60,7 +60,7 @@ ffs_add_replacement_level <- function(rosters,
     joinkey = 1
   )]
 
-  fa <- merge(f, fa, by = "joinkey", allow.cartesian = TRUE)[,-"joinkey"]
+  fa <- merge(f, fa, by = "joinkey", allow.cartesian = TRUE)[, -"joinkey"]
 
   out <- data.table::rbindlist(list(r, fa), use.names = TRUE, fill = TRUE)
 

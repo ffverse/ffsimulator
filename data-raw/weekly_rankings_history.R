@@ -27,7 +27,7 @@ pages <- c(
 fp_rankings_history <- crossing(pages, seasons, weeks) %>%
   mutate(rankings = future_pmap(
     list(pages, seasons, weeks),
-    possibly(~fp_rankings(page = ..1, year = ..2, week = ..3),
+    possibly(~ fp_rankings(page = ..1, year = ..2, week = ..3),
              tibble())
   )) %>%
   unnest(rankings) %>%
@@ -70,7 +70,7 @@ pages2 <- c(
 fp_rankings_history2 <- crossing(pages2, seasons2, weeks) %>%
   mutate(rankings = future_pmap(
     list(pages2, seasons2, weeks),
-    possibly(~fp_rankings(page = ..1, year = ..2, week = ..3),
+    possibly(~ fp_rankings(page = ..1, year = ..2, week = ..3),
              tibble())
   )) %>%
   unnest(rankings) %>%

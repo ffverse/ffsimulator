@@ -1,4 +1,3 @@
-
 #' Automatically Plot ff_simulation Object
 #'
 #' Creates automatic plots for wins, ranks, or points for an `ff_simulation` object as created by `ff_simulate()`.
@@ -47,8 +46,8 @@ autoplot.ff_simulation <- function(object,
   franchise_name <- NULL
 
   ss_levels <- ss[
-    , list(franchise_name,h2h_wins = stats::median(h2h_wins, na.rm = TRUE))
-    ,by = "franchise_name"
+    , list(franchise_name, h2h_wins = stats::median(h2h_wins, na.rm = TRUE))
+    , by = "franchise_name"
   ][
     order(h2h_wins)
   ]
@@ -99,7 +98,7 @@ autoplot.ff_simulation <- function(object,
   season_rank <- NULL
 
   ss[
-    ,`:=`(season_rank = rank(-h2h_wins, ties.method = "min"))
+    , `:=`(season_rank = rank(-h2h_wins, ties.method = "min"))
     , by = "season"
   ]
 
@@ -117,7 +116,7 @@ autoplot.ff_simulation <- function(object,
     ss,
     ggplot2::aes(x = .data$franchise_name, color = .data$franchise_name, fill = .data$franchise_name)) +
     ggplot2::geom_bar() +
-    ggplot2::scale_x_discrete(guide = ggplot2::guide_axis(position = "none"))+
+    ggplot2::scale_x_discrete(guide = ggplot2::guide_axis(position = "none")) +
     ggplot2::facet_wrap(~ .data$rank_label) +
     ggplot2::xlab(NULL) +
     ggplot2::ylab("Number of Seasons") +
@@ -144,7 +143,7 @@ autoplot.ff_simulation <- function(object,
   team_score <- NULL
   sw_levels <- sw[
     , list(team_score = stats::median(team_score, na.rm = TRUE))
-    ,by = c("franchise_name")
+    , by = c("franchise_name")
     ][
       order(team_score)
     ]

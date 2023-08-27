@@ -97,7 +97,7 @@ This simulation object has many of the same dataframes, including a summary_simu
 It also has some different automatic plots, including one for schedule luck:
 
 ```{r}
-plot(foureight_sim_week,type = "luck")
+plot(foureight_sim_week, type = "luck")
 ```
 
 and the usual points distribution:

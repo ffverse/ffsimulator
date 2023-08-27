@@ -1,4 +1,3 @@
-
 test_that("autoplot works", {
   foureight_sim <- .ffs_cache_example("foureight_sim.rds")
   foureight_sim_week <- .ffs_cache_example("foureight_sim_week.rds")
