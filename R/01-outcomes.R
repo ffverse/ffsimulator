@@ -1,6 +1,6 @@
 #' Connects ff_scoringhistory to past ADP rankings
 #'
-#' The backbone of the ffsimulator resampling process is coming up with a population of weekly outcomes for every preseason positional rank. This function creates that dataframe by connecting historical FantasyPros.com rankings to nflfastR-based scoring data, as created by `ffscrapr::ff_scoringhistory()`.
+#' The backbone of the ffsimulator resampling process is coming up with a population of weekly outcomes for every preseason positional rank. This function creates that dataframe by connecting historical FantasyPros.com rankings to nflverse-based scoring data, as created by `ffscrapr::ff_scoringhistory()`.
 #'
 #'
 #' @param scoring_history a scoring history table as created by `ffscrapr::ff_scoringhistory()`
@@ -30,7 +30,7 @@ ffs_adp_outcomes <- function(scoring_history,
   checkmate::assert_choice(gp_model, choices = c("simple", "none"))
   checkmate::assert_character(pos_filter)
   checkmate::assert_data_frame(scoring_history)
-  assert_columns(scoring_history, c("gsis_id", "team", "season", "points"))
+  assert_df(scoring_history, c("gsis_id", "team", "season", "points"))
 
   gsis_id <- NULL
   fantasypros_id <- NULL

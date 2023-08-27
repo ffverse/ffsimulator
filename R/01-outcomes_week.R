@@ -22,7 +22,7 @@ ffs_adp_outcomes_week <- function(scoring_history,
                                   pos_filter = c("QB", "RB", "WR", "TE")) {
   # ASSERTIONS #
   assert_character(pos_filter)
-  assert_columns(scoring_history, c("gsis_id", "week", "season", "points"))
+  assert_df(scoring_history, c("gsis_id", "week", "season", "points"))
 
   gsis_id <- NULL
   fantasypros_id <- NULL

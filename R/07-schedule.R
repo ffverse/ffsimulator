@@ -25,7 +25,7 @@ ffs_build_schedules <- function(n_teams = NULL,
                                 seed = NULL) {
   if (!is.null(franchises)) {
     checkmate::assert_data_frame(franchises)
-    assert_columns(franchises, c("league_id", "franchise_id"))
+    assert_df(franchises, c("league_id", "franchise_id"))
     f <- data.table::as.data.table(franchises)
     f <- f[,c("league_id","franchise_id")]
     n_teams <- nrow(franchises)

@@ -27,5 +27,7 @@ ffs_add_replacement_level(
 a dataframe of rosters with replacements
 }
 \description{
-Add replacement level players to each roster
+Adds the same N free-agent starters to each roster to represent being able to
+churn the waiver wire for starters, where N is the maximum number of players
+that could start in a given position
 }

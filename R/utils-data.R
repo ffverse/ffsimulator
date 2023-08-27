@@ -14,7 +14,7 @@
 fp_injury_table <- function(){
   .fp_injury_table <- .ffs_read_data("fp_injury_table.rds")
 
-  assert_columns(.fp_injury_table, c("pos", "rank", "prob_gp"))
+  assert_df(.fp_injury_table, c("pos", "rank", "prob_gp"))
   return(.fp_injury_table)
 }
 
@@ -32,7 +32,7 @@ fp_injury_table <- function(){
 #'
 fp_rankings_history <- function(){
   .fp_rankings_history <- .ffs_read_data("fp_rankings_history.rds")
-  assert_columns(
+  assert_df(
     .fp_rankings_history,
     c("season", "fantasypros_id", "sportradar_id",
       "player_name", "pos", "team", "rank", "ecr", "sd")
@@ -53,7 +53,7 @@ fp_rankings_history <- function(){
 #' @export
 fp_rankings_history_week <- function(){
   .fp_rankings_history_week <- .ffs_read_data("fp_rankings_history_week.rds")
-  assert_columns(
+  assert_df(
     .fp_rankings_history_week,
     c("season","week", "fantasypros_id", "sportradar_id",
       "player_name", "pos", "team", "rank", "ecr", "sd")

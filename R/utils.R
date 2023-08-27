@@ -7,7 +7,7 @@
 .ffs_cache_example <- function(filename) {
     readRDS(
       system.file(
-        file.path("cache_examples", filename),
+        file.path("examples", filename),
         package = "ffsimulator"
       )
     )

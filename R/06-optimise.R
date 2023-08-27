@@ -40,7 +40,7 @@ ffs_optimise_lineups <- function(roster_scores,
   checkmate::assert_flag(best_ball)
 
   checkmate::assert_data_frame(roster_scores)
-  assert_columns(
+  assert_df(
     roster_scores,
     c(
       "pos", "pos_rank", "league_id", "franchise_id",
@@ -50,7 +50,7 @@ ffs_optimise_lineups <- function(roster_scores,
   roster_scores <- data.table::as.data.table(roster_scores)
 
   checkmate::assert_data_frame(lineup_constraints, any.missing = FALSE)
-  assert_columns(lineup_constraints, c("pos", "min", "max", "offense_starters"))
+  assert_df(lineup_constraints, c("pos", "min", "max", "offense_starters"))
 
   lineup_constraints <- data.table::as.data.table(lineup_constraints)
   lineup_constraints <- lineup_constraints[lineup_constraints$pos %in% pos_filter]

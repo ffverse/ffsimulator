@@ -21,7 +21,7 @@ ffs_adp_outcomes(
 a dataframe with position, rank, probability of games played, and a corresponding nested list per row of all week score outcomes.
 }
 \description{
-The backbone of the ffsimulator resampling process is coming up with a population of weekly outcomes for every preseason positional rank. This function creates that dataframe by connecting historical FantasyPros.com rankings to nflfastR-based scoring data, as created by \code{ffscrapr::ff_scoringhistory()}.
+The backbone of the ffsimulator resampling process is coming up with a population of weekly outcomes for every preseason positional rank. This function creates that dataframe by connecting historical FantasyPros.com rankings to nflverse-based scoring data, as created by \code{ffscrapr::ff_scoringhistory()}.
 }
 \examples{
 \donttest{

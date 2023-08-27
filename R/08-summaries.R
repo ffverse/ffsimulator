@@ -25,14 +25,14 @@
 #' @export
 ffs_summarise_week <- function(optimal_scores, schedules) {
   checkmate::assert_data_frame(optimal_scores)
-  assert_columns(
+  assert_df(
     optimal_scores,
     c("season", "week", "season", "week", "actual_score", "league_id", "franchise_id")
   )
   data.table::setDT(optimal_scores)
 
   checkmate::assert_data_frame(schedules)
-  assert_columns(
+  assert_df(
     schedules,
     c("league_id","franchise_id","opponent_id","season", "week")
   )
@@ -106,7 +106,7 @@ ffs_summarise_week <- function(optimal_scores, schedules) {
 #' @export
 ffs_summarise_season <- function(summary_week) {
   checkmate::assert_data_frame(summary_week)
-  assert_columns(
+  assert_df(
     summary_week,
     c(
       "season", "league_id", "franchise_id", "franchise_name",
@@ -148,7 +148,7 @@ ffs_summarise_season <- function(summary_week) {
 #' @export
 ffs_summarise_simulation <- function(summary_season) {
   checkmate::assert_data_frame(summary_season)
-  assert_columns(
+  assert_df(
     summary_season,
     c(
       "league_id", "franchise_id", "franchise_name",
@@ -182,7 +182,7 @@ ffs_mean <- function(...){round(mean(...,na.rm = TRUE),3)}
 ffs_summarise_inseason <- function(summary_week,n) {
   checkmate::assert_number(n)
   checkmate::assert_data_frame(summary_week)
-  assert_columns(
+  assert_df(
     summary_week,
     c(
       "league_id", "franchise_id", "franchise_name",

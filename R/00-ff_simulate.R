@@ -54,7 +54,7 @@ ff_simulate <- function(conn,
   # n_weeks = 14
   # best_ball = FALSE
   # seed = NULL
-  # actual_schedule = TRUE
+  # actual_schedule = FALSE
   # replacement_level = TRUE
   # verbose = TRUE
   # return = "all"
@@ -69,7 +69,7 @@ ff_simulate <- function(conn,
 
   gp_model <- rlang::arg_match0(gp_model, c("simple","none"))
   return <- rlang::arg_match0(return, c("default","all"))
-  checkmate::assert_subset(pos_filter, c("QB","RB","WR","TE","K"))
+  pos_filter <- rlang::arg_match(pos_filter, c("QB","RB","WR","TE","K"), multiple = TRUE)
   checkmate::assert_numeric(base_seasons, lower = 2012, upper = 2022)
   checkmate::assert_int(n_seasons, lower = 1)
   checkmate::assert_int(n_weeks, lower = 1)
@@ -107,26 +107,29 @@ ff_simulate <- function(conn,
     if(length(weeks)==0) {
 
       cli::cli_alert_danger("No unplayed weeks to simulate!")
-      out <- structure(list(schedule = ffscrapr::ff_schedule(conn),
-                            league_info = league_info,
-                            simulation_params = list(
-                              n_seasons = n_seasons,
-                              n_weeks = n_weeks,
-                              scrape_date = latest_rankings$scrape_date[[1]],
-                              best_ball = best_ball,
-                              seed = seed,
-                              gp_model = gp_model,
-                              actual_schedule = actual_schedule,
-                              base_seasons = list(base_seasons)
-                            )),
-                       class = "ff_simulation")
+      out <- structure(
+        list(
+          schedule = ffscrapr::ff_schedule(conn),
+          league_info = league_info,
+          simulation_params = list(
+            n_seasons = n_seasons,
+            n_weeks = n_weeks,
+            scrape_date = latest_rankings$scrape_date[[1]],
+            best_ball = best_ball,
+            seed = seed,
+            gp_model = gp_model,
+            actual_schedule = actual_schedule,
+            base_seasons = list(base_seasons)
+          )
+        ),
+        class = "ff_simulation")
 
       return(out)
 
     }
 
     cli::cli_alert_info("Simulating only unplayed weeks: {
-                        min(weeks,na.rm = TRUE)}-{
+                        min(weeks, na.rm = TRUE)}-{
                         max(weeks, na.rm = TRUE)}")
   }
 
@@ -139,11 +142,13 @@ ff_simulate <- function(conn,
   if(!replacement_level) rosters_rl <- rosters
 
   if(replacement_level){
-    rosters_rl <- ffs_add_replacement_level(rosters = rosters,
-                                            latest_rankings = latest_rankings,
-                                            franchises = franchises,
-                                            lineup_constraints = lineup_constraints,
-                                            pos_filter = pos_filter)
+    rosters_rl <- ffs_add_replacement_level(
+      rosters = rosters,
+      latest_rankings = latest_rankings,
+      franchises = franchises,
+      lineup_constraints = lineup_constraints,
+      pos_filter = pos_filter
+    )
   }
 
   adp_outcomes <- ffs_adp_outcomes(
