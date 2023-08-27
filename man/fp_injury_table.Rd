@@ -19,4 +19,6 @@ games played per season for a given positional rank.
 By default, it returns bundled package data unless the \code{ffsimulator.cache_directory}
 option is configured, in which case it will look for a rds file named
 \code{fp_injury_table.rds} in that directory.
+
+To update, use \code{ffs_copy_template("rankings_update")} to find the bundled update script
 }

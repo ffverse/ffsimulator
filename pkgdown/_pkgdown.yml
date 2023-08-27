@@ -32,6 +32,7 @@ reference:
   - starts_with("ffs_summarise")
 - title: ffpros Rankings
   desc: Core rankings data used to power ffsimulator
+  contents:
   - "fp_rankings_history"
   - "fp_injury_table"
   - "fp_rankings_history_week"

@@ -17,4 +17,6 @@ QB/RB/WR/TE/PK and 2015 DL/LB/DB, as gathered by the ffpros package.
 By default, it returns bundled package data unless the \code{ffsimulator.cache_directory}
 option is configured, in which case it will look for a rds file named
 \code{fp_rankings_history.rds} in that directory.
+
+To update, use \code{ffs_copy_template("rankings_update")} to find the bundled update script
 }
