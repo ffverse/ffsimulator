@@ -13,11 +13,9 @@
 #' @export
 #' @return a success message signalling success/failure.
 
-ffs_copy_template <- function(
-  filename = "ff_simulation.R",
-  template = c("season", "week"),
-  overwrite = NULL
-  ) {
+ffs_copy_template <- function(template = c("season", "week", "rankings_update"),
+                              filename = glue::glue("ff_simulator_{template}.R"),
+                              overwrite = NULL) {
   template <- rlang::arg_match(template)
   checkmate::assert_flag(overwrite, null.ok = TRUE)
 
@@ -25,6 +23,7 @@ ffs_copy_template <- function(
     template,
     "season" = "simulation_template_season.R",
     "week" = "simulation_template_week.R",
+    "rankings_update" = "update_rankings_data.R",
     stop("No template found")
   )
 
@@ -45,7 +44,7 @@ ffs_copy_template <- function(
     return(cli::cli_alert_info("Did not copy template to {filename} - found existing file!"))
   }
 
-  from <- system.file("simulation_template_season.R", package = "ffsimulator")
+  from <- system.file(template_file, package = "ffsimulator")
 
   file.copy(from, filename, overwrite = TRUE)
 

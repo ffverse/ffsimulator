@@ -9,6 +9,8 @@
 #' option is configured, in which case it will look for a rds file named
 #' `fp_injury_table.rds` in that directory.
 #'
+#' To update, use `ffs_copy_template("rankings_update")` to find the bundled update script
+#'
 #' @return dataframe of injury probability by position rank
 #' @export
 fp_injury_table <- function() {
@@ -26,6 +28,8 @@ fp_injury_table <- function() {
 #' By default, it returns bundled package data unless the `ffsimulator.cache_directory`
 #' option is configured, in which case it will look for a rds file named
 #' `fp_rankings_history.rds` in that directory.
+#'
+#' To update, use `ffs_copy_template("rankings_update")` to find the bundled update script
 #'
 #' @return dataframe of preseason/draft rankings from ffpros
 #' @export
@@ -49,6 +53,8 @@ fp_rankings_history <- function() {
 #' option is configured, in which case it will look for a rds file named
 #' `fp_rankings_history_week.rds` in that directory.
 #'
+#' To update, use `ffs_copy_template("rankings_update")` to find the bundled update script
+#'
 #' @return dataframe of in-season positional rankings
 #' @export
 fp_rankings_history_week <- function() {
@@ -61,6 +67,13 @@ fp_rankings_history_week <- function() {
   return(.fp_rankings_history_week)
 }
 
+#' Read data from cache or pkg data
+#'
+#' @param file_name filename to find
+#' @param .env for internal use in error messages
+#'
+#' @rdname data-cache
+#' @export
 .ffs_read_data <- function(file_name, .env = rlang::caller_env()) {
   cache_file <- .ffs_cache_dir(file_name)
 
@@ -86,7 +99,7 @@ fp_rankings_history_week <- function() {
 }
 
 #' @export
-#' @noRd
+#' @rdname data-cache
 .ffs_cache_dir <- function(...) {
   dir <- getOption(
     "ffsimulator.cache_directory",

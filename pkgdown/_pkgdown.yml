@@ -35,6 +35,7 @@ reference:
   - "fp_rankings_history"
   - "fp_injury_table"
   - "fp_rankings_history_week"
+  - "data-cache"
 - title: ffscrapr Imports
   desc: Functions imported from ffscrapr
   contents:
