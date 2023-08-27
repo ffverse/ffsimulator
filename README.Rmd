@@ -44,13 +44,16 @@ This package is part of the [ffverse](https://www.ffverse.com) family of R packa
 Install the stable version of this package from CRAN:
 
 ```{r}
-install.packages("ffsimulator") # CRAN
+install.packages("ffsimulator")
 ```
 
 Install the development version from either [r-universe](https://ffverse.r-universe.dev) or GitHub:
 
 ```{r}
-install.packages("ffsimulator", repos = "https://ffverse.r-universe.dev")
+install.packages(
+  "ffsimulator", 
+  repos = c("https://ffverse.r-universe.dev", getOption("repos"))
+)
 # pak is recommended, see https://github.com/r-lib/pak
 pak::pak("ffverse/ffsimulator")
 # can also use remotes

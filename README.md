@@ -40,14 +40,17 @@ R packages for fantasy football analysis.
 Install the stable version of this package from CRAN:
 
 ``` r
-install.packages("ffsimulator") # CRAN
+install.packages("ffsimulator")
 ```
 
 Install the development version from either
 [r-universe](https://ffverse.r-universe.dev) or GitHub:
 
 ``` r
-install.packages("ffsimulator", repos = "https://ffverse.r-universe.dev")
+install.packages(
+  "ffsimulator", 
+  repos = c("https://ffverse.r-universe.dev", getOption("repos"))
+)
 # pak is recommended, see https://github.com/r-lib/pak
 pak::pak("ffverse/ffsimulator")
 # can also use remotes
@@ -69,8 +72,8 @@ library(ggridges)
 mfl_conn <- mfl_connect(season = 2021, league_id = 22627)
 
 ## OTHER PLATFORM CONNECTIONS MAY BE USED, FOR EXAMPLE:
-# sleeper_conn <- sleeper_connect(season = 2021,  league_id = "652582284720971776") 
-# flea_conn <- fleaflicker_connect(season = 2021, league_id = 312861) 
+# sleeper_conn <- sleeper_connect(season = 2021,  league_id = "652582284720971776")
+# flea_conn <- fleaflicker_connect(season = 2021, league_id = 312861)
 # espn_conn <- espn_connect(season = 2021, league_id = 899513)
 
 mfl_sim <- ff_simulate(conn = mfl_conn, n_seasons = 100)
