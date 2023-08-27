@@ -15,7 +15,7 @@ fp_injury_table <- ffsimulator::fp_rankings_history %>%
       dplyr::select("fantasypros_id", "gsis_id"),
     by = "fantasypros_id"
   ) %>%
-  dplyr::filter(!is.na(.data$gsis_id), pos %in% c("QB", "RB", "WR", "TE","K")) %>%
+  dplyr::filter(!is.na(.data$gsis_id), pos %in% c("QB", "RB", "WR", "TE", "K")) %>%
   dplyr::left_join(
     scoring_history %>%
       dplyr::filter(!is.na(.data$gsis_id), .data$week <= 17) %>%
@@ -48,4 +48,4 @@ fp_injury_table <- ffsimulator::fp_rankings_history %>%
   distinct(pos, rank, prob_gp) %>%
   arrange(pos, rank)
 
-usethis::use_data(fp_injury_table, overwrite = TRUE)
+saveRDS(fp_injury_table, "inst/data/fp_injury_table.rds")

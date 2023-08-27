@@ -83,7 +83,7 @@ saveRDS(adp_outcomes, "inst/cache/adp_outcomes.rds")
 
 adp_outcomes_week <- ffs_adp_outcomes_week(
   scoring_history = mfl_scoring_history,
-  pos_filter = c("QB","RB","WR")
+  pos_filter = c("QB", "RB", "WR")
 )
 saveRDS(adp_outcomes_week, "inst/cache/adp_outcomes_week.rds")
 
@@ -131,5 +131,5 @@ foureight_sim <- ff_simulate(foureight, n_seasons = 10)
 
 saveRDS(foureight_sim, "inst/cache/foureight_sim.rds")
 
-foureight_sim_week <- ff_simulate_week(foureight,n = 25)
+foureight_sim_week <- ff_simulate_week(foureight, n = 25)
 saveRDS(foureight_sim_week, "inst/cache/foureight_sim_week.rds")

@@ -20,8 +20,8 @@ Attaches projected scores to rosters (via an inner-join) and creates a positiona
 \examples{
 \donttest{
 # cached examples
-projected_scores <- .ffs_cache("projected_scores.rds")
-rosters <- .ffs_cache("mfl_rosters.rds")
+projected_scores <- .ffs_cache_example("projected_scores.rds")
+rosters <- .ffs_cache_example("mfl_rosters.rds")
 
 ffs_score_rosters(projected_scores, rosters)
 }

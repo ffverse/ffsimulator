@@ -7,8 +7,8 @@
 #'
 #' @examples \donttest{
 #' # cached examples
-#' projected_scores <- .ffs_cache("projected_scores.rds")
-#' rosters <- .ffs_cache("mfl_rosters.rds")
+#' projected_scores <- .ffs_cache_example("projected_scores.rds")
+#' rosters <- .ffs_cache_example("mfl_rosters.rds")
 #'
 #' ffs_score_rosters(projected_scores, rosters)
 #' }
@@ -22,7 +22,7 @@ ffs_score_rosters <- function(projected_scores, rosters) {
   checkmate::assert_data_frame(projected_scores)
   checkmate::assert_data_frame(rosters)
 
-  assert_columns(
+  assert_df(
     projected_scores,
     c(
       "fantasypros_id", "ecr", "rank", "projection",
@@ -31,7 +31,7 @@ ffs_score_rosters <- function(projected_scores, rosters) {
     )
   )
 
-  assert_columns(
+  assert_df(
     rosters,
     c("fantasypros_id", "league_id", "franchise_id", "pos")
   )

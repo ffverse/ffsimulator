@@ -32,7 +32,7 @@ Usage of this function/method requires the ggplot2 package and (for wins and poi
 \examples{
 \donttest{
 
-simulation <- .ffs_cache("foureight_sim.rds")
+simulation <- .ffs_cache_example("foureight_sim.rds")
 
 ggplot2::autoplot(simulation) # default is type = "wins"
 ggplot2::autoplot(simulation, type = "rank")
