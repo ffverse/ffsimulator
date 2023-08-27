@@ -87,14 +87,14 @@ NULL
 #' \donttest{
 #' # cached examples
 #' try({ # try block to prevent CRAN-related issues
-#' conn <- .ffs_cache("mfl_conn.rds")
+#' conn <- .ffs_cache_example("mfl_conn.rds")
 #' ffs_starter_positions(conn)
 #' })
 #' }
 #'
 #' @export
-ffs_starter_positions <- function(conn){
+ffs_starter_positions <- function(conn) {
   sp <- ffscrapr::ff_starter_positions(conn)
-  sp$pos <- replace(sp$pos,sp$pos == "PK","K")
+  sp$pos <- replace(sp$pos, sp$pos == "PK", "K")
   sp
 }

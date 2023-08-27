@@ -50,8 +50,8 @@ These functions are used to summarise the simulation outputs, typically by joini
 \examples{
 \donttest{
 # cached examples
-optimal_scores <- .ffs_cache("optimal_scores.rds")
-schedules <- .ffs_cache("schedules.rds")
+optimal_scores <- .ffs_cache_example("optimal_scores.rds")
+schedules <- .ffs_cache_example("schedules.rds")
 
 summary_week <- ffs_summarise_week(optimal_scores, schedules)
 summary_week

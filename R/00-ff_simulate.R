@@ -38,7 +38,7 @@ ff_simulate <- function(conn,
                         base_seasons = 2012:2022,
                         actual_schedule = FALSE,
                         replacement_level = TRUE,
-                        pos_filter = c("QB","RB","WR","TE","K"),
+                        pos_filter = c("QB", "RB", "WR", "TE", "K"),
                         verbose = NULL,
                         return = c("default", "all")
 ) {
@@ -46,45 +46,43 @@ ff_simulate <- function(conn,
   #### TEST ####
 
   # conn <- mfl_connect(2021,54040)
-  # conn <- sleeper_connect(2021,"734442977157603328")
-  # verbose <- NULL
-  # base_seasons = 2012:2020
+  # conn <- sleeper_connect(2023,"995578537426030592")
+  # base_seasons = 2012:2022
   # gp_model = "simple"
   # pos_filter = c("QB","RB","WR","TE","K")
   # n_seasons = 100
   # n_weeks = 14
   # best_ball = FALSE
   # seed = NULL
-  # base_seasons = 2012:2020
-  # actual_schedule = TRUE
-  # pos_filter = c("QB","RB","WR","TE","K")
+  # actual_schedule = FALSE
+  # replacement_level = TRUE
   # verbose = TRUE
   # return = "all"
 
   #### Assertions ####
 
   if (!class(conn) %in% c("mfl_conn", "sleeper_conn", "flea_conn", "espn_conn")) {
-    stop("conn should be a connection object created by `ff_connect()` and friends!",
-         call. = FALSE
+    cli::cli_abort(
+      "conn should be a connection object created by `ff_connect()` and friends!"
     )
   }
 
-  gp_model <- rlang::arg_match0(gp_model, c("simple","none"))
-  return <- rlang::arg_match0(return, c("default","all"))
-  checkmate::assert_subset(pos_filter, c("QB","RB","WR","TE","K"))
+  gp_model <- rlang::arg_match0(gp_model, c("simple", "none"))
+  return <- rlang::arg_match0(return, c("default", "all"))
+  pos_filter <- rlang::arg_match(pos_filter, c("QB", "RB", "WR", "TE", "K"), multiple = TRUE)
   checkmate::assert_numeric(base_seasons, lower = 2012, upper = 2022)
   checkmate::assert_int(n_seasons, lower = 1)
   checkmate::assert_int(n_weeks, lower = 1)
   checkmate::assert_int(seed, null.ok = TRUE)
   if (!is.null(seed)) set.seed(seed)
   checkmate::assert_flag(best_ball)
-  if(!is.null(verbose)) set_verbose(verbose)
+  if (!is.null(verbose)) set_verbose(verbose)
   checkmate::assert_flag(actual_schedule)
   checkmate::assert_flag(replacement_level)
 
   #### Import Data ####
 
-  vcli_rule("Starting simulation {Sys.time()}")
+  vcli_rule("Starting simulation {format(Sys.time())}")
 
   vcli_start(msg = "Importing data")
 
@@ -101,34 +99,37 @@ ff_simulate <- function(conn,
 
   weeks <- seq_len(n_weeks)
 
-  if(actual_schedule) {
+  if (actual_schedule) {
     schedule <- ffs_schedule(conn)
 
     weeks <- unique(schedule$week)
 
-    if(length(weeks)==0) {
+    if (length(weeks) == 0) {
 
       cli::cli_alert_danger("No unplayed weeks to simulate!")
-      out <- structure(list(schedule = ffscrapr::ff_schedule(conn),
-                            league_info = league_info,
-                            simulation_params = list(
-                              n_seasons = n_seasons,
-                              n_weeks = n_weeks,
-                              scrape_date = latest_rankings$scrape_date[[1]],
-                              best_ball = best_ball,
-                              seed = seed,
-                              gp_model = gp_model,
-                              actual_schedule = actual_schedule,
-                              base_seasons = list(base_seasons)
-                            )),
-                       class = "ff_simulation")
+      out <- structure(
+        list(
+          schedule = ffscrapr::ff_schedule(conn),
+          league_info = league_info,
+          simulation_params = list(
+            n_seasons = n_seasons,
+            n_weeks = n_weeks,
+            scrape_date = latest_rankings$scrape_date[[1]],
+            best_ball = best_ball,
+            seed = seed,
+            gp_model = gp_model,
+            actual_schedule = actual_schedule,
+            base_seasons = list(base_seasons)
+          )
+        ),
+        class = "ff_simulation")
 
       return(out)
 
     }
 
     cli::cli_alert_info("Simulating only unplayed weeks: {
-                        min(weeks,na.rm = TRUE)}-{
+                        min(weeks, na.rm = TRUE)}-{
                         max(weeks, na.rm = TRUE)}")
   }
 
@@ -138,14 +139,16 @@ ff_simulate <- function(conn,
 
   vcli_start(msg = "Generating Projections")
 
-  if(!replacement_level) rosters_rl <- rosters
+  if (!replacement_level) rosters_rl <- rosters
 
-  if(replacement_level){
-    rosters_rl <- ffs_add_replacement_level(rosters = rosters,
-                                            latest_rankings = latest_rankings,
-                                            franchises = franchises,
-                                            lineup_constraints = lineup_constraints,
-                                            pos_filter = pos_filter)
+  if (replacement_level) {
+    rosters_rl <- ffs_add_replacement_level(
+      rosters = rosters,
+      latest_rankings = latest_rankings,
+      franchises = franchises,
+      lineup_constraints = lineup_constraints,
+      pos_filter = pos_filter
+    )
   }
 
   adp_outcomes <- ffs_adp_outcomes(
@@ -186,12 +189,12 @@ ff_simulate <- function(conn,
 
   vcli_start(msg = "Building Schedules")
 
-  if(actual_schedule) {
+  if (actual_schedule) {
     schedules <- ffs_repeat_schedules(n_seasons = n_seasons,
                                       actual_schedule = schedule)
   }
 
-  if(!actual_schedule){
+  if (!actual_schedule) {
     schedules <- ffs_build_schedules(
       n_seasons = n_seasons,
       n_weeks = n_weeks,
@@ -209,7 +212,7 @@ ff_simulate <- function(conn,
 
   vcli_end(msg_done = "Summarising Simulation Data...done! {Sys.time()}")
 
-  if(return == "default"){
+  if (return == "default") {
 
     out <- structure(
       list(
@@ -235,7 +238,7 @@ ff_simulate <- function(conn,
     )
   }
 
-  if(return == "all"){
+  if (return == "all") {
 
     out <- structure(
       list(
@@ -268,7 +271,7 @@ ff_simulate <- function(conn,
     )
   }
 
-  vcli_rule("Simulation complete! {Sys.time()}")
+  vcli_rule("Simulation complete! {format(Sys.time())}")
 
   return(out)
 }

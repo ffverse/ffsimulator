@@ -20,8 +20,8 @@ The backbone of the ffsimulator resampling process is coming up with a populatio
 \examples{
 \donttest{
 # cached data
-scoring_history <- .ffs_cache("mfl_scoring_history.rds")
-ffs_adp_outcomes_week(scoring_history, pos_filter = c("QB","RB","WR","TE"))
+scoring_history <- .ffs_cache_example("mfl_scoring_history.rds")
+ffs_adp_outcomes_week(scoring_history, pos_filter = c("QB", "RB", "WR", "TE"))
 }
 
 }

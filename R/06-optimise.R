@@ -17,8 +17,8 @@
 #'
 #' @examples \donttest{
 #' # cached examples
-#' roster_scores <- .ffs_cache("roster_scores.rds")
-#' lineup_constraints <- .ffs_cache("mfl_lineup_constraints.rds")
+#' roster_scores <- .ffs_cache_example("roster_scores.rds")
+#' lineup_constraints <- .ffs_cache_example("mfl_lineup_constraints.rds")
 #'
 #' ffs_optimise_lineups(roster_scores, lineup_constraints)
 #' }
@@ -40,7 +40,7 @@ ffs_optimise_lineups <- function(roster_scores,
   checkmate::assert_flag(best_ball)
 
   checkmate::assert_data_frame(roster_scores)
-  assert_columns(
+  assert_df(
     roster_scores,
     c(
       "pos", "pos_rank", "league_id", "franchise_id",
@@ -50,7 +50,7 @@ ffs_optimise_lineups <- function(roster_scores,
   roster_scores <- data.table::as.data.table(roster_scores)
 
   checkmate::assert_data_frame(lineup_constraints, any.missing = FALSE)
-  assert_columns(lineup_constraints, c("pos", "min", "max", "offense_starters"))
+  assert_df(lineup_constraints, c("pos", "min", "max", "offense_starters"))
 
   lineup_constraints <- data.table::as.data.table(lineup_constraints)
   lineup_constraints <- lineup_constraints[lineup_constraints$pos %in% pos_filter]
@@ -119,7 +119,7 @@ ffs_optimize_lineups <- ffs_optimise_lineups
       pos_ids, # pos minimums
       pos_ids, # pos maximums
       as.integer(franchise_scores$pos %in% c("QB", "RB", "WR", "TE")), rep.int(1L, min_req), # total offensive starters
-      rep.int(1L,length(player_scores))
+      rep.int(1L, length(player_scores))
       ),
     nrow = nrow(lineup_constraints) * 2 + 2,
     byrow = TRUE

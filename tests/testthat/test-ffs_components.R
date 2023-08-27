@@ -1,6 +1,5 @@
-
-cache_names <- list.files(system.file("cache", package = "ffsimulator"))
-cache <- lapply(cache_names, .ffs_cache)
+cache_names <- list.files(system.file("examples", package = "ffsimulator"))
+cache <- lapply(cache_names, .ffs_cache_example)
 cache_names <- gsub(pattern = "\\.rds$", replacement = "", x = cache_names)
 names(cache) <- cache_names
 
@@ -17,7 +16,7 @@ test_that("ffs_adp_outcomes() works for both the simple and none injury models",
 
   adp_outcomes_week <- ffs_adp_outcomes_week(
     scoring_history = cache$mfl_scoring_history,
-    pos_filter = c("QB","RB","WR","TE")
+    pos_filter = c("QB", "RB", "WR", "TE")
   )
 
   checkmate::expect_data_frame(adp_outcomes, min.rows = 500)
@@ -69,7 +68,7 @@ test_that("ffs_generate_projections() returns a tibble and specific columns", {
   )
 })
 
-test_that("ffs_add_replacement_level() works",{
+test_that("ffs_add_replacement_level() works", {
 
   rosters_rl <- ffs_add_replacement_level(
     rosters = cache$mfl_rosters,
@@ -79,7 +78,7 @@ test_that("ffs_add_replacement_level() works",{
   )
   rosters <- cache$mfl_rosters
 
-  checkmate::expect_data_frame(rosters_rl, min.rows = nrow(rosters)+12)
+  checkmate::expect_data_frame(rosters_rl, min.rows = nrow(rosters) + 12)
 
 })
 
@@ -176,7 +175,7 @@ test_that("summary functions return tibbles", {
       "season", "week", "franchise_name", "optimal_score",
       "lineup_efficiency", "team_score", "opponent_score", "result",
       "opponent_name", "allplay_wins", "allplay_games", "allplay_pct",
-      "franchise_id", "optimal_player_id", "optimal_player_score","league_id"
+      "franchise_id", "optimal_player_id", "optimal_player_score", "league_id"
     ),
     names(summary_week),
     label = "summary_week names check"
@@ -184,7 +183,7 @@ test_that("summary functions return tibbles", {
 
   checkmate::expect_subset(
     c(
-      "season","league_id", "franchise_id", "franchise_name", "h2h_wins", "h2h_winpct",
+      "season", "league_id", "franchise_id", "franchise_name", "h2h_wins", "h2h_winpct",
       "allplay_wins", "allplay_games", "allplay_winpct", "points_for",
       "points_against", "potential_points"
     ),
