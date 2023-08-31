@@ -74,8 +74,13 @@ ffs_adp_outcomes_week <- function(scoring_history,
     , len := sapply(week_outcomes, length)
   ][
     , len := max(len) - len
+    , by = "pos"
   ][
-    , `:=`(week_outcomes = mapply(.ff_rep_na, week_outcomes, len, SIMPLIFY = FALSE), len = NULL)
+    , `:=`(
+      week_outcomes = mapply(.ff_rep_na, week_outcomes, len, SIMPLIFY = FALSE),
+      avg_week = sapply(week_outcomes, mean, na.rm = TRUE),
+      len = NULL
+    )
   ][
     order(pos, rank)
   ]

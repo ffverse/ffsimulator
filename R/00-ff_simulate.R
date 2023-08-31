@@ -40,8 +40,8 @@ ff_simulate <- function(conn,
                         replacement_level = TRUE,
                         pos_filter = c("QB", "RB", "WR", "TE", "K"),
                         verbose = NULL,
-                        return = c("default", "all")
-) {
+                        version = c("v2", "v1"),
+                        return = c("default", "all")) {
 
   #### TEST ####
 
@@ -58,6 +58,7 @@ ff_simulate <- function(conn,
   # replacement_level = TRUE
   # verbose = TRUE
   # return = "all"
+  # version = "v2"
 
   #### Assertions ####
 
@@ -69,6 +70,7 @@ ff_simulate <- function(conn,
 
   gp_model <- rlang::arg_match0(gp_model, c("simple", "none"))
   return <- rlang::arg_match0(return, c("default", "all"))
+  version <- rlang::arg_match0(version, c("v2", "v1"))
   pos_filter <- rlang::arg_match(pos_filter, c("QB", "RB", "WR", "TE", "K"), multiple = TRUE)
   checkmate::assert_numeric(base_seasons, lower = 2012, upper = 2022)
   checkmate::assert_int(n_seasons, lower = 1)
@@ -154,7 +156,8 @@ ff_simulate <- function(conn,
   adp_outcomes <- ffs_adp_outcomes(
     scoring_history = scoring_history,
     gp_model = gp_model,
-    pos_filter = pos_filter
+    pos_filter = pos_filter,
+    version = version
   )
 
   projected_scores <- ffs_generate_projections(
@@ -162,7 +165,8 @@ ff_simulate <- function(conn,
     latest_rankings = latest_rankings,
     n_seasons = n_seasons,
     weeks = weeks,
-    rosters = rosters_rl
+    rosters = rosters_rl,
+    version = version
   )
 
   vcli_end(msg_done = "Generating Projections...done! {Sys.time()}")
