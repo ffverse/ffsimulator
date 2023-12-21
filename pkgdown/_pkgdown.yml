@@ -54,6 +54,7 @@ home:
 
 navbar:
   bg: dark
+  type: dark
   structure:
     left:  [home, reference, news, articles]
     right: [discord,  github, more]
