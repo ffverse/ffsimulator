@@ -1,10 +1,10 @@
 pandoc: 2.19.2
-pkgdown: 2.0.7
-pkgdown_sha: ~
+pkgdown: 2.0.7.9000
+pkgdown_sha: 6d594a03788b5f9a4e3da9c24caf8e087d3263e3
 articles:
   basic: basic.html
   custom: custom.html
-last_built: 2023-12-21T00:10Z
+last_built: 2023-12-24T20:31Z
 urls:
   reference: https://ffsimulator.ffverse.com/reference
   article: https://ffsimulator.ffverse.com/articles
