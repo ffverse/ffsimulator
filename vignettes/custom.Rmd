@@ -85,7 +85,7 @@ This brings in league information that is primarily used for plot names.
 adp_outcomes <- ffs_adp_outcomes(
     scoring_history = scoring_history,
     gp_model = "simple", # or "none"
-    pos_filter = c("QB","RB","WR","TE","K")
+    pos_filter = c("QB", "RB", "WR", "TE", "K")
   )
 ```
 
@@ -123,7 +123,7 @@ optimal_scores <- ffs_optimise_lineups(
     lineup_efficiency_mean = 0.775,
     lineup_efficiency_sd = 0.05,
     best_ball = FALSE, # or TRUE
-    pos_filter = c("QB","RB","WR","TE","K")
+    pos_filter = c("QB", "RB", "WR", "TE", "K")
   )
 ```
 
@@ -138,7 +138,7 @@ There are options to use parallel processing - in my experience, 100 seasons of 
 In order to calculate head to head wins, you need a schedule! Enter `ffs_build_schedules()`:
 
 ```{r eval = FALSE}
-  schedules <- ffs_build_schedules(
+schedules <- ffs_build_schedules(
     n_seasons = n_seasons,
     n_weeks = n_weeks,
     seed = NULL,
@@ -187,7 +187,7 @@ league_info <- ffscrapr::ff_league(conn)
 
 scoring_history <- ffscrapr::ff_scoringhistory(conn, 2012:2020)
 
-adp_outcomes <- ffs_adp_outcomes(scoring_history = scoring_history, gp_model = "simple",pos_filter = c("QB","RB","WR","TE","K"))
+adp_outcomes <- ffs_adp_outcomes(scoring_history = scoring_history, gp_model = "simple", pos_filter = c("QB", "RB", "WR", "TE", "K"))
 
 latest_rankings <- ffs_latest_rankings()
 lineup_constraints <- ffs_starter_positions(conn)
@@ -199,17 +199,17 @@ We can use one league ID here to grab most of the historical scoring data and ru
 conn2 <- mfl_connect(2021)
 
 leagues <- mfl_getendpoint(conn2, "leagueSearch", SEARCH = "#SFB11") %>%
-  pluck("content","leagues","league") %>%
+  pluck("content", "leagues", "league") %>%
   tibble() %>%
   unnest_wider(1) %>%
-  filter(str_detect(name,"Mock|Copy|Satellite|Template",negate = TRUE))
+  filter(str_detect(name, "Mock|Copy|Satellite|Template", negate = TRUE))
 
 
-get_rosters <- function(league_id){
+get_rosters <- function(league_id) {
   mfl_connect(2021, league_id) %>%
     ffs_rosters()
 }
-get_franchises <- function(league_id){
+get_franchises <- function(league_id) {
   mfl_connect(2021, league_id) %>%
     ff_franchises()
 }
@@ -229,7 +229,7 @@ franchises <- rosters_raw %>%
 rosters <- rosters_raw %>%
   select(rosters) %>%
   unnest(rosters) %>%
-  left_join(franchises,by = c("league_id","franchise_id"))
+  left_join(franchises, by = c("league_id", "franchise_id"))
 ```
 
 Because SFB is spread over multiple league IDs, we need to get a list of IDs from the leagueSearch endpoint, map over them with the get_rosters and get_franchises helper functions we just defined, and attach the division name.
@@ -251,7 +251,7 @@ tictoc::tic("ffs_optimize_lineups {Sys.time()}")
 optimal_scores <- ffs_optimize_lineups(
   roster_scores = roster_scores,
   lineup_constraints = lineup_constraints,
-  pos_filter = c("QB","RB","WR","TE","K"),
+  pos_filter = c("QB", "RB", "WR", "TE", "K"),
   best_ball = FALSE)
 tictoc::toc()
 ```

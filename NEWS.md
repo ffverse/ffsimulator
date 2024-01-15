@@ -5,6 +5,8 @@
 - Update available fantasypros rankings to include 2022
 - Require ggplot2 3.4.0 for plotting features
 - Draws from a slightly broader sample of players for season outcomes
+- Remove packaged rankings built-in in favour of reading files from user cache, 
+falling back to system.file() internal data. Adds script for updating.
 
 
 ---

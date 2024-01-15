@@ -27,7 +27,7 @@ pages <- c(
 fp_rankings_history <- crossing(pages, seasons, weeks) %>%
   mutate(rankings = future_pmap(
     list(pages, seasons, weeks),
-    possibly(~fp_rankings(page = ..1, year = ..2, week = ..3),
+    possibly(~ fp_rankings(page = ..1, year = ..2, week = ..3),
              tibble())
   )) %>%
   unnest(rankings) %>%
@@ -70,7 +70,7 @@ pages2 <- c(
 fp_rankings_history2 <- crossing(pages2, seasons2, weeks) %>%
   mutate(rankings = future_pmap(
     list(pages2, seasons2, weeks),
-    possibly(~fp_rankings(page = ..1, year = ..2, week = ..3),
+    possibly(~ fp_rankings(page = ..1, year = ..2, week = ..3),
              tibble())
   )) %>%
   unnest(rankings) %>%
@@ -94,4 +94,4 @@ fp_rankings_history2 <- crossing(pages2, seasons2, weeks) %>%
 
 fp_rankings_history_week <- bind_rows(fp_rankings_history, fp_rankings_history2)
 
-usethis::use_data(fp_rankings_history_week, overwrite = TRUE)
+saveRDS(fp_rankings_history_week, "inst/data/fp_rankings_history_week.rds")

@@ -9,8 +9,8 @@
 #'
 #' @examples \donttest{
 #' # cached examples
-#' adp_outcomes_week <- .ffs_cache("adp_outcomes_week.rds")
-#' latest_rankings_week <- .ffs_cache("latest_rankings_week.rds")
+#' adp_outcomes_week <- .ffs_cache_example("adp_outcomes_week.rds")
+#' latest_rankings_week <- .ffs_cache_example("latest_rankings_week.rds")
 #'
 #' ffs_generate_projections_week(adp_outcomes_week, latest_rankings_week)
 #' }
@@ -27,19 +27,19 @@ ffs_generate_projections_week <- function(adp_outcomes,
   checkmate::assert_number(n, lower = 1)
 
   checkmate::assert_data_frame(adp_outcomes)
-  assert_columns(adp_outcomes, c("pos", "rank", "week_outcomes"))
+  assert_df(adp_outcomes, c("pos", "rank", "week_outcomes"))
   adp_outcomes <- data.table::as.data.table(adp_outcomes)[, c("pos", "rank", "week_outcomes")]
 
   checkmate::assert_data_frame(latest_rankings)
-  assert_columns(latest_rankings, c("player", "pos", "team",
+  assert_df(latest_rankings, c("player", "pos", "team",
                                     "ecr", "sd", "fantasypros_id",
                                     "scrape_date"))
 
-  latest_rankings <- data.table::as.data.table(latest_rankings)[, c("player", "pos", "team", "ecr", "sd", "fantasypros_id","scrape_date")]
+  latest_rankings <- data.table::as.data.table(latest_rankings)[, c("player", "pos", "team", "ecr", "sd", "fantasypros_id", "scrape_date")]
 
   if (is.null(rosters)) rosters <- latest_rankings[, "fantasypros_id"]
   checkmate::assert_data_frame(rosters)
-  assert_columns(rosters, "fantasypros_id")
+  assert_df(rosters, "fantasypros_id")
   rosters <- data.table::as.data.table(rosters)
 
   rankings <- latest_rankings[latest_rankings$fantasypros_id %in% rosters$fantasypros_id]
@@ -68,10 +68,10 @@ ffs_generate_projections_week <- function(adp_outcomes,
                                           size = 1, replace = TRUE))
     ),
     by = c("week", "fantasypros_id", "player", "pos",
-           "team", "ecr", "sd", "rank","scrape_date"),
+           "team", "ecr", "sd", "rank", "scrape_date"),
     .SDcols = c("week_outcomes")
   ]
-  ps <- ps[,`:=`(
+  ps <- ps[, `:=`(
     projection = ps$projected_score,
     gp_model = 1,
     season = 1

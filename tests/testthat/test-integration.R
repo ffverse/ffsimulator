@@ -3,10 +3,10 @@ test_that("MFL simulation works", {
 
   foureight <- mfl_connect(2021, 22627, user_agent = "asdf23409lkjsafd")
   foureight_sim <- ff_simulate(foureight, n_seasons = 2)
-  week_sim <- ff_simulate_week(foureight,n = 10, verbose = FALSE, actual_schedule = FALSE)
+  week_sim <- ff_simulate_week(foureight, n = 10, verbose = FALSE, actual_schedule = FALSE)
 
   checkmate::expect_list(foureight_sim, len = 7)
-  checkmate::expect_list(week_sim,len = 6)
+  checkmate::expect_list(week_sim, len = 6)
   checkmate::expect_data_frame(week_sim$summary_week, nrows = 120, any.missing = FALSE)
   checkmate::expect_data_frame(foureight_sim$summary_simulation, nrows = 12, any.missing = FALSE)
   checkmate::expect_data_frame(foureight_sim$summary_season, nrows = 24, any.missing = FALSE)
@@ -66,9 +66,9 @@ test_that("Actual Schedule - completed_season = no sim", {
   checkmate::expect_list(ssb_sim, len = 3)
 })
 
-test_that("wins added works",{
+test_that("wins added works", {
   skip_on_cran()
-  ssb <- mfl_connect(2021,54040)
+  ssb <- mfl_connect(2021, 54040)
   ssb_wa <- ff_wins_added(ssb, n_seasons = 2)
 
   checkmate::expect_list(ssb_wa, len = 15)

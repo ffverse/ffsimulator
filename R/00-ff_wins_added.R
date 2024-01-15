@@ -19,14 +19,14 @@
 #' \donttest{
 #' try({ # try block to prevent CRAN-related issues
 #' # n_seasons set so that the example runs more quickly
-#' ff_wins_added(mfl_connect(2021,54040), n_seasons = 5)
+#' ff_wins_added(mfl_connect(2021, 54040), n_seasons = 5)
 #' })
 #' }
 #'
 #' @return a dataframe summarising the net effect of each player on their team's wins
 #'
 #' @export
-ff_wins_added <- function(conn, ...){
+ff_wins_added <- function(conn, ...) {
 
   #### TEST STUFF ####
   # conn <- mfl_connect(2021,54040)
@@ -46,14 +46,14 @@ ff_wins_added <- function(conn, ...){
 
   rosters <- data.table::as.data.table(base_simulation$rosters)[
     pos %in% base_simulation$simulation_params$pos_filter[[1]],
-    c("player_id","player_name","league_id","franchise_name","franchise_id","pos")
+    c("player_id", "player_name", "league_id", "franchise_name", "franchise_id", "pos")
   ]
 
   vcli_rule("Start WAR calcs {Sys.time()}")
 
-  progress_flag <- rlang::is_installed("progressr") && getOption("ffsimulator.verbose", default =  TRUE)
+  progress_flag <- rlang::is_installed("progressr") && getOption("ffsimulator.verbose", default = TRUE)
 
-  if(getOption("ffsimulator.verbose", default =  TRUE) & !progress_flag) {
+  if (getOption("ffsimulator.verbose", default = TRUE) & !progress_flag) {
     cli::cli_warn("{.pkg progressr} package not found - please install for detailed progress updates!")
   }
 
@@ -62,13 +62,13 @@ ff_wins_added <- function(conn, ...){
 
   war <- with_progress({
 
-    if(progress_flag) p <- progressr::progressor(nrow(rosters))
+    if (progress_flag) p <- progressr::progressor(nrow(rosters))
 
     rosters[
       ,
-      .ffs_win_add(.SD, base_simulation,p),
-      by = c("league_id","franchise_id","franchise_name","player_id","player_name","pos"),
-      .SDcols = c("player_id","player_name","franchise_id")
+      .ffs_win_add(.SD, base_simulation, p),
+      by = c("league_id", "franchise_id", "franchise_name", "player_id", "player_name", "pos"),
+      .SDcols = c("player_id", "player_name", "franchise_id")
     ][
       order(-allplay_winpct)
     ]
@@ -78,13 +78,13 @@ ff_wins_added <- function(conn, ...){
 
   out <- structure(
     .Data = c(list(war = war), base_simulation),
-    class = c("ff_war","ff_simulation")
+    class = c("ff_war", "ff_simulation")
   )
 
   return(out)
 }
 
-.ffs_win_add <- function(rosters, base_simulation, p = NULL){
+.ffs_win_add <- function(rosters, base_simulation, p = NULL) {
   p_id <- rosters$player_id
   p_name <- rosters$player_name
   f_id <- rosters$franchise_id
@@ -131,7 +131,7 @@ ff_wins_added <- function(conn, ...){
       potential_points = o_sim$potential_points - potential_points
     )]
 
-  if(!is.null(p)) p()
+  if (!is.null(p)) p()
 
   return(war_simulation)
 }
