@@ -7,7 +7,8 @@
 ffs_adp_outcomes(
   scoring_history,
   gp_model = "simple",
-  pos_filter = c("QB", "RB", "WR", "TE")
+  pos_filter = c("QB", "RB", "WR", "TE"),
+  version = c("v2", "v1")
 )
 }
 \arguments{

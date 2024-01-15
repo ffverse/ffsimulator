@@ -46,7 +46,7 @@ ff_simulate <- function(conn,
   #### TEST ####
 
   # conn <- mfl_connect(2021,54040)
-  # conn <- sleeper_connect(2023,"995578537426030592")
+  # conn <- sleeper_connect(2023,"921444366491668480")
   # base_seasons = 2012:2022
   # gp_model = "simple"
   # pos_filter = c("QB","RB","WR","TE","K")
@@ -60,7 +60,7 @@ ff_simulate <- function(conn,
   # return = "all"
   # version = "v2"
 
-  #### Assertions ####
+  #### ASSERTIONS ####
 
   if (!class(conn) %in% c("mfl_conn", "sleeper_conn", "flea_conn", "espn_conn")) {
     cli::cli_abort(

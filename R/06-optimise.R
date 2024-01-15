@@ -64,10 +64,10 @@ ffs_optimise_lineups <- function(roster_scores,
   ]
 
   optimal_scores <-
-    optimal_scores[,
-                   .ff_optimise_one_lineup(.SD, lineup_constraints),
-                   by = c("league_id", "franchise_id", "franchise_name", "season", "week"),
-                   .SDcols = c("player_id", "pos", "projected_score")
+    optimal_scores[
+      , .ff_optimise_one_lineup(.SD, lineup_constraints)
+      , by = c("league_id", "franchise_id", "franchise_name", "season", "week"),
+      .SDcols = c("player_id", "pos", "projected_score")
     ]
 
   if (best_ball) optimal_scores[, `:=`(lineup_efficiency = 1)]
