@@ -14,8 +14,8 @@
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../deps/bootstrap-5.2.2/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.2.2/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet">
 <meta property="og:title" content="Basic Simulations">
@@ -108,7 +108,7 @@
       <img src="../logo.png" class="logo" alt=""><h1>Basic Simulations</h1>
                         <h4 data-toc-skip class="author">Tan Ho</h4>
             
-            <h4 data-toc-skip class="date">2023-12-24</h4>
+            <h4 data-toc-skip class="date">2024-02-08</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/ffverse/ffsimulator/blob/HEAD/vignettes/basic.Rmd" class="external-link"><code>vignettes/basic.Rmd</code></a></small>
       <div class="d-none name"><code>basic.Rmd</code></div>
@@ -186,6 +186,7 @@ theoretically be the outcome of the upcoming season!</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">foureight_sim</span><span class="op">$</span><span class="va">summary_season</span></span>
 <span><span class="co">#&gt;      season league_id franchise_id                 franchise_name h2h_wins</span></span>
+<span><span class="co">#&gt;       &lt;num&gt;    &lt;char&gt;       &lt;char&gt;                         &lt;char&gt;    &lt;int&gt;</span></span>
 <span><span class="co">#&gt;   1:      1     22627         0001        Mexico City Space Force       12</span></span>
 <span><span class="co">#&gt;   2:      1     22627         0002                    Dirty Dgens        0</span></span>
 <span><span class="co">#&gt;   3:      1     22627         0003             Alberta Armadillos        5</span></span>
@@ -198,6 +199,7 @@ theoretically be the outcome of the upcoming season!</p>
 <span><span class="co">#&gt; 119:     10     22627         0011                           TB12        8</span></span>
 <span><span class="co">#&gt; 120:     10     22627         0012           Indigo Plateau Elite       11</span></span>
 <span><span class="co">#&gt;      h2h_winpct allplay_wins allplay_games allplay_winpct points_for</span></span>
+<span><span class="co">#&gt;           &lt;num&gt;        &lt;num&gt;         &lt;num&gt;          &lt;num&gt;      &lt;num&gt;</span></span>
 <span><span class="co">#&gt;   1:      0.857          125           154          0.812   2034.086</span></span>
 <span><span class="co">#&gt;   2:      0.000           27           154          0.175   1187.849</span></span>
 <span><span class="co">#&gt;   3:      0.357           63           154          0.409   1524.148</span></span>
@@ -210,6 +212,7 @@ theoretically be the outcome of the upcoming season!</p>
 <span><span class="co">#&gt; 119:      0.571          100           154          0.649   1727.765</span></span>
 <span><span class="co">#&gt; 120:      0.786          133           154          0.864   2066.457</span></span>
 <span><span class="co">#&gt;      points_against potential_points</span></span>
+<span><span class="co">#&gt;               &lt;num&gt;            &lt;num&gt;</span></span>
 <span><span class="co">#&gt;   1:       1622.343          2631.29</span></span>
 <span><span class="co">#&gt;   2:       1798.732          1502.92</span></span>
 <span><span class="co">#&gt;   3:       1543.897          1947.87</span></span>
@@ -228,6 +231,7 @@ factor:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">foureight_sim</span><span class="op">$</span><span class="va">summary_week</span></span>
 <span><span class="co">#&gt;       season season_week                 franchise_name optimal_score</span></span>
+<span><span class="co">#&gt;        &lt;num&gt;       &lt;num&gt;                         &lt;char&gt;         &lt;num&gt;</span></span>
 <span><span class="co">#&gt;    1:      1           1        Mexico City Space Force        166.65</span></span>
 <span><span class="co">#&gt;    2:      1           1                    Dirty Dgens        145.65</span></span>
 <span><span class="co">#&gt;    3:      1           1             Alberta Armadillos        108.13</span></span>
@@ -240,6 +244,7 @@ factor:</p>
 <span><span class="co">#&gt; 1679:     10          14                           TB12         64.17</span></span>
 <span><span class="co">#&gt; 1680:     10          14           Indigo Plateau Elite        205.99</span></span>
 <span><span class="co">#&gt;       lineup_efficiency team_score opponent_score result</span></span>
+<span><span class="co">#&gt;                   &lt;num&gt;      &lt;num&gt;          &lt;num&gt; &lt;char&gt;</span></span>
 <span><span class="co">#&gt;    1:             0.691    115.169         76.084      W</span></span>
 <span><span class="co">#&gt;    2:             0.737    107.286        132.011      L</span></span>
 <span><span class="co">#&gt;    3:             0.776     83.912        179.982      L</span></span>
@@ -252,6 +257,7 @@ factor:</p>
 <span><span class="co">#&gt; 1679:             0.778     49.902        131.653      L</span></span>
 <span><span class="co">#&gt; 1680:             0.760    156.605         79.371      W</span></span>
 <span><span class="co">#&gt;                        opponent_name allplay_wins allplay_games allplay_pct</span></span>
+<span><span class="co">#&gt;                               &lt;char&gt;        &lt;num&gt;         &lt;num&gt;       &lt;num&gt;</span></span>
 <span><span class="co">#&gt;    1:            Hoth City Tauntauns            5            11       0.455</span></span>
 <span><span class="co">#&gt;    2:               Electric Woodies            3            11       0.273</span></span>
 <span><span class="co">#&gt;    3:           Indigo Plateau Elite            1            11       0.091</span></span>
@@ -264,6 +270,7 @@ factor:</p>
 <span><span class="co">#&gt; 1679:               Electric Woodies            0            11       0.000</span></span>
 <span><span class="co">#&gt; 1680:            Hoth City Tauntauns           11            11       1.000</span></span>
 <span><span class="co">#&gt;       league_id franchise_id                       optimal_player_id</span></span>
+<span><span class="co">#&gt;          &lt;char&gt;       &lt;char&gt;                                  &lt;list&gt;</span></span>
 <span><span class="co">#&gt;    1:     22627         0001 13592,14777,14081,15265,14805,13672,...</span></span>
 <span><span class="co">#&gt;    2:     22627         0002 12610,11747,13138,14803,15268,12212,...</span></span>
 <span><span class="co">#&gt;    3:     22627         0003 10700,11644,14075,14087,14806,15261,...</span></span>
@@ -276,6 +283,7 @@ factor:</p>
 <span><span class="co">#&gt; 1679:     22627         0011 15239,13131,13850,14828,13192,11232,...</span></span>
 <span><span class="co">#&gt; 1680:     22627         0012  14056,8062,11193,12626,13130,14852,...</span></span>
 <span><span class="co">#&gt;                          optimal_player_score</span></span>
+<span><span class="co">#&gt;                                        &lt;list&gt;</span></span>
 <span><span class="co">#&gt;    1: 17.76,18.54, 8.70,23.70,12.10,17.10,...</span></span>
 <span><span class="co">#&gt;    2:        8.8, 9.7,17.6, 7.7, 8.8,26.2,...</span></span>
 <span><span class="co">#&gt;    3: 10.42, 7.96,10.10, 8.60,17.50,22.30,...</span></span>
@@ -294,54 +302,59 @@ to franchise rosters (and thus duplicates rows if there are multiple
 copies of players within the league).</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">foureight_sim</span><span class="op">$</span><span class="va">roster_scores</span></span>
-<span><span class="co">#&gt;        fantasypros_id franchise_id franchise_name player_id   player_name pos</span></span>
-<span><span class="co">#&gt;     1:          10007         0007     Paw Patrol     10413 Taylor, Tyrod  QB</span></span>
-<span><span class="co">#&gt;     2:          10007         0007     Paw Patrol     10413 Taylor, Tyrod  QB</span></span>
-<span><span class="co">#&gt;     3:          10007         0007     Paw Patrol     10413 Taylor, Tyrod  QB</span></span>
-<span><span class="co">#&gt;     4:          10007         0007     Paw Patrol     10413 Taylor, Tyrod  QB</span></span>
-<span><span class="co">#&gt;     5:          10007         0007     Paw Patrol     10413 Taylor, Tyrod  QB</span></span>
-<span><span class="co">#&gt;    ---                                                                       </span></span>
-<span><span class="co">#&gt; 51446:           9907         0007     Paw Patrol     10313  Dalton, Andy  QB</span></span>
-<span><span class="co">#&gt; 51447:           9907         0007     Paw Patrol     10313  Dalton, Andy  QB</span></span>
-<span><span class="co">#&gt; 51448:           9907         0007     Paw Patrol     10313  Dalton, Andy  QB</span></span>
-<span><span class="co">#&gt; 51449:           9907         0007     Paw Patrol     10313  Dalton, Andy  QB</span></span>
-<span><span class="co">#&gt; 51450:           9907         0007     Paw Patrol     10313  Dalton, Andy  QB</span></span>
-<span><span class="co">#&gt;        team  age salary contract_years roster_status draft_year draft_round</span></span>
-<span><span class="co">#&gt;     1:  HOU 32.1   0.61              1        ROSTER       2011           6</span></span>
-<span><span class="co">#&gt;     2:  HOU 32.1   0.61              1        ROSTER       2011           6</span></span>
-<span><span class="co">#&gt;     3:  HOU 32.1   0.61              1        ROSTER       2011           6</span></span>
-<span><span class="co">#&gt;     4:  HOU 32.1   0.61              1        ROSTER       2011           6</span></span>
-<span><span class="co">#&gt;     5:  HOU 32.1   0.61              1        ROSTER       2011           6</span></span>
-<span><span class="co">#&gt;    ---                                                                     </span></span>
-<span><span class="co">#&gt; 51446:  CHI 33.9   2.07              4        ROSTER       2011           2</span></span>
-<span><span class="co">#&gt; 51447:  CHI 33.9   2.07              4        ROSTER       2011           2</span></span>
-<span><span class="co">#&gt; 51448:  CHI 33.9   2.07              4        ROSTER       2011           2</span></span>
-<span><span class="co">#&gt; 51449:  CHI 33.9   2.07              4        ROSTER       2011           2</span></span>
-<span><span class="co">#&gt; 51450:  CHI 33.9   2.07              4        ROSTER       2011           2</span></span>
-<span><span class="co">#&gt;        league_id   ecr rank projection gp_model season week projected_score</span></span>
-<span><span class="co">#&gt;     1:     22627 32.93   31      16.04        1      1    1           16.04</span></span>
-<span><span class="co">#&gt;     2:     22627 32.93   31      16.90        1      1    2           16.90</span></span>
-<span><span class="co">#&gt;     3:     22627 32.93   31       4.84        0      1    3            0.00</span></span>
-<span><span class="co">#&gt;     4:     22627 32.93   31      12.68        0      1    4            0.00</span></span>
-<span><span class="co">#&gt;     5:     22627 32.93   31      21.62        0      1    5            0.00</span></span>
-<span><span class="co">#&gt;    ---                                                                     </span></span>
-<span><span class="co">#&gt; 51446:     22627 35.81   37      18.36        1     10   10            0.00</span></span>
-<span><span class="co">#&gt; 51447:     22627 35.81   37      -1.08        0     10   11            0.00</span></span>
-<span><span class="co">#&gt; 51448:     22627 35.81   37       0.18        0     10   12            0.00</span></span>
-<span><span class="co">#&gt; 51449:     22627 35.81   37       9.92        0     10   13            0.00</span></span>
-<span><span class="co">#&gt; 51450:     22627 35.81   37      45.28        1     10   14           45.28</span></span>
-<span><span class="co">#&gt;        scrape_date pos_rank</span></span>
-<span><span class="co">#&gt;     1:  2021-09-03        3</span></span>
-<span><span class="co">#&gt;     2:  2021-09-03        2</span></span>
-<span><span class="co">#&gt;     3:  2021-09-03        2</span></span>
-<span><span class="co">#&gt;     4:  2021-09-03        4</span></span>
-<span><span class="co">#&gt;     5:  2021-09-03        4</span></span>
-<span><span class="co">#&gt;    ---                     </span></span>
-<span><span class="co">#&gt; 51446:  2021-09-03        6</span></span>
-<span><span class="co">#&gt; 51447:  2021-09-03        6</span></span>
-<span><span class="co">#&gt; 51448:  2021-09-03        6</span></span>
-<span><span class="co">#&gt; 51449:  2021-09-03        6</span></span>
-<span><span class="co">#&gt; 51450:  2021-09-03        1</span></span></code></pre></div>
+<span><span class="co">#&gt; Key: &lt;fantasypros_id&gt;</span></span>
+<span><span class="co">#&gt;        fantasypros_id franchise_id franchise_name player_id   player_name</span></span>
+<span><span class="co">#&gt;                &lt;char&gt;       &lt;char&gt;         &lt;char&gt;    &lt;char&gt;        &lt;char&gt;</span></span>
+<span><span class="co">#&gt;     1:          10007         0007     Paw Patrol     10413 Taylor, Tyrod</span></span>
+<span><span class="co">#&gt;     2:          10007         0007     Paw Patrol     10413 Taylor, Tyrod</span></span>
+<span><span class="co">#&gt;     3:          10007         0007     Paw Patrol     10413 Taylor, Tyrod</span></span>
+<span><span class="co">#&gt;     4:          10007         0007     Paw Patrol     10413 Taylor, Tyrod</span></span>
+<span><span class="co">#&gt;     5:          10007         0007     Paw Patrol     10413 Taylor, Tyrod</span></span>
+<span><span class="co">#&gt;    ---                                                                   </span></span>
+<span><span class="co">#&gt; 51446:           9907         0007     Paw Patrol     10313  Dalton, Andy</span></span>
+<span><span class="co">#&gt; 51447:           9907         0007     Paw Patrol     10313  Dalton, Andy</span></span>
+<span><span class="co">#&gt; 51448:           9907         0007     Paw Patrol     10313  Dalton, Andy</span></span>
+<span><span class="co">#&gt; 51449:           9907         0007     Paw Patrol     10313  Dalton, Andy</span></span>
+<span><span class="co">#&gt; 51450:           9907         0007     Paw Patrol     10313  Dalton, Andy</span></span>
+<span><span class="co">#&gt;           pos   team   age salary contract_years roster_status draft_year</span></span>
+<span><span class="co">#&gt;        &lt;char&gt; &lt;char&gt; &lt;num&gt;  &lt;num&gt;          &lt;num&gt;        &lt;char&gt;     &lt;char&gt;</span></span>
+<span><span class="co">#&gt;     1:     QB    HOU  32.1   0.61              1        ROSTER       2011</span></span>
+<span><span class="co">#&gt;     2:     QB    HOU  32.1   0.61              1        ROSTER       2011</span></span>
+<span><span class="co">#&gt;     3:     QB    HOU  32.1   0.61              1        ROSTER       2011</span></span>
+<span><span class="co">#&gt;     4:     QB    HOU  32.1   0.61              1        ROSTER       2011</span></span>
+<span><span class="co">#&gt;     5:     QB    HOU  32.1   0.61              1        ROSTER       2011</span></span>
+<span><span class="co">#&gt;    ---                                                                   </span></span>
+<span><span class="co">#&gt; 51446:     QB    CHI  33.9   2.07              4        ROSTER       2011</span></span>
+<span><span class="co">#&gt; 51447:     QB    CHI  33.9   2.07              4        ROSTER       2011</span></span>
+<span><span class="co">#&gt; 51448:     QB    CHI  33.9   2.07              4        ROSTER       2011</span></span>
+<span><span class="co">#&gt; 51449:     QB    CHI  33.9   2.07              4        ROSTER       2011</span></span>
+<span><span class="co">#&gt; 51450:     QB    CHI  33.9   2.07              4        ROSTER       2011</span></span>
+<span><span class="co">#&gt;        draft_round league_id   ecr  rank projection gp_model season  week</span></span>
+<span><span class="co">#&gt;             &lt;char&gt;    &lt;char&gt; &lt;num&gt; &lt;num&gt;      &lt;num&gt;    &lt;int&gt;  &lt;int&gt; &lt;int&gt;</span></span>
+<span><span class="co">#&gt;     1:           6     22627 32.93    31      16.04        1      1     1</span></span>
+<span><span class="co">#&gt;     2:           6     22627 32.93    31      16.90        1      1     2</span></span>
+<span><span class="co">#&gt;     3:           6     22627 32.93    31       4.84        0      1     3</span></span>
+<span><span class="co">#&gt;     4:           6     22627 32.93    31      12.68        0      1     4</span></span>
+<span><span class="co">#&gt;     5:           6     22627 32.93    31      21.62        0      1     5</span></span>
+<span><span class="co">#&gt;    ---                                                                   </span></span>
+<span><span class="co">#&gt; 51446:           2     22627 35.81    37      18.36        1     10    10</span></span>
+<span><span class="co">#&gt; 51447:           2     22627 35.81    37      -1.08        0     10    11</span></span>
+<span><span class="co">#&gt; 51448:           2     22627 35.81    37       0.18        0     10    12</span></span>
+<span><span class="co">#&gt; 51449:           2     22627 35.81    37       9.92        0     10    13</span></span>
+<span><span class="co">#&gt; 51450:           2     22627 35.81    37      45.28        1     10    14</span></span>
+<span><span class="co">#&gt;        projected_score scrape_date pos_rank</span></span>
+<span><span class="co">#&gt;                  &lt;num&gt;      &lt;Date&gt;    &lt;int&gt;</span></span>
+<span><span class="co">#&gt;     1:           16.04  2021-09-03        3</span></span>
+<span><span class="co">#&gt;     2:           16.90  2021-09-03        2</span></span>
+<span><span class="co">#&gt;     3:            0.00  2021-09-03        2</span></span>
+<span><span class="co">#&gt;     4:            0.00  2021-09-03        4</span></span>
+<span><span class="co">#&gt;     5:            0.00  2021-09-03        4</span></span>
+<span><span class="co">#&gt;    ---                                     </span></span>
+<span><span class="co">#&gt; 51446:            0.00  2021-09-03        6</span></span>
+<span><span class="co">#&gt; 51447:            0.00  2021-09-03        6</span></span>
+<span><span class="co">#&gt; 51448:            0.00  2021-09-03        6</span></span>
+<span><span class="co">#&gt; 51449:            0.00  2021-09-03        6</span></span>
+<span><span class="co">#&gt; 51450:           45.28  2021-09-03        1</span></span></code></pre></div>
 <p>Finally, some basic parameters are included, including
 <code>league_info</code> which is generated by
 <code><a href="https://ffscrapr.ffverse.com/reference/ff_league.html" class="external-link">ffscrapr::ff_league()</a></code>.</p>
