@@ -2,15 +2,11 @@ library(tidyverse)
 library(mgcv)
 library(ffscrapr)
 library(ffsimulator)
-# pkgload::load_all()
 
 conn <- mfl_connect(2021, 47747)
-base_seasons <- 2010:nflreadr::most_recent_season()
+base_seasons <- seq(2010, nflreadr::most_recent_season())
 scoring_history <- ff_scoringhistory(conn, base_seasons)
-
-model_gam <- function(data) {
-  gam(games_played_rate ~ s(rank, bs = "cs"), data = data)
-}
+model_gam <- function(data) mgcv::gam(games_played_rate ~ mgcv::s(rank, bs = "cs"), data = data)
 
 fp_injury_table <- ffsimulator::fp_rankings_history %>%
   dplyr::select(-"page_pos") %>%
@@ -19,7 +15,7 @@ fp_injury_table <- ffsimulator::fp_rankings_history %>%
       dplyr::select("fantasypros_id", "gsis_id"),
     by = "fantasypros_id"
   ) %>%
-  dplyr::filter(!is.na(.data$gsis_id), pos %in% c("QB", "RB", "WR", "TE","K")) %>%
+  dplyr::filter(!is.na(.data$gsis_id), pos %in% c("QB", "RB", "WR", "TE", "K")) %>%
   dplyr::left_join(
     scoring_history %>%
       dplyr::filter(!is.na(.data$gsis_id), .data$week <= 17) %>%
@@ -52,4 +48,4 @@ fp_injury_table <- ffsimulator::fp_rankings_history %>%
   distinct(pos, rank, prob_gp) %>%
   arrange(pos, rank)
 
-usethis::use_data(fp_injury_table, overwrite = TRUE)
+saveRDS(fp_injury_table, "inst/data/fp_injury_table.rds")
