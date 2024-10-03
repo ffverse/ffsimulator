@@ -5,6 +5,7 @@
 - Update available fantasypros rankings to include 2022
 - Require ggplot2 3.4.0 for plotting features
 - Draws from a slightly broader sample of players for season outcomes
+- Fix weekly sims - fantasypros no longer returns sportradar ids (fixes #71)
 
 
 ---

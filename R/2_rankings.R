@@ -35,12 +35,12 @@ ffs_latest_rankings <- function(type = c("draft","week")) {
         "bye",
         "ecr",
         "sd",
-        "sportradar_id" = "sportsdata_id",
+        # "sportradar_id" = "sportsdata_id",
         "scrape_date")]
 
     names(fp_cleaned)[2] <- "fantasypros_id"
     names(fp_cleaned)[4] <- "team"
-    names(fp_cleaned)[8] <- "sportradar_id"
+    # names(fp_cleaned)[8] <- "sportradar_id"
 
     if(all(is.na(fp_cleaned$bye))) fp_cleaned$bye <- 0
 
@@ -56,7 +56,7 @@ ffs_latest_rankings <- function(type = c("draft","week")) {
                                "team",
                                "ecr",
                                "sd",
-                               "sportradar_id",
+                               #"sportradar_id",
                                "scrape_date")]
     names(fp_cleaned)[1] <- "player"
 
